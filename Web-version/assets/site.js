@@ -227,9 +227,11 @@
       var sX = startPos ? startPos.x : CX, sY = startPos ? startPos.y : CY;
       var center = makeNode("kw-center", item.name, item.hue, centerHref, sX, sY);
       var n = ringData.length || 1;
+      // 环半径跟词数走：词少就收拢，别把 4 个词铺在大椭圆上、中间空一大片（实测 4 词时很空）
+      var k = Math.min(1, 0.46 + n * 0.045), rx = RX * k, ry = RY * k;
       var ring = ringData.map(function (rd, i) {
         var node = makeNode("kw-ring", rd.term, rd.hue, rd.href, CX, CY);
-        var ang = -Math.PI / 2 + 2 * Math.PI * i / n; node.tx = CX + RX * Math.cos(ang); node.ty = CY + RY * Math.sin(ang);
+        var ang = -Math.PI / 2 + 2 * Math.PI * i / n; node.tx = CX + rx * Math.cos(ang); node.ty = CY + ry * Math.sin(ang);
         node.g.addEventListener("click", function (ev) { ev.preventDefault(); clickKW(rd.term, rd.ch, node); });
         return node;
       });
