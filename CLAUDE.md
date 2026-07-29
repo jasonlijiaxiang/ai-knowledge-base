@@ -54,7 +54,7 @@
 
 ## 三、本库自己的硬纪律（技能里的，这里只列最常踩的）
 
-- **门禁全绿再提交**，改完就 commit + push（站着的授权，破坏性 git 操作仍需先问）。
+- **门禁全绿 + CI 绿再算完**，改完就 commit + push（站着的授权，破坏性 git 操作仍需先问）。
 - **门禁全绿 ≠ 对**：语义过期（表述停在旧阶段）门禁查不出，收尾按 web-rules §九·五
   第 8 步核对门户三处表述。
 - **内部工作用语不进成品**：「一源两面」「PPT 面／Web 面」「真源」「派生账」这些是工作
@@ -62,3 +62,27 @@
 - **改 `_assets/kb.css` 必跑 `bump_style_version.py --apply`**；改成品 PPTX 禁整包
   round-trip。
 - 数字要么有核实日期与信源，要么不写。
+
+## 四、GitHub 维护面（用户 2026-07-29 定）
+
+这个库**只在 GitHub 上维护**：所有版本存 GitHub，技能单独打包放同一个仓库下。
+仓库 `jasonlijiaxiang/ai-knowledge-base`（public），站点
+`https://jasonlijiaxiang.github.io/ai-knowledge-base/`。操作细节见
+[`_maintenance/维护手册.md`](_maintenance/维护手册.md)，这里只列改动时必须记住的：
+
+- **CI 是第二道防线，不是替代品**：本地那套门禁照跑，push 之后 Actions 再无条件跑一遍
+  （八道 + audit 全库 + 网页 `--check` + 技能包两检 + 死路径扫描）。**CI 红了先修，
+  不要往上叠提交**——首页徽章红着就等于对外说这份库现在是坏的。
+- **产物不手写、不双写**：库根 `README.md` 的模块表由 `Web-version/build.py` 从各模块
+  MANIFEST 生成（`<!-- MODULES:BEGIN -->` 区块），`--check` 一并盯。改模块别去手改那张表。
+  README.md 里**不放单模块页数**——那已有四处派生账由 `check_page_ledger` 看死，
+  再抄一份就是门禁查不到的第五本账。
+- **两个文件撑着 Pages，别删**：`.nojekyll`（没它 Jekyll 会吞掉 `_assets/`、`_prep/`
+  这些下划线开头的目录，线上立刻掉样式）、库根 `index.html`（Pages 首页只认它，
+  本库门户叫 `README.html`）。
+- **发版靠标签，不再往库里堆 zip**：技能 `skill-vX.Y`、整库 `kb-vYYYY.MM.DD`，
+  推标签即自动打包 + 自检 + 建 Release。`_skill-source/history/` 与 `_maintenance/history/`
+  **已冻结**（.gitignore 挡住新增），历史版本去 Releases 与 git tag 找。
+- **改了技能源目录就要重打库内那份 `.skill`**——`check_skill_sync.py` 会拦下不一致；
+  「只下载技能」是对外承诺的一条路，包过期等于直接发错东西给别人。
+- **发技能版之前先补 CHANGELOG 速查表那一行**，发布说明从它取。

@@ -6,8 +6,22 @@
 _reference/ebooks/
 
 # 讲义历史快照：pptx 为二进制不可 diff，每次提交会存整份副本，
-# 版本历史交给 git 本身承担。本地文件保留，只是不上传。
+# 版本历史交给 git 本身承担（取回旧版见 _maintenance/从-git-取回历史讲义.md）。
+# 本地文件保留，只是不上传。
 PPT-version/*/raw-data/history/
+
+# 技能与维护脚本的历史副本：2026-07-29 GitHub 化改造起**冻结**。
+# 已在库里的旧文件保留不动（git 不会因为这几行就把它们撤掉）；从此不再新增——
+# 一个版本一个 zip 副本，做的正是 git 该做的事，改由 tag `skill-v*` + Release 承担。
+_skill-source/history/
+_maintenance/history/
+
+# Python 运行产物
+__pycache__/
+*.pyc
+
+# make_share.py 的分享包默认输出目录
+/dist/
 
 # 本机绝对路径与个人权限配置
 .claude/settings.local.json

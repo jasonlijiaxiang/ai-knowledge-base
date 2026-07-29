@@ -1,0 +1,99 @@
+# 技能发布线：推一个 `skill-vX.Y` 标签，就出一个能装的 .skill。
+#
+# 为什么由 CI 打包而不是提交一个包上来：包是**产物**，产物必须从源现场生成，
+# 否则迟早出现「源已改、包停在旧版」——库内那份 .skill 由 check_skill_sync 看住，
+# 这里再从源打一遍，两头都不给它过期的机会。
+#
+# 用法：
+#   git tag skill-v7.6 && git push origin skill-v7.6
+# 标签里的版本号必须与 SKILL.md frontmatter 的 metadata.version 一致，对不上直接失败
+# ——版本号对不上的包发出去，别人装完根本不知道自己拿的是哪一版。
+
+name: 发布技能
+
+on:
+  push:
+    tags: ["skill-v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: 打包并发布 .skill
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 版本号对账（标签 vs SKILL.md）
+        id: ver
+        run: |
+          TAG="${GITHUB_REF_NAME#skill-v}"
+          SRC=$(python3 - <<'PY'
+          import re
+          t = open("_skill-source/knowledge-base-builder/SKILL.md", encoding="utf-8").read()
+          m = re.search(r'^\s*version:\s*"?([\d.]+)"?', t, re.M)
+          print(m.group(1) if m else "")
+          PY
+          )
+          echo "标签版本 = $TAG ； SKILL.md 版本 = $SRC"
+          if [ -z "$SRC" ]; then echo "::error::SKILL.md 读不出 metadata.version"; exit 1; fi
+          if [ "$TAG" != "$SRC" ]; then
+            echo "::error::标签 $GITHUB_REF_NAME 与 SKILL.md 的 $SRC 对不上——改一头再推标签"
+            exit 1
+          fi
+          echo "version=$SRC" >> "$GITHUB_OUTPUT"
+
+      - name: 从源目录现场打包
+        run: |
+          mkdir -p dist
+          cd _skill-source/knowledge-base-builder
+          zip -rXq "$GITHUB_WORKSPACE/dist/knowledge-base-builder.skill" . -x '*.DS_Store'
+
+      - name: 结构自检（能不能装）
+        run: python3 _maintenance/check_skill_package.py dist/knowledge-base-builder.skill
+
+      - name: 内容自检（与源目录逐文件一致）
+        run: python3 _maintenance/check_skill_sync.py dist/knowledge-base-builder.skill
+
+      - name: 库内那份包也必须是同一版
+        run: python3 _maintenance/check_skill_sync.py
+
+      - name: 取本版更新说明
+        run: |
+          python3 - <<'PY' > notes.md
+          import os, re
+          v = os.environ["VERSION"]
+          path = "_skill-source/knowledge-base-builder/references/CHANGELOG.md"
+          line = ""
+          for l in open(path, encoding="utf-8"):
+              if l.startswith("- v%s（" % v) or l.startswith("- **v%s（" % v):
+                  line = l.lstrip("- ").strip()
+                  break
+          print("## knowledge-base-builder v%s\n" % v)
+          print(line if line else
+                "（CHANGELOG 速查表里没有本版条目——改动详情见技能内 "
+                "`references/CHANGELOG.md`。）")
+          print("\n### 怎么装\n")
+          print("- **claude.ai**：设置 → Capabilities → Skills，上传下面的 "
+                "`knowledge-base-builder.skill`")
+          print("- **Claude Code**：解压到 `~/.claude/skills/knowledge-base-builder/`")
+          print("\n装好后对 Claude 说「帮我建个知识库」或「把 ×× 整理进知识库」即可；"
+                "库的个性全在库根 `KB-CONFIG.md` 一个文件里。")
+          PY
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+
+      - name: 建 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            dist/knowledge-base-builder.skill \
+            --title "knowledge-base-builder v${{ steps.ver.outputs.version }}" \
+            --notes-file notes.md

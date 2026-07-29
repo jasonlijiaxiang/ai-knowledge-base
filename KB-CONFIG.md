@@ -16,6 +16,7 @@
 | PPT 面根目录 | PPT-version |
 | Web 面根目录 | Web-version |
 | 知识库显示名 | AI 知识库（讲义封面眉题等成品对外署名用） |
+| 在线站点 | https://jasonlijiaxiang.github.io/ai-knowledge-base/ （GitHub Pages；留空则库根 README.md 的模块表退回相对链接） |
 | 阅读场景 | 自读（紧凑字号档；投屏授课需全库重刷换档） |
 | 巡检阈值 | 90 天 |
 | 巡检节奏 | 季度（定时任务 kb-quarterly-patrol，1/4/7/10 月 1 日 10:00） |

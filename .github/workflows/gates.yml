@@ -1,0 +1,92 @@
+# 知识库门禁流水线。每道门禁单独一个 step，红的时候一眼看得出是哪一道。
+# 全部零第三方依赖——库里所有门禁与生成器都只用 Python 标准库，装依赖这一步本身就不该存在。
+
+name: 门禁
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    name: 十二道门禁
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ---- 结构与账本 ----
+      - name: 布局就位
+        run: python3 _maintenance/check_kb_layout.py
+
+      - name: 门户坏链
+        run: python3 _maintenance/check_html_links.py
+
+      - name: 页数账实（单册四账 + 全库总数）
+        run: python3 _maintenance/check_page_ledger.py
+
+      - name: 书单账实
+        run: python3 _maintenance/check_ebook_ledger.py
+
+      - name: _prep 取用文档同步
+        run: python3 _maintenance/check_prep_coverage.py
+
+      # ---- 呈现契约 ----
+      - name: 样式契约（孤儿类与缓存版本戳）
+        run: python3 _maintenance/check_css_classes.py
+
+      - name: 正文标签配平（真 XML 解析器）
+        run: python3 _maintenance/check_html_wellformed.py
+
+      - name: 讲义排版契约（19 册 audit）
+        run: python3 _maintenance/audit_pptx.py PPT-version/*/*-讲义.pptx
+
+      # ---- 生成物无漂移 ----
+      - name: 网页产物与 MANIFEST 一致
+        run: python3 Web-version/build.py --check
+
+      # ---- 技能分发 ----
+      - name: 技能包结构合格（能装）
+        run: python3 _maintenance/check_skill_package.py _skill-source/knowledge-base-builder.skill
+
+      - name: 技能包与源目录一致（不过期）
+        run: python3 _maintenance/check_skill_sync.py
+
+      # ---- Portable 铁律 ----
+      # 整库要能拷到别的机器上接着用。写死 /Users/<用户名>/… 的脚本换机即废，
+      # 而八道门禁一道都查不出——只有这条正则拦得住（口径同 make_share.py 的解压自检）。
+      - name: 无本机绝对路径
+        run: |
+          python3 - <<'PY'
+          import os, re, sys
+          RX = re.compile(r"""["'](?:/Users/|/home/|[A-Za-z]:\\)""")
+          SKIP = {".git", "raw-data", "_reference"}
+          bad = []
+          for dirpath, dirnames, filenames in os.walk("."):
+              dirnames[:] = [d for d in dirnames if d not in SKIP]
+              for f in filenames:
+                  if not f.endswith(".py"):
+                      continue
+                  p = os.path.join(dirpath, f)
+                  with open(p, encoding="utf-8", errors="replace") as fh:
+                      for i, line in enumerate(fh, 1):
+                          if RX.search(line):
+                              bad.append("%s:%d %s" % (p, i, line.strip()[:100]))
+          if bad:
+              print("发现写死的本机绝对路径——路径一律从 __file__ 往上推：")
+              print("\n".join(bad))
+              sys.exit(1)
+          print("无本机绝对路径。")
+          PY
+
+      # ---- 报告型（不拦，只留痕）----
+      - name: 数目声明体检（报告，不拦）
+        run: python3 _maintenance/check_count_claims.py

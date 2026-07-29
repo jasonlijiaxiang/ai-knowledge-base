@@ -1,0 +1,5 @@
+# 本站（GitHub Pages）不希望被搜索引擎收录：链接给了谁谁能看，但不进搜索结果。
+# 注意作用范围：这份文件只管 jasonlijiaxiang.github.io 上的站点。
+# github.com 上的仓库页与 README 本身是公开的、可被搜到的，那不归 robots.txt 管。
+User-agent: *
+Disallow: /

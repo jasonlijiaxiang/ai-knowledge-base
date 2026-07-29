@@ -41,17 +41,23 @@
   </div>
 
   <h2>整库怎么分享</h2>
-  <p><b>分享单元是整个文件夹</b>——网页样式、检查脚本、清单都在里面，只拷单个文件会缺东西。整个文件夹拷给对方，断网也能双击打开，全程不需要装任何软件。</p>
-  <p>要打一个干净的压缩包，跑：</p>
+  <p><b>最省事的一条：给对方一个网址。</b>整个库在
+    <a href="https://github.com/jasonlijiaxiang/ai-knowledge-base">GitHub</a> 上，
+    网页版可以直接
+    <a href="https://jasonlijiaxiang.github.io/ai-knowledge-base/">在线读</a>，
+    不用下载、不用装东西。想要整包的人自己 <code>git clone</code>，或从
+    <a href="https://github.com/jasonlijiaxiang/ai-knowledge-base/releases">发布页</a>
+    下一个开箱即用的压缩包。</p>
+  <p><b>要离线的一份</b>（对方不方便上网、或者要发微信）：分享单元是<b>整个文件夹</b>——网页样式、检查脚本、清单都在里面，只拷单个文件会缺东西。打一个干净的压缩包，跑：</p>
   <pre class="codeblock"><code>python3 _maintenance/make_share.py</code></pre>
   <p class="ev">打出来实测 5.2 MB（2026-07-22）：带全部讲义、书单、网页版和工具，不带作者的历史留痕，也不带本机的权限配置。打包后会自动解压、在解压出来的那份里把<b>八道检查全跑一遍</b>，再查一遍有没有脚本写死了本机路径——确认拆开还是一个能用的库，而不只是压缩没出错。</p>
 
   <h2>换一台机器</h2>
-  <p>两条路，结果一样。<b>拿到之后先跑一次自检</b>，别等出问题才发现少了东西。</p>
+  <p>三步走完就能接着干。<b>拿到之后先跑一次自检</b>，别等出问题才发现少了东西。</p>
   <div class="grid">
     <div class="box">
       <h4>① 拿到库</h4>
-      <p>压缩包解压到任意目录即可，路径随便放——库里不存任何本机绝对路径。有 Git 的话 <code>git clone</code> 同样可以，还能带上完整改动历史。</p>
+      <p><code>git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git</code>——这条路最全，连历次改动一起带走。没装 Git 就从发布页下压缩包解压，路径随便放，库里不存任何本机绝对路径。</p>
     </div>
     <div class="box">
       <h4>② 先读起来</h4>
@@ -71,7 +77,9 @@ python3 Web-version/build.py --check</code></pre>
   <p class="ev"><b>需要什么：</b>只要 Python 3.7 以上，用系统自带的就行——检查脚本、网页生成器、打包工具<b>全部只用标准库</b>，不联网、不装包。<b>唯一的例外</b>是改讲义 PPTX 的那批工具（配图、插页、缩放）需要 <code>python-pptx</code>；只读、只看网页、只跑检查都用不上它。</p>
 
   <h2>拿到分享的人：把它变成你自己的知识库</h2>
-  <p>这个库不是死文档——维护它的那套方法打包在库里（<code>_skill-source/knowledge-base-builder.skill</code>），装上就能在这份内容的基础上继续建你自己的库。三步：</p>
+  <p>这个库不是死文档——维护它的那套方法打包在库里（<code>_skill-source/knowledge-base-builder.skill</code>），装上就能在这份内容的基础上继续建你自己的库。<b>只要这套方法、不要这些内容也行</b>：那个文件可以
+    <a href="https://github.com/jasonlijiaxiang/ai-knowledge-base/raw/main/_skill-source/knowledge-base-builder.skill">单独下载</a>，历次版本在
+    <a href="https://github.com/jasonlijiaxiang/ai-knowledge-base/releases">发布页</a>。三步：</p>
 
   <div class="grid">
     <div class="box">

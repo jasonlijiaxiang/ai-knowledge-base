@@ -1,0 +1,14 @@
+# 二进制成品：不做 diff、不做换行归一。
+# .skill 是 zip，被当文本处理会被改坏；pptx 同理。
+*.pptx  binary
+*.skill binary
+*.zip   binary
+*.png   binary
+*.jpg   binary
+*.ico   binary
+
+# GitHub 语言统计：这个仓库是知识内容，不是 Python 项目。
+# 技能源码与维护脚本是工具，不该把语言条染成一片 Python。
+_skill-source/**    linguist-documentation
+_maintenance/*.py   linguist-vendored
+Web-version/data.js linguist-generated

@@ -1,0 +1,69 @@
+# 整库发布线：推一个 `kb-vYYYY.MM.DD` 标签，就出一个开箱即用的整库 zip。
+#
+# 给不用 git 的人准备的那条路——下载、解压、双击 README.html 就能读，不装任何软件。
+# 包由 make_share.py 打，它自带「解压自检」：把包解到临时目录，**在解出来的那份里**
+# 把门禁全跑一遍再查一遍死路径。zip 建成功只证明压缩没错，不证明拆开还是一个能用的库。
+#
+# 用法：
+#   git tag kb-v2026.07.29 && git push origin kb-v2026.07.29
+
+name: 发布整库
+
+on:
+  push:
+    tags: ["kb-v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: 打包并发布整库 zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 打分享包（含解压自检）
+        run: python3 _maintenance/make_share.py dist
+
+      - name: 列出产物
+        id: pkg
+        run: |
+          ZIP=$(ls dist/*.zip | head -1)
+          echo "包 = $ZIP （$(du -h "$ZIP" | cut -f1)）"
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+
+      - name: 建 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > notes.md <<'MD'
+          ## 整库快照
+
+          下载解压，**双击 `README.html`** 就能读——断网可用，不需要装任何软件。
+          讲义 PPTX 用 PowerPoint 或 Keynote 打开。
+
+          包里带：19 册讲义与书单、网页版、库级取用产物（实战包／学习路径／全库一页纸）、
+          全套门禁脚本、技能分发包。不带：作者的历史留痕与外部输入档案。
+
+          拿到之后建议先在库根跑一次自检，确认这份拷贝是完整的：
+
+          ```bash
+          for g in check_kb_layout check_html_links check_page_ledger check_ebook_ledger \
+                   check_css_classes check_prep_coverage; do
+            python3 _maintenance/$g.py >/dev/null 2>&1 && echo "OK  $g" || echo "FAIL $g"
+          done
+          python3 Web-version/build.py --check
+          ```
+
+          只想要维护这个库的那套方法（技能）、不要这些内容的，见仓库 README 的「两条下载路径」。
+          MD
+          gh release create "$GITHUB_REF_NAME" \
+            "${{ steps.pkg.outputs.zip }}" \
+            --title "整库快照 $GITHUB_REF_NAME" \
+            --notes-file notes.md

@@ -38,6 +38,14 @@ QAPAGE = os.path.join(HERE, "qa", "index.html")
 QA_BEGIN = "<!-- QA:BEGIN 由 build.py 从各模块页与实战包抽取，请勿手工编辑 -->"
 QA_END = "<!-- QA:END -->"
 PREPQA = os.path.join(ROOT, "_prep", "实战包.html")
+# 库根 README.md 的模块表：GitHub 仓库首页是这个库在线的第一入口，而它此前是**手写**的
+# ——2026-07-29 GitHub 化改造时发现它还停在「Web-version 待建」，实际 19/19 早已建成。
+# 手写的账迟早会停在旧阶段（这库反复吃过的「语义过期」），所以按 core-rules §一
+# 收进生成区：真源仍是各模块 MANIFEST，README.md 只是又一个派生面，`--check` 一并盯。
+# 缺文件或缺标记都跳过——这条链对本库是新增，不该成为别的库跑 build.py 的前置条件。
+README_MD = os.path.join(ROOT, "README.md")
+RDME_BEGIN = "<!-- MODULES:BEGIN 由 Web-version/build.py 从各模块 MANIFEST.md 生成，请勿手工编辑 -->"
+RDME_END = "<!-- MODULES:END -->"
 
 # 保鲜看板的"今天"：写死在产物里会一天就过期，故取构建日。
 # 这是生成期快照，页面上会显式标注截止日，不冒充实时。
@@ -608,6 +616,61 @@ def load_blurbs():
         txt = re.sub(r"<[^>]+>", "", raw)
         out[d] = re.sub(r"\s+", " ", txt).strip()
     return out
+
+
+def site_base():
+    """在线站点根地址，取自 KB-CONFIG「在线站点」；没配就返回空串。
+
+    为什么要有它：README.md 是给 **github.com** 看的，那里点 `Web-version/mcp/index.html`
+    只会看到 HTML 源码，读者要的是 Pages 上渲染好的那一份，只能写绝对地址。
+    地址属于「这个库的个性」，写死在脚本里换个库就废——所以搁 KB-CONFIG，与根目录、
+    显示名同级。没配（别人的库、还没开 Pages）就退回相对链接，照样能用。"""
+    try:
+        text = open(os.path.join(ROOT, "KB-CONFIG.md"), encoding="utf-8").read()
+    except OSError:
+        return ""
+    m = re.search(r"\|\s*在线站点\s*\|\s*([^|]+?)\s*\|", text)
+    if not m:
+        return ""
+    # 与 make_share.kb_name() 同口径：值后面允许跟「（…）」注解，取值时切掉。
+    v = m.group(1).split("（")[0].split("(")[0].strip()
+    return "" if v in ("", "—", "无") else v.rstrip("/") + "/"
+
+
+def blurb_short(s):
+    """把 PPT 总览那句长简介压成一行能读完的定位。
+
+    规则只两刀，都靠标点、不靠人工维护第二份短简介：先砍掉括号补充，再取第一小句。
+    还是过长就截断——表格里读不完的一句等于没有。"""
+    s = s.split("（")[0].split("，")[0].strip("：:；;、 ")
+    return s if len(s) <= 46 else s[:45] + "…"
+
+
+def render_readme_modules(data, blurbs):
+    """README.md 的模块表（markdown）：层 / 模块 / 一句话 / 两个入口。
+
+    **不放页数**——单模块页数已经挂在四处派生账上（模块 README、面总览、一页纸、
+    MANIFEST），由 check_page_ledger 看死；在这里再抄一份就是第五本账，而门禁不查它。
+    全库总页数是另一根轴，README.md 上那一处**已在** check_page_ledger 覆盖内，故保留。"""
+    base = site_base()
+    out = ["| 层 | 模块 | 一句话 | 在线读 | 源文件 |",
+           "|---|---|---|---|---|"]
+    for layer in data["layers"]:
+        for m in data["modules"]:
+            if m["layer"] != layer:
+                continue
+            d = m["dir"]
+            web = WEB_DIRS.get(m["id"], "")
+            if not web:
+                read = "—"
+            elif base:
+                read = "[网页版](%sWeb-version/%s/)" % (base, web)
+            else:
+                read = "[网页版](Web-version/%s/index.html)" % web
+            out.append("| %s | **%s** | %s | %s | [讲义](PPT-version/%s/%s-讲义.pptx) · "
+                       "[清单](PPT-version/%s/MANIFEST.md) · [书单](PPT-version/%s/电子书书单.md) |"
+                       % (layer, d, blurb_short(blurbs.get(d, "")), read, d, d, d, d))
+    return "\n".join(out)
 
 
 def build():
@@ -1273,6 +1336,13 @@ def main(argv):
         qa_cur = open(QAPAGE, encoding="utf-8").read()
         qa_new = inject(qa_cur, QA_BEGIN, QA_END, render_qa(data, prep_qs), "QA")
         blurbs = load_blurbs()
+        # 库根 README.md 的模块表：没这文件、或文件里没埋标记，就当这个库不走这条链。
+        rdme_cur = rdme_new = None
+        if os.path.exists(README_MD):
+            rdme_cur = open(README_MD, encoding="utf-8").read()
+            if RDME_BEGIN in rdme_cur and RDME_END in rdme_cur:
+                rdme_new = inject(rdme_cur, RDME_BEGIN, RDME_END,
+                                  render_readme_modules(data, blurbs), "MODULES")
         html_cur = open(INDEX, encoding="utf-8").read()
         root_cur = open(ROOT_INDEX, encoding="utf-8").read()
         root_new = inject(root_cur, MAPR_BEGIN, MAPR_END,
@@ -1318,6 +1388,8 @@ def main(argv):
             bad.append("fresh.html")
         if root_cur != root_new:
             bad.append("库根 README.html 的知识地图")
+        if rdme_new is not None and rdme_cur != rdme_new:
+            bad.append("库根 README.md 的模块表")
         if qa_cur != qa_new:
             bad.append("qa/index.html 的问答库")
         for path in mod_new:
@@ -1339,6 +1411,8 @@ def main(argv):
     open(FRESHPAGE, "w", encoding="utf-8").write(fp_new)
     open(ROOT_INDEX, "w", encoding="utf-8").write(root_new)
     open(QAPAGE, "w", encoding="utf-8").write(qa_new)
+    if rdme_new is not None:
+        open(README_MD, "w", encoding="utf-8").write(rdme_new)
     for path, content in mod_new.items():
         open(path, "w", encoding="utf-8").write(content)
     nq = sum(len(m.get("questions", [])) for m in data["modules"])
