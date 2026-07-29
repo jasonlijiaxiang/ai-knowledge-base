@@ -411,6 +411,21 @@
   </div>
   <p><b>闭环</b>：DCGM 采数 → 看板暴露黑洞 → MFU 定基线 → chargeback 让各团队为自己的利用率负责。</p>
 
+  <h3>把利用率写成能签的话</h3>
+  <p>本页的百分比讲的是量级和趋势；一旦要落到合同或验收单上，就得换成客户自己那台机器上的数——中间隔着这几件事：</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>要素</th><th>写成什么</th><th>不写会怎样</th></tr></thead>
+    <tbody>
+     <tr><td><b>口径</b></td><td>训练写 MFU、生产写 goodput，并注明不采信 nvidia-smi 活跃率</td><td>验收时双方各拿一个数字，谁也说服不了谁</td></tr>
+     <tr><td><b>基线</b></td><td>先用客户自己的集群与作业测一版现状</td><td>没有起点，「提升多少」就无从谈起</td></tr>
+     <tr><td><b>工况</b></td><td>复测用同一批作业、同一批数据、同一套口径</td><td>换个工况就是另一个数，改善算不到该算的人头上</td></tr>
+     <tr><td><b>边界</b></td><td>承诺堵哪个黑洞、堵完怎么复测；MFU 40% 已是顶尖，别往上加码</td><td>把量级说法当承诺值签下去，后面全是坑</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>剩下的一半不在技术侧：<b>chargeback 不上，堵掉的洞会被重新占回去</b>——承诺里要写清客户该配合什么，别把机制侧的责任也一并扛过来。</p>
+
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html#llminf-production" title="利用率/MFU/goodput/SLO 运营两侧互指；推理压测那条线待未来 Evaluation 收编">生产化与售前速查<span class="xm">LLM-Inference</span></a></div>
 </section>
 
@@ -523,7 +538,7 @@
       <text x="32" y="235" font-size="11.5" fill="var(--ink-500)">云负责</text>
       <rect x="90" y="225" width="14" height="12" fill="var(--line-2)" stroke="var(--line)"/>
       <text x="112" y="235" font-size="11.5" fill="var(--ink-500)">你负责</text>
-      <text x="700" y="235" text-anchor="end" font-size="11.5" fill="var(--ink-400)">越往下越省心、越少定制、单位价越高</text>
+      <text x="700" y="235" text-anchor="end" font-size="11.5" fill="var(--ink-400)">① → ④ 越省心、越少定制、单位价越高</text>
      </g>
     </svg>
    </div>
@@ -543,6 +558,7 @@
     </tbody>
    </table>
   </div>
+  <p><b>这四列活分两段，报周期时最常漏的是第二段</b>：「搭起来」是一次性的——<a href="#aip-k8s-gpu">起手式</a>走完就能提交作业；「管得住」是长期的——坏节点救火与自愈值守、配额与优先级评审、组件跟着上游走的版本升级、利用率看板与分摊账单的日常运营。<b>选形态就是在选这两段各留几列给自己</b>。</p>
 
   <h3>三问定档</h3>
   <div class="tw">
@@ -593,12 +609,12 @@
 <section class="sec" id="qa">
   <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
-  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页。</p>
+  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-23</b> 是按客户交锋场景补的三题（利用率承诺 / 建设周期与人力 / 平台验收）。</p>
   <div class="qa">
     <details id="q-ai-infra-platform-1">
       <summary>我们卡不多，直接 SSH 上去跑不行吗？<span class="added">2026-07-09</span></summary>
       <div class="a">
-        <p>几张卡、一个团队时够用。但卡数或用卡的人一多，SSH 模式立刻失控：抢卡、空转、互相踩踏。平台层的价值是把利用率从个位数拉到 50%+。</p>
+        <p>几张卡、一个团队时够用。但卡数或用卡的人一多，SSH 模式立刻失控：抢卡、空转、互相踩踏。平台层的价值就是把这笔浪费收回来——同一批卡，利用率量级能翻上去。</p>
         <p class="qa-why">无管理集群常年 10–20% 利用率，上调度和配额后翻倍很常见——等于「不花钱多买了一倍的卡」，是整个 AI 投资里 ROI 最高的一环。</p>
         <p class="qa-next"><b>下一步</b>　四问体检任何 GPU 环境：谁在用哪张卡？利用率多少？作业挂了会怎样？训练崩了能自动恢复吗？</p>
         <p class="qa-src">依据　<a href="#aip-overview">裸机之痛</a></p>
@@ -661,6 +677,33 @@
         <p class="qa-why">自建的隐藏成本 = 调度/切分/容错/观测四列活，尤其容错自愈最难——托管的溢价买的正是这些。</p>
         <p class="qa-next"><b>下一步</b>　用<a href="#tierpicker">定档器</a>把三问过一遍；演进按责任递交线渐进，底层用 DRA 等开源标准防锁定。</p>
         <p class="qa-src">依据　<a href="#aip-cloud">责任递交线</a></p>
+      </div>
+    </details>
+    <details id="q-ai-infra-platform-8">
+      <summary>你们说利用率能翻一倍，这个敢写进合同吗？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>「翻一倍」是量级说法，不是能签的承诺值——<b>写进合同的应该是口径、基线和相对改善，不是一个绝对百分比</b>。三件事把它变成可签的：<b>先定口径</b>，训练写 MFU、生产写 goodput，并注明不采信 nvidia-smi 的活跃率；<b>先测基线</b>，用他自己的集群和作业跑一版现状，没有起点就没有「提升多少」；<b>承诺动作而不是数字</b>，四大黑洞按序排查，写清这次堵哪个洞、堵完怎么复测。至于本页那组 10–20% → 50%+，是「无管理」与「上了调度 + 配额 + 抢占」两种状态下的<b>量级区间</b>，讲趋势够用，进合同就要换成他自己那台机器上的基线数。</p>
+        <p class="qa-why">绝对值承诺一定输在两个地方：<b>口径</b>——客户拿 nvidia-smi 的 90% 说自己早就达标了，或者反过来逼你去堆一个错觉指标；<b>工况</b>——换一批作业、换一批数据，同一套平台就是另一个数。还有一句护身的：MFU 40% 已经是行业顶尖（Llama 3 也在这个量级），谁承诺得比这高出一截，不是口径不同就是没干过。</p>
+        <p class="qa-next"><b>下一步</b>　把「先测一版基线」写成签约前的一道工序，别等验收时补：基线一测完，双方争的就不再是百分比，而是「下一个洞怎么堵」——<a href="#aip-observability">把利用率写成能签的话</a>那张表可以直接当条款骨架。</p>
+        <p class="qa-src">依据　<a href="#aip-observability">三层口径与承诺口径</a>　·　<a href="#aip-overview">裸机之痛</a></p>
+      </div>
+    </details>
+    <details id="q-ai-infra-platform-9">
+      <summary>这套平台搭起来要多久？要配几个人？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>先拆成两段再报，混着报一定失真。<b>「搭起来」是一次性的</b>——托管 K8s、GPU Operator、选调度器、配切分、接监控，<a href="#aip-k8s-gpu">起手式</a>走完就能提交作业；<b>「管得住」是长期的</b>——坏节点救火与自愈值守、配额与优先级评审、组件跟着上游走的版本升级、利用率看板与分摊账单的日常运营。而且周期和人数不是常数，是<b>档位</b>定的：托管把调度、切分、容错、观测这四列活替你扛掉几列，你就少养几列的人。</p>
+        <p class="qa-why">这题答成「装完 K8s 就好了」，后面所有的怨气都从这里长出来。压垮自建决心的通常不是搭建，是容错自愈——万卡尺度上中断是物理规律、平均每天好几次，值班表是天天要排的。把两段当着客户的面分开，既显得你真干过，也让他自己把托管的溢价算明白。</p>
+        <p class="qa-next"><b>下一步</b>　让他先过一遍<a href="#tierpicker">定档器</a>，再拿自建隐藏工作量那四列逐列问「这列谁来做、谁值班」——问完范围和人力自己就浮出来了，比你报一个总人天可信得多。整体成本别只报卡价：<a href="../ai-infra-compute/index.html#aic-econ">人力是姊妹册 TCO 四件套里的一件</a>。</p>
+        <p class="qa-src">依据　<a href="#aip-cloud">自建的隐藏工作量与三问定档</a>　·　<a href="#aip-faulttol">自愈循环</a></p>
+      </div>
+    </details>
+    <details id="q-ai-infra-platform-10">
+      <summary>平台交付了怎么算验收？拿什么证明它建好了？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>别签功能清单，签<b>演练加记录</b>：每一项职责都要有一个当面演给他看的动作，外加一份事后翻得出来的记录。调度——提交一个必须成组的训练作业，看它是整批拿到卡，还是半个作业卡在那里；切分——按定好的切法和份数跑满，看隔离是不是真的；容错——<b>当场拔掉一个节点，掐表看检测、驱逐、替换、续训走完要多久</b>，这一条最有说服力；观测——看板能不能当场指出「今天漏得最多的是哪个洞」。再加治理面一条：<a href="#aip-overview">四条控制链</a>每条都要有拦得住的闸和留得下的记录，<b>策略文档不等于控制生效</b>。</p>
+        <p class="qa-why">功能清单签完是各说各话：客户买的是「不再抢卡、不再半夜断」，你交的是一堆组件，验收当天对不上。换成可演练、可复现的证据，争议在验收当天就关掉了。而且拔节点这类演练必须事前写进验收项——事后再提，没人敢配合。</p>
+        <p class="qa-next"><b>下一步</b>　验收清单和启动会一起签，三样齐了再开工：一份基线利用率（同口径、同工况）、每项职责的演练与通过判据、<a href="#aip-serving">发布可追溯</a>那张图上要留的证据字段。</p>
+        <p class="qa-src">依据　<a href="#aip-faulttol">自愈循环</a>　·　<a href="#aip-overview">四条控制链</a>　·　<a href="#aip-serving">发布要可追溯</a></p>
       </div>
     </details>
   </div>

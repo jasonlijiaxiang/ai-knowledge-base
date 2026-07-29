@@ -880,6 +880,34 @@ window.KB = {
      "chapters": [
       "aic-chips"
      ]
+    },
+    {
+     "id": "q-ai-infra-compute-9",
+     "q": "你们报的这个容量，凭什么证明？跑分能不能信？",
+     "added": "2026-07-23",
+     "chapters": [
+      "aic-econ",
+      "aic-gpu"
+     ]
+    },
+    {
+     "id": "q-ai-infra-compute-10",
+     "q": "卡坏了谁修？修的那几天算力算谁的？",
+     "added": "2026-07-23",
+     "chapters": [
+      "aic-overview",
+      "aic-econ"
+     ]
+    },
+    {
+     "id": "q-ai-infra-compute-11",
+     "q": "同样一批卡，别家报价低不少，凭什么？",
+     "added": "2026-07-23",
+     "chapters": [
+      "aic-chips",
+      "aic-gpu",
+      "aic-scaleout"
+     ]
     }
    ]
   },
@@ -1092,6 +1120,39 @@ window.KB = {
      "chapters": [
       "tierpicker",
       "aip-cloud"
+     ]
+    },
+    {
+     "id": "q-ai-infra-platform-8",
+     "q": "你们说利用率能翻一倍，这个敢写进合同吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "aip-observability",
+      "aip-observability",
+      "aip-overview"
+     ]
+    },
+    {
+     "id": "q-ai-infra-platform-9",
+     "q": "这套平台搭起来要多久？要配几个人？",
+     "added": "2026-07-23",
+     "chapters": [
+      "aip-k8s-gpu",
+      "tierpicker",
+      "aip-cloud",
+      "aip-faulttol"
+     ]
+    },
+    {
+     "id": "q-ai-infra-platform-10",
+     "q": "平台交付了怎么算验收？拿什么证明它建好了？",
+     "added": "2026-07-23",
+     "chapters": [
+      "aip-overview",
+      "aip-serving",
+      "aip-faulttol",
+      "aip-overview",
+      "aip-serving"
      ]
     }
    ]
@@ -2008,6 +2069,32 @@ window.KB = {
      "added": "2026-07-11",
      "chapters": [
       "de-governance"
+     ]
+    },
+    {
+     "id": "q-data-engineering-8",
+     "q": "先做个 POC——数据这块怎么算做完了？拿什么验收？",
+     "added": "2026-07-23",
+     "chapters": [
+      "de-governance",
+      "de-quality"
+     ]
+    },
+    {
+     "id": "q-data-engineering-9",
+     "q": "覆盖率、准确率你们能承诺到多少？先给个数。",
+     "added": "2026-07-23",
+     "chapters": [
+      "de-quality"
+     ]
+    },
+    {
+     "id": "q-data-engineering-10",
+     "q": "上线之后这套谁来维护？每个月还要养几个人？",
+     "added": "2026-07-23",
+     "chapters": [
+      "de-quality",
+      "de-pipeline"
      ]
     }
    ]
@@ -3129,6 +3216,34 @@ window.KB = {
      "added": "2026-07-09",
      "chapters": [
       "llminf-production"
+     ]
+    },
+    {
+     "id": "q-llm-inference-11",
+     "q": "你们说的性能，拿什么证明？这个 POC 怎么算通过？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llminf-production",
+      "llminf-batching"
+     ]
+    },
+    {
+     "id": "q-llm-inference-12",
+     "q": "高峰期扛不住了会怎样？会不会整个服务瘫掉？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llminf-production",
+      "llminf-batching",
+      "llminf-disagg"
+     ]
+    },
+    {
+     "id": "q-llm-inference-13",
+     "q": "我们自己用 Ollama 已经跑起来了，为什么还要再上一套？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llminf-engines",
+      "llminf-batching"
      ]
     }
    ]
