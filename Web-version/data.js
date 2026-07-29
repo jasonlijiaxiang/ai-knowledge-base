@@ -225,6 +225,43 @@ window.KB = {
      "chapters": [
       "a2a-production"
      ]
+    },
+    {
+     "id": "q-a2a-9",
+     "q": "现在上是不是太早了？你说 150 家在用，真跑在生产上的有几家？",
+     "added": "2026-07-23",
+     "chapters": [
+      "a2a-production",
+      "a2a-handson"
+     ]
+    },
+    {
+     "id": "q-a2a-10",
+     "q": "我们几个 Agent 都是自己开发的，还需要上标准协议吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "a2a-orchestration",
+      "picker"
+     ]
+    },
+    {
+     "id": "q-a2a-11",
+     "q": "跨厂商协作，对方那个 Agent 给错了结果，算谁的？",
+     "added": "2026-07-23",
+     "chapters": [
+      "a2a-orchestration",
+      "a2a-protocol",
+      "a2a-production"
+     ]
+    },
+    {
+     "id": "q-a2a-12",
+     "q": "非得现在就定协议吗？万一它没成主流，这笔投入不打水漂了？",
+     "added": "2026-07-23",
+     "chapters": [
+      "a2a-handson",
+      "a2a-transport"
+     ]
     }
    ]
   },
@@ -1282,7 +1319,7 @@ window.KB = {
    "dir": "Agent",
    "layer": "应用模式层",
    "created": "2026-07-07",
-   "updated": "2026-07-21",
+   "updated": "2026-07-23",
    "chapters": [
     {
      "id": "agent-what-why",
@@ -1678,6 +1715,45 @@ window.KB = {
      "chapters": [
       "agent-subagent",
       "src-subagent"
+     ]
+    },
+    {
+     "id": "q-agent-12",
+     "q": "万一它自己干错了事，谁负责？出了问题怎么查？",
+     "added": "2026-07-23",
+     "chapters": [
+      "agent-eval-guardrails",
+      "agent-cheatsheet"
+     ]
+    },
+    {
+     "id": "q-agent-13",
+     "q": "这套跑起来一个月要花多少钱？",
+     "added": "2026-07-23",
+     "chapters": [
+      "agent-subagent",
+      "agent-subagent",
+      "agent-computer-use",
+      "agent-context"
+     ]
+    },
+    {
+     "id": "q-agent-14",
+     "q": "以后换模型、换平台，是不是整套都要重做？",
+     "added": "2026-07-23",
+     "chapters": [
+      "agent-lowcode",
+      "agent-tools-mcp",
+      "agent-orchestration"
+     ]
+    },
+    {
+     "id": "q-agent-15",
+     "q": "能不能就交给它自己干，不用人盯着？",
+     "added": "2026-07-23",
+     "chapters": [
+      "agent-what-why",
+      "agent-eval-guardrails"
      ]
     }
    ]
@@ -3443,6 +3519,41 @@ window.KB = {
       "mcp-production",
       "wire"
      ]
+    },
+    {
+     "id": "q-mcp-11",
+     "q": "我们有几百个内部 API，是不是要全改造成 MCP server？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mcp-server",
+      "boundary"
+     ]
+    },
+    {
+     "id": "q-mcp-12",
+     "q": "让模型自己调工具，它是拿谁的权限在干活？出事怎么办？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mcp-production",
+      "mcp-security"
+     ]
+    },
+    {
+     "id": "q-mcp-13",
+     "q": "我们已经有 API 网关和集成平台了，这不是重复建设吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mcp-production",
+      "boundary"
+     ]
+    },
+    {
+     "id": "q-mcp-14",
+     "q": "加了这一层，成本和延迟要增加多少？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mcp-production"
+     ]
     }
    ]
   },
@@ -4128,6 +4239,42 @@ window.KB = {
      "added": "2026-07-17",
      "chapters": [
       "mm-video-generation"
+     ]
+    },
+    {
+     "id": "q-multimodal-10",
+     "q": "识别准确率能做到多少？能不能把录入的人省了？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mm-understanding",
+      "mm-production"
+     ]
+    },
+    {
+     "id": "q-multimodal-11",
+     "q": "我们早就买了 OCR / 影像系统，凭什么再上一套？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mm-what-why",
+      "mm-fusion"
+     ]
+    },
+    {
+     "id": "q-multimodal-12",
+     "q": "生成的图和视频，法务能不能过？版权算谁的、必须打标识吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mm-generation",
+      "mm-video-generation"
+     ]
+    },
+    {
+     "id": "q-multimodal-13",
+     "q": "量真上来以后，成本会不会失控？",
+     "added": "2026-07-23",
+     "chapters": [
+      "mm-selection",
+      "mm-encoder"
      ]
     }
    ]

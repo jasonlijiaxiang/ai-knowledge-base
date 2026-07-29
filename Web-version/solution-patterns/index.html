@@ -747,10 +747,6 @@
   var $ = function (id) { return document.getElementById(id); };
   var out = $("tg-out");
   if (!out) return;
-  function card( name,tag, body, href) {
-    return '<div class="hitcard"><div class="tagline2">' + tag + '</div><b>' + name +
-      '</b><p>' + body + (href ? ' <a href="' + href + '">详见</a>' : '') + '</p></div>';
-  }
   var MAP = {
     cs: [
       card( "智能客服（对外）","场景", "三层漏斗：L1 自助扛量、L2 Agent 办事、L3 人工处理" +

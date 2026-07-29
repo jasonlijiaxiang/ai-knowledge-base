@@ -702,10 +702,6 @@
   var $ = function (id) { return document.getElementById(id); };
   var kpiBox = $("rc-kpi"), out = $("rc-out");
   if (!out) return;
-  function card( name,tag, body, href) {
-    return '<div class="hitcard"><div class="tagline2">' + tag + '</div><b>' + name +
-      '</b><p>' + body + ' <a href="' + href + '">详见</a></p></div>';
-  }
   function run() {
     var ext = $("rc-ext").checked, tools = $("rc-tools").checked, mem = $("rc-mem").checked,
         oss = $("rc-oss").checked, ft = $("rc-ft").checked, mt = $("rc-mt").checked,

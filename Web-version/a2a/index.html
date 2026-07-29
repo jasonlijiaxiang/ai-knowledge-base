@@ -156,6 +156,7 @@
   <p><b>Task 状态机九种状态、三条路</b>：正常线 submitted → working → completed；中断线
     working ↔ input-required / auth-required（补料补授权后回来继续）；异常线随时可进
     failed / canceled / rejected（另有兜底 unspecified）。两条纪律：<b>终态不可回跳</b>——重试＝创建新 Task（可关联旧任务），绝不修改终态历史，审计与回放靠这条撑着；<b>状态真相永远在服务端</b>，客户端只是观察者。</p>
+  <p>三个异常终态不是同义词，它们分的正是「这一单卡在谁那儿」：<b>rejected＝对方没接这一单、failed＝接了但没跑成、canceled＝委派方自己撤</b>。跨厂商协作里这是划责的第一手记录，所以别图省事把失败一律写成 failed——写准了，出事那天不用靠回忆对峙（用法见<a href="#qa">追问</a>「对方给错了结果算谁的」）。</p>
   <p class="ev">TaskState 九态核实 2026-07-12，来源 <a href="#src-spec">a2a-protocol.org
     规范</a>。<b>不可外推边界</b>：九态是规范定义的状态集，不是各家实现的现状——对接前按对方 Agent Card 与所用 SDK 的版本核一遍，引用状态机时带规范版本号。</p>
 </section>
@@ -203,6 +204,7 @@
     <p>接入心智模型：server 端「把已有能力包一层 A2A 外壳」——声明 Agent Card + 把现有逻辑塞进 executor + 发布，三步；client 端「拉 Card + 发 message/send」，几行代码。<b>业务核心基本不动</b>——这是给客户估接入量的口径。</p>
   </div>
 
+  <p>「包壳」这个形状还有一层客户很在意的含义：<b>A2A 那一层是贴上去的，不是长进去的</b>。接入量小是它的正面，<b>可换性是它的背面</b>——万一将来换协议，重写的是壳，业务逻辑与工具调用原样留着。前提是接入时守住一条纪律：A2A 相关的东西只待在壳里，别渗进业务代码。</p>
   <p><b>一次调用的真实报文</b>（JSON-RPC）：请求 <code>method: "message/send"</code>，params 里一条 role 为 user 的 Message、Part 装「审查这张发票是否合规」；响应返回 Task——<code>id: "task-7f3a"</code>、状态 completed、Artifact 里 Part 装结论。</p>
   <div class="tw">
    <table>
@@ -224,6 +226,8 @@
   <div class="lead">
     <p><b>opaque agents（不透明协作）</b>：Agent 之间只通过 Card 暴露能力、通过 Task 交换输入输出，不共享内部提示词、工具、推理过程——像把活儿外包给另一家公司，你告诉它「要什么」、它交「成品」，不会把对方员工怎么干全看光。不透明 = 更好的封装与安全边界，协作靠接口契约而非看内部——对跨厂商、跨组织协作是必需的。</p>
   </div>
+
+  <p><b>不透明的另一面，是责任也跟着落在接口上</b>：你能主张的和你要担的，都止于 Card 声明的能力与 Task 交付的结果——对方内部用什么模型、什么提示词、调了谁的工具，既不是你的责任，也不能当你的把柄。跨组织协作里这句话要在签合同之前说清楚：<b>接口契约就是责任边界</b>。</p>
 
   <h3>委派拓扑三种基本形状</h3>
   <p>与单机编排同构，区别只在跨进程 / 跨厂商：</p>
@@ -350,7 +354,7 @@
 <section class="sec" id="qa">
   <h2><span class="num">08</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
-  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-12</b> 来自状态机与交付方式深潜。</p>
+  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-12</b> 来自状态机与交付方式深潜，<b>2026-07-23</b> 是按客户交锋场景补的四题（成熟度 / 内部自研 / 责任边界 / 押错协议）。</p>
   <div class="qa">
     <details id="q-a2a-1">
       <summary>A2A 和 MCP 到底啥区别，是不是二选一？<span class="added">2026-07-09</span></summary>
@@ -430,6 +434,42 @@
         <p class="qa-next"><b>下一步</b>　按六条验收线（发现/任务语义/授权/异步交付/运营/
           安全）列上线 checklist。</p>
         <p class="qa-src">依据　<a href="#a2a-production">生产验收</a></p>
+      </div>
+    </details>
+    <details id="q-a2a-9">
+      <summary>现在上是不是太早了？你说 150 家在用，真跑在生产上的有几家？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>先把话说在前头：<b>那些采纳数字是自报口径、没有公开统计方法</b>。它们能证明的是「这不是某一家的私有协议」——中立治理、官方 SDK 覆盖主流后端栈、三大云都托管；<b>证不了「已经在生产里大规模跑起来」</b>。所以成熟度要拆两层讲：<b>协议层已经稳</b>（v1.0 稳定线、以 protobuf 为唯一权威定义、有 TCK 可自测一致性），<b>生态层还在长</b>。判断早不早，不看别人几家在用，看你自己有没有那条「要跨出去」的边。</p>
+        <p class="qa-why">把「参与组织数」当「生产案例数」讲，是这册最容易犯也最贵的一次口误——验收时一定会被翻出来。主动说破这条边界反而最像行家，还顺手把话题从「别人怎么样」拉回「你有没有这个场景」。</p>
+        <p class="qa-next"><b>下一步</b>　报那几个数字时永远配一句限定语：「这是生态广度，不是生产规模。」生产成熟度另外证——TCK 跑协议一致性（注意它只证一致性，<b>不替代安全与业务评测</b>），再加你们自己的验收线。</p>
+        <p class="qa-src">依据　<a href="#a2a-production">采用度与不可外推边界</a>　·　<a href="#a2a-handson">Inspector 与 TCK</a></p>
+      </div>
+    </details>
+    <details id="q-a2a-10">
+      <summary>我们几个 Agent 都是自己开发的，还需要上标准协议吗？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p><b>很可能不需要——这句要先说，别硬推。</b>同一套代码库、同一个团队维护、一起发版的几个 Agent，内部流转归框架（LangGraph / ADK 之流）管就好，中间插一层 A2A 只是多一跳网络和一层序列化。A2A 的价值在<b>跨出去的那一步</b>，判据只有一条：<b>这个 Agent 归不归你管</b>——你能改它、你决定它什么时候发版，就框架编排；不归你管（子公司、供应商、SaaS 厂商、有独立发版节奏的兄弟部门），那条边才值得标准化。</p>
+        <p class="qa-why">这题答「当然要」会当场丢分：对方比你更清楚自己的系统。诚实划出边界，你后面说「这一步该上」时才有人信；而且这条判据客户拿得走、回去自己就能用。</p>
+        <p class="qa-next"><b>下一步</b>　请客户在自己的架构图上圈一下：哪几个 Agent 不由他们自己发版？圈出来的那几条边就是 A2A 的边；一条都圈不出来，就先别上。</p>
+        <p class="qa-src">依据　<a href="#a2a-orchestration">三层叠起来看</a>　·　<a href="#picker">接入选型器</a></p>
+      </div>
+    </details>
+    <details id="q-a2a-11">
+      <summary>跨厂商协作，对方那个 Agent 给错了结果，算谁的？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p><b>先划界，再摆证据链。</b>界划在接口上：opaque 协作里你看不见对方内部，也不为对方内部负责——你担的是「委派得对不对」（照 Card 声明的能力调、输入给全、授权范围给准），对方担的是「交付得对不对」（Artifact 里的内容）。证据留在 Task 上：异常终态本身就在记责任，<b>rejected 是对方没接、failed 是接了没跑成、canceled 是委派方自己撤</b>；再加上终态不可回跳、事件序列可回放，一次协作能完整复盘「谁委派、做了什么、为何结束、交付了什么、谁验收」。<b>所以责任条款要锚在这套记录上，而不是锚在会议纪要上。</b></p>
+        <p class="qa-why">多方系统里「谁的锅」平时没人问，一出事就是甲乙双方最难看的一段。协议本身不判责，但它把判责要用的事实固定了下来——这话得在签字之前讲，出事之后再讲就晚了。</p>
+        <p class="qa-next"><b>下一步</b>　把验收线里「任务语义」那条抽出来当合同附件：失败 / 取消用例跑通、事件序列可回放——这两样是划责的最低证据。</p>
+        <p class="qa-src">依据　<a href="#a2a-orchestration">opaque agents</a>　·　<a href="#a2a-protocol">Task 状态机</a>　·　<a href="#a2a-production">六条验收线</a></p>
+      </div>
+    </details>
+    <details id="q-a2a-12">
+      <summary>非得现在就定协议吗？万一它没成主流，这笔投入不打水漂了？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p><b>先把最坏情况的上限算出来，再决定。</b>A2A 在你系统里的形状是「在已有能力外面包一层壳」——Card 声明 + executor 包装 + 发布，业务核心不动；<b>真押错了，重写的是那层壳，不是脑子</b>。往里还有两层缓冲：三种传输绑定的语义由 protobuf 统一约束、可互换；不用官方 SDK 也能手写报文对接，不绑语言不绑框架。<b>反过来，推迟决定也不是零成本</b>——不定标准就继续一对一定制对接，M×N 那笔账每多一家供应商就再付一次。</p>
+        <p class="qa-why">客户问「会不会打水漂」，真正想知道的是<b>最坏能亏多少</b>，而不是要你保证它一定赢。给沉没成本的上限比给信心承诺有用得多；顺手把「不做决定」的成本也摆上台面，这道选择题才是完整的。</p>
+        <p class="qa-next"><b>下一步</b>　接入时守一条纪律：A2A 相关的东西只待在壳里、别渗进业务代码。守住了，「将来换协议」永远是一笔能估量的改造，而不是一次重做。</p>
+        <p class="qa-src">依据　<a href="#a2a-handson">接入心智模型</a>　·　<a href="#a2a-transport">三种绑定</a></p>
       </div>
     </details>
   </div>
@@ -521,10 +561,6 @@
   var $ = function (id) { return document.getElementById(id); };
   var out = $("pk-out");
   if (!out) return;
-  function card( name,tag, body, href) {
-    return '<div class="hitcard"><div class="tagline2">' + tag + '</div><b>' + name +
-      '</b><p>' + body + (href ? ' <a href="' + href + '">详见</a>' : '') + '</p></div>';
-  }
   function run() {
     var shape = $("pk-shape").value, task = $("pk-task").value, net = $("pk-net").value;
     var cards = [];
