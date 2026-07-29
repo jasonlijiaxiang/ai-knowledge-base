@@ -576,6 +576,35 @@ window.KB = {
       "gw-what-why",
       "gw-mcp"
      ]
+    },
+    {
+     "id": "q-ai-gateway-11",
+     "q": "网关是所有流量的必经之路，它自己挂了，全公司的 AI 不就一起停？",
+     "added": "2026-07-23",
+     "chapters": [
+      "gw-route",
+      "gw-unify",
+      "gw-cheatsheet"
+     ]
+    },
+    {
+     "id": "q-ai-gateway-12",
+     "q": "网关上线，怎么算「上得好」？验收看什么？",
+     "added": "2026-07-23",
+     "chapters": [
+      "gw-cheatsheet",
+      "gw-observe"
+     ]
+    },
+    {
+     "id": "q-ai-gateway-13",
+     "q": "把所有 AI 流量都收到这一层，以后想换掉网关是不是特别难？",
+     "added": "2026-07-23",
+     "chapters": [
+      "gw-unify",
+      "gw-cheatsheet",
+      "gw-observe"
+     ]
     }
    ]
   },
@@ -1311,6 +1340,33 @@ window.KB = {
      "chapters": [
       "ops-cheatsheet"
      ]
+    },
+    {
+     "id": "q-ai-ops-9",
+     "q": "这套上了之后，你们能承诺什么？给个 SLO。",
+     "added": "2026-07-23",
+     "chapters": [
+      "ops-incident",
+      "ops-drift"
+     ]
+    },
+    {
+     "id": "q-ai-ops-10",
+     "q": "以后换了模型供应商、或者不用这家观测平台了，这套是不是重做？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ops-tooling",
+      "ops-release"
+     ]
+    },
+    {
+     "id": "q-ai-ops-11",
+     "q": "「观测做到位了」怎么算数？验收拿什么签？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ops-cheatsheet",
+      "ops-release"
+     ]
     }
    ]
   },
@@ -1961,7 +2017,7 @@ window.KB = {
    "dir": "Evaluation",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-21",
+   "updated": "2026-07-23",
    "chapters": [
     {
      "id": "eval-why-hard",
@@ -2238,6 +2294,24 @@ window.KB = {
      "added": "2026-07-09",
      "chapters": [
       "eval-scenarios",
+      "eval-tooling"
+     ]
+    },
+    {
+     "id": "q-evaluation-11",
+     "q": "我们已经有测试团队和 QA 流程了，为什么还要单建一套？",
+     "added": "2026-07-23",
+     "chapters": [
+      "eval-why-hard",
+      "eval-build"
+     ]
+    },
+    {
+     "id": "q-evaluation-12",
+     "q": "评估都做了，线上还是出问题——那这套评估有什么用？",
+     "added": "2026-07-23",
+     "chapters": [
+      "eval-why-hard",
       "eval-tooling"
      ]
     }
@@ -5120,6 +5194,36 @@ window.KB = {
      "added": "2026-07-17",
      "chapters": [
       "sec-china"
+     ]
+    },
+    {
+     "id": "q-security-10",
+     "q": "你们能保证上线之后不出安全事故吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "riskcheck",
+      "sec-cheatsheet",
+      "sec-defense",
+      "sec-prompt-injection"
+     ]
+    },
+    {
+     "id": "q-security-11",
+     "q": "我们安全体系和团队都齐，为什么还要再上一套 AI 安全？",
+     "added": "2026-07-23",
+     "chapters": [
+      "sec-landscape",
+      "sec-defense",
+      "sec-governance"
+     ]
+    },
+    {
+     "id": "q-security-12",
+     "q": "安全这块怎么验收？总不能等出事了才知道没做好。",
+     "added": "2026-07-23",
+     "chapters": [
+      "sec-cheatsheet",
+      "sec-defense"
      ]
     }
    ]
