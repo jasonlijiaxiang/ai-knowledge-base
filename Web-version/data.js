@@ -233,7 +233,7 @@ window.KB = {
    "dir": "AI-Gateway",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-21",
+   "updated": "2026-07-28",
    "chapters": [
     {
      "id": "gw-what-why",
@@ -3207,7 +3207,7 @@ window.KB = {
    "dir": "MCP",
    "layer": "协议层",
    "created": "2026-07-08",
-   "updated": "2026-07-23",
+   "updated": "2026-07-28",
    "chapters": [
     {
      "id": "mcp-what-why",
@@ -4640,6 +4640,40 @@ window.KB = {
      "added": "2026-07-09",
      "chapters": [
       "rag-structured"
+     ]
+    },
+    {
+     "id": "q-rag-12",
+     "q": "准确率能做到多少？给个数。",
+     "added": "2026-07-23",
+     "chapters": [
+      "rag-evaluation"
+     ]
+    },
+    {
+     "id": "q-rag-13",
+     "q": "我们已经有搜索/知识库了，凭什么再上一套？",
+     "added": "2026-07-23",
+     "chapters": [
+      "rag-hybrid",
+      "rag-what-why"
+     ]
+    },
+    {
+     "id": "q-rag-14",
+     "q": "以后模型更新了，是不是整套都要重做？",
+     "added": "2026-07-23",
+     "chapters": [
+      "rag-embedding"
+     ]
+    },
+    {
+     "id": "q-rag-15",
+     "q": "先做个 POC 吧——那怎么算成功？",
+     "added": "2026-07-23",
+     "chapters": [
+      "rag-pipeline",
+      "rag-evaluation"
      ]
     }
    ]
