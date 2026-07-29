@@ -35,10 +35,15 @@ jobs:
           mkdir -p dist
           python3 _maintenance/make_share.py dist
 
-      - name: 列出产物
+      # 资产名必须是纯 ASCII：GitHub 上传时会把非 ASCII 字符压成点号，
+      # make_share 打出来的「AI知识库-2026-07-29.zip」会变成「AI.-2026-07-29.zip」。
+      # 只改外面这层文件名，解压出来的目录名仍是中文的（首跑实测确认）。
+      - name: 改成 ASCII 资产名
         id: pkg
         run: |
-          ZIP=$(ls dist/*.zip | head -1)
+          SRC=$(ls dist/*.zip | head -1)
+          ZIP="dist/ai-knowledge-base-${GITHUB_REF_NAME#kb-v}.zip"
+          mv "$SRC" "$ZIP"
           echo "包 = $ZIP （$(du -h "$ZIP" | cut -f1)）"
           echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
 
