@@ -4189,6 +4189,31 @@ window.KB = {
       "ml-platforms",
       "ml-selection"
      ]
+    },
+    {
+     "id": "q-model-landscape-12",
+     "q": "我们全公司已经统一用一家了，为什么还要再引一家？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ml-selection",
+      "ml-platforms"
+     ]
+    },
+    {
+     "id": "q-model-landscape-13",
+     "q": "你凭什么说这家适合我们？选型怎么验？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ml-selection"
+     ]
+    },
+    {
+     "id": "q-model-landscape-14",
+     "q": "我们押的这个模型，厂商说停就停怎么办？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ml-selection"
+     ]
     }
    ]
   },
@@ -5767,6 +5792,33 @@ window.KB = {
      "added": "2026-07-11",
      "chapters": [
       "sp-meeting"
+     ]
+    },
+    {
+     "id": "q-solution-patterns-10",
+     "q": "这个项目多久能上线？我们这边要出几个人配合？",
+     "added": "2026-07-23",
+     "chapters": [
+      "sp-method",
+      "sp-knowledge-search"
+     ]
+    },
+    {
+     "id": "q-solution-patterns-11",
+     "q": "AI 答错了、办错了事，造成损失算谁的？",
+     "added": "2026-07-23",
+     "chapters": [
+      "sp-method",
+      "sp-content-gen"
+     ]
+    },
+    {
+     "id": "q-solution-patterns-12",
+     "q": "这套做完，是我们的资产还是绑死在你们身上？换一家能接手吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "sp-method",
+      "sp-method"
      ]
     }
    ]

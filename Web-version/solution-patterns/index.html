@@ -152,6 +152,29 @@
   <p class="ev">口径锚点核实 2026-07-10，来源 <a href="#src-cs">fin.ai 对比页 /
     digitalapplied 2026 统计</a>。</p>
 
+  <h3>交付账：周期由什么定档、客户要出哪几个人</h3>
+  <p>三本账算的是钱，这一本算的是时间与人——报价单上通常只有我方人天，把客户那一侧要出的东西当面摊开，是本册最容易换来信任的一段话。</p>
+  <p><b>周期不给常数，给定档的三问</b>——决定量级的从来不是选了哪个模型：</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>定档问</th><th>为什么它决定周期</th></tr></thead>
+    <tbody>
+     <tr><td><b>接几个源系统</b></td><td>每个源都是一个小项目（认证、增量同步、格式解析、ACL 映射），报价本来就按源系统个数算</td></tr>
+     <tr><td><b>口径要不要跨部门评审</b></td><td>部门之间定义打架的时候，评审会本身就是工期，而且它排不进技术排期表</td></tr>
+     <tr><td><b>安全评审排在哪一步</b></td><td>越权测试不通过就上不了线——排在最后，就是最后才知道</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>第 4 章那条分形态的线就是这三问的读数：部门级知识库问答是周级、全公司 AI 搜索是季度级——同样一句「我要个企业知识库」，档位差一个数量级。</p>
+  <p><b>客户侧四个角色，缺一个就烂尾一个环节</b>：</p>
+  <div class="grid">
+   <div class="box"><h4>业务决策人</h4><p>签得了验收线，也担得起「好」由谁定义。</p></div>
+   <div class="box"><h4>数据 / IT owner</h4><p>每个源系统一个——认证、增量同步、ACL 映射都要他开门。</p></div>
+   <div class="box"><h4>知识与口径运营人</h4><p><b>知识库荒废、部门口径打架，都是从这一格没人开始的。</b></p></div>
+   <div class="box"><h4>安全评审签字人</h4><p>越权测试与合规是上线开关，进场越早越好。</p></div>
+  </div>
+  <p>这几个人在启动会上到不齐，工期就该重报——<b>五类高频坑没有一个是技术坑，塌的都是这几格</b>。</p>
+
   <h3>方案验收：六条线闭环（按四组归拢）</h3>
   <p>方案能不能交付，看这四组里的每一件能不能各拿出证据——功能 Demo 只验证了一小部分假设（前两组各含两条，后两组各一条，合起来就是那六条线）：</p>
   <div class="tw">
@@ -169,7 +192,24 @@
    <p>终极判断：<b>客户能签署业务结果与责任，团队能用证据决定继续、停止、扩容、回滚或替换。</b></p>
   </div>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../ai-gateway/index.html#gw-cost" title="三本账的 token/并发治理在网关落地；成本治理机制见 AI-Gateway 第 4 章">流量与成本治理<span class="xm">AI-Gateway</span></a><a href="../evaluation/index.html#eval-build" title="POC 三要素中「签字的指标」= 自建评估集方法，见 Evaluation 第 5 章">自建评估:数据集与指标设计<span class="xm">Evaluation</span></a><a href="../ai-ops/index.html#ops-cheatsheet" title="三本账的「人力账/运营包」在 AI-Ops 第 8 章展开为五件套清单与 SLA 报价口径——双向互指（2026-07-10）">售前速查<span class="xm">AI-Ops</span></a><a href="../data-engineering/index.html#de-what-why" title="「数据坑是第一风险」「连接器是报价大头」在 Data-Engineering 展开为工程清单与报价明细——双向互指（2026-07-11）">数据就绪度是第一风险<span class="xm">Data-Engineering</span></a><a href="../data-engineering/index.html#de-pipeline" title="「数据坑是第一风险」「连接器是报价大头」在 Data-Engineering 展开为工程清单与报价明细——双向互指（2026-07-11）">连接器与增量同步<span class="xm">Data-Engineering</span></a></div>
+  <h3>责任落在人接住的那一格</h3>
+  <p>七个场景里防错的做法看着各不相同，其实是同一条：客服的高危操作是 AI 出草稿、人工确认；营销那句「生成 ≠ 发布」把分级人审插在中间并留痕；会议纪要是草稿、决议以人工确认版为准；ChatBI 的答案附生成的 SQL 与口径出处，让人复核得了；数字人的形象与声音授权是书面的、可撤回的。<b>责任落在人接住 AI 输出的那一格</b>——哪一格没人接，哪一格就是责任裸奔区。</p>
+  <p>所以合同里那句话不该写成「保证不出错」（这是最不可信的承诺），该写成：<b>每个高危动作都指得出接住它的人和留得下的痕</b>。反过来用也成立——方案评审时逐个高危动作问「这一格谁接」，接不出来的那几个就是本期该缩掉的范围。</p>
+
+  <h3>交付物分两类：可换件与沉淀件</h3>
+  <p>六条线里「交付」那一组写着<b>退出可执行</b>，这条最常被跳过，却正是客户在合同桌上最想问的：这套东西换一家还能不能接着用。按这条线把交付物分开就答得清楚：</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>类别</th><th>包含什么</th><th>怎么对待</th></tr></thead>
+    <tbody>
+     <tr><td><b>可换件</b></td><td>模型、工具、平台</td><td>第 6 章那句「工具会迭代，接入架构不变」是通例——统一走网关管预算，换掉某一家不动架构</td></tr>
+     <tr><td><b>沉淀件</b></td><td>指标与语义层口径、评估集与签字的验收线、知识与权限映射、运营 runbook</td><td><b>都该长在客户那边</b>——权限本来就从源系统继承、不另建一套，它天生是客户的</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>判据一句话：<b>换一家供应商，沉淀件他能不能带走接着用</b>。能，方案就没有锁定；不能，锁住客户的不是技术，是没交出去的知识。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-gateway/index.html#gw-cost" title="三本账的 token/并发治理在网关落地；成本治理机制见 AI-Gateway 第 4 章">流量与成本治理<span class="xm">AI-Gateway</span></a><a href="../evaluation/index.html#eval-build" title="POC 三要素中「签字的指标」= 自建评估集方法，见 Evaluation 第 5 章">自建评估:数据集与指标设计<span class="xm">Evaluation</span></a><a href="../ai-ops/index.html#ops-cheatsheet" title="三本账的「人力账/运营包」在 AI-Ops 第 8 章展开为五件套清单与 SLA 报价口径——双向互指（2026-07-10）">售前速查<span class="xm">AI-Ops</span></a><a href="../data-engineering/index.html#de-what-why" title="「数据坑是第一风险」「连接器是报价大头」在 Data-Engineering 展开为工程清单与报价明细——双向互指（2026-07-11）">数据就绪度是第一风险<span class="xm">Data-Engineering</span></a><a href="../data-engineering/index.html#de-pipeline" title="「数据坑是第一风险」「连接器是报价大头」在 Data-Engineering 展开为工程清单与报价明细——双向互指（2026-07-11）">连接器与增量同步<span class="xm">Data-Engineering</span></a><a href="../rag/index.html#rag-structured" title="这个词的主场：RAG · 结构化数据 RAG">语义层<span class="xm">RAG</span></a></div>
 </section>
 
 <!-- ============ 3 ============ -->
@@ -567,7 +607,7 @@
 <section class="sec" id="qa">
   <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
-  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-10</b> 来自讲义首版对练页，<b>2026-07-11</b> 来自 ChatBI 与会议助手两章。</p>
+  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-10</b> 来自讲义首版对练页，<b>2026-07-11</b> 来自 ChatBI 与会议助手两章，<b>2026-07-23</b> 是按客户交锋场景补的三题（交付周期与配合人力 / 出错谁担责 / 换供应商能不能接手）。</p>
   <div class="qa">
     <details id="q-solution-patterns-1">
       <summary>POC 成功了，为什么上生产还要再收一笔钱？<span class="added">2026-07-10</span></summary>
@@ -651,6 +691,33 @@
         <p class="qa-why">「直说用原生的就够」本身是信任建设；独立方案的入场券是差异化需求，不是功能对标。</p>
         <p class="qa-next"><b>下一步</b>　验收分三层设指标：转写 WER、摘要忠实度、行动项召回——漏了「老板随口交办」才是客诉源。</p>
         <p class="qa-src">依据　<a href="#sp-meeting">两形态三层价值</a></p>
+      </div>
+    </details>
+    <details id="q-solution-patterns-10">
+      <summary>这个项目多久能上线？我们这边要出几个人配合？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>周期我不给常数，给您当场就能定档的三问：接几个源系统（每个源都是一个小项目，报价本来也按源系统个数算）、口径要不要跨部门评审（定义打架的时候，评审会本身就是工期）、安全评审排在哪一步（越权测试不通过就上不了线）。同样一句「我要个企业知识库」，部门级问答是周级、全司搜索是季度级——档位差一个数量级，先分清是哪一档再谈日期。您这边要出的人有四个角色：能签验收线的业务决策人、各源系统的数据 / IT owner、知识与口径的运营人、安全评审签字人。</p>
+        <p class="qa-why">客户配合不到位是项目烂尾的头号原因，可报价单上通常只有我方人天——甲方那一侧的投入不摊开，双方对「上线」的想象就永远差着一大截。当面把这几个角色点出来，一是显得你真交付过，二是把「配合」从口头人情变成能排期的事。</p>
+        <p class="qa-next"><b>下一步</b>　启动会上先做一页 intake（结果 / 用户 / 数据 / 风险四个字段），每个字段当场落到一个具名的人——落不下去的字段就是本期的风险项，写进纪要；角色到不齐，工期重报。</p>
+        <p class="qa-src">依据　<a href="#sp-method">交付账</a> · <a href="#sp-knowledge-search">先分形态再报价</a></p>
+      </div>
+    </details>
+    <details id="q-solution-patterns-11">
+      <summary>AI 答错了、办错了事，造成损失算谁的？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>先把「答错」和「办错」分开，本册那句「生成 ≠ 发布」划的就是这条线：一段答复、一版文案、一份纪要，错了还能撤；退款、下单、对外发布，错了撤不回来。七个场景防错的做法其实是同一条——<b>责任落在人接住 AI 输出的那一格</b>：客服高危操作是 AI 出草稿、人工确认，营销发布前分级人审并留痕，会议纪要是草稿、决议以人工确认版为准，ChatBI 的答案附生成的 SQL 与口径出处让人复核得了。哪一格没人接，哪一格就是责任裸奔区。所以合同要写的不是「保证不出错」，是每个高危动作都指得出接住它的人和留得下的痕。</p>
+        <p class="qa-why">客户问这句，怕的不是 AI 会错，是出事之后没人说得清。用「我们准确率很高」去接是最不可信的答法——它把一个责任问题答成了技术问题；把责任落到一格一格具体的人和留痕上，它才从模糊风险变成能写进合同的条款。</p>
+        <p class="qa-next"><b>下一步</b>　逐个高危动作过一遍「这一格谁接」：退款额度、发布按钮、口径出处、决议确认——接得住的写进 runbook，接不住的当场缩范围。让 AI 自己动手那一路怎么分段划责，见 <a href="../agent/index.html#agent-eval-guardrails">Agent 网页版的评估与护栏</a>。</p>
+        <p class="qa-src">依据　<a href="#sp-method">责任落点</a> · <a href="#sp-content-gen">生成 ≠ 发布</a></p>
+      </div>
+    </details>
+    <details id="q-solution-patterns-12">
+      <summary>这套做完，是我们的资产还是绑死在你们身上？换一家能接手吗？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>用一条线分就清楚了——换一家供应商，哪些东西他能带走接着用。模型、工具、平台是可换件：AI Coding 那节那句「工具会迭代，接入架构不变」是通例，统一走网关管预算，换掉某一家不动架构。真沉淀下来的是另一类，而且都该长在您这边：指标与语义层口径、评估集与签字的验收线、知识与权限映射（权限本来就从您的源系统继承、我们不另建一套）、运营 runbook。所以要防的不是「被我们锁住」，是这几样有没有真的落到您自己人手上——落了，换谁都接得住；没落，换谁都要重来一遍。</p>
+        <p class="qa-why">这题的正确答法是主动把「怎么离开我们」讲清楚：六条验收线里「交付」那一组本来就写着退出可执行，敢讲退出的反而更容易被留下。含糊其辞地保证「我们会一直服务您」，在采购眼里恰恰是锁定风险的信号。</p>
+        <p class="qa-next"><b>下一步</b>　验收清单里加一条交接演练：让客户自己的人跑一遍口径评审、跑一遍评估集回归、改一次权限映射——跑得下来才算沉淀件真交付了，否则那几样还在我们的电脑里。</p>
+        <p class="qa-src">依据　<a href="#sp-method">可换件与沉淀件</a> · <a href="#sp-method">六条线闭环</a></p>
       </div>
     </details>
   </div>

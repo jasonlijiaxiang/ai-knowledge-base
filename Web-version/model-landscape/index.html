@@ -388,6 +388,8 @@
       OpenAI 与 Anthropic 多年协议；Gartner 预计 2028 年 70% 多模型组织将用 AI 网关能力（2024 年不足 5%）。</p>
   </div>
 
+  <p><b>多一家的边际成本，比客户以为的低得多</b>——前提是抽象层先建好。统一收到网关之后，引入第二家要付的只有三样：路由层加一条配置、评估集多跑一遍回归、许可与数据条款多核一份。抽象层是一次性投入，之后每多一家都摊在它上面；反过来，没有抽象层又必须换的那天，动的是业务代码，那才叫重做。所以「要不要多一家」在架构上早该定，与具体选谁无关。</p>
+
   <h3>三层路由：1 : 8 : 1</h3>
   <figure>
    <div class="fig-wrap">
@@ -474,6 +476,8 @@
     </tbody>
    </table>
   </div>
+  <p>证据怎么来？靠一次组织得当的选型验证，四条起码规矩缺一不可：<b>用客户自己的真实任务样本</b>（演示题上人人都及格）、<b>同一套判分标准且阈值事前签</b>（事后再争的验收都会变成扯皮）、<b>盲掉品牌打分</b>（否则结论跟着 logo 走）、<b>成本与延迟跟质量一起量</b>（只比质量会选出一个跑不上生产的赢家）。它的产物不是一张对比表，是一份<b>可重跑的评测包</b>——换模型那天靠它出回归证据。</p>
+  <p>生命周期那一面最容易被跳过，因为它准备的是「还没发生的事」。三个事前动作把它坐实：<b>调用时钉住具体版本号，不用滚动别名</b>；<b>把弃用通知期与新旧并行期写进合同</b>，别等公告；<b>备选路径必须跑过一次回归</b>——只写在方案书上的备选，到那天等于没有。做齐了，供应商退役一个型号对你就只是一次例行发布，不是事故；模型悄悄换了 checkpoint 的那一类，则要靠回归集定期重跑才看得见（节奏与排查链见 <a href="../ai-ops/index.html#ops-drift">AI-Ops 三类漂移</a>）。</p>
   <p class="ev">案例与趋势核实 2026-07-10，来源 <a href="#src-cases">Walmart/ServiceNow 报道与
     Gartner 转引</a>；Leaderboard Illusion 见 <a href="#src-arxiv">arXiv 2504.20879</a>。<b>不可外推边界</b>：Gartner 的占比是预测不是实测、且为转引口径；两个客户案例是公开报道的单点，能说明「多模型已是大客户的现实选择」，不能当成行业普遍做法的证据。</p>
 
@@ -505,7 +509,7 @@
   <h3>现场高频追问</h3>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。每题给结论、给机制或权衡、给一个可执行的下一步，并回链依据。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-10</b> 的来自讲义首版各章对练页，
-    <b>2026-07-17</b> 的来自国内平台增章。</p>
+    <b>2026-07-17</b> 的来自国内平台增章，<b>2026-07-23</b> 是按客户交锋场景补的三题（再引一家 / 选型怎么验 / 模型被停了）。</p>
   <div class="qa">
     <details id="q-model-landscape-1">
       <summary>现在到底谁家模型最强？<span class="added">2026-07-10</span></summary>
@@ -608,9 +612,36 @@
         <p class="qa-src">依据　<a href="#ml-platforms">两种货架哲学</a> · <a href="#ml-selection">选型方法论</a></p>
       </div>
     </details>
+    <details id="q-model-landscape-12">
+      <summary>我们全公司已经统一用一家了，为什么还要再引一家？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>先认下统一的好处——采购、合规、培训都只过一次，这笔账是真的，别去否定它。要谈的是另一件事：<b>只有一家，能力、调价、限流、版本退役就都由对方的路线图决定</b>，你只能跟着走。再引一家也不是「再买一套」：抽象层先建好的前提下，<b>边际成本只有三样</b>——路由层加一条配置、评估集多跑一遍回归、许可与数据条款多核一份。真正贵的是没有抽象层、等到必须换的那天才建。</p>
+        <p class="qa-why">客户嘴上问「为什么再花一笔」，心里算的是「多一家＝多一套合同和运维」。把答案落到这三样边际成本，异议就从预算题变成排期题——而且不必全公司切，按三层路由挑一档起步就够验证。</p>
+        <p class="qa-next"><b>下一步</b>　把对方一个月的调用按三层路由分档，挑其中一档做二供试点，先出这一档的边际成本清单（网关配置、回归跑批、条款核对），不谈全量替换。</p>
+        <p class="qa-src">依据　<a href="#ml-selection">多模型默认解与三层路由</a> · <a href="#ml-platforms">两种货架哲学</a></p>
+      </div>
+    </details>
+    <details id="q-model-landscape-13">
+      <summary>你凭什么说这家适合我们？选型怎么验？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>不凭我说，凭一次你们能验收的选型验证。四条起码规矩：用客户自己的真实任务样本（演示题上人人都及格）；同一套判分标准、阈值<b>事前签</b>；<b>盲掉品牌打分</b>，否则结论会跟着 logo 走；成本与延迟跟质量<b>一起量</b>——只比质量会选出一个跑不上生产的赢家。通过的判据也不是「谁分最高」，是四个验收面都拿到证据件（匹配质量 / 运行治理 / 经济 / 生命周期）：分最高但许可证过不了、或每合格结果的成本超预算，一样不算通过。</p>
+        <p class="qa-why">这题真正在问「你有没有一套不靠嘴的判法」。答成一个有验收面、有产物的动作，选型就从推荐变成了工程；产物是一份可重跑的评测包，它以后就是换模型时的回归资产。</p>
+        <p class="qa-next"><b>下一步</b>　把四个验收面做成一页验收表，逐行写明要索取的证据件，事前跟客户把阈值签掉；评测包按 Evaluation 的自建评估方法建，验完留在客户那儿。</p>
+        <p class="qa-src">依据　<a href="#ml-selection">选型验收六条证据线</a> · <a href="../evaluation/index.html#eval-build">Evaluation · 自建评估</a></p>
+      </div>
+    </details>
+    <details id="q-model-landscape-14">
+      <summary>我们押的这个模型，厂商说停就停怎么办？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>分两种情况答，别混成一句「我们会跟进」。<b>静默升级</b>——名字没变、背后的 checkpoint 换了，只有回归集能发现（漂移的排查链在 AI-Ops）；<b>显式退役</b>——有通知、有截止日，这种反而好办：当一次发布走完即可，锁定当前版 → 候选版 → 离线评测 → 金丝雀放量 → 晋升或回滚，换与不换的证据是回归集分数，不是供应商的型号对照表。事前三个动作决定了那天的成本：<b>钉住具体版本号而不用滚动别名</b>、<b>把弃用通知期与新旧并行期写进合同</b>、<b>备选路径必须跑过一次回归</b>。</p>
+        <p class="qa-why">这句话在算「押错了的代价」。答案要把代价从「整套重做」降到「一次例行发布」——模型是易耗品、评估集才是资产，这也是把抽象层与评估集这两笔前置投入讲明白的最好时机。</p>
+        <p class="qa-next"><b>下一步</b>　方案里加一张版本登记表：现用版本号、通知期、已验证的备选、上次回归日期，评审会上逐行问一遍。</p>
+        <p class="qa-src">依据　<a href="#ml-selection">升级发布链与生命周期验收</a> · <a href="../ai-ops/index.html#ops-drift">AI-Ops · 三类漂移</a></p>
+      </div>
+    </details>
   </div>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../solution-patterns/index.html#sp-method" title="「模型是可替换件」的方案叙事在 SP 第 2 章；各场景章的模型选型格子引用本模块">方案共性方法<span class="xm">Solution-Patterns</span></a><a href="../evaluation/index.html#eval-benchmarks" title="这个词的主场：Evaluation · 模型基准测试全景">SWE-bench<span class="xm">Evaluation</span></a><a href="../llm/index.html#llm-architecture" title="这个词的主场：LLM · Transformer 全解剖">MoE<span class="xm">LLM</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../solution-patterns/index.html#sp-method" title="「模型是可替换件」的方案叙事在 SP 第 2 章；各场景章的模型选型格子引用本模块">方案共性方法<span class="xm">Solution-Patterns</span></a><a href="../llm/index.html#llm-architecture" title="这个词的主场：LLM · Transformer 全解剖">MoE<span class="xm">LLM</span></a></div>
 </section>
 
 <!-- ============ 相关模块 ============ -->
@@ -726,7 +757,7 @@
      s:"SWE-bench 80.6% 追平闭源；综合 87 开源第一、价格地板", need:["code","zh"]},
     {n:"DeepSeek V4 Flash", t:"floor", self:1, lic:"clean", tag:"开放权重 · MIT", p:"$0.14/$0.28",
      s:"全市场价格地板；批量任务默认档", need:["zh"]},
-    {n:"Qwen3.5", t:"volume", self:1, lic:"clean", tag:"开放权重 · Apache 2.0", p:"0.6B–397B 谱系",
+    {n:"Qwen3.5", t:"volume", self:1, lic:"clean", tag:"开放权重 · Apache 2.0", p:"397B 推理档 · 122B/激活 10B",
      s:"尺寸谱系最全、多语言最强；Omni 线原生全模态", need:["zh","multi","modal"]},
     {n:"Kimi K2.6", t:"volume", self:1, lic:"open", tag:"开放权重", p:"AA 开源第一（54）",
      s:"agentic 编码与工具使用；中文长文口碑档", need:["code","zh"]},
