@@ -28,8 +28,12 @@ jobs:
         with:
           python-version: "3.11"
 
+      # make_share.py 只把 zip 写进给它的目录，不负责建目录（本地跑时缺省写库根，
+      # 目录天然存在，所以这个边角在本机试不出来——首跑就是被它挡住的）。
       - name: 打分享包（含解压自检）
-        run: python3 _maintenance/make_share.py dist
+        run: |
+          mkdir -p dist
+          python3 _maintenance/make_share.py dist
 
       - name: 列出产物
         id: pkg
