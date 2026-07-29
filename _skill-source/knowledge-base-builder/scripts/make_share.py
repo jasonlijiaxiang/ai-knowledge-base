@@ -78,6 +78,10 @@ def build(outdir, full):
     date = datetime.date.today().isoformat()
     top = "%s-%s" % (kb_name(), date)
     path = os.path.join(outdir, top + (".full.zip" if full else ".zip"))
+    # 输出目录在库内时（`make_share.py dist`），走查会碰到**正在写的这个 zip 自己**：
+    # 读一段就把它压进去、文件随之变长，永远读不到 EOF——死循环 + 撑爆磁盘，不是慢。
+    # 2026-07-29 在 CI 上首次踩到（本机一直往库外或库根写，从没触发过）。
+    out_abs = os.path.abspath(path)
     n = 0
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
         for dirpath, dirnames, filenames in os.walk(ROOT):
@@ -89,7 +93,10 @@ def build(outdir, full):
                 rel = os.path.normpath(os.path.join(rel_dir, fn))
                 if not want(rel, full):
                     continue
-                z.write(os.path.join(dirpath, fn), os.path.join(top, rel))
+                src = os.path.join(dirpath, fn)
+                if os.path.abspath(src) == out_abs:
+                    continue
+                z.write(src, os.path.join(top, rel))
                 n += 1
         if not full:
             # 布局契约要求 _reference/ 目录存在（check_kb_layout 会验）；瘦身包排除的是
