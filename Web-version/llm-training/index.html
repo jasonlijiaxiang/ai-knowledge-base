@@ -179,7 +179,7 @@
   </table>
   </div>
   <p>2026 年旗舰开源模型几乎全是<b>稀疏 MoE</b>：DeepSeek V4-Pro 总参 1.6T/激活仅 49B、
-    Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B——像会诊制医院，分诊台只动用 2% 的医生，但医院整体什么都懂。看 MoE 先分清两个数：总参数（知识容量、显存门槛）与激活参数（每次计算的成本）——<b>MoE 省的是计算不是显存</b>，专家轮流干活但都得在场，这正是私有化部署报价的关键差异。</p>
+    Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B——像会诊制医院，分诊台每次只叫得动其中一小撮医生，但医院整体什么都懂。看 MoE 先分清两个数：总参数（知识容量、显存门槛）与激活参数（每次计算的成本）——<b>MoE 省的是计算不是显存</b>，专家轮流干活但都得在场，这正是私有化部署报价的关键差异。</p>
   <p><b>降本组合拳</b>（「DeepSeek 为什么训得便宜」的标准结构）：架构省（MoE 稀疏激活）+
     精度省（FP8 混合精度，显存带宽近乎减半，已进主流实践）+ 算法省（Muon 优化器计算效率约
     2 倍，Kimi K2 用 MuonClip 在 15.5T token 上零训练崩溃，PyTorch 2.9 已原生内置）+ 工程省（通信计算重叠，把每张卡榨干）——是精打细算，不是偷工减料。架构侧的「发动机舱」在
@@ -218,6 +218,7 @@
   </div>
   <p>选型口诀与镜像模块：「改知识用 RAG、改行为用微调、先试提示词」——应用侧在
     <a href="../rag/index.html#rag-what-why">RAG 网页版</a>，落地工程（LoRA/QLoRA/托管服务）在 <a href="../fine-tuning/index.html">Fine-tuning 网页版</a>——本页只讲训练侧原理。</p>
+  <p><b>梯子还有最上面一档：从头训一个自己的底座</b>。什么时候才轮到它——三条同时成立才算：①要的东西既不是知识（RAG 能给）、也不是行为（微调能给），而是通用底座压根没学过的那类语料；②手上有公开语料里没有的私有数据，且量级撑得起预训练——<a href="#llmtrain-data">数据墙</a>那节的言外之意就是公开好数据已被吃完，你的增量只能来自自己的库；③算力、人和试错预算按<a href="#llmtrain-infra">第 7 章</a>的量级备齐，而不是按「正式那一跑」的账备齐。<b>三条缺一条，就往下一档退</b>。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../rag/index.html#rag-what-why" title="「微调 vs RAG」互为镜像：RAG 从应用侧答，本章从训练侧补全">是什么/为什么<span class="xm">RAG</span></a><a href="../fine-tuning/index.html#ft-methods" title="本模块讲原理，Fine-tuning 模块讲「拿自己数据落地」的工程实践（2026-07-09 建成，候选转正）">微调方法谱系<span class="xm">Fine-tuning</span></a><a href="../fine-tuning/index.html#ft-alignment" title="本模块讲原理，Fine-tuning 模块讲「拿自己数据落地」的工程实践（2026-07-09 建成，候选转正）">偏好对齐落地<span class="xm">Fine-tuning</span></a></div>
 </section>
@@ -440,8 +441,7 @@
 <section class="sec" id="qa">
   <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
-  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-08</b> 来自讲义首版对练页，
-    <b>2026-07-13</b> 来自训练恢复与生产验收深潜。</p>
+  <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-08</b> 来自讲义首版对练页，<b>2026-07-13</b> 来自训练恢复与生产验收深潜，<b>2026-07-23</b> 是按客户交锋场景补的两题（要不要自己训 / 训练方案怎么验收）。</p>
   <div class="qa">
     <details id="q-llm-training-1">
       <summary>你们的模型到底是怎么训出来的？<span class="added">2026-07-08</span></summary>
@@ -528,6 +528,24 @@
         <p class="qa-next"><b>下一步</b>　先分清需求档位：微调用不到预训练级基建——LoRA
           单卡到几卡、托管服务开箱即用。</p>
         <p class="qa-src">依据　<a href="#llmtrain-infra">上云与容错</a></p>
+      </div>
+    </details>
+    <details id="q-llm-training-10">
+      <summary>我们要不要训一个自己的大模型？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>多数情况答案是不要，但<b>直接说「不要」，客户听到的是敷衍</b>——先把这句话背后要的东西问出来。客户说「训自己的模型」，多半指的是三件里的一件：<b>说我们的话</b>（行为问题，微调就够）、<b>懂我们的业务</b>（知识问题，RAG 就够）、<b>数据不能出门</b>（部署问题，私有化部署就够）。对上哪一件，当场就收口了。三件都对不上，才轮到真正的从头训，而它要同时过<a href="#llmtrain-sft">梯子最上面那一档的三条门槛</a>，缺一条就往下退。</p>
+        <p class="qa-why">这题两个方向都能答砸：顺着说「能训」，后面是万卡与千万美元级的账，而且「正式那一跑」只占总投入一半以下，报价怎么算都要崩；张口说「不要」，你就成了否定客户想法的那个人。改叙成<b>「你要的是哪一件」</b>，结论由客户自己得出——你不是劝退方，是帮他把预算砍在刀刃上的那一方。</p>
+        <p class="qa-next"><b>下一步</b>　当场请他把「要自己训」背后的诉求说成一句话，三件里对上哪件就地收口；三件都不是，再打开<a href="#calc6nd">速算器</a>把量级摆出来。下面三档具体怎么选，见 <a href="../fine-tuning/index.html#ft-when">Fine-tuning 的定制光谱与分界线</a>。</p>
+        <p class="qa-src">依据　<a href="#llmtrain-sft">选型口诀与最上面一档</a>　·　<a href="#llmtrain-infra">自建 vs 租云</a></p>
+      </div>
+    </details>
+    <details id="q-llm-training-11">
+      <summary>你们支持分布式训练吗？那这个训练项目怎么算验收通过？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>最危险的答法是「支持」——<b>这两个字一出口，边界就归客户定了</b>。专业答法是把「支持」落到版本、规模、边界条件，再把四组证据摆上桌：<b>数据与目标</b>（data card、loss 口径、基线与早停，来源不清或不可复现直接拒绝）、<b>并行与性能</b>（各 rank 不重不漏、显存账本、MFU 与扩展曲线）、<b>恢复与运维</b>（checkpoint 清单、故障注入演练、责任路由）、<b>成本与交接</b>（完成成本、模型卡、退出与迁移路径）。一句话收口：<b>交付的是可复现的方案，不是一次成功的运行</b>。</p>
+        <p class="qa-why">训练项目和别的项目不一样在于，<b>「跑通过一次」几乎不构成证据</b>：同步作业一卡挂全队停，Llama 3 那一轮就中断了 466 次，恢复能力没演练过就等于没有。事前把这四组签下来，你不必承诺任何一个具体分数，验收也没有一条要靠事后解释——这比给指标承诺安全得多。</p>
+        <p class="qa-next"><b>下一步</b>　把「有效训练时间占比」写进算力采购 SLA，并要求一次真的故障注入演练当验收动作；作业调度与容错的平台侧深潜见 <a href="../ai-infra-platform/index.html#aip-faulttol">AI-Infra-Platform</a>。</p>
+        <p class="qa-src">依据　<a href="#llmtrain-infra">训练方案的验收证据，四组八项</a></p>
       </div>
     </details>
   </div>

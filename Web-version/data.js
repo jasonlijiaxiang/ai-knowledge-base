@@ -2322,7 +2322,7 @@ window.KB = {
    "dir": "Fine-tuning",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-21",
+   "updated": "2026-07-23",
    "chapters": [
     {
      "id": "ft-when",
@@ -2583,6 +2583,33 @@ window.KB = {
      "chapters": [
       "ft-data"
      ]
+    },
+    {
+     "id": "q-fine-tuning-9",
+     "q": "我们想微调一个自己的模型。",
+     "added": "2026-07-23",
+     "chapters": [
+      "advisor",
+      "ft-when"
+     ]
+    },
+    {
+     "id": "q-fine-tuning-10",
+     "q": "数据交给你们训练，会不会泄露？会不会拿去喂别人的模型？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ft-data",
+      "ft-cloud"
+     ]
+    },
+    {
+     "id": "q-fine-tuning-11",
+     "q": "过两个月基座模型升级了，我这次微调是不是白做了？",
+     "added": "2026-07-23",
+     "chapters": [
+      "ft-eval-deploy",
+      "ft-methods"
+     ]
     }
    ]
   },
@@ -2792,6 +2819,32 @@ window.KB = {
      "q": "客户抱怨「AI 又胡说」，怎么系统性接住？",
      "added": "2026-07-13",
      "chapters": [
+      "llm-presales-map"
+     ]
+    },
+    {
+     "id": "q-llm-9",
+     "q": "你们这东西为什么又贵又慢？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llm-inference-kv",
+      "llm-presales-map"
+     ]
+    },
+    {
+     "id": "q-llm-10",
+     "q": "同一个问题问两次，答案不一样——这不是 bug 吗？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llm-inference-kv"
+     ]
+    },
+    {
+     "id": "q-llm-11",
+     "q": "为什么答一半就停？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llm-inference-kv",
       "llm-presales-map"
      ]
     }
@@ -3346,6 +3399,25 @@ window.KB = {
      "id": "q-llm-training-9",
      "q": "我们该自建集群还是用云？",
      "added": "2026-07-13",
+     "chapters": [
+      "llmtrain-infra"
+     ]
+    },
+    {
+     "id": "q-llm-training-10",
+     "q": "我们要不要训一个自己的大模型？",
+     "added": "2026-07-23",
+     "chapters": [
+      "llmtrain-sft",
+      "calc6nd",
+      "llmtrain-sft",
+      "llmtrain-infra"
+     ]
+    },
+    {
+     "id": "q-llm-training-11",
+     "q": "你们支持分布式训练吗？那这个训练项目怎么算验收通过？",
+     "added": "2026-07-23",
      "chapters": [
       "llmtrain-infra"
      ]
@@ -4554,6 +4626,35 @@ window.KB = {
      "added": "2026-07-09",
      "chapters": [
       "pe-core-techniques"
+     ]
+    },
+    {
+     "id": "q-pe-9",
+     "q": "不就是写几句话吗，凭什么单收这笔钱？",
+     "added": "2026-07-23",
+     "chapters": [
+      "pe-what-why",
+      "pe-engineering"
+     ]
+    },
+    {
+     "id": "q-pe-10",
+     "q": "以后换个模型，提示词是不是全废了？",
+     "added": "2026-07-23",
+     "chapters": [
+      "pe-anatomy",
+      "pe-advanced-reasoning",
+      "pe-engineering"
+     ]
+    },
+    {
+     "id": "q-pe-11",
+     "q": "提示词能不能交给业务同事自己写？改坏了算谁的？",
+     "added": "2026-07-23",
+     "chapters": [
+      "pe-anatomy",
+      "pe-engineering",
+      "pe-presales-map"
      ]
     }
    ]

@@ -283,7 +283,8 @@
     </tbody>
    </table>
   </div>
-  <p>客户问「为什么有时答一半就停」，按三种终态答；工程上<b>日志要记停止原因、参数与模型版本，固定 seed 也不能替代回归测试</b>——生成有随机性，靠一次跑对不能证明版本没退化。</p>
+  <p>客户问「为什么有时答一半就停」，按三种终态答——<b>它们的责任方完全不同</b>：<b>长度上限</b>是额度问题（要么输出上限设小了，要么输入太长把窗口吃掉、剩给输出的不够）；<b>停止词命中</b>是配置问题（停止序列配得太宽，正文里出现那个串就提前收尾）；<b>报错</b>是链路问题（超时、限流、上游异常，这一类根本没跑完）。所以工程上<b>日志要记停止原因、参数与模型版本</b>，否则每次都得重演一遍才知道是哪一种。</p>
+  <p>再往前一步是「同一个问题问两次，答案为什么不一样」：decode 每一步模型给出的<b>不是唯一答案，是下一个词的概率分布</b>，服务端按分布抽一个再接着往下写——采样参数调保守就贴着最高分走，放开就更发散。<b>同问不同答是设计使然，不是故障</b>；但反过来也别把「逐字一致」写进验收——<b>固定 seed 也不能替代回归测试</b>，生成有随机性，靠一次跑对不能证明版本没退化。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../prompt-engineering/index.html#pe-anatomy" title="提示词为什么有效的「物理学」基础：上下文窗口 / 注意力决定能放多少、放多准；讲义已加「与 Prompt Engineering 的关系」页回指">提示词解剖<span class="xm">Prompt-Engineering</span></a><a href="../rag/index.html#rag-what-why" title="「1M 窗口不是 RAG 终结者」：本模块给架构论据（成本/有效性/权限），RAG 第 1 章为应用视角，双向互为弹药">是什么/为什么<span class="xm">RAG</span></a><a href="../agent/index.html#agent-context" title="上下文工程的物理学解释：O(n²) 成本 + 有效窗口约束是 Agent 第 5 章那套做法的根源">上下文工程<span class="xm">Agent</span></a><a href="../llm-inference/index.html#llminf-kv-budget" title="本章讲 KV 缓存「为什么存在」（机制），LLM-Inference 第 2 章讲「怎么管好」（服务系统），互为前后篇；对方讲义有承上启下页回指本章（2026-07-09 补）…">KV Cache 与显存账<span class="xm">LLM-Inference</span></a><a href="../ai-infra-compute/index.html#aic-hbm" title="这个词的主场：AI-Infra-Compute · 显存与 HBM：AI 时代最贵的房地产">HBM<span class="xm">AI-Infra-Compute</span></a></div>
 </section>
@@ -373,7 +374,8 @@
   <h2><span class="num">07</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-08</b> 来自讲义首版对练页，
-    <b>2026-07-13</b> 来自四类失败与讲解验收增补。</p>
+    <b>2026-07-13</b> 来自四类失败与讲解验收增补，<b>2026-07-23</b>
+    是按客户交锋场景补的三题（账单与延迟归因 / 输出不稳定 / 答一半就停）。</p>
   <div class="qa">
     <details id="q-llm-1">
       <summary>为什么现在的大模型清一色 Transformer？<span class="added">2026-07-08</span></summary>
@@ -451,6 +453,33 @@
         <p class="qa-why">换更大的模型只能治推理失败的一部分——没分诊就换模型，相当于头疼直接吃止痛药，越权外泄这类「治理科」的病根本治不到。</p>
         <p class="qa-next"><b>下一步</b>　把客户的故障单按四层归因做成表格再谈方案；高风险结论一律要求外部证据。</p>
         <p class="qa-src">依据　<a href="#llm-presales-map">四类失败</a></p>
+      </div>
+    </details>
+    <details id="q-llm-9">
+      <summary>你们这东西为什么又贵又慢？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p><b>别笼统答，当场拆成三笔账</b>，因为它们的根因和修法完全不同。①<b>输入</b>：prefill 要整段并行啃完，计算随长度平方涨——窗口翻倍，计算 ×4，<b>输入越长，首字越慢</b>。②<b>输出</b>：每个输出 token 都是一轮完整前向（写 500 字 ≈ 完整跑 700 多次前向），<b>这就是输出单价高于输入的架构原因</b>，也是字一个个往外蹦的原因。③<b>轮次</b>：多轮对话里每多塞 1K token，<b>后续每一轮都为它付费</b>——账单涨得比用量快，十有八九在这一项。「慢」同样要拆两半：<b>首字慢是 prefill 在啃，出字慢是逐 token 在跑</b>，两种慢的修法不一样，混着谈必答错。</p>
+        <p class="qa-why">客户说「贵」时心里是一个总数，你要把它变成三项可以分别下手的账；否则谈判只剩砍功能和砍价这两条最贵的路。而且贵和慢在架构上同一个根：token 数 × 前向次数——所以压对了一项，两个抱怨一起缓解。</p>
+        <p class="qa-next"><b>下一步</b>　要他们一周的调用日志，按输入 / 输出 / 轮次三项拆开，先看哪项占大头再谈优化：长输入的定价账见 <a href="../llm-inference/index.html#llminf-kv-budget">LLM-Inference</a>，前缀缓存与提示词瘦身的具体手法见 <a href="../prompt-engineering/index.html#pe-engineering">Prompt-Engineering</a>。</p>
+        <p class="qa-src">依据　<a href="#llm-inference-kv">两阶段与复利型成本</a>　·　<a href="#llm-presales-map">速查表</a></p>
+      </div>
+    </details>
+    <details id="q-llm-10">
+      <summary>同一个问题问两次，答案不一样——这不是 bug 吗？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p>不是故障，是自回归生成的默认行为：<b>模型每一步给出的不是唯一答案，是下一个词的概率分布</b>，服务端按分布抽一个再往下写——采样参数调保守就贴着最高分走，放开就更发散。所以稳定性是可调的旋钮，<b>但别把「逐字一致」写进验收</b>：固定 seed 也不能替代回归测试。正确的验收口径是<b>同问同结论，不是同问同字</b>——用评估集批量跑、看通过率，而不是拿一条 case 反复复现。</p>
+        <p class="qa-why">客户的测试团队是按传统软件的思路提的缺陷单——「同输入不同输出＝功能不稳定」。这一单要是当 bug 接下来，往后每个版本都得陪着复现；改叙成「随机性是可调参数 + 验收验结论」，才把验收拉回可执行，也顺带把日志要求（参数与模型版本）提前谈掉，否则「上周还好好的」根本无从查起。</p>
+        <p class="qa-next"><b>下一步</b>　让他们把「答案不一样」的样本分成两堆：结论不同的进评估集当真问题（<a href="../evaluation/index.html#eval-build">怎么建评估集</a>），只是措辞不同的调采样参数即可——分完，大半缺陷单会自己消失。</p>
+        <p class="qa-src">依据　<a href="#llm-inference-kv">生成请求的状态机</a></p>
+      </div>
+    </details>
+    <details id="q-llm-11">
+      <summary>为什么答一半就停？<span class="added">2026-07-23</span></summary>
+      <div class="a">
+        <p><b>先看日志里的停止原因</b>，三种终态责任方完全不同：<b>长度上限</b>——输出上限设小了，或输入太长把窗口吃掉、剩给输出的额度不够（改配置或压输入）；<b>停止词命中</b>——停止序列配得太宽，正文里出现那个串就提前收尾（改配置）；<b>报错</b>——超时、限流、上游异常，这一类根本没跑完（看错误码）。一句话给客户：「答一半就停」不是一种病。</p>
+        <p class="qa-why">现场最容易犯的错是当场归因成「上下文不够，得上更大的模型」——三种终态里只有一种和窗口有关，另外两种换模型一点用没有。这跟四类失败的分诊法是同一个道理：先归因再开药。</p>
+        <p class="qa-next"><b>下一步</b>　现场就问三句：停止原因是什么、输出上限设了多少、输入有多长。三句答完当场能定位，答不上来就是日志没记——那本身就是要先补的一项。</p>
+        <p class="qa-src">依据　<a href="#llm-inference-kv">生成请求的状态机</a>　·　<a href="#llm-presales-map">四类失败</a></p>
       </div>
     </details>
   </div>
