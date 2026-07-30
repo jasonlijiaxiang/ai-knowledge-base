@@ -33,7 +33,7 @@
 | AI 网关正与 MCP 网关融合(统一代理 LLM API + MCP Server + Agent);Envoy 路线图含 MCP 授权、后端安全策略、OIDC token 交换 | gw-mcp | 2026-07-09 | Envoy release-notes / Apache APISIX |
 | 可观测正收敛到 OpenTelemetry GenAI 语义约定 / OpenInference | gw-observe | 2026-07-09 | opentelemetry.io semconv/gen-ai / Envoy v1.0 |
 | 云厂商格局:Cloudflare AI Gateway 主打花费上限与缓存;AWS 以 Bedrock 为主,无 APIM 式统一多模型 API;Google Apigee 有部分 AI 网关能力 | gw-cheatsheet | 2026-07-09 | zuplo / truefoundry 2026 横评 |
-| MCP 授权现行规范修订版为 2025-11-25(授权模型自 2025-06-18 起以 OAuth 2.1 为底座):MCP Server=资源服务器,RFC 8707 audience 校验与 RFC 9728 资源元数据为 MUST,PKCE 强制,token 透传明令禁止;下一版规范预计 2026-07-28 发布 | gw-mcp | 2026-07-10 | modelcontextprotocol.io spec 2025-11-25 / solo.io / kane.mx |
+| MCP 授权现行规范为 2026-07-28(授权模型自 2025-06-18 起以 OAuth 2.1 为底座):MCP Server=资源服务器,RFC 8707 audience 校验与 RFC 9728 资源元数据为 MUST,PKCE 强制,token 透传明令禁止;2026-07-28 新增签发方(iss)校验、注册声明 application_type、凭据绑签发方,并要求 Mcp-Method/Mcp-Name 请求头(网关不解 JSON 体即可路由) | gw-mcp | 2026-07-30 | modelcontextprotocol.io/specification/2026-07-28/changelog / solo.io / kane.mx |
 | 网关身份传递主流做法:RFC 8693 Token 交换铸造 audience 限定窄凭证,act 委派链可验证"用户→Agent→本次调用";Azure APIM 策略同时支持 RFC 8693 与 Entra On-Behalf-Of,Red Hat/MuleSoft/Maverics 均已落地 | gw-mcp | 2026-07-10 | Red Hat Developer 2025-12 / Salesforce Architect / Uber Eng |
 | Kong AI Gateway 高级插件（AI Proxy Advanced / Semantic Cache 等）标注 tier: ai_gateway_enterprise,需企业订阅;开源版仅基础 AI Proxy | gw-cheatsheet | 2026-07-12 | developer.konghq.com/plugins/ai-proxy-advanced/ |
 | Apache APISIX 当前正式版 3.17.0(2026-06-15),支持 MCP 与 Agent 流量治理 | gw-cheatsheet | 2026-07-12 | apisix.apache.org/downloads/ |

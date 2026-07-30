@@ -22,8 +22,8 @@
       client，双方各做一次就能互通。本页是这一册的网页版，讲义 PPT 见页脚链接。</p>
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
-      <span class="badge ok">当前稳定规范 2025-11-25</span>
-      <span class="badge recheck">2026-07-28 新版发布 · 待复查</span>
+      <span class="badge ok">现行规范 2026-07-28</span>
+      <span class="badge recheck">2026-07-28 新版已发布 · 已回刷</span>
     </p>
   </div>
 </header>
@@ -210,7 +210,7 @@
   </figure>
 
   <div class="box warn">
-    <p><span class="badge recheck">2026-07-28 待复查</span>新版把这套握手改成无状态，删掉 initialize 与会话 ID，上下文随每个请求走。理解经典三步仍是基础，但届时这一节的机制描述需要改写——细节见<a href="#mcp-transport">传输与版本演进</a>。</p>
+    <p><span class="badge recheck">2026-07-28 已回刷</span>新版已删掉这套握手、改走无状态：删掉 initialize 与会话 ID，上下文随每个请求走。理解经典三步仍是基础，但届时这一节的机制描述需要改写——细节见<a href="#mcp-transport">传输与版本演进</a>。</p>
   </div>
 
   <h3>三大原语：两把刀切同一件事</h3>
@@ -244,7 +244,7 @@
   <p>除服务端三原语外，协议还定义了反向能力：Sampling（服务端反过来请客户端的模型帮忙生成）、
     Elicitation（服务端向用户追问补充信息）、Roots（客户端告知可访问的目录范围）。</p>
   <div class="box warn">
-    <p><span class="badge recheck">2026-07-28 待复查</span>新版把 Roots、Sampling、Logging 正式列入弃用（Deprecated），建议改用工具参数、直连模型 API、stderr 或 OpenTelemetry 等替代，保留至少 12 个月缓冲。选型时不要把架构压在这几项上。</p>
+    <p><span class="badge recheck">2026-07-28 已回刷</span>新版已把 Roots、Sampling、Logging 正式列入弃用（Deprecated），建议改用工具参数、直连模型 API、stderr 或 OpenTelemetry 等替代，保留至少 12 个月缓冲。选型时不要把架构压在这几项上。</p>
   </div>
 
   <h3 id="wire">真实报文：一次 tools/call 的来回</h3>
@@ -338,7 +338,7 @@
   <h3>语法相同不代表信任相同</h3>
   <p>这是这一章最值钱的一句。stdio 的边界是进程隔离，凭据走环境变量或本地文件，信任前提是「你启动的那个命令及其来源」——本地不自动等于安全。Streamable HTTP 的边界是网络策略，靠 TLS、Origin 校验、OAuth 的 audience 限定，信任前提是网络边界与授权配置。</p>
   <p><b>换传输等于换一整套进程、网络、凭据边界</b>。从 stdio 迁到 HTTP 时鉴权设计要重做，不是改个 URL。所以顺序应该是先定信任模型，再选传输形态。</p>
-  <p class="ev">口径依据官方规范 2025-11-25，核实 2026-07-12。Streamable HTTP 自 2025 年 3 月起取代旧的 HTTP+SSE（Server-Sent Events），是当前的标准传输。</p>
+  <p class="ev">口径依据官方规范 2026-07-28，核实 2026-07-30。Streamable HTTP 自 2025 年 3 月起取代旧的 HTTP+SSE（Server-Sent Events），是当前的标准传输。</p>
 
   <h3>五版脉络：一路在解决「企业规模化」</h3>
 
@@ -387,6 +387,18 @@
 
 
   <p>早期几版解决「能跑通」，后面几版全在解决「多车道、能鉴权、能规模化扩容」——协议在稳步往企业基础设施的方向走。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>版本</th><th>传输</th><th>授权</th><th>状态模型</th><th>这一版解决了什么</th></tr></thead>
+    <tbody>
+      <tr><td>2024-11-05</td><td>stdio + HTTP+SSE</td><td>无</td><td>有状态</td><td>先能跑通：三原语与 JSON-RPC 2.0 基座</td></tr>
+      <tr><td>2025-03-26</td><td>Streamable HTTP（取代 HTTP+SSE）</td><td>OAuth 2.1 框架</td><td>有状态 · <code>Mcp-Session-Id</code></td><td>能远程、能鉴权：工具注解、批处理</td></tr>
+      <tr><td>2025-06-18</td><td>Streamable HTTP</td><td>服务端定为 OAuth 资源服务器；RFC 8707 受众校验</td><td>有状态</td><td>输出能对接程序：结构化输出、Elicitation</td></tr>
+      <tr><td>2025-11-25</td><td>Streamable HTTP</td><td>OIDC 发现、增量授权、CIMD</td><td>有状态</td><td>往企业靠：图标元数据、实验性 Tasks</td></tr>
+      <tr><td>2026-07-28</td><td>Streamable HTTP（无会话）</td><td>RFC 9207 签发方校验；凭据绑签发方；DCR 转 CIMD</td><td><b>无状态</b></td><td>能规模化：无状态核心、MRTR、头路由、可缓存列表、扩展框架</td></tr>
+    </tbody>
+  </table>
+  </div>
 
   <h3>无状态核心：新版改动最大的一处</h3>
   <p>旧的有状态模型要先 initialize 握手拿会话 ID，整通会话认一个实例，于是需要会话粘连（sticky session）或共享会话存储，「这个会话归哪台机器」得一直记着。</p>
@@ -408,8 +420,55 @@
     </div>
   </div>
   <p>加上正式弃用政策（Active → Deprecated → Removed，至少 12 个月缓冲），新版给客户两个安心点：能力可扩展、变更有节奏。</p>
-  <p class="ev">核实 2026-07-12，来源 <a href="#src-rc">MCP 官方博客 RC 发布文</a>。
-    RC 已于 5 月锁定，给 SDK 十周验证窗口。<b>本节是全册时效性最强的一处，2026-07-28 后需整节复核。</b></p>
+
+  <h3>逐项对照：2026-07-28 相对 2025-11-25 改了什么</h3>
+  <p>官方 changelog 给的是九项主变更加十二项次要变更。下表按<b>对落地的影响</b>排序，
+    每行标出对应的 SEP 编号，客户要追溯时给得出出处。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>变更</th><th>旧 · 2025-11-25</th><th>新 · 2026-07-28</th><th>对你意味着什么</th><th>SEP</th></tr></thead>
+    <tbody>
+      <tr><td>会话</td><td><code>Mcp-Session-Id</code> 头维持会话</td><td>删掉会话与该头；要跨调用留状态，改用服务端铸造的句柄，当普通工具参数传</td><td>不用粘性会话，普通负载均衡就能横向扩</td><td>2567</td></tr>
+      <tr><td>握手</td><td><code>initialize</code> / <code>initialized</code> 两步握手</td><td>删握手；每个请求在 <code>_meta</code> 里自带协议版本与客户端能力，版本不匹配返回 <code>UnsupportedProtocolVersionError</code></td><td>少一轮往返，任意实例都能接同一个请求</td><td>2575</td></tr>
+      <tr><td>版本协商</td><td>靠握手交换能力</td><td>新增 <code>server/discover</code>，服务端必须实现，广告支持的版本、能力与身份</td><td>版本选择前置，探活与兼容判断更直接</td><td>2575</td></tr>
+      <tr><td>服务端反向请求</td><td><code>roots/list</code>、<code>sampling/createMessage</code>、<code>elicitation/create</code> 由服务端发起</td><td>改走多轮请求（MRTR）：返回 <code>input_required</code>，客户端带 <code>inputResponses</code> 重试原请求</td><td>不再需要一直开着的回调通道</td><td>2322</td></tr>
+      <tr><td>结果字段</td><td>结果无类型标记</td><td>所有结果必带 <code>resultType</code>（<code>complete</code> / <code>input_required</code>）</td><td>旧服务端省略时按 <code>complete</code> 处理，兼容有据</td><td>2322</td></tr>
+      <tr><td>订阅通知</td><td>HTTP GET 端点 + <code>resources/subscribe</code></td><td>收口成一条长连 <code>subscriptions/listen</code>，客户端按类型订阅</td><td>变更通知只剩一条流，网关好治理</td><td>2575</td></tr>
+      <tr><td>断流恢复</td><td><code>Last-Event-ID</code> 可续传、可重投</td><td>取消可恢复与重投；断了要用新的请求 ID 重发</td><td>客户端要自己做幂等与重试，别假设续得上</td><td>2575</td></tr>
+      <tr><td>长任务</td><td>实验性 <code>tasks/result</code>，阻塞等结果</td><td>转为官方扩展 <code>io.modelcontextprotocol/tasks</code>：<code>tasks/get</code> 轮询 + <code>tasks/update</code> 回传，去掉 <code>tasks/list</code></td><td>长任务有了标准姿势，且能单独版本化</td><td>2663</td></tr>
+      <tr><td>端点精简</td><td><code>ping</code>、<code>logging/setLevel</code>、roots 变更通知</td><td>全部删除；日志级别改为每个请求在 <code>_meta</code> 里带</td><td>实现面变小，少三处要维护的端点</td><td>2575</td></tr>
+      <tr><td>请求头路由</td><td>要解 JSON 体才知道调的是什么</td><td><code>Mcp-Method</code> / <code>Mcp-Name</code> 成为必带头</td><td>网关、限流器、WAF 不解包就能路由——网关侧最实的一条</td><td>2243</td></tr>
+      <tr><td>列表可缓存</td><td>只能靠 <code>listChanged</code> 通知</td><td>五个列表类结果必带 <code>ttlMs</code> 与 <code>cacheScope</code>（public / private）</td><td>能缓存、能让共享中间层判断可否缓存，少一堆轮询</td><td>2549</td></tr>
+      <tr><td>工具顺序</td><td>顺序不保证</td><td><code>tools/list</code> 建议返回确定性顺序</td><td>为的是提高大模型提示词缓存的命中率</td><td>—</td></tr>
+      <tr><td>链路追踪</td><td>无约定</td><td><code>_meta</code> 里定下 <code>traceparent</code> / <code>tracestate</code> / <code>baggage</code> 传播约定</td><td>MCP 调用能并进现有可观测体系，不用自造一套</td><td>414</td></tr>
+      <tr><td>错误码</td><td>资源未找到用 <code>-32002</code></td><td>改为 <code>-32602</code>；并划分 <code>-32020</code>–<code>-32099</code> 为规范保留段</td><td>错误码不再各家自定义，排错时口径统一</td><td>—</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>四项弃用，和一个十二个月的窗口</h3>
+  <p>这一版首次带来正式的特性生命周期政策：Active → Deprecated → Removed 三态，
+    <b>从弃用到最早可移除之间至少十二个月</b>。口径要说准——这是「弃用到移除」的窗口，
+    不是「新版本只管十二个月」。说岔了会变成给客户的错误承诺。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>已进入弃用的</th><th>官方给的替代</th><th>我现在该做什么</th></tr></thead>
+    <tbody>
+      <tr><td>Roots</td><td>改用工具参数、资源 URI 或服务端配置传目录</td><td>盘一遍哪些工具靠 roots 拿路径，改成显式入参</td></tr>
+      <tr><td>Sampling</td><td>直接对接大模型厂商 API</td><td>服务端别再借客户端的模型；自己接 API、自己记账</td></tr>
+      <tr><td>Logging</td><td>stdio 写 <code>stderr</code>，或走 OpenTelemetry</td><td>顺手把 trace 上下文接上（新版已定 <code>_meta</code> 传播约定）</td></tr>
+      <tr><td>HTTP+SSE 传输</td><td>迁到 Streamable HTTP</td><td>2025-03-26 起就该迁了，这次正式进弃用态，别再拖</td></tr>
+      <tr><td>OAuth 动态客户端注册（RFC 7591）</td><td>改用客户端 ID 元数据文档（CIMD）</td><td>旧机制保留兼容；新接入直接上 CIMD，别再往注册端点建</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>迁移成本落在哪，官方说得很直白：<b>依赖会话标识的实现受影响最大</b>——这正是无状态改造的代价所在。
+    四个 Tier 1 SDK（TypeScript、Python、Go、C#）都已出支持版本，Rust 为 beta，包内附迁移说明。</p>
+
+  <p class="ev">核实 2026-07-30，来源 <a href="#src-rc">MCP 官方 2026-07-28 发布文与 changelog</a>。
+    规范已于 2026-07-28 正式发布，本节按官方 changelog 逐项回刷。<b>本节仍是全册时效性最强的一处，下一次定点复查 2027-01-31。</b></p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../prompt-engineering/index.html#pe-engineering" title="这个词的主场：Prompt-Engineering · 工程化与自动优化">提示词缓存<span class="xm">Prompt-Engineering</span></a></div>
 </section>
 
 <!-- ============ 4 ============ -->
@@ -438,7 +497,7 @@ if __name__ == "__main__":
 
   <p>另外两个装饰器对应另外两个原语：<code>@mcp.resource("file://readme")</code> 暴露只读上下文，
     <code>@mcp.prompt()</code> 把一段最佳用法固化成模板。同一个 server 里三类能力可以齐活。</p>
-  <p><b>选栈两条硬事实</b>：①官方 Tier 1 SDK 四种——TypeScript / Python / C# / Go（Tier 是支持等级承诺，不是安全认证）；②面向新规范的 beta 已发，<b>Python SDK v2.0.0b1 把 <code>FastMCP</code> 更名为 <code>MCPServer</code></b>，TS v2 拆包——上面这段 <code>FastMCP</code> 写法在当前稳定线仍可用，做迁移评估时记得新版类名已换。</p>
+  <p><b>选栈两条硬事实</b>：①官方 Tier 1 SDK 四种——TypeScript / Python / C# / Go（Tier 是支持等级承诺，不是安全认证）；②面向新规范的 beta 已发，<b>Python SDK v2.0.0b1 把 <code>FastMCP</code> 更名为 <code>MCPServer</code></b>，TS v2 拆包——上面这段 <code>FastMCP</code> 这个写法在兼容期内仍可用，做迁移评估时记得新版类名已换。</p>
 
   <h3>开发顺序：先单测 server，再接模型</h3>
   <p>官方调试工具 MCP Inspector 相当于电工的万用表：<code>npx @modelcontextprotocol/inspector</code>
@@ -804,7 +863,7 @@ if __name__ == "__main__":
     <details id="q-mcp-5">
       <summary>月底新版发布，我现在的 server 要立刻改代码吗？<span class="added">2026-07-08</span></summary>
       <div class="a">
-        <p>不必立刻。当前稳定版仍是 2025-11-25，新旧有兼容期，SDK 同时支持两版；弃用政策承诺任何特性从弃用到移除至少留 12 个月。</p>
+        <p>不必立刻。2026-07-28 已是现行规范，2025-11-25 进入兼容期；四个 Tier 1 SDK 都出了支持版本，弃用政策承诺任何特性从弃用到移除至少留 12 个月。</p>
         <p class="qa-why">真正要提前做的不是改代码，是做影响评估：盘出有没有依赖 Roots / Sampling / Logging 的地方——这三项在新版被列入弃用。</p>
         <p class="qa-next"><b>下一步</b>　盘一遍现有集成对这三项的依赖，列出替代方案，排进 12 个月缓冲期内的迭代。</p>
         <p class="qa-src">依据　<a href="#mcp-transport">传输与版本演进</a> · <a href="#src-rc">src-rc</a></p>
@@ -931,8 +990,8 @@ if __name__ == "__main__":
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
       <tr id="src-aaif"><td><code>src-aaif</code></td><td>aaif.io 官方博客</td><td>治理归属、SEP 机制、捐赠时间</td><td>不涉及协议技术细节</td></tr>
-      <tr id="src-spec"><td><code>src-spec</code></td><td>modelcontextprotocol.io 规范页</td><td>当前稳定版口径、三原语与控制面定义</td><td>不代表尚未发布的新版行为</td></tr>
-      <tr id="src-rc"><td><code>src-rc</code></td><td>MCP 官方博客 RC 发布文</td><td>2026-07-28 版的改动清单与时间表</td><td>RC 锁定不等于正式发布，条款可能微调</td></tr>
+      <tr id="src-spec"><td><code>src-spec</code></td><td>modelcontextprotocol.io 规范页</td><td>现行规范口径、三原语与控制面定义</td><td>不代表尚未发布的新版行为</td></tr>
+      <tr id="src-rc"><td><code>src-rc</code></td><td>MCP 官方博客 RC 发布文</td><td>2026-07-28 版的逐项改动清单与迁移路子</td><td>RC 锁定不等于正式发布，条款可能微调</td></tr>
       <tr id="src-sdk"><td><code>src-sdk</code></td><td>modelcontextprotocol.io/docs/sdk</td><td>官方 SDK 支持等级与语言覆盖</td><td>支持等级是承诺，不是安全认证</td></tr>
       <tr id="src-registry"><td><code>src-registry</code></td><td>registry 官方页</td><td>Registry 的定位与 preview 状态</td><td>不能作为企业级目录方案的依据</td></tr>
       <tr id="src-cve"><td><code>src-cve</code></td><td>dev.to 汇总</td><td>2026 年 1–4 月 CVE 体量与代表案例</td><td>二次汇总，单条 CVE 细节以官方通告为准</td></tr>
@@ -943,7 +1002,7 @@ if __name__ == "__main__":
   </table>
   </div>
   <div class="box warn" style="margin-top:1rem">
-    <p><b>下一次定点复查：2026-07-28。</b>新版规范正式发布，需整体复核的是<a href="#mcp-protocol">协议解剖</a>的生命周期一节、<a href="#mcp-transport">传输与版本演进</a>整节，以及页顶的版本状态条。本页所有带 <span class="badge recheck">待复查</span> 标记的位置就是复查清单。</p>
+    <p><b>下一次定点复查：2027-01-31。</b>新版规范正式发布，需整体复核的是<a href="#mcp-protocol">协议解剖</a>的生命周期一节、<a href="#mcp-transport">传输与版本演进</a>整节，以及页顶的版本状态条。本页所有带 <span class="badge recheck">待复查</span> 标记的位置就是复查清单。</p>
   </div>
 </section>
 
@@ -957,7 +1016,7 @@ if __name__ == "__main__":
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-28</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-07-30</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../a2a/index.html"><span class="k">上一册 · 协议层</span><b>A2A</b></a>
    <a class="nx" href="../ai-gateway/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Gateway</b></a>

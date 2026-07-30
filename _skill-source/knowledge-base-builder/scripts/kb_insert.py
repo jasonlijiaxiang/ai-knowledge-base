@@ -32,6 +32,11 @@ def _gen_slide_xmls(draw_fns):
     return out
 
 def insert_figures(src, dst, specs):
+    # src 与 dst 必须是不同路径：本函数边读源 zip 边写目标 zip，同名会把源文件当场截断
+    # （2026-07-30 实测：讲义写坏、只剩 22 字节，靠 git 才捞回来）。宁可失败也不静默毁文件。
+    if os.path.abspath(src) == os.path.abspath(dst):
+        raise ValueError("insert_figures: src 与 dst 不能是同一个文件（会把源截断）——"
+                         "写到临时路径再 move 回去")
     new_xmls = _gen_slide_xmls([fn for _, fn, _ in specs])
     with zipfile.ZipFile(src) as z:
         names = z.namelist()

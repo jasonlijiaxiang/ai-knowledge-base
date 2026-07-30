@@ -22,7 +22,7 @@
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
       <span class="badge ok">核实窗口 2026-07-09 至 07-12</span>
-      <span class="badge recheck">MCP 授权规范下版 2026-07-28 · 第 7 节届时复核</span>
+      <span class="badge recheck">MCP 授权规范 2026-07-28 已发布 · 第 7 节已回刷</span>
     </p>
   </div>
 </header>
@@ -307,7 +307,7 @@
   <p>三合一终态：网关从「模型的统一入口」长成<b>模型 + 工具（MCP）+ Agent（A2A）的中枢控制面</b>。协议机制在 <a href="../mcp/index.html">MCP 网页版</a>，Agent 侧的多模型/
     多工具调用在 <a href="../agent/index.html">Agent 网页版</a>——本页讲的是把这些流量统一治理的运营层。</p>
   <p class="ev">授权规范核实 2026-07-10（来源 <a href="#src-mcp-auth">modelcontextprotocol.io
-    spec / Red Hat Developer</a>）；<b>下一版规范预计 2026-07-28 发布，本节届时复核</b>。
+    spec / Red Hat Developer</a>）；<b>现行规范 2026-07-28 已发布：授权侧加了签发方校验、应用类型声明、凭据绑签发方，另新增 Mcp-Method / Mcp-Name 请求头，网关不解 JSON 体就能路由</b>。
     Envoy 的 MCP 授权、OIDC token 交换仍在路线图——是当前最受关注的能力缺口，也是售前要盯的演进点。<b>不可外推边界</b>：路线图上的能力不等于当期可用能力，方案里不能按路线图做承诺。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../mcp/index.html" title="把 MCP 流量统一代理、发现、鉴权、限流、审计的运营层(MCP 讲协议,网关讲治理)">MCP</a><a href="../a2a/index.html" title="Agent↔Agent 流量经网关做统一身份传递与可观测">A2A</a><a href="../agent/index.html" title="给 Agent 的多模型/多工具调用提供统一入口与护栏">Agent</a></div>
@@ -445,8 +445,8 @@
         <p>这正是 MCP 授权要解决的：网关做 token 交换（RFC 8693），把用户真实身份换成「audience 限定、最小权限、短时效」的窄票——Agent 手里永远没有万能钥匙。</p>
         <p class="qa-why">三大反模式（透传/混淆代理/万能钥匙）都有规范级红线：token 透传是
           MUST NOT——网关做身份传递有合规依据，不是自选动作。</p>
-        <p class="qa-next"><b>下一步</b>　对照反模式表审一遍现有 Agent 集成；规范下版
-          2026-07-28 发布后复核条款。</p>
+        <p class="qa-next"><b>下一步</b>　对照反模式表审一遍现有 Agent 集成；规范 2026-07-28 已发布，
+          条款按新版核对。</p>
         <p class="qa-src">依据　<a href="#gw-mcp">MCP 授权</a> · <a href="#src-mcp-auth">src-mcp-auth</a></p>
       </div>
     </details>
@@ -557,7 +557,7 @@
           higress.ai</td><td>Higress 的 MCP 能力与护栏</td><td>能力清单随版本演进</td></tr>
       <tr id="src-mcp-auth"><td><code>src-mcp-auth</code></td><td>modelcontextprotocol.io spec
           2025-11-25 / Red Hat Developer</td><td>MCP 授权规范条款（OAuth 2.1/RFC 8707/8693）</td>
-          <td><b>下版规范 2026-07-28 发布后需复核</b></td></tr>
+          <td><b>已按 2026-07-28 规范回刷</b></td></tr>
       <tr id="src-route"><td><code>src-route</code></td><td>RouteLLM / FrugalGPT（arXiv，见本模块书单）</td><td>路由降本的方法与论文证据</td><td>具体节省比例依赖流量结构，不能当承诺</td></tr>
       <tr id="src-otel"><td><code>src-otel</code></td><td>opentelemetry.io semconv/gen-ai</td>
           <td>GenAI 观测语义约定收敛趋势</td><td>约定仍在演进，字段以当日规范为准</td></tr>

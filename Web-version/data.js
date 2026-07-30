@@ -386,10 +386,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "MCP 授权现行规范修订版为 2025-11-25(授权模型自 2025-06-18 起以 OAuth 2.1 为底座):MCP Server=资源服务器,RFC 8707 audience 校验与 RFC 9728 资源元数据为 MUST,PKCE 强制,token 透传明令禁止;下一版规范预计 2026-07-28 发布",
+     "text": "MCP 授权现行规范为 2026-07-28(授权模型自 2025-06-18 起以 OAuth 2.1 为底座):MCP Server=资源服务器,RFC 8707 audience 校验与 RFC 9728 资源元数据为 MUST,PKCE 强制,token 透传明令禁止;2026-07-28 新增签发方(iss)校验、注册声明 application_type、凭据绑签发方,并要求 Mcp-Method/Mcp-Name 请求头(网关不解 JSON 体即可路由)",
      "chapter": "gw-mcp",
-     "verified": "2026-07-10",
-     "source": "modelcontextprotocol.io spec 2025-11-25 / solo.io / kane.mx",
+     "verified": "2026-07-30",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog / solo.io / kane.mx",
      "recheck": "—"
     },
     {
@@ -1507,11 +1507,11 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "MCP 当前稳定版规范 2025-11-25；2026-07-28 新版 RC 已发布",
+     "text": "MCP 现行规范 2026-07-28（无状态核心，server 可像普通无状态 Web 服务扩容）；2025-11-25 进入兼容期，弃用到移除至少十二个月",
      "chapter": "agent-tools-mcp",
-     "verified": "2026-07-07",
-     "source": "modelcontextprotocol.io 官方博客",
-     "recheck": "2026-07-28"
+     "verified": "2026-07-30",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog",
+     "recheck": "2027-01-31"
     },
     {
      "text": "A2A v1.0 于 2026-03-12 发布（当前补丁 v1.0.1，2026-05-28），150+ 组织采用",
@@ -3544,7 +3544,7 @@ window.KB = {
    "dir": "MCP",
    "layer": "协议层",
    "created": "2026-07-08",
-   "updated": "2026-07-28",
+   "updated": "2026-07-30",
    "chapters": [
     {
      "id": "mcp-what-why",
@@ -3591,24 +3591,38 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "当前稳定版规范 2025-11-25",
+     "text": "现行规范 2026-07-28（2026-07-28 正式发布）：无状态协议核心、MRTR 多轮请求、Mcp-Method/Mcp-Name 头路由、列表结果可缓存（ttlMs/cacheScope）、扩展框架；上一版 2025-11-25 进入兼容期",
      "chapter": "mcp-protocol",
-     "verified": "2026-07-08",
-     "source": "modelcontextprotocol.io 规范页",
+     "verified": "2026-07-30",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog",
+     "recheck": "2027-01-31"
+    },
+    {
+     "text": "2026-07-28 九项主变更：删会话与 Mcp-Session-Id（SEP-2567）、删 initialize 握手改每请求自带版本与能力（SEP-2575）、新增 server/discover、订阅收口为 subscriptions/listen、删 ping 与 logging/setLevel、Tasks 转官方扩展（SEP-2663）、MRTR 取代服务端发起请求（SEP-2322）、结果必带 resultType、取消 SSE 断流续传",
+     "chapter": "mcp-transport",
+     "verified": "2026-07-30",
+     "source": "MCP 官方 changelog 2026-07-28",
+     "recheck": "2027-01-31"
+    },
+    {
+     "text": "首个正式弃用政策：Active/Deprecated/Removed 三态，弃用到最早可移除之间**至少十二个月**；首批弃用 Roots、Sampling、Logging（SEP-2577）与 HTTP+SSE 传输（SEP-2596），OAuth 动态客户端注册转 CIMD",
+     "chapter": "mcp-transport",
+     "verified": "2026-07-30",
+     "source": "modelcontextprotocol.io/community/feature-lifecycle",
      "recheck": "—"
     },
     {
-     "text": "新版规范 2026-07-28 即将发布（RC 已锁定）：无状态核心、Extensions、Tasks 转为官方扩展（experimental core → extension，不入核心规范）、MCP Apps、授权加固、弃用政策（Roots/Sampling/Logging 首批）",
-     "chapter": "mcp-transport",
-     "verified": "2026-07-12",
-     "source": "MCP 官方博客 RC 发布文",
-     "recheck": "2026-07-28"
+     "text": "授权加固三条：授权响应带 iss 且客户端 MUST 校验（RFC 9207，SEP-2468）；动态注册须声明 application_type（SEP-837）；凭据按签发方绑定、不得跨授权服务器复用（SEP-2352）",
+     "chapter": "mcp-security",
+     "verified": "2026-07-30",
+     "source": "MCP 官方 changelog 2026-07-28",
+     "recheck": "—"
     },
     {
-     "text": "官方 SDK Tier 1 为 TypeScript、Python、C#、Go（Tier 是支持等级承诺，不是安全认证）",
+     "text": "官方 SDK Tier 1 为 TypeScript、Python、C#、Go（Tier 是支持等级承诺，不是安全认证）；四者均已出 2026-07-28 支持版本，Rust 为 beta",
      "chapter": "mcp-server",
-     "verified": "2026-07-12",
-     "source": "modelcontextprotocol.io/docs/sdk",
+     "verified": "2026-07-30",
+     "source": "modelcontextprotocol.io/docs/sdk；MCP 官方 2026-07-28 发布文",
      "recheck": "—"
     },
     {

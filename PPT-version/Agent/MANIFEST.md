@@ -27,7 +27,7 @@
 ## 时效性事实（巡检盘查对象）
 | 事实 | 章节 ID | 核实日期 | 来源 | 建议复查日 |
 | --- | --- | --- | --- | --- |
-| MCP 当前稳定版规范 2025-11-25；2026-07-28 新版 RC 已发布 | agent-tools-mcp | 2026-07-07 | modelcontextprotocol.io 官方博客 | 2026-07-28 |
+| MCP 现行规范 2026-07-28（无状态核心，server 可像普通无状态 Web 服务扩容）；2025-11-25 进入兼容期，弃用到移除至少十二个月 | agent-tools-mcp | 2026-07-30 | modelcontextprotocol.io/specification/2026-07-28/changelog | 2027-01-31 |
 | A2A v1.0 于 2026-03-12 发布（当前补丁 v1.0.1，2026-05-28），150+ 组织采用 | agent-tools-mcp | 2026-07-12 | github.com/a2aproject/A2A/releases、Linux Foundation 公告 | — |
 | Microsoft Agent Framework 1.0 GA（2026-04-03，.NET/Python 生产可用；Go 版仍 public preview），合并 AutoGen 与 Semantic Kernel | agent-orchestration | 2026-07-12 | 微软官方公告、learn.microsoft.com/agent-framework | — |
 | 生产可用框架短名单：LangGraph、Claude Agent SDK、OpenAI Agents SDK、Google ADK、MS Agent Framework | agent-orchestration | 2026-07-07 | 2026 多方对比评测 | — |

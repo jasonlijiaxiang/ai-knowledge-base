@@ -23,7 +23,7 @@
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
       <span class="badge ok">核实窗口 2026-07-07 至 07-17</span>
-      <span class="badge recheck">MCP 新版 2026-07-28 · 相关小节届时复核</span>
+      <span class="badge recheck">MCP 新版 2026-07-28 已发布 · 相关小节已回刷</span>
     </p>
   </div>
 </header>
@@ -206,8 +206,8 @@
   </div>
 
   <h3>agent 侧要点</h3>
-  <p>信任边界在 Host：授权、可见性、调用确认都在宿主层控制，server 只声明能力、被动应答。设计取舍记一条：<b>能用资源（Resources）就别包成工具（Tools）</b>——只读数据走资源，上下文更干净、权限也更好管。现状一句话：稳定版 2025-11-25 生产可用，新版 2026-07-28
-    转正（弃用有 12 个月以上缓冲），AAIF 中立治理不绑定厂商。</p>
+  <p>信任边界在 Host：授权、可见性、调用确认都在宿主层控制，server 只声明能力、被动应答。设计取舍记一条：<b>能用资源（Resources）就别包成工具（Tools）</b>——只读数据走资源，上下文更干净、权限也更好管。现状一句话：现行规范 2026-07-28（无状态核心，server 更好扩容），旧版进入兼容期
+    （弃用到移除至少留 12 个月），AAIF 中立治理不绑定厂商。</p>
 
   <h3>生产工具的六层契约（agent 侧独有）</h3>
   <div class="tw">
@@ -224,8 +224,8 @@
   </table>
   </div>
   <p>投入在工具契约上的一小时，常比调一天提示词更能提升成功率——工具返回的质量决定模型「看到什么」，提示词只决定「怎么看」。<b>评审 agent 方案先翻它的工具清单</b>：六层缺哪层，事故就从哪层来。</p>
-  <p class="ev">MCP 版本现状核实 2026-07-07（建议复查日 2026-07-28），来源
-    <a href="#src-mcp">modelcontextprotocol.io</a>。<b>不可外推边界</b>：已排定 2026-07-28 发新版，届时本节结论按新规范重写；在那之前引用必须带版本号。</p>
+  <p class="ev">MCP 版本现状核实 2026-07-30（建议复查日 2027-01-31），来源
+    <a href="#src-mcp">modelcontextprotocol.io</a>。<b>不可外推边界</b>：2026-07-28 新规范已发布，本节结论已按新版回刷；引用时仍必须带版本号。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../mcp/index.html#mcp-what-why" title="Agent 第 4 章讲 MCP 概览，协议细节深入见 MCP 模块">是什么/为什么<span class="xm">MCP</span></a><a href="../a2a/index.html#a2a-what-why" title="Agent 第 4 章提及 A2A（v1.0）；跨厂商 Agent 协作的协议细节深入见 A2A 模块">是什么/为什么<span class="xm">A2A</span></a></div>
 </section>
@@ -837,7 +837,7 @@
           Effective Agents / context engineering / multi-agent research system）</td>
           <td>五模式、四板斧、15×/90.2% 决策账</td><td>内部评测口径（BrowseComp），不能外推为任意任务的收益承诺</td></tr>
       <tr id="src-mcp"><td><code>src-mcp</code></td><td>modelcontextprotocol.io</td>
-          <td>MCP 版本现状与治理（2026-07-07）</td><td>2026-07-28 新版发布后需复核</td></tr>
+          <td>MCP 版本现状与治理（2026-07-07）</td><td>已按 2026-07-28 新版回刷</td></tr>
       <tr id="src-a2a"><td><code>src-a2a</code></td><td>A2A releases / Linux Foundation 公告</td>
           <td>A2A v1.0 时间线与采用规模</td><td>不涉及协议技术细节（见 A2A 模块）</td></tr>
       <tr id="src-frameworks"><td><code>src-frameworks</code></td><td>微软官方公告 / GitHub releases</td>
@@ -857,7 +857,7 @@
   </table>
   </div>
   <div class="box warn" style="margin-top:1rem">
-    <p><b>下一次定点复查：2026-07-28</b>（MCP 新版正式发布）。届时复核第 4 节的版本现状；
+    <p><b>下一次定点复查：2027-01-31</b>（MCP 规范约半年一版，届时核一遍第 4 节的版本现状）；
       sub-agent 两家的字段与默认值属周级易变项，引用当天核官方文档。</p>
   </div>
 </section>
