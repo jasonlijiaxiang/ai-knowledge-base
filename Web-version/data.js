@@ -4584,7 +4584,7 @@ window.KB = {
    "dir": "Prompt-Engineering",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-07-30",
    "chapters": [
     {
      "id": "pe-what-why",
@@ -4631,46 +4631,53 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "推理模型（GPT-5、Claude 4.7 扩展思考、Gemini 3 Pro deep think、DeepSeek R1）已把 CoT 内建，不再需手写「一步步思考」；重点转为控推理预算 / effort。OpenAI 区分推理模型（少给显式步骤）vs 通用 GPT（需更明确指令）",
+     "text": "推理模型阵容（GPT-5.6、Claude 5、Gemini 3.1 Pro、Grok 4.3、DeepSeek V4）已把 CoT 内建，不再需手写「一步步思考」；控制点从「思考预算 token 数」换成 effort（low/medium/high/xhigh/max，默认 high）；思考 token 照常计费但原始思维链不返回，最多给摘要",
      "chapter": "pe-advanced-reasoning",
-     "verified": "2026-07-09",
-     "source": "raw-data/2026-07-09-联网核实笔记（futureagi、stevekinney、OpenAI/Anthropic 文档综述）",
-     "recheck": "—"
+     "verified": "2026-07-30",
+     "source": "Claude API 参考（模型与 effort 口径）；阵容与本库 Model-Landscape 册同源",
+     "recheck": "2026-10-31"
+    },
+    {
+     "text": "两个经典提示词旋钮在 Claude 当前主力模型上已移除：temperature/top_p/top_k（Opus 5、Fable 5、Opus 4.8·4.7 传了返回 400）与助手预填充 prefill（4.6 及以后返回 400，改用结构化输出）",
+     "chapter": "pe-advanced-reasoning",
+     "verified": "2026-07-30",
+     "source": "Claude API 参考（迁移指南 breaking changes）",
+     "recheck": "2026-10-31"
     },
     {
      "text": "DSPy 2.x 默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 +13%、rollout 少 35×，ICLR 2026 oral",
      "chapter": "pe-engineering",
      "verified": "2026-07-09",
      "source": "futureagi（DSPy optimizers 2026）、morphllm（GEPA）",
-     "recheck": "—"
+     "recheck": "2027-01-31"
     },
     {
      "text": "提示词缓存：截至 2026-06 三大厂缓存读取价约为基础输入价 0.1×（约 1 折，省约 90%）；OpenAI 自动（≥1024 token）、Anthropic 手动 cache_control 且写入加价（5min 1.25×/1h 2×）、Gemini 显式+按小时存储计费",
      "chapter": "pe-engineering",
      "verified": "2026-07-20",
-     "source": "leanlm、prompthub、ofox.ai、artificialanalysis；2026-07-20 对照 Anthropic 官方定价文档修正折扣方向（原核实笔记为\"省约 90%\"，成品曾误写成\"打 9 折\"）",
-     "recheck": "—"
+     "source": "leanlm、prompthub、ofox.ai、artificialanalysis；2026-07-20 对照 Anthropic 官方定价文档修正折扣方向（原核实笔记为\"省约 90%\"，成品曾误写成\"打 9 折\"）；缓存按前缀匹配（前缀改一字节则其后全失效）；最小可缓存前缀随模型不同（512–4096 token，且不随代际单调），低于门槛静默不缓存不报错",
+     "recheck": "2026-10-31"
     },
     {
      "text": "各云提示词服务：AWS Bedrock Prompt Management + Advanced Prompt Optimization（改写/迁移+评估环）；Vertex AI / Gemini Enterprise Prompt Optimizer；Azure AI Foundry Prompt Flow",
      "chapter": "pe-engineering / pe-presales-map",
      "verified": "2026-07-09",
      "source": "aws.amazon.com/bedrock/prompt-management、AWS News Blog、InfoWorld",
-     "recheck": "—"
+     "recheck": "2027-01-31"
     },
     {
      "text": "OWASP Top 10 for LLM Applications 2025：LLM01 提示词注入连续两版第一；RAG 与微调都不能根治注入，只能纵深防御",
      "chapter": "pe-security",
      "verified": "2026-07-09",
      "source": "OWASP GenAI（https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/）、mend/aembit/promptfoo 解读",
-     "recheck": "—"
+     "recheck": "2027-01-31"
     },
     {
      "text": "云护栏：AWS Bedrock Guardrails、Azure AI Content Safety、Google Vertex 安全过滤 / Model Armor",
      "chapter": "pe-security",
      "verified": "2026-07-09",
      "source": "各云官方文档",
-     "recheck": "—"
+     "recheck": "2027-01-31"
     }
    ],
    "edges": [

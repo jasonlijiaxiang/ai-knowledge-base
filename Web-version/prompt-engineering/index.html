@@ -207,9 +207,30 @@
     <p>像流水线，拆成有序多次调用、每步只干一件清楚的事——更可控、可单独调试、可插入校验，代价是延迟与成本上升；复杂业务流几乎都值得拆链。</p>
    </div>
   </div>
-  <p><b>推理模型时代的写法之变</b>（2026 关键）：GPT-5、Claude 扩展思考、DeepSeek R1 等已把
-    CoT 内建——<b>不用再手写「一步步思考」，硬塞反而多余</b>；重点从「教它思考」转向「控推理预算/reasoning effort」。OpenAI 口径：推理模型少给显式步骤，通用模型才需要更明确的指令。一句话：<b>模型越会「自己想」，你越该少教它「怎么想」，多花力气在「说清要什么」和「给对上下文」</b>。预算控制的市场侧（overthinking 陷阱）见
+  <p><b>推理模型时代的写法之变</b>（2026 关键）：GPT-5.6、Claude 5、Gemini 3.1 Pro、Grok 4.3、DeepSeek V4
+    等当前主力模型已把 CoT 内建——<b>不用再手写「一步步思考」，硬塞反而多余</b>；重点从「教它思考」转向「花多少推理算力」——
+    控制点是 <code>effort</code>（low / medium / high / xhigh / max，默认 high），按 token 数设「思考预算」的老写法在 Claude
+    当前主力模型上已被移除。思考 token 照常计费，但原始思维链不返回，最多给摘要。一句话：<b>模型越会「自己想」，你越该少教它「怎么想」，多花力气在「说清要什么」和「给对上下文」</b>。预算控制的市场侧（overthinking 陷阱）见
     <a href="../model-landscape/index.html#ml-capability">Model-Landscape 网页版</a>。</p>
+
+  <h3>三个旋钮：两个已经没了，一个成了主角</h3>
+  <p>过去调模型行为主要靠三个旋钮。以 Claude 当前主力模型为例，两个已经被拿掉了——这是提示词工程这两年最实的一次变化，
+    客户问「你们还调温度吗」时用得上。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>旋钮</th><th>现状</th><th>改用什么</th></tr></thead>
+    <tbody>
+      <tr><td><code>temperature</code> / <code>top_p</code> / <code>top_k</code></td><td>Opus 5、Fable 5、Opus 4.8·4.7 上<b>已移除</b>，传了直接报错</td><td>要输出多样：用提示词说清楚，或让模型先给几个方向再挑一个</td></tr>
+      <tr><td>助手预填充（prefill）强行开头锁格式</td><td>4.6 及以后<b>返回 400</b></td><td>要锁死输出结构：改用结构化输出，按 schema 约束返回</td></tr>
+      <tr><td>按 token 数设「思考预算」</td><td>已移除</td><td>换成 <code>effort</code>——见下一行</td></tr>
+      <tr><td><code>effort</code></td><td><b>还在，而且成了主角</b>：low / medium / high / xhigh / max，默认 high</td><td>一个参数同时管思考深度与整体花销；难题往上调，日常任务往下调</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>三个旋钮的消失方向一致：<b>少拧参数，多把要什么说清楚</b>。剩下真正靠人的只有两件——把目标说清楚、把该带的上下文带全。
+    给客户一句话：现在不是「参数调得好」，是「需求写得清」。</p>
+  <p class="ev">口径：Claude API 参考（模型与迁移指南），2026-07-30 核实；阵容与本库 Model-Landscape 册同源。</p>
+
   <p class="ev">推理模型口径核实 2026-07-09，来源 <a href="#src-reasoning">OpenAI/Anthropic
     文档综述</a>。<b>不可外推边界</b>：厂商文档描述的是各自模型的行为，不同家的「推理模式」在触发条件与计费方式上并不一致；提示词写法按目标模型的文档来，不能跨家照搬。</p>
 
@@ -241,7 +262,7 @@
    <table>
     <thead><tr><th>厂商</th><th>怎么开</th><th>要注意</th></tr></thead>
     <tbody>
-     <tr><td>OpenAI</td><td>自动（≥1024 token）</td><td>——</td></tr>
+     <tr><td>OpenAI</td><td>自动，无需改代码</td><td>各家最小可缓存前缀不同（512–4096 token），低于门槛静默不缓存、也不报错</td></tr>
      <tr><td>Anthropic</td><td>手动 cache_control</td><td><b>写入加价</b>（5min 1.25× / 1h 2×）</td></tr>
      <tr><td>Gemini</td><td>显式</td><td>按小时存储计费</td></tr>
     </tbody>
@@ -557,7 +578,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-07-30</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm-training/index.html"><span class="k">上一册 · 基础层</span><b>LLM-Training</b></a>
    <a class="nx" href="../ai-infra-compute/index.html"><span class="k">下一册 · 算力底座层</span><b>AI-Infra-Compute</b></a>

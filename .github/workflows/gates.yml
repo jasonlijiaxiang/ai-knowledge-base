@@ -49,6 +49,11 @@ jobs:
       - name: 讲义排版契约（19 册 audit）
         run: python3 _maintenance/audit_pptx.py PPT-version/*/*-讲义.pptx
 
+      # 页脚页码要等于放映位。audit 的 17 项都不看这个数——PE 册曾 62 页错位、
+      # 最大差 6 页，历时数个批次无人发现（2026-07-30 补这道）。
+      - name: 页脚页码账实
+        run: python3 _maintenance/check_footer_pagenum.py
+
       # ---- 生成物无漂移 ----
       - name: 网页产物与 MANIFEST 一致
         run: python3 Web-version/build.py --check
