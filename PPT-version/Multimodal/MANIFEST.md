@@ -28,8 +28,8 @@
 | --- | --- | --- | --- | --- |
 | 闭源旗舰原生多模态：GPT-5（统一路由）/ Gemini 2.5 Pro（原生图音视频 + 1M~2M 上下文 + MoE）/ Claude 4.5（视觉 + 1M）；test-time compute「thinking」成主流 | mm-understanding | 2026-07-09 | Pluralsight / Shakudo 2026 模型盘点 | 2026-08-01 |
 | 开源 VLM SOTA：InternVL3-78B（MIT）MMMU≈72.2%；Qwen2.5-VL-72B MMMU≈70.2%/OCRBench≈888；Qwen3-VL 文档基准最强开源 | mm-understanding | 2026-07-09 | BentoML / DataCamp / Spheron 2026 | 2026-08-01 |
-| 原生图像生成两大流派：扩散（FLUX.2 / Midjourney）vs 自回归（GPT Image 2〔2026-04〕、Nano Banana 2 = Gemini 3.1 Flash Image〔2026-02〕、Luma） | mm-generation | 2026-07-09 | Modelize / DualView / Curify 2026 | 2026-08-01 |
-| GPT Image 2 全新自回归架构，比前代快 3–5×，多约束指令≈98% 准确、文字渲染近字符级 | mm-generation | 2026-07-09 | nanobananafree / Picsart 2026 | 2026-08-01 |
+| 原生图像生成两大流派：扩散（FLUX.2 / Midjourney）vs 自回归（GPT Image 2〔2026-04〕、Nano Banana 2 = Gemini 3.1 Flash Image〔2026-02〕、Luma） | mm-generation | 2026-08-01 | Modelize / DualView / Curify 2026；08-01 巡检以 ropewalk / buildmvpfast 2026-07 横评复核 | 2026-09-05 |
+| GPT Image 2 全新自回归架构，比前代快 3–5×，多约束指令≈98% 准确、文字渲染近字符级 | mm-generation | 2026-08-01 | nanobananafree / Picsart 2026；08-01 巡检以 pixverse / ropewalk 2026-07 横评复核 | 2026-09-05 |
 | 开源 VLM 可用 vLLM / SGLang 在 GPU 云自部署（Qwen3-VL / Llama 4 Scout / InternVL3） | mm-selection | 2026-07-09 | Spheron 部署指南 2026 | — |
 | 理解侧主基准：MMMU（多学科理解）、OCRBench / DocVQA（文档）、Video-MME（视频） | mm-production | 2026-07-09 | 2026 VLM 评测综述 | — |
 | 语音延迟口径：人类换话空隙 300–500ms；级联生产目标 P50 <1.5s；端到端标杆 <800ms（gpt-realtime 实测量级）；>1.5s 用户判定「坏了」 | mm-voice-realtime | 2026-07-10 | softcery / telnyx 2026 横评 | — |

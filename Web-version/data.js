@@ -4317,16 +4317,16 @@ window.KB = {
     {
      "text": "原生图像生成两大流派：扩散（FLUX.2 / Midjourney）vs 自回归（GPT Image 2〔2026-04〕、Nano Banana 2 = Gemini 3.1 Flash Image〔2026-02〕、Luma）",
      "chapter": "mm-generation",
-     "verified": "2026-07-09",
-     "source": "Modelize / DualView / Curify 2026",
-     "recheck": "2026-08-01"
+     "verified": "2026-08-01",
+     "source": "Modelize / DualView / Curify 2026；08-01 巡检以 ropewalk / buildmvpfast 2026-07 横评复核",
+     "recheck": "2026-09-05"
     },
     {
      "text": "GPT Image 2 全新自回归架构，比前代快 3–5×，多约束指令≈98% 准确、文字渲染近字符级",
      "chapter": "mm-generation",
-     "verified": "2026-07-09",
-     "source": "nanobananafree / Picsart 2026",
-     "recheck": "2026-08-01"
+     "verified": "2026-08-01",
+     "source": "nanobananafree / Picsart 2026；08-01 巡检以 pixverse / ropewalk 2026-07 横评复核",
+     "recheck": "2026-09-05"
     },
     {
      "text": "开源 VLM 可用 vLLM / SGLang 在 GPU 云自部署（Qwen3-VL / Llama 4 Scout / InternVL3）",
