@@ -114,11 +114,11 @@
 
   <div class="tw">
   <table>
-    <thead><tr><th>方案</th><th>画像（2026-07）</th><th>适用</th></tr></thead>
+    <thead><tr><th>方案</th><th>画像（2026-08）</th><th>适用</th></tr></thead>
     <tbody>
       <tr><td>LlamaParse</td><td>VLM 解析复杂版面、托管 API、agentic OCR</td><td>&lt;1000 页/天、非敏感文档、要省事</td></tr>
       <tr><td>Docling</td><td>IBM Research 开源，AI 版面检测、保留语义层级</td><td>自托管零按页成本，生态好</td></tr>
-      <tr><td>MinerU</td><td>OpenDataLab 出品，CJK 复杂版面最强，出 MD+JSON</td><td>中文文档 / 扫描件重的国内项目</td></tr>
+      <tr><td>MinerU</td><td>OpenDataLab 出品，2.5 起走 1.2B 视觉语言模型路线（当前主力 MinerU2.5-Pro-2605-1.2B）；3.1 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可，商用门槛明显降低</td><td>中文文档 / 扫描件重的国内项目；许可放宽后自托管商用更好谈</td></tr>
       <tr><td>Unstructured</td><td>老牌解析管线，格式覆盖广</td><td>多格式混杂的存量清洗</td></tr>
       <tr><td>云文档智能</td><td>Textract / Document Intelligence / Document AI</td><td>企业已有云协议时的默认起点</td></tr>
     </tbody>
@@ -128,13 +128,16 @@
    <table>
     <thead><tr><th>基准口径</th><th>得分</th></tr></thead>
     <tbody>
-     <tr><td>Docling</td><td>0.877</td></tr>
-     <tr><td>marker</td><td>0.861</td></tr>
-     <tr><td>MinerU</td><td>0.831</td></tr>
+     <tr><td>OmniDocBench v1.6 端到端 · MinerU2.5-Pro</td><td>95.75</td></tr>
+     <tr><td>OmniDocBench v1.6 端到端 · MinerU 管线后端</td><td>86.47</td></tr>
+     <tr><td>OmniDocBench v1.6 端到端 · Marker</td><td>78.44</td></tr>
+     <tr><td>olmOCR-bench · Marker 2（balanced）</td><td>76.0</td></tr>
+     <tr><td>olmOCR-bench · MinerU 管线后端</td><td>72.7</td></tr>
+     <tr><td>olmOCR-bench · Docling</td><td>50.3</td></tr>
     </tbody>
    </table>
   </div>
-  <p>opendataloader-bench，200 份 PDF——<b>但这是英文基准</b>：CJK 版面是 MinerU 的主场，<b>中文场景自测是唯一可信口径</b>。</p>
+  <p><b>两榜排序不一致，别拿单一排序当结论</b>：OmniDocBench 由 OpenDataLab（MinerU 同门）维护，v1.6 榜首其实是 PaddleOCR-VL-1.6（96.34），MinerU2.5-Pro 紧随；olmOCR-bench 是 Ai2 的第三方题库，但上面这组分数是 Datalab（Marker 作者）自跑的，比的是「文本层管线」这一档——Datalab 自己也注明 MinerU 的视觉语言模型后端分数更高。两边测的后端不同、维护方各是当事人，所以<b>用客户自己的文档自测才是唯一可信口径</b>。（核实 2026-08-01）</p>
 
   <h3>三个选型硬约束</h3>
   <div class="tw">
@@ -528,14 +531,15 @@
 <section class="sec" id="sources">
   <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Data-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
-    2026-07-11。<b>工具口径会漂——选型结论（就地起步、按约束收敛、自测为准）比工具名保值。</b></p>
+    2026-07-11；解析一节 2026-08-01 重核。<b>工具口径会漂——选型结论（就地起步、按约束收敛、自测为准）比工具名保值。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
-      <tr id="src-parsing"><td><code>src-parsing</code></td><td>mixpeek / pdfmux /
-        llamaindex 2026 横评</td><td>解析四强画像与 opendataloader-bench 分数</td>
-        <td>英文基准，CJK 场景自测为准</td></tr>
+      <tr id="src-parsing"><td><code>src-parsing</code></td><td>MinerU 官方仓 README 与
+        更新记录、OmniDocBench 官方榜（2026-04 起 v1.6）、Marker 官方仓 README（olmOCR-bench
+        自跑结果）</td><td>MinerU 的模型路线与许可变更、两榜各自的分数与排序</td>
+        <td>两榜维护方各是当事人、测的后端也不同，不能当跨工具的统一排名；CJK 场景自测为准</td></tr>
       <tr id="src-vectordb"><td><code>src-vectordb</code></td><td>firecrawl / layerbase /
         encore 2026 对比</td><td>pgvector 上限、Qdrant 延迟、Milvus 规模等锚点</td>
         <td>版本迭代快，量级参考</td></tr>
@@ -556,7 +560,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../ai-infra-platform/index.html"><span class="k">上一册 · 算力底座层</span><b>AI-Infra-Platform</b></a>
   </nav>

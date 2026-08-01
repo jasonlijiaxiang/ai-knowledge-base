@@ -3,8 +3,8 @@
 [![门禁](https://github.com/jasonlijiaxiang/ai-knowledge-base/actions/workflows/gates.yml/badge.svg)](https://github.com/jasonlijiaxiang/ai-knowledge-base/actions/workflows/gates.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-面向"售前技术"角色的 AI 知识库，持续扩充、持续更新。一套知识、两面呈现：**PPT 面**是内容真源
-（讲义 + 精选书单），**Web 面**是可搜索、可串联的网页延伸。当前 **19 个模块 / 1738 页讲义**，七层书架。
+面向"售前技术"角色的 AI 知识库，持续扩充、持续更新。同一套知识做了两个版本：**PPT** 是内容出处
+（讲义 + 精选书单），**网页版**是可搜索、可串联的延伸。当前 **19 个模块 / 1738 页讲义**，七层书架。
 
 **维护它的那套方法本身也在库里**——技能 `knowledge-base-builder` 单独打包，装上就能在这份内容的
 基础上继续建你自己的库。
@@ -80,7 +80,7 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 
 | 目录 | 作用 |
 | --- | --- |
-| `PPT-version/` | **内容真源**，19 个模块整体在此（讲义 pptx + README + MANIFEST + 电子书书单 + raw-data 留痕） |
+| `PPT-version/` | **内容出处**，19 个模块整体在此（讲义 pptx + README + MANIFEST + 电子书书单 + raw-data 留痕） |
 | `Web-version/` | 网页派生站点，由 `build.py` 从各模块 MANIFEST 生成，19/19 已建成 |
 | `_prep/` | 库级取用产物（全库一页纸、学习路径、实战包） |
 | `_reference/` | 库级参考材料（吸收清单与外部对照材料） |
@@ -99,7 +99,7 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 | --- | --- |
 | `check_kb_layout` | 目录布局就位 |
 | `check_html_links` | 门户页坏链（含"指向目录"这种 file:// 下点不进去的写法） |
-| `check_page_ledger` | 页数账实：单册页数四处派生账 + 全库总页数各处声明 |
+| `check_page_ledger` | 页数账实：单册页数在四处的登记 + 全库总页数各处声明 |
 | `check_ebook_ledger` | 书单账实 |
 | `check_css_classes` | 样式契约：孤儿类与全站缓存版本戳 |
 | `check_prep_coverage` | `_prep/` 三份取用文档与源模块同步 |

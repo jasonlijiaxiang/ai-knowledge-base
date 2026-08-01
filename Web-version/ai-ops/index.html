@@ -22,7 +22,7 @@
       发布门禁 → 事故响应，最后打包成可续费的运营包。讲义 PPT 见页脚链接。</p>
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
-      <span class="badge ok">核实窗口 2026-07-10 至 07-12</span>
+      <span class="badge ok">核实窗口 2026-07-10 至 2026-08-01</span>
       <span class="badge recheck">工具格局并购整合中 · 方法与节奏长青</span>
     </p>
   </div>
@@ -108,7 +108,7 @@
   <h2><span class="num">02</span>Tracing 与 OTel GenAI<a class="anchor" href="#ops-tracing">#ops-tracing</a></h2>
 
   <div class="lead">
-    <p>trace 是 AI 应用的「行车记录仪」——出事故时要能回放每一步谁说了什么、调了什么工具、花了多少 token。OTel GenAI 四类 span：<b>gen_ai.client（model）已稳定</b>（2026 年初出实验期：模型名/token 用量/延迟/参数）、tool / agent / workflow 仍实验态但实践已稳——对客的精确口径值钱；多数属性仍带 Development 标签，<b>封装一层再用</b>。</p>
+    <p>trace 是 AI 应用的「行车记录仪」——出事故时要能回放每一步谁说了什么、调了什么工具、花了多少 token。OTel GenAI 四类 span：<b>gen_ai.client（model）</b>（模型名/token 用量/延迟/参数）、tool / agent / workflow，实践已稳——但对客的精确口径值钱：2026-06-12 起（semconv v1.42.0）全部 gen_ai.* 已迁入独立仓 semantic-conventions-genai，整体仍 Development、无一 Stable、新仓尚未发正式版；命名仍可能变，<b>封装一层再用</b>更是硬要求。</p>
   </div>
 
   <h3>一条 RAG 请求的旅程</h3>
@@ -151,7 +151,7 @@
    </table>
   </div>
   <p><b>观测系统常是「数据泄漏的第二现场」</b>——prompt 明文原样进日志等于把客户数据复制了一份，按「第二数据库」的安全标准建。</p>
-  <p class="ev">span 标准状态核实 2026-07-10（OTLP 口径 07-12），来源
+  <p class="ev">span 标准状态核实 2026-08-01（OTLP 口径 07-12），来源
     <a href="#src-otel">OTel 官方规范与博客</a>。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../ai-gateway/index.html#gw-observe" title="网关是数据源与统一采集层，本模块是消费与行动层；trace id 两层贯通（双向）">可观测<span class="xm">AI-Gateway</span></a></div>
@@ -532,7 +532,7 @@
       <div class="a">
         <p>内容与结构分离处理：结构全量、内容采样并在采集点脱敏（正则+NER）、保留期分级、事故 trace 单独归档。观测系统按「第二数据库」的安全标准建。</p>
         <p class="qa-why">观测系统常是数据泄漏的第二现场——一个手机号会出现在 span 属性、日志、评估队列三个地方；脱敏在采集点做，不在展示层。</p>
-        <p class="qa-next"><b>下一步</b>　埋点走 OTel 标准（client span 已稳定）——换观测后端不改埋点，不锁定。</p>
+        <p class="qa-next"><b>下一步</b>　埋点走 OTel 标准（整体仍 Development，封装一层跟进）——换观测后端不改埋点，不锁定。</p>
         <p class="qa-src">依据　<a href="#ops-tracing">PII 三开关</a></p>
       </div>
     </details>
@@ -613,13 +613,13 @@
 <section class="sec" id="sources">
   <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/AI-Ops/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-10
-    至 07-12。<b>工具格局并购整合中，引用任何数字前先核日期。</b></p>
+    至 2026-08-01（OTel 标准状态与平台版本锚点为 08-01 复核）。<b>工具格局并购整合中，引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
-      <tr id="src-otel"><td><code>src-otel</code></td><td>opentelemetry.io semconv /
-        OTLP 规范 / 官方博客</td><td>client span 稳定、其余实验态、OTLP 三信号 Stable</td>
+      <tr id="src-otel"><td><code>src-otel</code></td><td>semantic-conventions-genai 官方仓 /
+        semconv v1.42.0 release / OTLP 规范</td><td>gen_ai.* 迁独立仓、整体 Development 无 Stable、OTLP 三信号 Stable</td>
         <td>属性命名仍可能变，封装再用</td></tr>
       <tr id="src-cost"><td><code>src-cost</code></td><td>oneuptime 2026-04</td>
         <td>遥测 10–50 倍、账单 +40–200%</td><td>区间口径，按客户实测</td></tr>
@@ -645,7 +645,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../ai-gateway/index.html"><span class="k">上一册 · 工程保障层</span><b>AI-Gateway</b></a>
    <a class="nx" href="../evaluation/index.html"><span class="k">下一册 · 工程保障层</span><b>Evaluation</b></a>

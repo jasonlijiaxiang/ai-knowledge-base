@@ -21,7 +21,7 @@
     <p class="lede">和大模型对话的「接口层」——最便宜、最快见效的能力杠杆：从三角色四要素的骨架，到 few-shot/CoT/结构化输出的工具箱，再到提示词链与推理模型时代的写法之变、版本化与自动优化、注入防护。本页是这一册的网页版，讲义 PPT 见页脚链接。</p>
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
-      <span class="badge ok">核实窗口 2026-07-09（缓存口径 07-20 补核）</span><span class="badge recheck">优化器与缓存机制月级演进 · 引用当天复查</span>
+      <span class="badge ok">核实窗口 2026-07-09（缓存口径 07-20、DSPy 版本 08-01 补核）</span><span class="badge recheck">优化器与缓存机制月级演进 · 引用当天复查</span>
     </p>
   </div>
 </header>
@@ -254,7 +254,7 @@
     <div><b>与代码解耦</b></div>
   </div>
   <p><b>评估驱动</b>：准备测试样例
-    + 打分标准，每版跑分对比而不是凭感觉——「第 3 版措辞更漂亮但分数反而降了」没有评估集根本发现不了（判分方法在 <a href="../evaluation/index.html">Evaluation 网页版</a>）。<b>自动优化</b>：DSPy 定义「要做什么 + 怎么衡量」自动编译提示词——MIPROv2 较手写
+    + 打分标准，每版跑分对比而不是凭感觉——「第 3 版措辞更漂亮但分数反而降了」没有评估集根本发现不了（判分方法在 <a href="../evaluation/index.html">Evaluation 网页版</a>）。<b>自动优化</b>：DSPy（3.x，当前 3.2.1）定义「要做什么 + 怎么衡量」自动编译提示词——MIPROv2 较手写
     +10~40%（结构化任务），GEPA 再 +13%、rollout 少 35×（ICLR 2026 oral）。</p>
   <h3>缓存省钱（成本方案必带）</h3>
   <p>三大厂缓存输入价均约 1 折（省约 90%），<b>但机制不同</b>：</p>
@@ -296,7 +296,7 @@
   <p>四分区只讲了「前稳后砍」，还有一条<b>位置规则</b>别漏：<b>重要的放两端，别埋中间</b>——模型对上下文首尾的注意力强于正中间（长上下文的「中间迷失」），这是分区排序的物理依据，不是排版偏好。每段还要记来源、版本、位置与截断原因——<b>「为什么模型没看到那段」要能查</b>。</p>
   <p><b>云上闭环</b>：Bedrock Prompt Management / Vertex Prompt Optimizer / Azure Prompt Flow。</p>
   <p><b>换模型时的迁移账</b>：骨架（三角色 / 四要素 / 分隔符）各家通用，不用重写；要重调的是<b>写法档位</b>——通用模型与推理模型两套写法，且各家推理模式的触发条件与计费并不一致，按目标模型的文档调；以及<b>接口层配置</b>——结构化输出的 schema 约束要按新 API 重接、缓存怎么开也要按新厂商重配。所以迁移的真实成本取决于有没有评估集：有它就是跑一遍回归、拿数据说「换完没变差」；没有它，只能凭感觉从头再调一遍。</p>
-  <p class="ev">DSPy/GEPA 与缓存口径核实 2026-07-09（缓存 07-20 补核），来源
+  <p class="ev">DSPy 版本核实 2026-08-01（3.x 线，当前 3.2.1）；MIPROv2/GEPA 与缓存口径核实 2026-07-09（缓存 07-20 补核），来源
     <a href="#src-dspy">futureagi/morphllm</a> 与 <a href="#src-cache">三大厂官方定价文档</a>。<b>不可外推边界</b>：缓存折扣是各厂当期定价策略，命中率则完全取决于你的提示词结构——「等效价砍半」是高复用场景的量级，低复用场景基本无感。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../evaluation/index.html#eval-methods" title="评估驱动的提示词优化直接用 Evaluation 的判分四法 / LLM-as-a-Judge（eval-judge）">评估方法谱系<span class="xm">Evaluation</span></a></div>
@@ -550,15 +550,15 @@
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
   <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
-  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Prompt-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09（缓存口径 2026-07-20 补核）。<b>引用任何数字前先核日期。</b></p>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Prompt-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09（缓存口径 2026-07-20 补核，DSPy 版本 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
       <tr id="src-reasoning"><td><code>src-reasoning</code></td><td>OpenAI/Anthropic 文档综述</td>
           <td>推理模型内建 CoT 与「少给显式步骤」口径</td><td>各家思考模式的参数名与档位月级变化</td></tr>
-      <tr id="src-dspy"><td><code>src-dspy</code></td><td>futureagi / morphllm（GEPA）</td>
-          <td>MIPROv2 +10~40%、GEPA +13% 的量级</td><td>提升幅度依任务而异，自家任务要实测</td></tr>
+      <tr id="src-dspy"><td><code>src-dspy</code></td><td>futureagi / morphllm（GEPA）；版本号见 stanfordnlp/dspy GitHub releases</td>
+          <td>MIPROv2 +10~40%、GEPA +13% 的量级；DSPy 当前版本线</td><td>提升幅度依任务而异，自家任务要实测</td></tr>
       <tr id="src-cache"><td><code>src-cache</code></td><td>三大厂官方定价文档（2026-06 口径）</td>
           <td>缓存约 1 折与三种机制差异</td><td>价格与触发条件月级演进</td></tr>
       <tr id="src-owasp"><td><code>src-owasp</code></td><td>OWASP GenAI Top 10 for LLM
@@ -578,7 +578,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-30</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm-training/index.html"><span class="k">上一册 · 基础层</span><b>LLM-Training</b></a>
    <a class="nx" href="../ai-infra-compute/index.html"><span class="k">下一册 · 算力底座层</span><b>AI-Infra-Compute</b></a>

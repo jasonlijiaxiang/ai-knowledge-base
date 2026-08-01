@@ -21,7 +21,7 @@
     <p class="lede">给「文字天才」装上眼睛和耳朵：从图像怎么变成 token、模态怎么拼进大脑，到理解与生成两侧的能力盘点、语音实时链路与视频生成格局。核心决定只有一个：<b>原生多模态还是拼管线</b>——本页把这个决定做成分诊器。讲义 PPT 见页脚链接。</p>
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
-      <span class="badge ok">核实窗口 2026-07-09 至 07-10 / 视频生成 07-17</span>
+      <span class="badge ok">核实窗口 2026-07-09 至 07-17 / 旗舰·语音·视频 2026-08-01 复核</span>
       <span class="badge recheck">模型格局月度在变 · 原理与决策框架长青</span>
     </p>
   </div>
@@ -156,12 +156,12 @@
    <table>
     <thead><tr><th>阵营</th><th>代表与口径</th></tr></thead>
     <tbody>
-     <tr><td><b>闭源旗舰</b></td><td>GPT-5 统一路由 / Gemini 2.5 Pro 原生图音视频 + 1M~2M 上下文 / Claude 4.5 视觉 + 1M——原生多模态 + 长上下文 + thinking</td></tr>
-     <tr><td><b>开源</b></td><td>InternVL3-78B（MIT）MMMU ≈ 72.2% 开源最强；Qwen2.5-VL-72B（MMMU ≈ 70.2% / OCRBench ≈ 888）；Qwen3-VL 文档 / OCR 基准最强开源</td></tr>
+     <tr><td><b>闭源旗舰</b></td><td>GPT-5.5（1.05M 上下文、收文本与图）/ Gemini 3.1 Pro（原生图音视频 + 1M）/ Claude Opus 5（视觉 + 1M）——原生多模态 + 长上下文 + thinking；三家里只有 Gemini 原生收音视频</td></tr>
+     <tr><td><b>开源</b></td><td>Qwen3-VL Thinking（Apache-2.0）居开源 MMMU 前列、文档 / OCR 同为第一梯队；InternVL3.5（Apache-2.0，官方称开源 MLLM 综合 SOTA）——两家都已换代，旧版 InternVL3-78B / Qwen2.5-VL 的分数别再引</td></tr>
     </tbody>
    </table>
   </div>
-  <p>单项基准已逼近闭源，综合与稳定性闭源仍领先。<b>对客别只报名字，报「在什么基准上多少分」。</b></p>
+  <p>单项基准已逼近闭源，综合与稳定性闭源仍领先。<b>对客别只报名字，报「在什么基准上、什么日期、多少分」。</b></p>
 
   <h3>能力边界</h3>
   <p>设预期比吹全能更建立信任：</p>
@@ -177,7 +177,7 @@
    </table>
   </div>
   <p><b>关键场景必配评估集 + 人审兜底。</b></p>
-  <p class="ev">模型格局核实 2026-07-09，来源 <a href="#src-understand">2026 模型盘点</a>。<b>不可外推边界</b>：盘点是当期快照，理解侧的分数多以公开基准为准——客户自己的版面、语种与画质必须另测，本册选型一节的对比测法就是为此。</p>
+  <p class="ev">模型格局核实 2026-08-01（旗舰按 openai.com / deepmind.google / platform.claude.com 官方模型页，开源按 QwenLM 与 OpenGVLab 仓库），来源 <a href="#src-understand">2026 模型盘点</a>；建议复查日 2026-09-05。<b>不可外推边界</b>：盘点是当期快照，理解侧的分数多以公开基准为准——客户自己的版面、语种与画质必须另测，本册选型一节的对比测法就是为此。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../rag/index.html#rag-multimodal" title="本模块讲「模型多模态能力」↔ RAG 第 11 章讲「多模态内容怎么检索」，互为上下游；RAG 第 11 章已加回指页（2026-07-10），双向互指">多模态 RAG<span class="xm">RAG</span></a></div>
 </section>
@@ -266,7 +266,7 @@
    <table>
     <thead><tr><th></th><th>托管 API</th><th>自建</th></tr></thead>
     <tbody>
-     <tr><td><b>怎么起</b></td><td>开箱即用、总能用最新旗舰</td><td>vLLM 部署 Qwen3-VL / InternVL3</td></tr>
+     <tr><td><b>怎么起</b></td><td>开箱即用、总能用最新旗舰</td><td>vLLM 部署 Qwen3-VL / InternVL3.5</td></tr>
      <tr><td><b>强在哪</b></td><td>适合快速验证</td><td>数据不出域、量大时单位成本显著更低</td></tr>
     </tbody>
    </table>
@@ -392,7 +392,7 @@
     </tbody>
    </table>
   </div>
-  <p><b>端到端四家</b>：gpt-realtime 家族（GA、128K、工具调用进音频环路）、Gemini 3.1 Flash Live（~200ms 首响、200+ 语言）、Qwen3-Omni（开源可自部署、113 语种）、Moshi（全双工先驱）。</p>
+  <p><b>端到端四家</b>：gpt-realtime-2.1 家族（2026-07-06 换代 2.1 / 2.1-mini，128K、工具调用进音频环路、p95 时延再降 25%）、Gemini 3.1 Flash Live（~200ms 首响、200+ 语言）、Qwen3-Omni / 3.5-Omni（3-Omni 权重 Apache-2.0 可自部署，119 文本 / 19 语音输入语种）、Moshi（全双工先驱）。</p>
   <h3>打断（Barge-in）三连动作</h3>
   <p>少做任何一件都穿帮：</p>
   <div class="grid">
@@ -428,16 +428,16 @@
   <h3>成本按分钟报</h3>
   <div class="tw">
    <table>
-    <thead><tr><th>形态</th><th>每分钟</th><th>备注</th></tr></thead>
+    <thead><tr><th>形态</th><th>单价</th><th>备注</th></tr></thead>
     <tbody>
-     <tr><td>级联</td><td>$0.01–0.17</td><td>可预测</td></tr>
-     <tr><td>端到端（未优化）</td><td>$0.18–0.46</td><td>实测</td></tr>
-     <tr><td>端到端（优化后）</td><td><b>$0.05–0.10</b></td><td>开提示缓存（音频输入缓存折扣约 99%）+ mini 档（便宜约 60%）</td></tr>
+     <tr><td>级联</td><td>$0.01–0.17 / 分钟</td><td>组件各自计价，可预测</td></tr>
+     <tr><td>端到端（官方价）</td><td>音频进 $32 / 出 $64 每百万 token</td><td>gpt-realtime-2.1；缓存命中输入 $0.4</td></tr>
+     <tr><td>端到端（省钱档）</td><td><b>2.1-mini 音频输出 $20</b></td><td>三板斧：提示缓存、换 mini 档、静音检测停采样</td></tr>
     </tbody>
    </table>
   </div>
-  <p>报价用「分钟成本 × 并发 × 时长」——<b>语音客户听得懂的单位是分钟</b>。</p>
-  <p class="ev">延迟口径与成本实测核实 2026-07-10，来源 <a href="#src-voice">2026 语音横评与实测</a>。</p>
+  <p>报价仍用「分钟成本 × 并发 × 时长」——<b>但换代后厂商只公布 token 单价，分钟成本得拿自己的话务实测折算</b>，旧的「端到端每分钟 $0.18–0.46」已随 gpt-realtime 换代作废。</p>
+  <p class="ev">延迟口径核实 2026-07-10；端到端型号与价格 2026-08-01 复核，来源 developers.openai.com 模型与定价页、<a href="#src-voice">2026 语音横评与实测</a>。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html#llminf-batching" title="语音链路延迟大头 = LLM 首 token；首 token 优化（批处理 / KV 缓存 / 流式）机制在 LLM-Inference 展开">把 GPU 喂饱：批处理与调度<span class="xm">LLM-Inference</span></a><a href="../agent/index.html#agent-components" title="语音是 Agent 的「耳与嘴」：实时链路为语音 Agent 提供交互层，Agent 侧编排与工具调用不变">核心组件<span class="xm">Agent</span></a><a href="../solution-patterns/index.html#sp-customer-service" title="语音客服场景的方案视角（分流漏斗 / 解决率口径）在 Solution-Patterns 第 3 章展开（模块 2026-07-10 建成，原「候选」补实）；数字人场景另接 s…">智能客服<span class="xm">Solution-Patterns</span></a></div>
 </section>
@@ -447,27 +447,28 @@
   <h2><span class="num">09</span>视频生成<a class="anchor" href="#mm-video-generation">#mm-video-generation</a></h2>
 
   <div class="lead">
-    <p>四家旗舰四张王牌（2026-07 口径，名单月度在变）：</p>
+    <p>三家旗舰三张王牌（2026-08 口径，名单月度在变）——<b>Sora 已退场，别再进方案</b>：</p>
   </div>
 
   <div class="tw">
   <table>
     <thead><tr><th>旗舰</th><th>王牌</th><th>单价</th></tr></thead>
     <tbody>
-      <tr><td><b>Seedance 2.0</b></td><td>字节，创意控制：原生音视频同步、参考输入 12 文件同代最强</td><td>Fast $0.022/秒</td></tr>
-      <tr><td><b>Sora 2</b></td><td>物理真实感 + 故事板最长 25 秒叙事</td><td>未列</td></tr>
-      <tr><td><b>可灵 3.0</b></td><td>性价比 + 原生 4K@60fps</td><td>$0.029/秒</td></tr>
-      <tr><td><b>Veo 3.1</b></td><td>电影级质感 + 原生音频</td><td>$0.75/秒——最贵，约为 Seedance Fast 的 34 倍</td></tr>
+      <tr><td><b>Seedance 2.0</b></td><td>字节，创意控制：原生音视频同步、参考输入 12 文件同代最强</td><td>Fast 档为价格带最低档，官网当期核价</td></tr>
+      <tr><td><b>Sora 2 · 已退场</b></td><td>OpenAI 消费端 2026-04-26 停服、Videos API 与 sora-2 系 2026-09-24 下线（官方 2026-03-24 公告）</td><td>不再计价</td></tr>
+      <tr><td><b>可灵 3.0</b></td><td>性价比 + 原生 4K 直出（2026-04 起）；3.0 Turbo 档已上线</td><td>官网按积分计，当期核价</td></tr>
+      <tr><td><b>Veo 3.1</b></td><td>电影级质感 + 原生音频</td><td>官方 $0.40/秒（1080p）、$0.60/秒（4K）；Lite 档 $0.05（720p）</td></tr>
     </tbody>
   </table>
   </div>
+  <p>Sora 退场后格局重组中，补位候选看 <b>Runway Gen-4.5</b>、阿里万相（Wan）——两家的当期版本与价格都要现核再进方案。</p>
 
   <h3>三大难</h3>
   <div class="tw">
    <table>
     <thead><tr><th>难点</th><th>现状</th><th>解法</th></tr></thead>
     <tbody>
-     <tr><td><b>时长</b></td><td>每多一秒都是算力与连贯性双重代价，旗舰常规 10–15 秒</td><td>分镜拼接是主流解法</td></tr>
+     <tr><td><b>时长</b></td><td>每多一秒都是算力与连贯性双重代价，旗舰单次常规十秒上下</td><td>分镜拼接是主流解法</td></tr>
      <tr><td><b>一致性</b></td><td>人物跨镜头保持同一是<b>最大痛点</b></td><td>参考输入与首尾帧控制是两条主修路线；严肃 IP 形象建议走数字人管线</td></tr>
      <tr><td><b>可控性</b></td><td>「导演意图」难显式传达</td><td>故事板、运镜指令——<b>控制力是专业市场门票</b></td></tr>
     </tbody>
@@ -475,7 +476,7 @@
   </div>
 
   <h3>成本按秒计</h3>
-  <p>报价按「可用成片秒数 × 1.5–3 倍余量 × 每秒单价」估——Fast 档一条 15 秒素材不到 3 块钱，<b>真正的成本在筛选与后期人力</b>。分层用法（批量 A/B 素材走 Fast 档拼量 + 品牌主片走高保真档保质）能把成本压到纯高保真方案的几分之一。</p>
+  <p>报价按「可用成片秒数 × 1.5–3 倍余量 × 每秒单价」估——Fast 档一条 15 秒素材是个位数人民币，<b>真正的成本在筛选与后期人力</b>。分层用法（批量 A/B 素材走 Lite/Fast 档拼量 + 品牌主片走高保真档保质）能把成本压到纯高保真方案的几分之一：光 Veo 3.1 一家，$0.05（Lite 720p）到 $0.60（4K）就是十倍档差。</p>
 
   <h3>工作流四步</h3>
   <figure>
@@ -509,7 +510,7 @@
   </div>
   <p>合规依据在 <a href="../security/index.html#sec-china">Security 网页版第 8 节</a>。对客设预期：<b>它是「素材工厂」不是「成片机器」</b>，方案里要留后期工位。</p>
   <p>消费端的价格锚点值得记一个：即梦注册送 <b>260 积分</b>、5 秒视频约 <b>20 积分</b>（新用户约 13 次免费生成）——按秒计价的量级感，报方案时比「贵不贵」的空话有用。</p>
-  <p class="ev">四家格局与价格核实 2026-07-17，来源 <a href="#src-video">多方评测交叉</a>；即梦消费端口径（260 积分 / 5 秒约 20 积分）建议复查日 2026-08-31。<b>不可外推边界</b>：消费端积分口径随平台活动频繁调整，企业 API 另有计价，不能直接换算成对客报价。</p>
+  <p class="ev">格局与价格 2026-08-01 复核：Sora 下线时间线取自 OpenAI 官方 deprecations 与帮助页，Veo 每秒价取自 Google Gemini API 官方定价页；Seedance / 可灵按积分或包月计，官方无公开每秒价，故本页只写定性，原「34 倍价差」口径已作废。即梦消费端口径（260 积分 / 5 秒约 20 积分）核实 2026-07-17、建议复查日 2026-08-31。<b>不可外推边界</b>：消费端积分口径随平台活动频繁调整，企业 API 另有计价，不能直接换算成对客报价。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-china" title="AI 生成视频的标识义务与执法口径在 Security 第 8 章中国监管合规（讲义内已互引）">中国监管合规<span class="xm">Security</span></a><a href="../solution-patterns/index.html#sp-content-gen" title="营销素材工厂场景图纸在 SP 第 5 章；本章供「视频积木」的能力与成本口径">营销与内容生成<span class="xm">Solution-Patterns</span></a></div>
 </section>
@@ -552,8 +553,8 @@
     <details id="q-multimodal-4">
       <summary>开源 VLM 能打过闭源旗舰吗？<span class="added">2026-07-09</span></summary>
       <div class="a">
-        <p>单项基准已逼近：InternVL3-78B MMMU ≈ 72.2%（MIT 许可）、Qwen3-VL 文档基准最强开源；但综合能力、稳定性、长上下文闭源旗舰仍领先。看场景。</p>
-        <p class="qa-why">对客报数别只报名字：MMMU 测综合理解、OCRBench 测文档——「在什么基准上多少分」才是可比口径。</p>
+        <p>单项基准已逼近：Qwen3-VL Thinking 居开源 MMMU 前列、InternVL3.5 官方称开源 MLLM 综合 SOTA（两家均 Apache-2.0）；但综合能力、稳定性、长上下文闭源旗舰仍领先。看场景。</p>
+        <p class="qa-why">对客报数别只报名字：MMMU 测综合理解、OCRBench 测文档——「在什么基准上、什么日期、多少分」才是可比口径；开源 VLM 三个月换一代，旧分数引出来就是硬伤。</p>
         <p class="qa-next"><b>下一步</b>　数据敏感/量大再评估 vLLM 自部署开源 VLM；多数项目从托管 API 起步。</p>
         <p class="qa-src">依据　<a href="#mm-understanding">模型格局</a></p>
       </div>
@@ -600,7 +601,7 @@
       <summary>视频生成到底能不能商用了？<span class="added">2026-07-17</span></summary>
       <div class="a">
         <p>素材级商用已成立（营销/社媒/预演），成片级还要人工后期。对客设预期：它是「素材工厂」不是「成片机器」，方案里留后期工位。</p>
-        <p class="qa-why">按用途分层是性价比来源：批量素材 Fast 档（$0.022–0.029/秒）、叙事用 Sora 2 故事板、品牌大片高保真档——34 倍价差要用起来。</p>
+        <p class="qa-why">按用途分层是性价比来源：批量素材走 Lite/Fast 档、长叙事靠故事板续接、品牌大片走高保真档——光 Veo 3.1 一家 $0.05 到 $0.60/秒就是十倍档差，用起来。<b>注意 Sora 已退场，别再按它报方案。</b></p>
         <p class="qa-next"><b>下一步</b>　合规前置：生成出口打标识、转码保元数据、真人相关内容走授权链路——「能不能播」比「能不能做」先答。</p>
         <p class="qa-src">依据　<a href="#mm-video-generation">视频生成</a></p>
       </div>
@@ -680,20 +681,20 @@
 <section class="sec" id="sources">
   <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Multimodal/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
-    2026-07-09 至 07-10（视频生成 2026-07-17）。<b>模型格局月度在变，引用任何数字前先核日期。</b></p>
+    2026-07-09 至 07-17，其中旗舰格局、开源 VLM、语音端到端、视频生成四处已于 <b>2026-08-01</b> 按厂商官方页复核。<b>模型格局月度在变，引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
-      <tr id="src-understand"><td><code>src-understand</code></td><td>Pluralsight / Shakudo /
-        BentoML / DataCamp 2026 盘点</td><td>闭源旗舰与开源 VLM 格局、MMMU/OCRBench 数字</td>
-        <td>榜单月度更新</td></tr>
+      <tr id="src-understand"><td><code>src-understand</code></td><td>openai.com / deepmind.google /
+        platform.claude.com 官方模型页；QwenLM、OpenGVLab GitHub（2026-08-01 复核）</td><td>闭源旗舰型号与上下文、开源 VLM 版本与许可</td>
+        <td>官方未公布 MMMU 分数，本页只写定性排位</td></tr>
       <tr id="src-gen"><td><code>src-gen</code></td><td>Modelize / Picsart 等 2026 盘点</td>
         <td>GPT Image 2 / Nano Banana 2 口径与两流派格局</td><td>建议复查日 2026-08 后核版本</td></tr>
-      <tr id="src-voice"><td><code>src-voice</code></td><td>softcery / telnyx 横评 /
-        hackernoon 4000 会话实测 / OpenAI 定价页</td><td>延迟四条线、级联拆账、每分钟成本</td>
-        <td>价格随厂商调价变</td></tr>
-      <tr id="src-video"><td><code>src-video</code></td><td>devtk.ai / atlascloud 等多方评测交叉</td><td>四家视频旗舰格局与按秒价格（34 倍价差）</td><td>名单月度在变</td></tr>
+      <tr id="src-voice"><td><code>src-voice</code></td><td>softcery / telnyx 横评（延迟与级联）；
+        developers.openai.com 模型与定价页（2026-08-01 复核）</td><td>延迟四条线、级联拆账、端到端型号与 token 单价</td>
+        <td>端到端「每分钟」成本——官方只公布 token 价，需自行实测折算</td></tr>
+      <tr id="src-video"><td><code>src-video</code></td><td>OpenAI 官方 deprecations 与帮助页（Sora 下线）；ai.google.dev 官方定价页（Veo 每秒价）；klingai.com 更新日志（2026-08-01 复核）</td><td>Sora 退场时间线、Veo 3.1 每秒官方价、可灵 3.0 当期能力</td><td>Seedance / 可灵无公开每秒价，跨厂商价差倍数不能引</td></tr>
       <tr id="src-frame"><td><code>src-frame</code></td><td>webrtc.ventures 2026-03 /
         QwenLM GitHub</td><td>Pipecat/LiveKit 实测量级、Qwen3-Omni 口径</td><td>—</td></tr>
     </tbody>
@@ -711,7 +712,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../agent/index.html"><span class="k">上一册 · 应用模式层</span><b>Agent</b></a>
    <a class="nx" href="../rag/index.html"><span class="k">下一册 · 应用模式层</span><b>RAG</b></a>
@@ -766,7 +767,7 @@
 
     if (sens === "yes") {
       cards.push(card( "自建开源 VLM（vLLM）","部署形态",
-        "数据不出域、量大时单位成本显著更低——Qwen3-VL / InternVL3 等开源权重自部署；" +
+        "数据不出域、量大时单位成本显著更低——Qwen3-VL / InternVL3.5 等开源权重自部署；" +
         "代价是要 GPU 要运维，能力可能略逊旗舰。", "#mm-selection"));
     } else {
       cards.push(card( "托管 API 起步","部署形态",

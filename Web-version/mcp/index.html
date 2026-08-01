@@ -16,7 +16,7 @@
 
 <header class="top">
   <div class="wrap">
-    <p class="crumb">协议层 · 网页版样板</p>
+    <p class="crumb">协议层</p>
     <h1><span class="en">Model Context Protocol</span>MCP，模型上下文协议</h1>
     <p class="lede">给 AI 应用和外部工具之间装一个标准插座：工具方写一次 server，应用方实现一次
       client，双方各做一次就能互通。本页是这一册的网页版，讲义 PPT 见页脚链接。</p>
@@ -536,7 +536,8 @@ if __name__ == "__main__":
 
   <p>另外两个装饰器对应另外两个原语：<code>@mcp.resource("file://readme")</code> 暴露只读上下文，
     <code>@mcp.prompt()</code> 把一段最佳用法固化成模板。同一个 server 里三类能力可以齐活。</p>
-  <p><b>选栈两条硬事实</b>：①官方 Tier 1 SDK 四种——TypeScript / Python / C# / Go（Tier 是支持等级承诺，不是安全认证）；②面向新规范的 beta 已发，<b>Python SDK v2.0.0b1 把 <code>FastMCP</code> 更名为 <code>MCPServer</code></b>，TS v2 拆包——上面这段 <code>FastMCP</code> 这个写法在兼容期内仍可用，做迁移评估时记得新版类名已换。</p>
+  <p><b>选栈两条硬事实</b>：①官方 Tier 1 SDK 四种——TypeScript / Python / C# / Go（Tier 是支持等级承诺，不是安全认证）；②面向新规范的<b>正式版已发</b>，不再是 beta：<b>Python SDK v2.0.0（2026-07-28，与规范同日）把 <code>FastMCP</code> 更名为 <code>MCPServer</code></b>，装饰器写法不变；TypeScript SDK 前一天发 2.0.0 并拆成 <code>@modelcontextprotocol/core</code> / <code>client</code> / <code>server</code> 等一组包。<b>v1 线转维护、只收安全修复</b>（当前 v1.29.0）——上面这段 <code>FastMCP</code> 写法在 v1 内仍可用，暂不升级的把依赖钉上限（<code>mcp&gt;=1.28,&lt;2</code>），做迁移评估时记得新版类名已换。</p>
+  <p class="ev">SDK 版本口径核实 2026-08-01，来源 <a href="#src-sdk">官方 SDK 页与两个 SDK 仓库的 GitHub releases</a>。<b>不可外推边界</b>：Tier 1 是支持等级承诺，各语言 SDK 的正式版进度并不同步，选栈前按目标语言的仓库发布页核当日版本。</p>
 
   <h3>开发顺序：先单测 server，再接模型</h3>
   <p>官方调试工具 MCP Inspector 相当于电工的万用表：<code>npx @modelcontextprotocol/inspector</code>
@@ -1023,7 +1024,7 @@ if __name__ == "__main__":
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
   <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
-  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/MCP/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-08 至 2026-07-21（运行期成本三条为 2026-07-20 补核）。<b>引用任何数字前先核日期。</b></p>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/MCP/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-08 至 2026-08-01（运行期成本三条为 2026-07-20 补核，SDK 版本口径为 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
@@ -1031,7 +1032,7 @@ if __name__ == "__main__":
       <tr id="src-aaif"><td><code>src-aaif</code></td><td>aaif.io 官方博客</td><td>治理归属、SEP 机制、捐赠时间</td><td>不涉及协议技术细节</td></tr>
       <tr id="src-spec"><td><code>src-spec</code></td><td>modelcontextprotocol.io 规范页</td><td>现行规范口径、三原语与控制面定义</td><td>不代表尚未发布的新版行为</td></tr>
       <tr id="src-rc"><td><code>src-rc</code></td><td>MCP 官方博客 RC 发布文</td><td>2026-07-28 版的逐项改动清单与迁移路子</td><td>RC 锁定不等于正式发布，条款可能微调</td></tr>
-      <tr id="src-sdk"><td><code>src-sdk</code></td><td>modelcontextprotocol.io/docs/sdk</td><td>官方 SDK 支持等级与语言覆盖</td><td>支持等级是承诺，不是安全认证</td></tr>
+      <tr id="src-sdk"><td><code>src-sdk</code></td><td>modelcontextprotocol.io/docs/sdk；python-sdk / typescript-sdk 两仓 GitHub releases</td><td>官方 SDK 支持等级、语言覆盖，以及各语言正式版的发布日与版本号</td><td>支持等级是承诺，不是安全认证；发布节奏各语言不同步</td></tr>
       <tr id="src-registry"><td><code>src-registry</code></td><td>registry 官方页</td><td>Registry 的定位与 preview 状态</td><td>不能作为企业级目录方案的依据</td></tr>
       <tr id="src-cve"><td><code>src-cve</code></td><td>dev.to 汇总</td><td>2026 年 1–4 月 CVE 体量与代表案例</td><td>二次汇总，单条 CVE 细节以官方通告为准</td></tr>
       <tr id="src-mcptox"><td><code>src-mcptox</code></td><td>arXiv 2508.14925（MCPTox）</td><td>自动批准场景下的投毒成功率</td><td>基准环境结论，不可外推到关闭自动批准的部署</td></tr>
@@ -1055,7 +1056,7 @@ if __name__ == "__main__":
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-30</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../a2a/index.html"><span class="k">上一册 · 协议层</span><b>A2A</b></a>
    <a class="nx" href="../ai-gateway/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Gateway</b></a>

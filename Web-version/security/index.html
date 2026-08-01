@@ -380,7 +380,7 @@
   <h3>EU AI Act 硬时间点</h3>
   <figure>
    <div class="fig-wrap">
-    <svg viewBox="0 0 720 108" role="img" aria-label="EU AI Act 三个硬时间点：2025 年 8 月 2 日 GPAI 义务生效、2026 年 8 月 2 日执法与罚款启动、2027 年 8 月 2 日存量模型整改截止">
+    <svg viewBox="0 0 720 108" role="img" aria-label="EU AI Act GPAI 三个硬时间点：2025 年 8 月 2 日 GPAI 义务生效、2026 年 8 月 2 日执法与罚款启动、2027 年 8 月 2 日存量 GPAI 整改截止；高风险义务另经 Digital Omnibus 延至 2027 年 12 月 2 日与 2028 年 8 月 2 日">
      <g font-family="var(--sans)">
       <line x1="60" y1="54" x2="660" y2="54" stroke="var(--line)" stroke-width="2"/>
       <circle cx="90" cy="54" r="6" fill="var(--ink-400)"/>
@@ -392,16 +392,16 @@
       <text x="360" y="96" text-anchor="middle" font-size="11" fill="var(--ink-400)">GPAI 违规最高 €15M 或营收 3%；更广违规 €35M 或 7%</text>
       <circle cx="630" cy="54" r="6" fill="var(--ink-400)"/>
       <text x="630" y="38" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">2027-08-02</text>
-      <text x="630" y="78" text-anchor="middle" font-size="11.5" fill="var(--ink-500)">存量模型整改截止</text>
+      <text x="630" y="78" text-anchor="middle" font-size="11.5" fill="var(--ink-500)">存量 GPAI 整改截止</text>
      </g>
     </svg>
    </div>
-   <figcaption>先问客户业务是否触达欧盟，触达就倒排——别等执法。</figcaption>
+   <figcaption>上图为 GPAI 三时点（未被延期）；高风险义务经 Digital Omnibus 延期——Annex III 独立系统→2027-12-02、Annex I 嵌入式→2028-08-02，透明度义务仍按 2026-08-02。触达欧盟就倒排——别等执法。</figcaption>
   </figure>
   <p>企业落地三步：<b>盘清 AI 资产</b>（不知道公司里有多少模型和 Agent 就无从谈治理）→
     <b>定策略设门禁</b>（模型准入/数据分级/上线红队/高危审批做成 CI 门禁）→ <b>AI-SPM
     持续监控</b>（Defender for Cloud / Security Command Center / GuardDuty 组合）。治理是持续过程不是一纸报告——文档是结果，不是目的。</p>
-  <p class="ev">EU AI Act 时间线核实 2026-07-09，来源 <a href="#src-euact">欧盟官方</a>。<b>不可外推边界</b>：时间线是官方节点，适用与否取决于业务是否触达欧盟以及风险分级；日期本身不构成对某个具体产品的合规判断，以法务核定为准。</p>
+  <p class="ev">EU AI Act 时间线核实 2026-08-01（Digital Omnibus 修正案 Regulation (EU) 2026/1744，2026-07-24 刊《官方公报》、07-27 生效），来源 <a href="#src-euact">欧盟官方</a>。<b>不可外推边界</b>：时间线是官方节点，适用与否取决于业务是否触达欧盟以及风险分级；日期本身不构成对某个具体产品的合规判断，以法务核定为准。</p>
 </section>
 
 <!-- ============ 8 ============ -->
@@ -447,9 +447,9 @@
     </tbody>
    </table>
   </div>
-  <p>风向（2026-07 口径，易过期）：AI 综合性立法已列入国务院 2026 立法计划。</p>
+  <p>风向（2026-08 口径，易过期）：AI 综合性立法已列入国务院 2026 立法计划；《人工智能拟人化互动服务管理暂行办法》2026-04-10 五部门公布、2026-07-15 施行——拟人化情感互动服务首次有了专门规矩；同日网信办公布首批 7 款手机端侧生成式 AI 服务备案（Apple 智能、小艺、蓝心等）——端侧作为新品类首次单开清单。</p>
   <p><b>数据出境</b>先查豁免再谈通道：《促进和规范数据跨境流动规定》六类豁免 + 自贸区负面清单；豁免不了走三通道——安全评估（重要数据/大规模个信必走）、标准合同（中等规模常用）、保护认证（集团内跨境）。客户问「数据能不能出境」先问三件事：是不是重要数据、多少人的个信、在不在自贸区清单内。云平台（火山引擎备案材料支持、阿里云百炼护栏默认挂载与备案指引）帮到材料与护栏，<b>法定「服务提供者」义务不转移</b>——审核、标识、投诉、备案主体一样不能少。</p>
-  <p class="ev">备案量/标识执法/国标/出境口径核实 2026-07-17，来源<a href="#src-china">网信办公告与官方文本</a>。</p>
+  <p class="ev">备案量/标识执法/国标/出境口径核实 2026-07-17；立法风向（拟人化办法施行、首批端侧备案）核实 2026-08-01，来源<a href="#src-china">网信办公告与官方文本</a>。</p>
 </section>
 
 <!-- ============ 9 ============ -->
@@ -581,8 +581,9 @@
     <details id="q-security-7">
       <summary>我们要过 EU AI Act，具体要做什么、什么时候？<span class="added">2026-07-09</span></summary>
       <div class="a">
-        <p>先看业务是否触达欧盟。触达的话：GPAI 义务 2025-08 已生效，执法和罚款 2026-08
-          启动（最高全球营收 7%），存量模型 2027-08 前整改完——现在就该倒排。</p>
+        <p>先看业务是否触达欧盟。GPAI 三时点没动：义务 2025-08 已生效、执法罚款 2026-08
+          启动（最高全球营收 7%）、存量 2027-08 截止；高风险义务经 Digital Omnibus 延到
+          2027-12-02（Annex III 独立）与 2028-08-02（嵌入式），透明度义务仍按 2026-08——倒排别停。</p>
         <p class="qa-why">治理框架组合用：NIST RMF 给自评骨架、ISO 42001 给可认证体系、
           EU AI Act 是法律底线——对外招标常要求前两个。</p>
         <p class="qa-next"><b>下一步</b>　治理落地从盘清 AI 资产开始——不知道有多少模型和 Agent，就无从谈合规。</p>
@@ -692,9 +693,9 @@
       <tr id="src-patterns"><td><code>src-patterns</code></td><td>arXiv 2506.08837</td>
         <td>架构级防注入六类设计模式</td><td>—</td></tr>
       <tr id="src-euact"><td><code>src-euact</code></td><td>欧盟官方文本</td>
-        <td>EU AI Act 2025/2026/2027 时间线与罚则</td><td>实施细则仍在出</td></tr>
+        <td>EU AI Act GPAI 时间线与罚则、Digital Omnibus 高风险延期</td><td>高风险新时点 2027-12-02 / 2028-08-02</td></tr>
       <tr id="src-china"><td><code>src-china</code></td><td>网信办公告 / 官方法规文本</td>
-        <td>988 款备案、5–8 个月周期、标识办法、GB/T 45654、出境三通道</td>
+        <td>988 款备案、5–8 个月周期、标识办法、GB/T 45654、出境三通道、拟人化办法与首批端侧备案</td>
         <td>备案量持续增长，法规体系化演进中</td></tr>
     </tbody>
   </table>
@@ -711,7 +712,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../fine-tuning/index.html"><span class="k">上一册 · 工程保障层</span><b>Fine-tuning</b></a>
    <a class="nx" href="../llm/index.html"><span class="k">下一册 · 基础层</span><b>LLM</b></a>
@@ -773,8 +774,8 @@
       "标识 2025-09 起法定（显式+隐式，违规已有下架案例）；安全评估按 GB/T 45654 三方面" +
       "准备。", "#sec-china"));
     if (eu) cards.push(card( "2026-08 执法启动","EU AI Act",
-      "GPAI 义务 2025-08 已生效；2026-08-02 起罚款最高全球营收 7%；存量模型 2027-08 前" +
-      "整改——现在倒排。", "#sec-governance"));
+      "GPAI 义务 2025-08 已生效；2026-08-02 起罚款最高全球营收 7%；高风险义务经 Omnibus 延至" +
+      " 2027-12-02（独立）/2028-08-02（嵌入式），透明度义务不延——倒排别停。", "#sec-governance"));
 
     var radius, warn;
     if (ext && tools) { radius = "高：读外部内容 + 真实动作"; warn = true; }

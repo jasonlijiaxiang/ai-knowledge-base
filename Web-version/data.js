@@ -270,7 +270,7 @@ window.KB = {
    "dir": "AI-Gateway",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-28",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "gw-what-why",
@@ -337,10 +337,17 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "LiteLLM 为最广泛采用的开源 LLM 网关(Python,100+ provider);虚拟密钥、按项目预算/花费追踪、复杂度自动路由(7 维打分)、实时护栏;版本迭代极快(v1.81.x, 2026)",
+     "text": "**Portkey 归属已变**:Palo Alto Networks 于 2026-04-30 宣布收购、2026-05-29 完成交割,Portkey 作为 Prisma AIRS 的 AI 网关控制面(官方定位「监控、路由并保护每一笔 AI 交易」)。开源仓 Portkey-AI/gateway 截至 2026-08-01 仍是 MIT、未归档——收购未公布对开源版的处置,不能据此说开源停更",
+     "chapter": "gw-cheatsheet",
+     "verified": "2026-08-01",
+     "source": "paloaltonetworks.com 新闻室两篇(2026-04-30 宣布 / 2026-05-29 完成);开源状态见 github.com/Portkey-AI/gateway;建议复查日 2026-11-30",
+     "recheck": "—"
+    },
+    {
+     "text": "LiteLLM 为最广泛采用的开源 LLM 网关(Python,100+ provider);虚拟密钥、按项目预算/花费追踪、复杂度自动路由(7 维打分)、实时护栏;**版本迭代极快,本表刻意不登记小版本号**——2026-08-01 当天仓库上同时挂着 v1.95.0-rc.3(08-01)与 v1.96.0-dev.2(07-31),按日发版,写死小版本号注定常年过期(原登记的 v1.81.x 即已落后十几个小版本);要报版本请当天查 releases",
      "chapter": "gw-unify",
-     "verified": "2026-07-09",
-     "source": "docs.litellm.ai / GitHub / release_notes",
+     "verified": "2026-08-01",
+     "source": "docs.litellm.ai / github.com/BerriAI/litellm releases;建议复查日＝不设,按需当天查",
      "recheck": "—"
     },
     {
@@ -613,7 +620,7 @@ window.KB = {
    "dir": "AI-Infra-Compute",
    "layer": "算力底座层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "aic-overview",
@@ -680,10 +687,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "AMD MI350X/MI355X 已量产（288GB HBM3e）；MI400+Helios（72×MI455X、31TB HBM4、TSMC 2nm）官方口径 2H 2026，初代用 UALink over Ethernet",
+     "text": "**AMD Helios 已从「承诺」翻页为「投产」**：MI350X/MI355X 早已量产（288GB HBM3e）；MI400 + Helios 在 Advancing AI 2026（2026-07-22/23，旧金山）正式发布，AMD 官方措辞是「now in production to be deployed by leading AI companies at gigawatt scale」。整柜规格：72 × MI455X + 18 颗第六代 EPYC「Venice」，31TB HBM4，峰值 2.9 EF FP4 / 1.4 EF FP8；单卡 MI455X 432GB HBM4、23.3TB/s、最高 40 PFLOPS FP4。首代仍走 UALink over Ethernet 过渡。已点名的部署方：OpenAI、Anthropic、Meta、Microsoft、Oracle、HUMAIN、Tensorwave、Vultr、Cirrascale；OpenAI 官方口径「预计 2026 Q4 起上线、2027 加速铺开」，Anthropic 合作规模「至多 2GW」。**「Q3 出货」核不到 AMD 一等源**（只见分析机构口径），故成品只写「已投产 + OpenAI Q4 起上线」；**原登记的「TSMC 2nm」在 amd.com 产品页查无实据，本次从成品中撤下**",
      "chapter": "aic-chips",
-     "verified": "2026-07-09",
-     "source": "AMD 官方、Tom's Hardware、DCD",
+     "verified": "2026-08-01",
+     "source": "newsroom.amd.com 三篇（aai-2026-full-stack-compute-agentic-ai / aai-2026-helios-update / aai-2026-mi400-instinct-update，均 2026-07-23）；amd.com/en/products/accelerators/instinct/mi400.html（432GB HBM4 / 23.3TB/s / 40 PFLOPS FP4 官方规格）；建议复查日 2026-11-30",
      "recheck": "—"
     },
     {
@@ -694,10 +701,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "昇腾 910C 2025 量产、2026 计划约 60 万颗、算力约 H100 的 60-80%、国产化率 90%+；910D 支持 FP8 预计 2026 Q2-Q3 量产；SMIC N+2 良率约 40-50%",
+     "text": "昇腾 910C 2025 量产、2026 计划约 60 万颗、算力约 H100 的 60-80%、国产化率 90%+；910D 支持 FP8 预计 2026 Q2-Q3 量产；SMIC N+2 良率约 40-50%。**2026-08-01 复核：预测窗口已过半，仍查不到量产落地的一等信源**（华为无官宣、无一等源报道），故措辞维持「预计」不改成品；**登记 2026-09 定点复查**——届时若仍无落地，应把「预计 2026 Q2-Q3」改成定性（如「已多次延后、以 920/950 系列为后续重心」），不再挂具体窗口",
      "chapter": "aic-chips",
-     "verified": "2026-07-09",
-     "source": "新浪科技/36氪/EDN China 2025-12 综述、ESM China",
+     "verified": "2026-08-01",
+     "source": "原始口径：新浪科技/36氪/EDN China 2025-12 综述、ESM China；本次复核未见新一等源；建议复查日 2026-09-30",
      "recheck": "—"
     },
     {
@@ -916,7 +923,7 @@ window.KB = {
    "dir": "AI-Infra-Platform",
    "layer": "算力底座层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "aip-overview",
@@ -1022,6 +1029,13 @@ window.KB = {
      "chapter": "aip-cloud",
      "verified": "2026-07-09",
      "source": "沿用 llm-inference#llminf-production 同源口径",
+     "recheck": "—"
+    },
+    {
+     "text": "K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随季度巡检，版本号周级漂移）",
+     "chapter": "aip-serving",
+     "verified": "2026-08-01",
+     "source": "github.com/kserve/kserve/releases、kserve.github.io 文档（LLMInferenceService 概览 / CRD API）、github.com/kubernetes-sigs/kueue/releases",
      "recheck": "—"
     }
    ],
@@ -1162,7 +1176,7 @@ window.KB = {
    "dir": "AI-Ops",
    "layer": "工程保障层",
    "created": "2026-07-10",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "ops-what-why",
@@ -1174,7 +1188,7 @@ window.KB = {
      "id": "ops-tracing",
      "no": "第 2 章",
      "title": "Tracing 与 OTel GenAI 深潜（span 四类 / trace 旅程 / PII 三开关）",
-     "verified": "2026-07-10"
+     "verified": "2026-08-01"
     },
     {
      "id": "ops-online-eval",
@@ -1204,7 +1218,7 @@ window.KB = {
      "id": "ops-tooling",
      "no": "第 7 章",
      "title": "工具格局与选型（六平台 / Braintrust · AgentOps / APM vs 专用 / 上云）",
-     "verified": "2026-07-10"
+     "verified": "2026-08-01"
     },
     {
      "id": "ops-cheatsheet",
@@ -1215,10 +1229,10 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "OTel GenAI 语义约定总体仍 Development；gen_ai.client span 2026 年初出实验期转稳定；agent/workflow/tool span 实验态但实践稳；v1.41 定义四类 span + token/延迟指标；多数 gen_ai.* 属性仍带 Development 标签",
+     "text": "OTel GenAI 语义约定 2026-06-12（semconv v1.42.0）起全部 gen_ai.* span/指标/事件迁入独立仓 semantic-conventions-genai，主仓对应定义弃用；整体仍 Development、无一 Stable，新仓尚未发正式版；四类 span（agent/workflow/tool/model）实践已稳但命名仍可能变——「封装一层再用」升为硬要求（建议复查日 2026-10-31，随季度巡检）",
      "chapter": "ops-tracing",
-     "verified": "2026-07-10",
-     "source": "opentelemetry.io semconv / OTel 官方博客 2026",
+     "verified": "2026-08-01",
+     "source": "github.com/open-telemetry/semantic-conventions v1.42.0 release notes / github.com/open-telemetry/semantic-conventions-genai（docs/gen-ai 状态徽标均 Development、releases 页为空）",
      "recheck": "—"
     },
     {
@@ -1229,17 +1243,17 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "平台许可证与版本锚点：Phoenix 主仓 ELv2（限托管转售）；Langfuse core MIT、ee/ 目录除外（v3.212.0，2026-07-10）；MLflow v3.14.0（2026-06-17，Apache-2.0）",
+     "text": "平台许可证与版本锚点：Phoenix 主仓 ELv2（限托管转售，沿 07-12 核实）；Langfuse 已切 v4 大版本线（v4.0.0 2026-07-29 破坏性升级，最新 v4.2.0 2026-07-31；core MIT、ee/ 目录除外的许可结构在 v4 原样保留）；MLflow v3.15.0（2026-07-31，Apache-2.0）",
      "chapter": "ops-tooling",
-     "verified": "2026-07-12",
-     "source": "GitHub（Arize-ai/phoenix、langfuse/langfuse、mlflow/mlflow）",
+     "verified": "2026-08-01",
+     "source": "GitHub releases（langfuse/langfuse、mlflow/mlflow）+ langfuse README 许可节；Phoenix 未复核沿旧记录",
      "recheck": "—"
     },
     {
-     "text": "六平台锚定：LangSmith（LangChain 原生）/ Langfuse（开源领袖，2026-01 被 ClickHouse 收购、开源线维护不变）/ Arize Phoenix（漂移与嵌入分析）/ Helicone（drop-in 代理）/ Datadog LLM Obs / Honeycomb",
+     "text": "六平台锚定：LangSmith（LangChain 原生）/ Langfuse（开源领袖，2026-01 被 ClickHouse 收购、开源线维护不变——v4 后 core 仍 MIT、README 明写归属 ClickHouse 且在持续招聘，2026-08-01 复核成立）/ Arize Phoenix（漂移与嵌入分析）/ Helicone（drop-in 代理）/ Datadog LLM Obs / Honeycomb",
      "chapter": "ops-tooling",
-     "verified": "2026-07-10",
-     "source": "digitalapplied / latitude / laminar 2026 横评",
+     "verified": "2026-07-10（Langfuse 行 2026-08-01 复核）",
+     "source": "digitalapplied / latitude / laminar 2026 横评；github.com/langfuse/langfuse README（2026-08-01）",
      "recheck": "—"
     },
     {
@@ -1436,7 +1450,7 @@ window.KB = {
    "dir": "Agent",
    "layer": "应用模式层",
    "created": "2026-07-07",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "agent-what-why",
@@ -1563,11 +1577,11 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "Dify：148k stars、v1.15.0（2026-06-25）；许可证 = Apache 2.0 + 附加条款（多租户 SaaS / 去 logo 需商业授权）",
+     "text": "Dify：151k stars、v1.16.1（2026-07-28）；v1.16.0（2026-07-17）起 Dify Agent 进入 Open Beta（内置代码沙箱 + 技能系统，默认对全员启用，产品定位从 LLM 应用底座向 agent 运行时延伸）；许可证 = Apache 2.0 + 附加条款（多租户 SaaS / 去 logo 需商业授权）",
      "chapter": "agent-lowcode",
-     "verified": "2026-07-10",
-     "source": "github.com/langgenius/dify",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "github.com/langgenius/dify/releases（v1.16.0/v1.16.1 发布说明）、GitHub API stars 实查",
+     "recheck": "2026-10-31"
     },
     {
      "text": "n8n：~127k stars；Sustainable Use License（fair-code，不得转售）；2025-10 融资 $180M（Accel/NVIDIA 参投），估值 ~$2.5B",
@@ -1619,11 +1633,11 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "Claude Code sub-agent 机制：`.claude/agents/*.md`（name/description 必填，tools/model 等可选）；内置 Explore / Plan / general-purpose；v2.1.172 起可嵌套、深度 5 层封顶（固定）；v2.1.198 起默认后台运行、`/agents` 交互向导移除；skill 可绑 `context: fork` 强制在 sub-agent 里跑",
+     "text": "Claude Code sub-agent 机制：`.claude/agents/*.md`（name/description 必填，tools/model 等可选）；内置 Explore / Plan / general-purpose；嵌套深度默认 3 层、环境变量 `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` 可配（v2.1.219 起；曾在 v2.1.172–216 固定 5 层不可配，v2.1.217–218 默认 1 层）；v2.1.198 起默认后台运行、`/agents` 交互向导移除；skill 可绑 `context: fork` 强制在 sub-agent 里跑",
      "chapter": "agent-subagent",
-     "verified": "2026-07-17",
-     "source": "code.claude.com/docs（sub-agents、skills）",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "code.claude.com/docs/en/sub-agents（Let subagents spawn their own subagents 节）",
+     "recheck": "2026-10-31"
     },
     {
      "text": "Codex sub-agent：当前版本默认启用；内置 explorer / worker / default；`.codex/agents/*.toml`（name/description/developer_instructions 必填）；agents.max_threads 默认 6、agents.max_depth 默认 1；spawn_agents_on_csv（CSV 一行一工人）为实验特性",
@@ -1880,7 +1894,7 @@ window.KB = {
    "dir": "Data-Engineering",
    "layer": "数据底座层",
    "created": "2026-07-11",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "de-what-why",
@@ -1933,17 +1947,17 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "解析四强：LlamaParse（VLM 托管、agentic OCR、<1000 页/天甜区）/ Docling（IBM 开源、AI 版面检测）/ MinerU（OpenDataLab，CJK 最强，PaddleOCR+自研版面）/ Unstructured；云文档智能三家为企业默认起点",
+     "text": "解析四强：LlamaParse（VLM 托管、agentic OCR、<1000 页/天甜区）/ Docling（IBM 开源、AI 版面检测）/ MinerU（OpenDataLab，**2.5 起改走 1.2B 视觉语言模型路线**，当前主力模型 MinerU2.5-Pro-2605-1.2B；**3.1.0 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可**，商用门槛明显降低）/ Unstructured；云文档智能三家为企业默认起点",
      "chapter": "de-parsing",
-     "verified": "2026-07-11",
-     "source": "mixpeek / pdfmux / llamaindex 2026 横评",
+     "verified": "2026-08-01",
+     "source": "github.com/opendatalab/MinerU README「Changelog」：3.1.0（2026-04-18 许可变更 + 换 2604 模型）、3.3（2026-06-11 换 2605 模型）、3.4（2026-06-18 OCR 换 PP-OCRv6）；建议复查日 2026-11-30",
      "recheck": "—"
     },
     {
-     "text": "基准口径（opendataloader-bench，200 PDF）：Docling 0.877 > marker 0.861 > MinerU 0.831；LlamaParse/Unstructured 未公布该基准",
+     "text": "**基准要看两榜、不能用单一排序下结论**：OmniDocBench v1.6 端到端 Overall——MinerU2.5-Pro 95.75、MinerU 管线后端 86.47、Marker 78.44（榜首是 PaddleOCR-VL-1.6 的 96.34，Docling 未列入该版榜）；olmOCR-bench——Marker 2（balanced）76.0 > MinerU 管线后端 72.7 > Docling 50.3。两榜排序不一致的原因有二：**维护方各是当事人**（OmniDocBench 由 MinerU 同门的 OpenDataLab 维护；olmOCR-bench 题库虽是 Ai2 第三方，但这组分数由 Marker 作者 Datalab 自跑），**测的后端也不同**（Datalab 自己注明比的是「文本层管线」这一档，MinerU 的视觉语言模型后端分数更高）。旧登记的「opendataloader-bench 上 Docling 0.877 居首」已作废",
      "chapter": "de-parsing",
-     "verified": "2026-07-11",
-     "source": "themenonlab / pdfmux 2026",
+     "verified": "2026-08-01",
+     "source": "github.com/opendatalab/OmniDocBench README 端到端榜（v1.6，2026-04-10 更新）；github.com/datalab-to/marker README 基准表（olmOCR-bench 自跑，附可复现 harness）；建议复查日 2026-11-30",
      "recheck": "—"
     },
     {
@@ -1965,6 +1979,13 @@ window.KB = {
      "chapter": "de-pipeline",
      "verified": "2026-07-11",
      "source": "dbt/Airbyte 文档模式（稳定工程共识）",
+     "recheck": "—"
+    },
+    {
+     "text": "治理工具锚点：OpenLineage 1.52.0（2026-07-23，Run/Job/Dataset 三实体 + facets）、OPA v1.19.0（2026-07-30）；注意血缘解释「数据怎么来」≠ 访问控制。**本行 2026-08-01 从「稳定事实」表挪回本表**——带版本号的行天然会漂，放在免巡检表里每轮都要靠补审兜底（2026-08-01 巡检结构小修，两处同批：另一处是 AIP 的 KServe/Kueue 行）",
+     "chapter": "de-governance",
+     "verified": "2026-08-01",
+     "source": "github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随季度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记）",
      "recheck": "—"
     }
    ],
@@ -2104,7 +2125,7 @@ window.KB = {
    "dir": "Evaluation",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "eval-why-hard",
@@ -2164,31 +2185,31 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "GPQA Diamond 头部分数:Gemini 3.1 Pro 94.3 / Claude Opus 4.6 91.3 / Qwen3.5-plus 88.4 / GPT-5.3 Codex 81(2026-02 口径)",
+     "text": "GPQA Diamond 头部分数:Sakana Fugu-Ultra 95.5 / GPT-5.6 Sol 94.6 / Gemini 3.1 Pro 94.3 / Claude Opus 4.7 94.2,前十差距仅 2.7 分、区分度收窄(BenchLM 2026-07-31 榜口径;各榜互差约 1 分)",
      "chapter": "eval-benchmarks",
-     "verified": "2026-07-09",
-     "source": "lmmarketcap / kili-technology",
+     "verified": "2026-08-01",
+     "source": "benchlm.ai/benchmarks/gpqaDiamond;建议复查 2026-09-05",
      "recheck": "—"
     },
     {
-     "text": "HLE 前沿模型约 35~50%,人类专家约 90%,当前区分度最好的知识型基准之一",
+     "text": "HLE 前沿模型约 45~65%(带工具/纯文本各榜口径不一:llm-stats 2026-07-27 榜首 53.3,BenchLM 带工具口径 64.5),人类专家约 90%,仍是区分度最好的知识型基准之一",
      "chapter": "eval-benchmarks",
-     "verified": "2026-07-09",
-     "source": "techjacksolutions 2026 基准综述",
+     "verified": "2026-08-01",
+     "source": "llm-stats.com / benchlm.ai/benchmarks/hle;建议复查 2026-09-05",
      "recheck": "—"
     },
     {
-     "text": "Agent 基准主战场:SWE-bench Verified / Terminal-Bench 2.0(89 任务)/ τ²-bench / OSWorld;BFCL v4(2026-04)改 Agentic 加权 40%",
+     "text": "Agent 基准主战场:SWE-bench Verified / Terminal-Bench 2.1(2026-05-06 发布的修订版,沿用 89 任务、修复 28 题并引入持续校验)/ τ²-bench / OSWorld;BFCL v4(2026-04)改 Agentic 加权 40%",
      "chapter": "eval-benchmarks",
-     "verified": "2026-07-09",
-     "source": "benchmarkingagents / spheron / arXiv 2601.11868",
+     "verified": "2026-08-01",
+     "source": "tbench.ai/news + tbench.ai/registry(2.1 官方发布);arXiv 2601.11868;建议复查 2026-11-01",
      "recheck": "—"
     },
     {
-     "text": "2026 中头部格局:Claude Opus 4.6 领跑 SWE-bench/Terminal-Bench/OSWorld,Gemini 3.1 Pro 领跑 ARC-AGI-2 等,GPT-5.2 领跑 τ²-bench",
+     "text": "2026-08 头部格局:Claude Opus 5(2026-07-24 发布)以 96% 领跑 SWE-bench Verified(BenchLM 2026-07-31 榜);GPT-5.6(2026-07-09 公开,Sol/Terra/Luna 三档)与 Gemini 3.5 家族(2026-07-21 发 3.6 Flash / 3.5 Flash-Lite / 3.5 Flash Cyber,无 3.5 Pro)已上线,GPT-5.5 仍现役;OpenAI 2026-02-23 以污染为由停报 SWE-bench Verified、改推 SWE-bench Pro,又于 2026-07-08 官方撤回该推荐(约 30% 任务损坏)",
      "chapter": "eval-benchmarks",
-     "verified": "2026-07-09",
-     "source": "benchlm / awesomeagents 榜单",
+     "verified": "2026-08-01",
+     "source": "anthropic.com/news/claude-opus-5 / benchlm.ai/benchmarks/sweVerified / openai.com/index/gpt-5-6 / openai.com/index/why-we-no-longer-evaluate-swe-bench-verified / OpenAI 官方 X(2026-07-08 撤荐声明);建议复查 2026-09-05",
      "recheck": "—"
     },
     {
@@ -2409,7 +2430,7 @@ window.KB = {
    "dir": "Fine-tuning",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "ft-when",
@@ -2433,7 +2454,7 @@ window.KB = {
      "id": "ft-training",
      "no": "第 4 章",
      "title": "训练实操与框架图鉴",
-     "verified": "2026-07-09"
+     "verified": "2026-08-01"
     },
     {
      "id": "ft-alignment",
@@ -2445,7 +2466,7 @@ window.KB = {
      "id": "ft-cloud",
      "no": "第 6 章",
      "title": "托管微调服务与上云落地",
-     "verified": "2026-07-09"
+     "verified": "2026-08-01"
     },
     {
      "id": "ft-eval-deploy",
@@ -2462,10 +2483,10 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "OpenAI 托管微调三方法并存：SFT/DPO 可调 GPT-4.1 / GPT-4.1-mini，RFT 可调 o4-mini（可编程 grader）",
+     "text": "OpenAI 微调平台收摊（官方挂「winding down」告示）：新组织 2026-05-07 起不能创建微调任务、60 天内未跑微调推理的组织 2026-07-02 起停止新建、存量活跃客户 2027-01-06 后停止新建；存量微调模型推理保留到对应底座退役（建议复查日 2026-10-31，收摊推进随官方页滚动）",
      "chapter": "ft-cloud",
-     "verified": "2026-07-09",
-     "source": "OpenAI 官方微调文档",
+     "verified": "2026-08-01",
+     "source": "developers.openai.com/api/docs/deprecations、model-optimization 指南",
      "recheck": "—"
     },
     {
@@ -2490,16 +2511,16 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "PEFT 稳定版 v0.19.1；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）",
+     "text": "PEFT 稳定版 v0.20.0（2026-07-28，一次新增 9 种 PEFT 方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随季度巡检，版本号周级漂移）",
      "chapter": "ft-training",
-     "verified": "2026-07-12",
+     "verified": "2026-08-01",
      "source": "github.com/huggingface/peft/releases",
      "recheck": "—"
     },
     {
-     "text": "TRL v1.8.0（2026-07-09）：KTO 自 experimental 转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）",
+     "text": "TRL v1.9.2（2026-07-28）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随季度巡检，版本号周级漂移）",
      "chapter": "ft-training",
-     "verified": "2026-07-12",
+     "verified": "2026-08-01",
      "source": "github.com/huggingface/trl/releases",
      "recheck": "—"
     },
@@ -2705,7 +2726,7 @@ window.KB = {
    "dir": "LLM",
    "layer": "基础层",
    "created": "2026-07-08",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "llm-why-transformer",
@@ -2735,7 +2756,7 @@ window.KB = {
      "id": "llm-attention-zoo",
      "no": "第 5 章",
      "title": "注意力的工程进化",
-     "verified": "2026-07-08"
+     "verified": "2026-08-01"
     },
     {
      "id": "llm-presales-map",
@@ -2746,10 +2767,10 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "GQA 8:1 是生产默认（生态支持最全）；MLA 为 DeepSeek/Kimi 系默认，KV 缓存约为同级 GQA 的 1/10，已被 Kimi K2、GLM-5 采用",
+     "text": "GQA 8:1 是生产默认（生态支持最全）；MLA 把 KV 缓存压到同级 GQA 的约 1/10，DeepSeek 全系与 GLM-5 在用；Kimi 旗舰已转 KDA 混合——K3 的 93 层 = 69 层 KDA + 24 层 Gated MLA，即每 4 层留 1 层 MLA 兜全局注意力",
      "chapter": "llm-attention-zoo",
-     "verified": "2026-07-08",
-     "source": "raw-data/2026-07-08 联网核实笔记（Raschka 变体图解等）",
+     "verified": "2026-08-01",
+     "source": "huggingface.co/moonshotai/Kimi-K3 模型卡；K3 技术报告 arXiv 2607.24653（建议复查日 2026-11-01）",
      "recheck": "—"
     },
     {
@@ -2760,10 +2781,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "线性混合格局：Qwen3-Next 的 3:1 Gated DeltaNet 混合被 Qwen3.5 旗舰转正；Kimi Linear 通道级门控；反例 MiniMax M2 退回全注意力（复杂推理精度）",
+     "text": "线性混合格局是「效率 ↔ 精度」的钟摆：Qwen3-Next 的 3:1 Gated DeltaNet 混合被 Qwen3.5 旗舰转正；Kimi Linear 的通道级门控进化为 KDA，随 Kimi K3（总参 2.8T / 激活 104B / 1M 上下文）进旗舰；MiniMax 则 M1 押线性 → M2 退回全注意力 → M3（2026-06-01）改用 MSA 稀疏注意力——「线性未进旗舰」已翻篇，「纯线性扛不住复杂推理」仍成立",
      "chapter": "llm-attention-zoo",
-     "verified": "2026-07-08",
-     "source": "Raschka Beyond Standard LLMs、mlabonne Qwen3.5 分析",
+     "verified": "2026-08-01",
+     "source": "huggingface.co/moonshotai/Kimi-K3 模型卡 + arXiv 2607.24653；minimax.io/blog/minimax-m3 + MSA 论文 arXiv 2606.13392（建议复查日 2026-11-01）",
      "recheck": "—"
     },
     {
@@ -2942,7 +2963,7 @@ window.KB = {
    "dir": "LLM-Inference",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "llminf-anatomy",
@@ -2995,23 +3016,23 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "vLLM 当前 v0.25.0（2026-07-11），事实上的默认推理引擎（硬件覆盖最广、NVIDIA NGC 收编）",
+     "text": "vLLM 当前 v0.26.0（2026-07-27），事实上的默认推理引擎（硬件覆盖最广、NVIDIA NGC 收编）（建议复查日随季度巡检，版本号周级漂移）",
      "chapter": "llminf-engines",
-     "verified": "2026-07-12",
-     "source": "GitHub releases、2026 对比评测（见 raw-data 核实笔记）",
+     "verified": "2026-08-01",
+     "source": "github.com/vllm-project/vllm/releases（版本号）；格局定性另见 2026 对比评测（raw-data 核实笔记）",
      "recheck": "—"
     },
     {
-     "text": "SGLang 当前 v0.5.15（2026-07-10）；v0.5.13 起投机解码 Spec V2 默认开启；DeepSeek 系 day-0 支持",
+     "text": "SGLang 当前 v0.5.16（2026-07-25）；v0.5.13 起投机解码 Spec V2 默认开启；DeepSeek 系 day-0 支持（建议复查日随季度巡检，版本号周级漂移）",
      "chapter": "llminf-engines",
-     "verified": "2026-07-12",
-     "source": "GitHub releases",
+     "verified": "2026-08-01",
+     "source": "github.com/sgl-project/sglang/releases",
      "recheck": "—"
     },
     {
      "text": "TensorRT-LLM 进入 1.x（1.0 起 PyTorch 架构转正）；稳定版 v1.2.1，1.3.0 处于 RC（rc20 为最后支持 TensorRT backend 的 RC，下版移除）；商业包装为 NIM",
      "chapter": "llminf-engines",
-     "verified": "2026-07-12",
+     "verified": "2026-08-01",
      "source": "GitHub releases（github.com/NVIDIA/TensorRT-LLM/releases）",
      "recheck": "—"
     },
@@ -3037,9 +3058,9 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.2.1（2026-06-13）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐",
+     "text": "NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.3.0（2026-07-22，第 16 个特性版）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐（建议复查日随季度巡检，版本号月级漂移）",
      "chapter": "llminf-disagg",
-     "verified": "2026-07-12",
+     "verified": "2026-08-01",
      "source": "NVIDIA 官方博客、GitHub releases（github.com/ai-dynamo/dynamo）",
      "recheck": "—"
     },
@@ -3253,7 +3274,7 @@ window.KB = {
    "dir": "LLM-Training",
    "layer": "基础层",
    "created": "2026-07-08",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "llmtrain-overview",
@@ -3271,7 +3292,7 @@ window.KB = {
      "id": "llmtrain-pretrain",
      "no": "第 3 章",
      "title": "预训练：压缩互联网",
-     "verified": "2026-07-08"
+     "verified": "2026-08-01"
     },
     {
      "id": "llmtrain-sft",
@@ -3301,7 +3322,7 @@ window.KB = {
      "id": "llmtrain-eval",
      "no": "第 8 章",
      "title": "评估与发布：怎么知道练成了",
-     "verified": "2026-07-08"
+     "verified": "2026-08-01"
     }
    ],
    "facts": [
@@ -3313,10 +3334,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "旗舰开源模型几乎全是稀疏 MoE（DeepSeek V4-Pro 1.6T/49B、Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B、Kimi K2.6 约 1T）",
+     "text": "旗舰开源模型几乎全是稀疏 MoE：Kimi K3 总参 2.8T / 激活 104B（1M 上下文，93 层 = 69 KDA + 24 Gated MLA），DeepSeek V4-Pro 1.6T/49B、Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B；Qwen3.6 开源线只放到 35B-A3B 与 27B dense，最大的开源 Qwen 仍是 3.5 这一代",
      "chapter": "llmtrain-pretrain",
-     "verified": "2026-07-08",
-     "source": "OpenRouter 2026-06 开源模型盘点",
+     "verified": "2026-08-01",
+     "source": "huggingface.co/moonshotai/Kimi-K3 模型卡 + K3 技术报告 arXiv 2607.24653；HF Qwen3.6 合集与 Qwen/Qwen3.5-397B-A17B 模型卡；其余型号沿用 OpenRouter 2026-06 盘点（建议复查日 2026-11-01）",
      "recheck": "—"
     },
     {
@@ -3348,10 +3369,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "开源许可格局：Apache 2.0 成主流（Qwen/Mistral/Gemma），DeepSeek 用 MIT",
+     "text": "开源许可格局在分叉：Apache 2.0 仍是主流（Qwen 开源线 27B / 35B-A3B、Mistral、Gemma），DeepSeek 用 MIT；但旗舰另走一路——Qwen 3.7-Max 只出 API 不放权重，Kimi K3 用自有「Kimi K3 License」（MIT 式条款 + 商用阈值：做 Model as a Service 且连续 12 个月合计营收超 2000 万美元，须与月之暗面另签协议），**不是 Modified MIT**",
      "chapter": "llmtrain-eval",
-     "verified": "2026-07-08",
-     "source": "OpenRouter 2026-06 盘点",
+     "verified": "2026-08-01",
+     "source": "huggingface.co/moonshotai/Kimi-K3 仓 LICENSE 原文；alibabacloud.com/help/en/model-studio/qwen3-7-max 官方模型页（只有 API 定价、无权重下载）；HF Qwen/Qwen3.6-35B-A3B 模型卡标 apache-2.0（建议复查日 2026-11-01）",
      "recheck": "—"
     },
     {
@@ -3544,7 +3565,7 @@ window.KB = {
    "dir": "MCP",
    "layer": "协议层",
    "created": "2026-07-08",
-   "updated": "2026-07-30",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "mcp-what-why",
@@ -3626,11 +3647,11 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "SDK 面向新规范的 beta 已发：Python v2.0.0b1（FastMCP 更名 MCPServer）、TS v2 拆包",
+     "text": "SDK 正式版已发（beta 阶段结束）：Python SDK v2.0.0 于 2026-07-28 发布（与规范同日；FastMCP 更名 MCPServer，装饰器 API 不变）、TypeScript SDK 2.0.0 于 2026-07-27 发布并拆包（@modelcontextprotocol/core / client / server / node / express / hono / fastify 等一组）；v1 线转维护、只收安全修复（当前 v1.29.0，2026-07-28），暂不升级的把依赖钉上限 `mcp>=1.28,<2`",
      "chapter": "mcp-server",
-     "verified": "2026-07-08",
-     "source": "MCP 官方博客 SDK beta 文",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "github.com/modelcontextprotocol/python-sdk releases（v2.0.0 / v1.29.0）；github.com/modelcontextprotocol/typescript-sdk releases（@modelcontextprotocol/core@2.0.0 等）",
+     "recheck": "2026-11-30"
     },
     {
      "text": "官方 Registry 仍 preview 未 GA，不支持私有 server（企业需自建）",
@@ -3837,7 +3858,7 @@ window.KB = {
    "dir": "Model-Landscape",
    "layer": "解决方案层",
    "created": "2026-07-10",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "ml-map",
@@ -3902,11 +3923,11 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "GPT-5.6 家族 2026-07-09 GA：Sol $5/$30、Terra $2.50/$15、Luna $1/$6（每百万 token 输入/输出）；缓存读 -90%、写 1.25×",
+     "text": "GPT-5.6 家族（2026-07-09 GA，07-30 官方降价）：Sol $5/$30 不变、Terra $2.50/$15 → $2/$12（-20%）、Luna $1/$6 → $0.20/$1.20（-80%，跌进地板档）；缓存读 -90%、写 1.25×",
      "chapter": "ml-closed / ml-price",
-     "verified": "2026-07-10",
-     "source": "OpenAI 官方 / aipricing.guru",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "OpenAI 官方价格页 developers.openai.com/api/docs/pricing（三档逐条核对）；降价公告 openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6/",
+     "recheck": "2026-08-31"
     },
     {
      "text": "Claude 5 家族：Fable 5（Mythos 级、1M 上下文/128K 输出）、Mythos 5 限量、Opus 4.8、Sonnet 5 尝鲜价 $2/$10（至 2026-08-31，后 $3/$15）；Fable/Mythos 出口管制风波后 2026-07-01 恢复",
@@ -3944,11 +3965,11 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "开源榜首（2026-07 快照）：DeepSeek V4 Pro 综合 87（SWE-bench Verified 80.6% 追平闭源；MIT）、GLM-5.1 83（MIT）、Kimi K2.6（AA 54，开源第一/总榜第四）、Qwen3.5 397B（122B/激活 10B 超 GPT-5-mini）",
+     "text": "开源榜首（2026-08 快照）：DeepSeek V4 Pro 综合 87（SWE-bench Verified 80.6% 追平闭源；MIT）、GLM-5.2 753B MoE / 1M 上下文（MIT，2026-06-17）、Kimi K3 2.8T MoE（激活 104B、原生视觉、1M 上下文，2026-07-16 发布 07-27 放权重；**自有许可，MIT 式但带商用阈值——不是 Modified MIT**）、Qwen3.5 397B（122B/激活 10B）",
      "chapter": "ml-open",
-     "verified": "2026-07-10",
-     "source": "benchlm / wavect 横评",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "huggingface.co/moonshotai/Kimi-K3（含 LICENSE 原文）、huggingface.co/zai-org/GLM-5.2",
+     "recheck": "2026-09-30"
     },
     {
      "text": "GLM-5 为首个完全用华为昇腾训练的前沿模型（零英伟达）",
@@ -3972,7 +3993,7 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "许可证格局：OSAID v1.0（2024-10）口径下主流\"开源\"模型均为 open weight；DeepSeek/GLM-5.1 = MIT、Qwen3 主系 = Apache 2.0、Mistral Large 3/Small 4 转 Apache 2.0；Llama 社区证含 700M MAU 帽 + 欧盟条款",
+     "text": "许可证格局：OSAID v1.0（2024-10）口径下主流\"开源\"模型均为 open weight；DeepSeek/GLM-5.2 = MIT、Qwen3 主系 = Apache 2.0、Kimi K3 = 自有许可（MIT 式 + 商用阈值）、Mistral Large 3/Small 4 转 Apache 2.0；Llama 社区证含 700M MAU 帽 + 欧盟条款",
      "chapter": "ml-license",
      "verified": "2026-07-10",
      "source": "qubittool / HF blog / LICENSE 原文",
@@ -4236,7 +4257,7 @@ window.KB = {
    "dir": "Multimodal",
    "layer": "应用模式层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "mm-what-why",
@@ -4260,7 +4281,7 @@ window.KB = {
      "id": "mm-understanding",
      "no": "第 4 章",
      "title": "理解侧能力盘点（图 / 文档 / 视频 / 语音 + 格局）",
-     "verified": "2026-07-09"
+     "verified": "2026-08-01"
     },
     {
      "id": "mm-generation",
@@ -4284,13 +4305,13 @@ window.KB = {
      "id": "mm-voice-realtime",
      "no": "第 8 章",
      "title": "语音与实时交互（延迟预算 / 级联 vs 端到端 / 打断 / RTC 框架）",
-     "verified": "2026-07-10"
+     "verified": "2026-08-01"
     },
     {
      "id": "mm-video-generation",
      "no": "第 9 章",
-     "title": "视频生成（四家旗舰格局、按秒计价成本账、工作流与标识合规）",
-     "verified": "2026-07-17"
+     "title": "视频生成（在位三家格局、按秒计价成本账、工作流与标识合规）",
+     "verified": "2026-08-01"
     },
     {
      "id": "mm-cheatsheet",
@@ -4301,18 +4322,18 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "闭源旗舰原生多模态：GPT-5（统一路由）/ Gemini 2.5 Pro（原生图音视频 + 1M~2M 上下文 + MoE）/ Claude 4.5（视觉 + 1M）；test-time compute「thinking」成主流",
+     "text": "闭源旗舰原生多模态：GPT-5.5（1.05M 上下文，收文本与图）/ Gemini 3.1 Pro（原生图音视频 + 1M 上下文 + 64K 输出）/ Claude Opus 5（视觉 + 1M，adaptive thinking）；三家中仅 Gemini 原生收音视频，thinking 档已成主流。旧口径 GPT-5 / Gemini 2.5 Pro / Claude 4.5 作废",
      "chapter": "mm-understanding",
-     "verified": "2026-07-09",
-     "source": "Pluralsight / Shakudo 2026 模型盘点",
-     "recheck": "2026-08-01"
+     "verified": "2026-08-01",
+     "source": "developers.openai.com 模型页（gpt-5.5）；deepmind.google Gemini 3.1 Pro 模型卡；platform.claude.com 模型总览 + anthropic.com/news/claude-opus-5（2026-07-24）",
+     "recheck": "2026-09-05"
     },
     {
-     "text": "开源 VLM SOTA：InternVL3-78B（MIT）MMMU≈72.2%；Qwen2.5-VL-72B MMMU≈70.2%/OCRBench≈888；Qwen3-VL 文档基准最强开源",
+     "text": "开源 VLM 换代：Qwen3-VL（Apache-2.0，Instruct / Thinking 双档，2B–235B-A22B）与 InternVL3.5（Apache-2.0，官方称开源 MLLM 综合 SOTA）为当期主角；**官方仓库与模型卡均未公布 MMMU 数值，本册只写定性排位**，旧值 InternVL3-78B≈72.2% / Qwen2.5-VL-72B≈70.2% / OCRBench≈888 一并作废",
      "chapter": "mm-understanding",
-     "verified": "2026-07-09",
-     "source": "BentoML / DataCamp / Spheron 2026",
-     "recheck": "2026-08-01"
+     "verified": "2026-08-01",
+     "source": "github.com/QwenLM/Qwen3-VL；github.com/OpenGVLab/InternVL 与 huggingface.co/OpenGVLab/InternVL3_5-241B-A28B",
+     "recheck": "2026-09-05"
     },
     {
      "text": "原生图像生成两大流派：扩散（FLUX.2 / Midjourney）vs 自回归（GPT Image 2〔2026-04〕、Nano Banana 2 = Gemini 3.1 Flash Image〔2026-02〕、Luma）",
@@ -4329,10 +4350,10 @@ window.KB = {
      "recheck": "2026-09-05"
     },
     {
-     "text": "开源 VLM 可用 vLLM / SGLang 在 GPU 云自部署（Qwen3-VL / Llama 4 Scout / InternVL3）",
+     "text": "开源 VLM 可用 vLLM / SGLang 在 GPU 云自部署（Qwen3-VL / Llama 4 Scout / InternVL3.5）",
      "chapter": "mm-selection",
-     "verified": "2026-07-09",
-     "source": "Spheron 部署指南 2026",
+     "verified": "2026-08-01",
+     "source": "Spheron 部署指南 2026；08-01 巡检按 QwenLM / OpenGVLab 仓库回写型号版本",
      "recheck": "—"
     },
     {
@@ -4343,10 +4364,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "语音延迟口径：人类换话空隙 300–500ms；级联生产目标 P50 <1.5s；端到端标杆 <800ms（gpt-realtime 实测量级）；>1.5s 用户判定「坏了」",
+     "text": "语音延迟口径：人类换话空隙 300–500ms；级联生产目标 P50 <1.5s；端到端标杆 <800ms（gpt-realtime-2.1 家族量级）；>1.5s 用户判定「坏了」",
      "chapter": "mm-voice-realtime",
      "verified": "2026-07-10",
-     "source": "softcery / telnyx 2026 横评",
+     "source": "softcery / telnyx 2026 横评（延迟量级未复核，08-01 只随换代回写型号名）",
      "recheck": "—"
     },
     {
@@ -4357,18 +4378,18 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "端到端 S2S 格局：OpenAI gpt-realtime 家族（GA、128K、工具调用入音频环路）/ Gemini 3.1 Flash Live（2026-03-26，~200ms 首响、200+ 语言）/ Qwen3-Omni 系开源（113 语种 ASR、可自部署）/ Kyutai Moshi（全双工先驱）",
+     "text": "端到端 S2S 格局：OpenAI **gpt-realtime-2.1 / 2.1-mini**（2026-07-06 发布；128K 上下文、32K 输出、文本/音频/图像入、p95 时延再降 ≥25%；前代 GPT-Realtime-2 为 2026-05-07，同批还有 Realtime-Translate $0.034/分钟、Realtime-Whisper $0.017/分钟）/ Gemini 3.1 Flash Live（2026-03-26，~200ms 首响、200+ 语言）/ Qwen3-Omni（Apache-2.0，119 文本 / 19 语音输入 / 10 语音输出语种，可自部署；Qwen3.5-Omni 技术报告 2026-04-20、256K 上下文，**未见开放权重故不进成品**）/ Kyutai Moshi（全双工先驱）",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-07-10",
-     "source": "flowtivity / QwenLM GitHub / marktechpost",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "developers.openai.com/api/docs/models/gpt-realtime-2.1；community.openai.com 官方公告（2026-05-07 / 07-06）；github.com/QwenLM/Qwen3-Omni；huggingface.co/papers/2604.15804",
+     "recheck": "2026-09-05"
     },
     {
-     "text": "语音成本：级联 $0.01–0.17/分钟；gpt-realtime 未缓存实测 $0.18–0.46/分钟、开缓存 $0.05–0.10（音频输入缓存折扣 ~99%）；gpt-realtime-mini 约便宜 60%",
+     "text": "语音成本：级联 $0.01–0.17/分钟（组件各自计价，可预测）；端到端厂商只公布 token 单价——gpt-realtime-2.1 音频进 $32 / 出 $64 每百万 token、缓存命中输入 $0.4，2.1-mini 音频出 $20。**旧行「gpt-realtime 未缓存实测 $0.18–0.46/分钟、开缓存 $0.05–0.10、mini 便宜约 60%」随两轮换代作废**，端到端的分钟成本须按自身话务实测折算，不再登记外部实测值",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-07-10",
-     "source": "hackernoon 4000 会话实测 / OpenAI 定价页",
-     "recheck": "—"
+     "verified": "2026-08-01",
+     "source": "developers.openai.com 模型与定价页；community.openai.com 2026-05-07 / 07-06 官方公告",
+     "recheck": "2026-09-05"
     },
     {
      "text": "语音框架：Pipecat v1.0（2026-04，帧管线）/ LiveKit Agents（房间模型）；实测端到端 750–950ms 同量级；Vapi / Retell 为托管层",
@@ -4378,11 +4399,11 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "视频生成格局（多方评测交叉）：Seedance 2.0（≤15s/1080p、原生音视频同步、参考输入 12 文件、Fast $0.022/秒）；Sora 2（故事板最长 25s）；可灵 3.0（$0.029/秒、原生 4K@60fps）；Veo 3.1（$0.75/秒、电影级+原生音频）——价差约 34 倍",
+     "text": "视频生成格局重组：**Sora 已退场**——OpenAI 消费端 2026-04-26 停服、Videos API 与 sora-2 / sora-2-pro 快照 2026-09-24 下线（2026-03-24 公告）。在位三家：Seedance 2.0（字节，创意控制 + 参考输入 12 文件）/ 可灵 3.0（快手，2026-04-23 起原生 4K 直出、06-17 出 3.0 Turbo）/ Veo 3.1（Google，官方每秒价：标准 $0.40 (720p/1080p)、$0.60 (4K)；Fast $0.10–0.30；Lite $0.05 (720p)、$0.08 (1080p)，均含音频）。补位候选 Runway Gen-4.5、阿里万相（Wan）。**原「34 倍价差（$0.022–$0.75）」作废**——Seedance / 可灵按积分或包月计、无官方每秒价，跨厂商倍数不可核，成品改用 Veo 同族十倍档差",
      "chapter": "mm-video-generation",
-     "verified": "2026-07-17",
-     "source": "devtk.ai/atlascloud/laozhang/opencreator 2026 横评",
-     "recheck": "2026-08-31"
+     "verified": "2026-08-01",
+     "source": "developers.openai.com/api/docs/deprecations 与 help.openai.com Sora discontinuation；ai.google.dev/gemini-api/docs/pricing；klingai.com 更新日志；runway.com/research（Gen-4.5）",
+     "recheck": "2026-09-05"
     },
     {
      "text": "即梦消费端口径：注册送 260 积分、5 秒视频约 20 积分（新用户约 13 次免费生成）",
@@ -4584,7 +4605,7 @@ window.KB = {
    "dir": "Prompt-Engineering",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-07-30",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "pe-what-why",
@@ -4645,11 +4666,11 @@ window.KB = {
      "recheck": "2026-10-31"
     },
     {
-     "text": "DSPy 2.x 默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 +13%、rollout 少 35×，ICLR 2026 oral",
+     "text": "DSPy 已到 3.x 线（当前稳定版 3.2.1，2026-05-05；3.3.0b1 为预发布，2026-05-28）——库内原写「2.x」是版本框架错，2026-08-01 更正；默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 +13%、rollout 少 35×，ICLR 2026 oral",
      "chapter": "pe-engineering",
-     "verified": "2026-07-09",
-     "source": "futureagi（DSPy optimizers 2026）、morphllm（GEPA）",
-     "recheck": "2027-01-31"
+     "verified": "版本 2026-08-01；MIPROv2/GEPA 数字 2026-07-09（本次未重核）",
+     "source": "版本＝github.com/stanfordnlp/dspy releases；优化器数字＝futureagi（DSPy optimizers 2026）、morphllm（GEPA）",
+     "recheck": "2026-11-30"
     },
     {
      "text": "提示词缓存：截至 2026-06 三大厂缓存读取价约为基础输入价 0.1×（约 1 折，省约 90%）；OpenAI 自动（≥1024 token）、Anthropic 手动 cache_control 且写入加价（5min 1.25×/1h 2×）、Gemini 显式+按小时存储计费",
@@ -5166,7 +5187,7 @@ window.KB = {
    "dir": "Security",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "sec-landscape",
@@ -5288,10 +5309,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "EU AI Act:GPAI 义务 2025-08-02 生效 / 2026-08-02 执法罚款(GPAI 最高 €15M 或营收 3%;广义最高 €35M 或 7%)/ 2027-08-02 存量截止",
+     "text": "EU AI Act:GPAI 三时点不变(义务 2025-08-02 生效 / 2026-08-02 执法罚款,GPAI 最高 €15M 或营收 3%、广义最高 €35M 或 7% / 2027-08-02 存量截止);高风险义务经 Digital Omnibus(Regulation (EU) 2026/1744,2026-07-24 刊《官方公报》、07-27 生效)延期:Annex III 独立系统→2027-12-02、Annex I 嵌入式→2028-08-02,透明度义务(Art. 50)仍 2026-08-02;建议复查日 2026-12-01",
      "chapter": "sec-governance",
-     "verified": "2026-07-09",
-     "source": "artificialintelligenceact.eu / EC",
+     "verified": "2026-08-01",
+     "source": "EUR-Lex(Reg (EU) 2026/1744)/ Gibson Dunn / Jones Walker 两家法务分析一致",
      "recheck": "—"
     },
     {
@@ -5330,10 +5351,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "立法风向(易过期):网安法修订 2026-01-01 施行新增 AI 专条(第 20 条);国务院 2026 立法计划部署 AI 综合性立法;《拟人化互动服务办法》征求意见中",
+     "text": "立法风向(易过期):网安法修订 2026-01-01 施行新增 AI 专条(第 20 条);国务院 2026 立法计划部署 AI 综合性立法;《人工智能拟人化互动服务管理暂行办法》2026-04-10 五部门公布、2026-07-15 施行;同日网信办公布首批 7 款手机端侧生成式 AI 服务备案(新品类首次单开清单);建议复查日 2026-11-01",
      "chapter": "sec-china",
-     "verified": "2026-07-17",
-     "source": "cac.gov.cn 专家解读 / 国务院立法计划",
+     "verified": "2026-08-01",
+     "source": "cac.gov.cn 原文(办法发布页 c_1777558395023172 + 端侧备案公告 c_1785861480767004)",
      "recheck": "—"
     },
     {
@@ -5495,7 +5516,7 @@ window.KB = {
    "dir": "Solution-Patterns",
    "layer": "解决方案层",
    "created": "2026-07-10",
-   "updated": "2026-07-23",
+   "updated": "2026-08-01",
    "chapters": [
     {
      "id": "sp-what-why",
@@ -5531,7 +5552,7 @@ window.KB = {
      "id": "sp-ai-coding",
      "no": "第 6 章",
      "title": "AI Coding 与研发提效（双层格局 / 企业三关注）",
-     "verified": "2026-07-10"
+     "verified": "2026-08-01"
     },
     {
      "id": "sp-digital-human",
@@ -5581,10 +5602,10 @@ window.KB = {
      "recheck": "—"
     },
     {
-     "text": "AI Coding 市场：2026 年 $12.8B、85% 开发者在用；Copilot 4.7M 付费（用户第一）、Cursor $2B ARR（收入第一）、Claude Code 46% most-loved（JetBrains 2026-04 满意度第一）；采用率 29%/18%/18%；70% 工程师同时用 2–4 个工具",
+     "text": "AI Coding 格局：SpaceX $60B 全股票收购 Cursor 母公司 Anysphere（2026-06-16 宣布、预计 Q3 交割，建议复查 2026-10-01 确认交割）；Cursor ARR $4B 年化（2026-06 初，2 月 $2B 四个月翻倍，收入第一）；Copilot 4.7M 付费 +75% YoY（微软 FY26 Q2 财报 2026-01-28 披露，仍为最新付费数——FY26 Q4 财报 07-29 只披露总用户 5000 万未更新付费口径，用户量第一）、Claude Code 46% most-loved（JetBrains 2026-04 满意度第一）；市场 2026 年 $12.8B、85% 开发者在用；采用率 29%/18%/18%；70% 工程师同时用 2–4 个工具",
      "chapter": "sp-ai-coding",
-     "verified": "2026-07-10",
-     "source": "ideaplan / tech-insider / JetBrains 2026 调查",
+     "verified": "2026-08-01（收购与 ARR 新写入；4.7M 与 $12.8B 复核仍成立）",
+     "source": "TechCrunch 2026-06-16 / Forbes 2026-06-16 / 微软 FY26 Q2·Q4 财报 / ideaplan / JetBrains 2026 调查",
      "recheck": "—"
     },
     {
@@ -7813,7 +7834,7 @@ window.KB = {
    "mm-video-generation": {
     "mod": "Multimodal",
     "modId": "multimodal",
-    "title": "视频生成（四家旗舰格局、按秒计价成本账、工作流与标识合规）",
+    "title": "视频生成（在位三家格局、按秒计价成本账、工作流与标识合规）",
     "web": "./multimodal/index.html",
     "hue": 1
    },

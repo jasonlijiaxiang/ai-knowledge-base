@@ -322,9 +322,9 @@
       <tr><td>Coze / 扣子（字节）</td><td>对话 bot 与多渠道分发最快</td>
           <td>开源版 Apache 2.0——可商用可闭源二开</td>
           <td>21.1k stars、V0.5.1；SaaS 扣子 3.0 多人多 Agent 协作</td></tr>
-      <tr><td>Dify</td><td>LLM 应用底座，RAG 一等公民（摄取/切分/检索内置）</td>
+      <tr><td>Dify</td><td>LLM 应用底座，RAG 一等公民（摄取/切分/检索内置）；v1.16.0 起携 Dify Agent（Open Beta）</td>
           <td>Apache 2.0 + 附加条款——多租户 SaaS、去 logo 需商业授权</td>
-          <td>148k stars、v1.15.0</td></tr>
+          <td>151k stars、v1.16.1</td></tr>
       <tr><td>n8n</td><td>通用工作流自动化 + AI 节点，几百个 SaaS 连接器</td>
           <td>fair-code——内部使用免费，不得转售 n8n 本身</td>
           <td>~127k stars；估值 ~$2.5B（2025-10 融资）</td></tr>
@@ -342,7 +342,7 @@
     ③ 要深度定制吗（自定义循环/上下文工程）？<b>两个「是」就该下沉代码</b>（LangGraph / Agent SDK）。生产范式是「平台做壳、复杂节点下沉代码」——Dify 节点里调一个
     LangGraph 服务是常规操作；锁定主要在工作流画布（格式不通），对策是复杂逻辑早下沉，画布只做薄编排。</p>
   <p>把锁定摊开看，迁移成本是<b>逐层递增</b>的：换生成模型最轻，工具契约与编排结构都不跟着模型走；换工具或后端次之，接了 MCP 就是换一个 server、agent 侧不动；换编排框架中等，看复杂逻辑有没有下沉成独立服务；<b>换画布最重，因为画布格式互不相通</b>。所以「怕被锁定」的注意力该放在最下面那层——<b>越难换的层，越该薄</b>。</p>
-  <p class="ev">四平台口径核实 2026-07-10，来源 <a href="#src-lowcode">GitHub 仓库 /
+  <p class="ev">四平台口径核实 2026-07-10（Dify 行 2026-08-01 刷新），来源 <a href="#src-lowcode">GitHub 仓库 /
     官方文档 / 融资报道</a>。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../mcp/index.html#mcp-what-why" title="四平台都在补 MCP 支持（工具接入标准化），协议细节见 MCP 模块">是什么/为什么<span class="xm">MCP</span></a><a href="../rag/index.html#rag-pipeline" title="Dify 内置 RAG = RAG 第 6 章最小管线的产品化，配知识库即建库">最小 RAG 管线<span class="xm">RAG</span></a><a href="../multimodal/index.html#mm-voice-realtime" title="平台搭的客服 bot 要上语音时，实时链路工程（延迟/打断/RTC）见 Multimodal 第 8 章">语音与实时交互<span class="xm">Multimodal</span></a><a href="../solution-patterns/index.html#sp-cheatsheet" title="平台是各场景方案的落地工具层；「有没有平台」在 Solution-Patterns 分诊树中指回本章（模块 2026-07-10 建成，原「候选」补实）">售前速查<span class="xm">Solution-Patterns</span></a></div>
@@ -497,7 +497,7 @@
    </div>
    <div class="box">
     <h4>③ 深度上限</h4>
-    <p>Claude Code 5 层封顶（固定不可配）、Codex max_depth 默认 1——<b>没有上限的扇出就是没有上限的账单</b>。</p>
+    <p>Claude Code 默认 3 层、环境变量可配（v2.1.219 起；v2.1.172–216 曾固定 5 层）、Codex max_depth 默认 1——<b>没有上限的扇出就是没有上限的账单</b>。</p>
    </div>
   </div>
 
@@ -510,7 +510,7 @@
       <tr><td>必填字段</td><td>name、description</td><td>name、description、developer_instructions</td></tr>
       <tr><td>内置角色</td><td>Explore / Plan / general-purpose</td><td>explorer / worker / default</td></tr>
       <tr><td>并发与运行</td><td>默认后台运行（v2.1.198 起）</td><td>max_threads 默认 6</td></tr>
-      <tr><td>嵌套深度</td><td>5 层封顶，固定</td><td>max_depth 默认 1</td></tr>
+      <tr><td>嵌套深度</td><td>默认 3 层，环境变量可配</td><td>max_depth 默认 1</td></tr>
       <tr><td>批量特技</td><td>agent teams 多会话协作</td><td>spawn_agents_on_csv（实验）</td></tr>
     </tbody>
   </table>
@@ -553,7 +553,7 @@
   </div>
   <p><b>治理三件</b>：按任务价值分层开、并发限额、token 预算与超额熔断——<b>先上追踪和预算，再开 multi-agent</b>。</p>
   <p>预算这一件对客还有第二重用处：agent 的成本之所以说不准，根子在<b>步数不确定</b>，而步数是可以设上限的。给单任务定一个 token 上限并配超额熔断，成本就从「说不准」变成「有封顶」，报价随之可算——<b>单任务封顶 × 任务量</b>。客户要的从来不是最低价，是知道<b>最坏情况是多少</b>。</p>
-  <p class="ev">机制与配置核实 2026-07-17，来源 <a href="#src-subagent">Claude Code / Codex
+  <p class="ev">机制与配置核实 2026-07-17（深度口径 2026-08-01 刷新），来源 <a href="#src-subagent">Claude Code / Codex
     官方文档</a>；决策账数字来源 <a href="#src-anthropic">Anthropic 多 agent 研究系统工程博客</a>（BrowseComp 内部评测口径，两家产品迭代都快，引用前先核日期）。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="#agent-orchestration" title="模块内串联：orchestrator-workers 是模式（蓝图），sub-agent 是 coding agent 产品里的机制（车间）；两章互指">编排模式<span class="xm">本页</span></a><a href="#agent-context" title="模块内串联：上下文隔离是第 5 章「子 agent」板斧的机制展开；任务书自包含 = 上下文工程纪律">上下文工程<span class="xm">本页</span></a></div>
@@ -730,7 +730,7 @@
       <div class="a">
         <p>会放大——研究类任务约 15× token。治理三件：按任务价值分层开、并发限额（Codex 默认
           6 线程）、token 预算与超额熔断。先上追踪和预算，再开 multi-agent。</p>
-        <p class="qa-why">深度上限的存在理由就是这本账：没有上限的扇出就是没有上限的账单（Claude Code 5 层封顶、Codex 默认 1 层）。</p>
+        <p class="qa-why">深度上限的存在理由就是这本账：没有上限的扇出就是没有上限的账单（Claude Code 默认 3 层、Codex 默认 1 层）。</p>
         <p class="qa-next"><b>下一步</b>　在自己项目实测一次「三个 sub-agent 并行 vs 串行」的墙钟时间与 token，拿实测数字讲账。</p>
         <p class="qa-src">依据　<a href="#agent-subagent">派与不派账</a></p>
       </div>
@@ -872,7 +872,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../solution-patterns/index.html"><span class="k">上一册 · 解决方案层</span><b>Solution-Patterns</b></a>
    <a class="nx" href="../multimodal/index.html"><span class="k">下一册 · 应用模式层</span><b>Multimodal</b></a>

@@ -178,13 +178,13 @@
     </tbody>
   </table>
   </div>
-  <p>2026 年旗舰开源模型几乎全是<b>稀疏 MoE</b>：DeepSeek V4-Pro 总参 1.6T/激活仅 49B、
-    Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B——像会诊制医院，分诊台每次只叫得动其中一小撮医生，但医院整体什么都懂。看 MoE 先分清两个数：总参数（知识容量、显存门槛）与激活参数（每次计算的成本）——<b>MoE 省的是计算不是显存</b>，专家轮流干活但都得在场，这正是私有化部署报价的关键差异。</p>
+  <p>2026 年旗舰开源模型几乎全是<b>稀疏 MoE</b>：Kimi K3 总参 2.8T/激活 104B、DeepSeek V4-Pro 总参 1.6T/激活仅 49B、
+    Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B（Qwen3.6 的开源线只到 35B-A3B，最大的开源 Qwen 仍是 3.5 这一代）——像会诊制医院，分诊台每次只叫得动其中一小撮医生，但医院整体什么都懂。看 MoE 先分清两个数：总参数（知识容量、显存门槛）与激活参数（每次计算的成本）——<b>MoE 省的是计算不是显存</b>，专家轮流干活但都得在场，这正是私有化部署报价的关键差异。</p>
   <p><b>降本组合拳</b>（「DeepSeek 为什么训得便宜」的标准结构）：架构省（MoE 稀疏激活）+
     精度省（FP8 混合精度，显存带宽近乎减半，已进主流实践）+ 算法省（Muon 优化器计算效率约
     2 倍，Kimi K2 用 MuonClip 在 15.5T token 上零训练崩溃，PyTorch 2.9 已原生内置）+ 工程省（通信计算重叠，把每张卡榨干）——是精打细算，不是偷工减料。架构侧的「发动机舱」在
     <a href="../llm/index.html">LLM 网页版</a>：那边讲机器是什么，本页讲机器怎么被造出来。</p>
-  <p class="ev">MoE/FP8/Muon 格局核实 2026-07-08，来源 <a href="#src-pretrain">OpenRouter
+  <p class="ev">MoE/FP8/Muon 格局核实 2026-08-01（Kimi K3 的 2.8T/104B 据 HF 模型卡 huggingface.co/moonshotai/Kimi-K3 与技术报告 arXiv 2607.24653；Qwen 开源线规模据 HF Qwen3.6 合集），其余来源 <a href="#src-pretrain">OpenRouter
     盘点 / PyTorch 官方博客</a>。<b>不可外推边界</b>：盘点反映的是公开模型的技术选择分布，不含各家的训练细节与失败尝试；「主流」不等于「对你的规模也最优」。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../llm/index.html#llm-why-transformer" title="LLM 原理讲架构（发动机舱），本模块讲训练（流水线），互为前置；第 3 章「可并行」一页对应其第 1 章">从序列问题到 Transformer<span class="xm">LLM</span></a></div>
@@ -424,15 +424,15 @@
   <p>行业应对：基准持续换代、私有保留集、污染检测。售前的分寸：引用榜单时主动说明局限，反而比无脑报分数更建立信任。训练内部还有「过程评估」：每个阶段跑全套基准防「补了数学、塌了写作」。</p>
   <p><b>模型卡五盯点</b>（五分钟读懂一次发布）：</p>
   <div class="keypoints">
-    <div><b>① 许可证</b><span>Apache 2.0 已成主流、DeepSeek 用 MIT——「开源」不等于「随便商用」，法务看原文</span></div>
+    <div><b>① 许可证</b><span>Apache 2.0 仍是主流（Qwen 开源线、Mistral、Gemma）、DeepSeek 用 MIT；但旗舰在分叉——Qwen 3.7-Max 只出 API 不放权重，Kimi K3 用自有许可（做模型即服务且年营收过 2000 万美元须与月之暗面另签）。「开源」不等于「随便商用」，法务看原文</span></div>
     <div><b>② 架构与激活参数</b></div>
     <div><b>③ 训练数据截止日期</b></div>
     <div><b>④ 上下文窗口</b></div>
     <div><b>⑤ 基准分数的评测条件</b><span>0-shot 和 5-shot 能差好几分，两家各报对自己有利的条件是常态——对比时拉齐条件或看第三方统一复测</span></div>
   </div>
   <p>企业自建评估集的最小配方（50–200 道真题、业务专家评分、版本化管理）在 <a href="../evaluation/index.html">Evaluation 网页版</a>展开成完整方法论。</p>
-  <p class="ev">许可格局核实 2026-07-08，来源 <a href="#src-eval-lt">OpenRouter 2026-06
-    盘点</a>。<b>不可外推边界</b>：许可格局按发布批次变动（Meta 转向就是本节的例子）；许可证结论一律以当日 LICENSE 原文为准。</p>
+  <p class="ev">许可格局核实 2026-08-01（Kimi K3 许可条款据 HF 仓 LICENSE 原文；Qwen 3.7-Max 只出 API 据阿里云百炼官方模型页；Qwen3.6 开源线 Apache 2.0 据 HF 模型卡），其余来源 <a href="#src-eval-lt">OpenRouter 2026-06
+    盘点</a>。<b>不可外推边界</b>：许可格局按发布批次变动（Meta 转向、Qwen 旗舰转闭源都是本节的例子）；许可证结论一律以当日 LICENSE 原文为准。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../rag/index.html#rag-evaluation" title="模型本体评估 ↔ 检索质量评估，两条评估线互参">常见评估方法<span class="xm">RAG</span></a><a href="../agent/index.html#agent-eval-guardrails" title="模型本体评估 ↔ 智能体评估与护栏">评估与护栏<span class="xm">Agent</span></a></div>
 </section>
@@ -596,7 +596,7 @@
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
-      <tr id="src-pretrain"><td><code>src-pretrain</code></td><td>OpenRouter 2026-06 盘点 /
+      <tr id="src-pretrain"><td><code>src-pretrain</code></td><td>Kimi K3 模型卡（HF）/ OpenRouter 2026-06 盘点 /
           PyTorch 官方博客 / arXiv 2507.20534</td><td>MoE 格局、FP8 实践、Muon 内置</td>
           <td>旗舰配方季度级演进</td></tr>
       <tr id="src-data"><td><code>src-data</code></td><td>多方分析（aimultiple 等）</td>
@@ -604,7 +604,7 @@
       <tr id="src-posttrain"><td><code>src-posttrain</code></td><td>llm-stats 2026 后训练综述 /
           arXiv 2407.16216</td><td>SFT→DPO→RLVR 主流栈与 GRPO 地位</td><td>算法族迭代快</td></tr>
       <tr id="src-eval-lt"><td><code>src-eval-lt</code></td><td>OpenRouter 2026-06 盘点</td>
-          <td>开源许可格局（Apache 2.0 主流/DeepSeek MIT）</td><td>许可以各模型原文为准</td></tr>
+          <td>开源许可格局（Apache 2.0 主流/DeepSeek MIT）；旗舰分叉一节另据各家 LICENSE 与官方模型页</td><td>许可以各模型原文为准</td></tr>
       <tr id="src-infra"><td><code>src-infra</code></td><td>HF Ultra-Scale Playbook /
           行业综述</td><td>并行组合拳与 2030 推理算力 75% 预测</td><td>预测值非现状统计</td></tr>
     </tbody>
@@ -622,7 +622,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm-inference/index.html"><span class="k">上一册 · 基础层</span><b>LLM-Inference</b></a>
    <a class="nx" href="../prompt-engineering/index.html"><span class="k">下一册 · 基础层</span><b>Prompt-Engineering</b></a>

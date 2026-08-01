@@ -305,14 +305,14 @@
 
   <div class="tw">
   <table>
-    <thead><tr><th>变体</th><th>打哪座山</th><th>主要代价</th><th>谁在用（2026-07 核实）</th></tr></thead>
+    <thead><tr><th>变体</th><th>打哪座山</th><th>主要代价</th><th>谁在用（2026-08 核实）</th></tr></thead>
     <tbody>
       <tr><td>MHA（基线）</td><td>—</td><td>KV 缓存最大</td><td>教学基准与小模型</td></tr>
       <tr><td><b>GQA 8:1</b></td><td>压 KV（↓8×）</td><td>质量轻微让步</td><td><b>生产默认</b>：Llama、Qwen dense 系</td></tr>
-      <tr><td><b>MLA</b></td><td>压 KV（↓约 10×）</td><td>需定制推理 kernel</td><td>DeepSeek 系、Kimi K2、GLM-5</td></tr>
+      <tr><td><b>MLA</b></td><td>压 KV（↓约 10×）</td><td>需定制推理 kernel</td><td>DeepSeek 系、GLM-5；Kimi K3 的混合层里每 4 层留 1 层</td></tr>
       <tr><td>滑窗交错 SWA</td><td>减计算 O(n·w)</td><td>远依赖靠层间接力</td><td>Gemma 3（约 5:1）、GPT-OSS</td></tr>
       <tr><td>稀疏 DSA</td><td>减计算 O(L·k)</td><td>索引器额外开销</td><td>DeepSeek V3.2+、GLM-5——已进旗舰生产</td></tr>
-      <tr><td>线性混合 3:1</td><td>减计算 O(n) 为主</td><td>复杂推理精度风险</td><td>Qwen3.5 转正、Kimi Linear；MiniMax M2 回退全注意力</td></tr>
+      <tr><td>线性混合 3:1</td><td>减计算 O(n) 为主</td><td>复杂推理精度风险</td><td>Qwen3.5 转正、Kimi K3（KDA 3:1，Kimi Linear 的通道级门控进化版）</td></tr>
       <tr><td>FlashAttention</td><td>榨硬件（不改数学）</td><td>无（纯工程收益）</td><td>全行业默认集成（FA-4 面向 Blackwell，2026-07 上 PyPI）</td></tr>
     </tbody>
   </table>
@@ -328,11 +328,11 @@
     </tbody>
    </table>
   </div>
-  <p>线性混合的格局一句话——<b>混合线性是效率前沿，全注意力仍是精度前沿</b>（MiniMax 从线性退回全注意力是行业公开的教训）。</p>
+  <p>线性混合的格局一句话——<b>钟摆在「效率」与「精度」之间来回，混合与稀疏是当前落点</b>：MiniMax M1 押注线性 → M2 退回全注意力保精度 → M3（2026-06）改用 MSA 稀疏注意力重提效率；同一时间 Kimi 把线性混合（KDA 3:1）推上了 2.8T 的 K3 旗舰。<b>「线性不进旗舰」这条旧结论已经翻篇，但「纯线性扛不住复杂推理」仍然成立</b>——所以主流是混合，不是全线性。</p>
   <p><b>价格差从哪来</b>：注意力变体决定 KV 显存 → 决定单卡并发 → 决定每 token 摊薄成本；
     MoE 决定激活计算量；FA 与引擎决定硬件利用率。「DeepSeek 为什么便宜」三行拆完：
     MLA（KV ↓10×）+ MoE（激活 37B/总 671B）+ 自研推理工程——<b>便宜是设计出来的，不是补贴出来的</b>。看懂一家模型的注意力设计，就看懂了它的成本结构：架构表就是价目表的底稿（市场侧对照见 <a href="../model-landscape/index.html">Model-Landscape 网页版</a>）。</p>
-  <p class="ev">变体格局核实 2026-07-08，来源 <a href="#src-zoo">Raschka 变体图解 /
+  <p class="ev">变体格局核实 2026-08-01（K3 的 KDA 混合、M3 的 MSA 稀疏另据 Kimi K3 模型卡与技术报告 arXiv 2607.24653、MiniMax 官方发布文与 arXiv 2606.13392），其余来源 <a href="#src-zoo">Raschka 变体图解 /
     arXiv 2512.02556（DSA）等</a>。<b>不可外推边界</b>：图解与论文给的是架构谱系，不含各变体在具体硬件上的实测收益；文中「KV 降到约 1/10」这类比例是同级对照下的量级，换模型规模与并发口径就会变。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html#llminf-kv-budget" title="这个词的主场：LLM-Inference · KV Cache 与显存账">KV 缓存<span class="xm">LLM-Inference</span></a></div>
@@ -554,7 +554,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../security/index.html"><span class="k">上一册 · 工程保障层</span><b>Security</b></a>
    <a class="nx" href="../llm-inference/index.html"><span class="k">下一册 · 基础层</span><b>LLM-Inference</b></a>

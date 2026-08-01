@@ -344,7 +344,7 @@
     <thead><tr><th>产品</th><th>一句话定位</th><th>亮点 / 注意（2026-07 口径）</th></tr></thead>
     <tbody>
       <tr><td>LiteLLM</td><td>最广泛采用的开源 LLM 代理</td><td>100+ provider、虚拟密钥、7 维复杂度路由；Python 是性能天花板</td></tr>
-      <tr><td>Portkey</td><td>开源+托管，主打护栏与缓存</td><td>护栏、语义缓存、提示词管理；2026-03 完整开源</td></tr>
+      <tr><td>Portkey</td><td>开源+托管，主打护栏与缓存</td><td>护栏、语义缓存、提示词管理；2026-03 完整开源，<b>2026-05-29 已被 Palo Alto Networks 收购</b>并作为 Prisma AIRS 的 AI 网关（<a href="#src-portkey">src-portkey</a>）</td></tr>
       <tr><td>Kong AI GW</td><td>老牌 API 网关的 LLM 插件</td><td>已用 Kong 的团队天然加装；<b>AI 高级插件需企业订阅</b></td></tr>
       <tr><td>Envoy AI GW</td><td>CNCF Envoy 血统，标准派</td><td>v1.0（2026-06-23）；OTel 观测强；provider 覆盖仍在补</td></tr>
       <tr><td>Higress</td><td>阿里 AI-Native 网关</td><td>国内生态全、MCP 能力最激进、含注入检测</td></tr>
@@ -540,7 +540,7 @@
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
   <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
-  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/AI-Gateway/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-07-12。<b>引用任何数字前先核日期。</b></p>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/AI-Gateway/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-08-01（MCP 授权口径 2026-07-30、Portkey 归属 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
@@ -558,6 +558,9 @@
       <tr id="src-mcp-auth"><td><code>src-mcp-auth</code></td><td>modelcontextprotocol.io spec
           2025-11-25 / Red Hat Developer</td><td>MCP 授权规范条款（OAuth 2.1/RFC 8707/8693）</td>
           <td><b>已按 2026-07-28 规范回刷</b></td></tr>
+      <tr id="src-portkey"><td><code>src-portkey</code></td><td>paloaltonetworks.com 新闻室（2026-04-30 宣布 / 2026-05-29 交割）</td>
+          <td>Portkey 的归属变化与并入 Prisma AIRS 的定位</td>
+          <td>不代表开源版停更或改协议——收购未公布对开源仓的处置</td></tr>
       <tr id="src-route"><td><code>src-route</code></td><td>RouteLLM / FrugalGPT（arXiv，见本模块书单）</td><td>路由降本的方法与论文证据</td><td>具体节省比例依赖流量结构，不能当承诺</td></tr>
       <tr id="src-otel"><td><code>src-otel</code></td><td>opentelemetry.io semconv/gen-ai</td>
           <td>GenAI 观测语义约定收敛趋势</td><td>约定仍在演进，字段以当日规范为准</td></tr>
@@ -576,7 +579,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-28</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../mcp/index.html"><span class="k">上一册 · 协议层</span><b>MCP</b></a>
    <a class="nx" href="../ai-ops/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Ops</b></a>

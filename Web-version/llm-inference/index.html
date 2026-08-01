@@ -21,7 +21,7 @@
     <p class="lede">训练好的模型怎么又快又省地跑起来：先弄懂推理本身（两阶段与 KV Cache 的核心矛盾），再看单机怎么榨干一张卡、引擎怎么选，然后量化、投机解码、P/D 分离三招提速降本，最后收拢成 SLO（Service Level Objective）、压测与成本账。本页是这一册的网页版，讲义 PPT 见页脚链接。</p>
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
-      <span class="badge ok">核实窗口 2026-07-09 至 07-12</span>
+      <span class="badge ok">核实窗口 2026-07-09 至 08-01</span>
       <span class="badge recheck">引擎版本一节过期最快 · 季度巡检优先</span>
     </p>
   </div>
@@ -285,7 +285,7 @@
 
   <div class="tw">
   <table>
-    <thead><tr><th></th><th>vLLM v0.25</th><th>SGLang v0.5.15</th><th>TensorRT-LLM 1.x</th><th>llama.cpp / Ollama</th></tr></thead>
+    <thead><tr><th></th><th>vLLM v0.26</th><th>SGLang v0.5.16</th><th>TensorRT-LLM 1.x</th><th>llama.cpp / Ollama</th></tr></thead>
     <tbody>
       <tr><td>定位</td><td>通用默认引擎</td><td>前缀共享 / 结构化输出</td><td>NVIDIA 性能上限</td><td>本地 / 边缘</td></tr>
       <tr><td>绝活</td><td>PagedAttention · 生态最大</td><td>RadixAttention · day-0 支持</td><td>内核级优化 · 新精度首发</td><td>CPU 可跑 · 零门槛</td></tr>
@@ -320,7 +320,7 @@
   </table>
   </div>
   <p>经验阈值：<b>GPU 月利用率能稳定 >40–50% 时，自建开始比按 token 买便宜</b>——成本模型见<a href="#llminf-production">生产化</a>一节。</p>
-  <p class="ev">引擎版本核实 2026-07-12（vLLM v0.25.0 · SGLang v0.5.15、Spec V2 默认开启 ·
+  <p class="ev">引擎版本核实 2026-08-01（vLLM v0.26.0 · SGLang v0.5.16、Spec V2 默认开启 ·
     TensorRT-LLM 稳定版 v1.2.1），来源 <a href="#src-engines">GitHub releases</a>。<b>这张表是本页过期最快的一处，季度巡检重点。</b><b>不可外推边界</b>：版本号只说明当期稳定版，不代表功能对等——三家的默认开关不同，跑分对比必须锁同一批参数。</p>
 </section>
 
@@ -428,7 +428,7 @@
   <table>
     <thead><tr><th>方案</th><th>出品方</th><th>形态</th><th>一句话定位</th></tr></thead>
     <tbody>
-      <tr><td>NVIDIA Dynamo v1.2.1</td><td>NVIDIA</td><td>开源编排层（1.0 于 2026-03 GTC GA）</td>
+      <tr><td>NVIDIA Dynamo v1.3.0</td><td>NVIDIA</td><td>开源编排层（1.0 于 2026-03 GTC GA）</td>
           <td>vLLM 等引擎之上做 P/D 分池 + KV 感知路由；NVIDIA 全家桶首选</td></tr>
       <tr><td>llm-d</td><td>红帽/谷歌/IBM 等</td><td>K8s 原生开源项目</td>
           <td>P/D 分离、KV 感知调度做成 K8s 组件；已有 K8s 平台团队的自然选择</td></tr>
@@ -441,7 +441,7 @@
   </div>
   <p>配套拼图是 KV 分层存储（显存→内存→SSD）：热前缀留显存、温的下沉，命中即免 prefill——「存储换计算」。<b>什么时候不用</b>：客户规模没到「多机集群 + 长上下文」之前，单机 vLLM +
     chunked prefill 足够；过度架构是减分项，能讲出「什么时候不用」比「什么都用」更显专业。</p>
-  <p class="ev">核实 2026-07-12（Dynamo 稳定版 v1.2.1，2026-06-13），来源
+  <p class="ev">核实 2026-08-01（Dynamo 稳定版 v1.3.0，2026-07-22），来源
     <a href="#src-dynamo">NVIDIA 官方博客 / GitHub releases</a>；Mooncake 见
     <a href="#src-mooncake">arXiv 2407.00079</a>。<b>不可外推边界</b>：分布式推理的收益随规模才显现，论文与厂商博客给的都是大规模场景的数字；小集群引入会先付一笔运维成本。</p>
 
@@ -583,13 +583,13 @@
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
   <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
-  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/LLM-Inference/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-07-12。<b>引用任何数字前先核日期。</b></p>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/LLM-Inference/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-08-01。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
       <tr id="src-engines"><td><code>src-engines</code></td><td>GitHub releases / 2026 对比评测</td>
-          <td>四引擎版本号与格局（2026-07-12）</td><td>版本号周级过期；对比结论依赖负载画像</td></tr>
+          <td>四引擎版本号与格局（2026-08-01）</td><td>版本号周级过期；对比结论依赖负载画像</td></tr>
       <tr id="src-quant"><td><code>src-quant</code></td><td>2026 量化综述（vrlatech/sesamedisk）</td>
           <td>精度谱系地位与损失量级</td><td>具体任务的损失要用业务评测集实测</td></tr>
       <tr id="src-spec"><td><code>src-spec</code></td><td>2026 实测综述（spheron/sesamedisk）</td>
@@ -744,7 +744,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm/index.html"><span class="k">上一册 · 基础层</span><b>LLM</b></a>
    <a class="nx" href="../llm-training/index.html"><span class="k">下一册 · 基础层</span><b>LLM-Training</b></a>
