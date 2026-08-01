@@ -1327,8 +1327,30 @@ def inject(html, begin, end, block, what):
     return html[:i + len(begin)] + "\n" + block + "\n  " + html[j:]
 
 
+def adopt_stamped_date(argv):
+    """`--check` 专用：把 BUILD_DATE 换成**产物里已经刻着的那个构建日**。
+
+    保鲜看板不只是显示构建日，它还按「今天」挑行（已过期 / 30 天内到期），
+    所以产物 = f(MANIFEST, 今天)。而提交发生在本地、校验发生在 CI，
+    两边的「今天」跨天必然对不上——本机 UTC+8 已是次日、CI 还在 UTC 当日时，
+    `--check` 就把时钟差报成「与 MANIFEST 已漂移」，红的却不是内容
+    （2026-08-01 首次踩到：本地全绿、CI 红在这一道）。改用 UTC 只把窗口
+    从 8 小时缩到 0 点前后，不治本。
+
+    所以校验的口径是：**产物是否与 MANIFEST 在它自称的那个日期上自洽**——
+    这才是这道门禁要防的漂移。构建日本身有没有放旧，交给巡检看，不归门禁。
+    """
+    if "--check" not in argv or not os.path.exists(FRESHPAGE):
+        return
+    m = re.search(r'截至构建日 <b>(\d{4}-\d{2}-\d{2})</b>',
+                  open(FRESHPAGE, encoding="utf-8").read())
+    if m:
+        globals()["BUILD_DATE"] = m.group(1)
+
+
 def main(argv):
     try:
+        adopt_stamped_date(argv)
         text, data, page_edits = build()
         prep_qs, prep_cur, prep_new = read_prep_questions()
         if prep_cur is not None and prep_cur != prep_new:
