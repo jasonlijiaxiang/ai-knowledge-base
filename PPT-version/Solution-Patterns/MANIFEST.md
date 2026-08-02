@@ -24,19 +24,19 @@
 | sp-cheatsheet | 第 10 章 | 售前速查（七场景→积木总表 / 分诊树 / 成本卡） | ✅ | 2026-07-11 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| 客服解决率口径：厂商自报 Fin 51–67% / Sierra ~70%（WeightWatchers）/ Decagon 80%（deflection）；独立口径 Zendesk 企业中位 41.2%、top quartile 58.7%；宣传与实测差 30–40pp | sp-customer-service / sp-method | 2026-07-10 | fin.ai 对比页 / digitalapplied 2026 统计 |
-| 客服 AI 采用度：Salesforce 报 66% 服务组织已跑 AI agent（2025 年 39%）；Gartner 91% CX 负责人有部署压力 | sp-customer-service | 2026-07-10 | digitalapplied 2026 统计 |
-| Glean：ARR $300M（2026-05，+89% YoY）、估值 $7.2B（2025-06 Series F）；Glean Agents 年化 1 亿+ actions | sp-knowledge-search | 2026-07-10 | TechCrunch 2026-05-28 / Glean press |
-| AI Coding 格局：SpaceX $60B 全股票收购 Cursor 母公司 Anysphere（2026-06-16 宣布、预计 Q3 交割，建议复查 2026-10-01 确认交割）；Cursor ARR $4B 年化（2026-06 初，2 月 $2B 四个月翻倍，收入第一）；Copilot 4.7M 付费 +75% YoY（微软 FY26 Q2 财报 2026-01-28 披露，仍为最新付费数——FY26 Q4 财报 07-29 只披露总用户 5000 万未更新付费口径，用户量第一）、Claude Code 46% most-loved（JetBrains 2026-04 满意度第一）；市场 2026 年 $12.8B、85% 开发者在用；采用率 29%/18%/18%；70% 工程师同时用 2–4 个工具 | sp-ai-coding | 2026-08-01（收购与 ARR 新写入；4.7M 与 $12.8B 复核仍成立） | TechCrunch 2026-06-16 / Forbes 2026-06-16 / 微软 FY26 Q2·Q4 财报 / ideaplan / JetBrains 2026 调查 |
-| 数字人：HeyGen Avatar V（2026-04-08，15 秒素材建分身、10 分钟身份不漂移）；LiveAvatar 为 WebRTC 实时交互数字人独立平台 | sp-digital-human | 2026-07-10 | HeyGen 官方 blog / help center |
-| 内容生成格局：Jasper（品牌一致性：风格指南/禁用词全局生效）、Canva Magic Studio（模板驱动）、Adobe Firefly Enterprise（商业安全定位：授权数据训练 + 企业 IP 赔付 + 可训品牌定制模型） | sp-content-gen | 2026-07-10 | Adobe 官方 / genesysgrowth 2026 对比 |
-| 语音客服成本：级联 $0.01–0.17/分钟；gpt-realtime 未缓存 $0.18–0.46/分钟、优化后 $0.05–0.10（与 multimodal#mm-voice-realtime 同源口径） | sp-customer-service / sp-cheatsheet | 2026-07-10 | 沿用 mm-voice-realtime 同源 |
-| 成本速查卡量级：文本客服 $0.01–0.05/会话、文案 $0.001–0.01/条、图 $0.02–0.1/张、AI Coding $19–40/人/月 + 用量 | sp-cheatsheet | 2026-07-10 | 各厂商定价页综合量级（2026-07 口径） |
-| Text-to-SQL 准确率口径（分档，与 RAG 册对齐）：裸 LLM 随基准真实度分档——学术单轮 80–90% / 较干净企业化基准五六成 / 最难企业基准（Spider 2.0 类）10–21%，对客讲最低那档；语义模型加持后 Snowflake 内部 150 题基准 51%→90%+、dbt 语义层基准 98–100% | sp-chatbi | 2026-07-23（原「学术基准五六成」与 RAG「学术 80–90%」冲突，已合成分档口径两册一致） | promethium 2026 企业对比 / Snowflake 工程博客 / Spider 2.0 / colrows |
-| ChatBI 产品格局：垂直一体派 Cortex Analyst（YAML 语义模型）/ Databricks AI/BI Genie（Unity Catalog）/ Fabric Copilot；独立派 ThoughtSpot / dbt / Cube；Snowflake 2026 推 Semantic View Autopilot（ML 自动发现指标定义，天级→分钟级） | sp-chatbi | 2026-07-11 | promethium 语义层十强 / colrows |
-| 会议助手格局：两分野（笔记器 vs agentic 平台）；原生派 Zoom AI Companion / Teams Copilot（M365 +$30/人/月）/ 飞书妙记；独立派 Otter / Fireflies / Granola（2026-03 融资 $125M、估值 $1.5B、bot-free 代表）；bot 疲劳为 2026 趋势 | sp-meeting | 2026-07-11 | read.ai / zapier / tana / meetily 2026 横评 |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 客服解决率口径：厂商自报 Fin 51–67% / Sierra ~70%（WeightWatchers）/ Decagon 80%（deflection）；独立口径 Zendesk 企业中位 41.2%、top quartile 58.7%；宣传与实测差 30–40pp | sp-customer-service / sp-method | 2026-07-10 | fin.ai 对比页 / digitalapplied 2026 统计 | — | B | 90 | 各家口径不一，厂商自报与独立中位不可并列比较 |
+| 客服 AI 采用度：Salesforce 报 66% 服务组织已跑 AI agent（2025 年 39%）；Gartner 91% CX 负责人有部署压力 | sp-customer-service | 2026-07-10 | digitalapplied 2026 统计 | — | B | 90 | 调研样本的采用率，不等于你面前这家已经在用 |
+| Glean：ARR $300M（2026-05，+89% YoY）、估值 $7.2B（2025-06 Series F）；Glean Agents 年化 1 亿+ actions | sp-knowledge-search | 2026-07-10 | TechCrunch 2026-05-28 / Glean press | — | B | 30 | 营收估值是时点快照，不能推产品力或市场份额 |
+| AI Coding 格局：SpaceX $60B 全股票收购 Cursor 母公司 Anysphere（2026-06-16 宣布、预计 Q3 交割，建议复查 2026-10-01 确认交割）；Cursor ARR $4B 年化（2026-06 初，2 月 $2B 四个月翻倍，收入第一）；Copilot 4.7M 付费 +75% YoY（微软 FY26 Q2 财报 2026-01-28 披露，仍为最新付费数——FY26 Q4 财报 07-29 只披露总用户 5000 万未更新付费口径，用户量第一）、Claude Code 46% most-loved（JetBrains 2026-04 满意度第一）；市场 2026 年 $12.8B、85% 开发者在用；采用率 29%/18%/18%；70% 工程师同时用 2–4 个工具 | sp-ai-coding | 2026-08-01 | TechCrunch 2026-06-16 / Forbes 2026-06-16 / 微软 FY26 Q2·Q4 财报 / ideaplan / JetBrains 2026 调查（收购与 ARR 为本次新写入；4.7M 与 $12.8B 复核仍成立） | 2026-10-01 | B | 30 | 收购交割前有变数，三个第一各自口径也不同源 |
+| 数字人：HeyGen Avatar V（2026-04-08，15 秒素材建分身、10 分钟身份不漂移）；LiveAvatar 为 WebRTC 实时交互数字人独立平台 | sp-digital-human | 2026-07-10 | HeyGen 官方 blog / help center | — | B | 90 | 官方宣传的建分身时长与不漂移时长，实拍条件要复测 |
+| 内容生成格局：Jasper（品牌一致性：风格指南/禁用词全局生效）、Canva Magic Studio（模板驱动）、Adobe Firefly Enterprise（商业安全定位：授权数据训练 + 企业 IP 赔付 + 可训品牌定制模型） | sp-content-gen | 2026-07-10 | Adobe 官方 / genesysgrowth 2026 对比 | — | B | 90 | 三家的定位差异，赔付与授权条款细节要看合同 |
+| 语音客服成本：级联 $0.01–0.17/分钟；gpt-realtime 未缓存 $0.18–0.46/分钟、优化后 $0.05–0.10（与 multimodal#mm-voice-realtime 同源口径） | sp-customer-service / sp-cheatsheet | 2026-07-10 | 沿用 mm-voice-realtime 同源 | — | B | 30 | 按分钟的量级区间，实际账单随并发与缓存命中变 |
+| 成本速查卡量级：文本客服 $0.01–0.05/会话、文案 $0.001–0.01/条、图 $0.02–0.1/张、AI Coding $19–40/人/月 + 用量 | sp-cheatsheet | 2026-07-10 | 各厂商定价页综合量级（2026-07 口径） | — | B | 30 | 量级直觉不是报价，出单前按当期定价逐项重算 |
+| Text-to-SQL 准确率口径（分档，与 RAG 册对齐）：裸 LLM 随基准真实度分档——学术单轮 80–90% / 较干净企业化基准五六成 / 最难企业基准（Spider 2.0 类）10–21%，对客讲最低那档；语义模型加持后 Snowflake 内部 150 题基准 51%→90%+、dbt 语义层基准 98–100% | sp-chatbi | 2026-07-23 | promethium 2026 企业对比 / Snowflake 工程博客 / Spider 2.0 / colrows（原「学术基准五六成」与 RAG「学术 80–90%」冲突，已合成分档口径两册一致） | — | B | 90 | 基准库口径，自家库 schema 更复杂，必须实测 |
+| ChatBI 产品格局：垂直一体派 Cortex Analyst（YAML 语义模型）/ Databricks AI/BI Genie（Unity Catalog）/ Fabric Copilot；独立派 ThoughtSpot / dbt / Cube；Snowflake 2026 推 Semantic View Autopilot（ML 自动发现指标定义，天级→分钟级） | sp-chatbi | 2026-07-11 | promethium 语义层十强 / colrows | — | B | 90 | 厂商清单是格局快照，各家绑各自数据栈，不证明适配你的仓 |
+| 会议助手格局：两分野（笔记器 vs agentic 平台）；原生派 Zoom AI Companion / Teams Copilot（M365 +$30/人/月）/ 飞书妙记；独立派 Otter / Fireflies / Granola（2026-03 融资 $125M、估值 $1.5B、bot-free 代表）；bot 疲劳为 2026 趋势 | sp-meeting | 2026-07-11 | read.ai / zapier / tana / meetily 2026 横评 | — | B | 30 | 横评快照且含席位价，格局与报价都会月级变 |
 
 > 说明：五层参考架构、POC 三要素、三本账、口径鉴别术属方法论，不会过期，未登记。成本速查卡整卡是全库最易过期的一页，巡检时优先核。
 

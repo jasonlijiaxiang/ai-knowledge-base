@@ -20,16 +20,16 @@
 | llm-presales-map | 第 6 章 | 售前视角收拢 | ✅ | 2026-07-08 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| GQA 8:1 是生产默认（生态支持最全）；MLA 把 KV 缓存压到同级 GQA 的约 1/10，DeepSeek 全系与 GLM-5 在用；Kimi 旗舰已转 KDA 混合——K3 的 93 层 = 69 层 KDA + 24 层 Gated MLA，即每 4 层留 1 层 MLA 兜全局注意力 | llm-attention-zoo | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡；K3 技术报告 arXiv 2607.24653（建议复查日 2026-11-01） |
-| DeepSeek V3.2 的 DSA 稀疏注意力（lightning indexer + top-k，O(L²)→O(Lk)）已生产化，GLM-5 跟进；DeepSeek-V4 用混合压缩注意力冲百万上下文 | llm-attention-zoo | 2026-07-08 | arXiv 2512.02556、arXiv 2512.12087 |
-| 线性混合格局是「效率 ↔ 精度」的钟摆：Qwen3-Next 的 3:1 Gated DeltaNet 混合被 Qwen3.5 旗舰转正；Kimi Linear 的通道级门控进化为 KDA，随 Kimi K3（总参 2.8T / 激活 104B / 1M 上下文）进旗舰；MiniMax 则 M1 押线性 → M2 退回全注意力 → M3（2026-06-01）改用 MSA 稀疏注意力——「线性未进旗舰」已翻篇，「纯线性扛不住复杂推理」仍成立 | llm-attention-zoo | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡 + arXiv 2607.24653；minimax.io/blog/minimax-m3 + MSA 论文 arXiv 2606.13392（建议复查日 2026-11-01） |
-| FlashAttention-4：2026-03-05 论文（arXiv 2603.05451），2026-07-01 PyPI 发包，面向 Blackwell 非对称硬件 | llm-attention-zoo | 2026-07-08 | together.ai 博客、pypi.org/project/flash-attn-4 |
-| 托管商用模型 13 家提供 ≥1M 上下文窗口（Gemini 3.1 Pro 2M；开源 Llama 4 Scout 标称 10M）；RULER/MRCR v2/NoLiMa 显示多事实检索过 200K 普遍掉 30–60 分 | llm-inference-kv | 2026-07-08 | morphllm.com、ofox.ai 长上下文基准汇总 |
-| 视频 token 量级：Gemini 官方口径默认分辨率约 300 token/秒（258/帧 @1fps + 音频 32/秒），1 小时视频 ≈ 108 万 token（建议复查日 2026-10-31，随 Multimodal 巡检顺带） | llm-inference-kv | 2026-07-20 | ai.google.dev/gemini-api/docs/video-understanding（raw-data/2026-07-20-联网核实笔记-视频token.md） |
-| RoPE 是主流开源模型位置编码的事实标准；超长上下文靠插值/YaRN 等扩展 | llm-architecture | 2026-07-08 | 开源架构对比综述（Raschka） |
-| MoE 为 2026 主流旗舰标配（DeepSeek-V3 总 671B/激活 37B；Qwen3.5、Kimi K2 同路线） | llm-architecture | 2026-07-08 | DeepSeek-V3 论文、架构对比综述 |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| GQA 8:1 是生产默认（生态支持最全）；MLA 把 KV 缓存压到同级 GQA 的约 1/10，DeepSeek 全系与 GLM-5 在用；Kimi 旗舰已转 KDA 混合——K3 的 93 层 = 69 层 KDA + 24 层 Gated MLA，即每 4 层留 1 层 MLA 兜全局注意力 | llm-attention-zoo | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡；K3 技术报告 arXiv 2607.24653（建议复查日 2026-11-01） | — | B | 90 | 旗舰当季采用快照，不能推及中小模型或下一代 |
+| DeepSeek V3.2 的 DSA 稀疏注意力（lightning indexer + top-k，O(L²)→O(Lk)）已生产化，GLM-5 跟进；DeepSeek-V4 用混合压缩注意力冲百万上下文 | llm-attention-zoo | 2026-07-08 | arXiv 2512.02556、arXiv 2512.12087 | — | B | 90 | 复杂度降不等于端到端提速，V4 口径随发布可变 |
+| 线性混合格局是「效率 ↔ 精度」的钟摆：Qwen3-Next 的 3:1 Gated DeltaNet 混合被 Qwen3.5 旗舰转正；Kimi Linear 的通道级门控进化为 KDA，随 Kimi K3（总参 2.8T / 激活 104B / 1M 上下文）进旗舰；MiniMax 则 M1 押线性 → M2 退回全注意力 → M3（2026-06-01）改用 MSA 稀疏注意力——「线性未进旗舰」已翻篇，「纯线性扛不住复杂推理」仍成立 | llm-attention-zoo | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡 + arXiv 2607.24653；minimax.io/blog/minimax-m3 + MSA 论文 arXiv 2606.13392（建议复查日 2026-11-01） | — | B | 90 | 各家路线的钟摆是厂商个体选择，不能外推全行业 |
+| FlashAttention-4：2026-03-05 论文（arXiv 2603.05451），2026-07-01 PyPI 发包，面向 Blackwell 非对称硬件 | llm-attention-zoo | 2026-07-08 | together.ai 博客、pypi.org/project/flash-attn-4 | — | A | 90 | 论文与发包不等于生产可用，非 Blackwell 硬件不适用 |
+| 托管商用模型 13 家提供 ≥1M 上下文窗口（Gemini 3.1 Pro 2M；开源 Llama 4 Scout 标称 10M）；RULER/MRCR v2/NoLiMa 显示多事实检索过 200K 普遍掉 30–60 分 | llm-inference-kv | 2026-07-08 | morphllm.com、ofox.ai 长上下文基准汇总 | — | B | 30 | 跨模型汇总的掉分区间，单模型有效长度看当期基准 |
+| 视频 token 量级：Gemini 官方口径默认分辨率约 300 token/秒（258/帧 @1fps + 音频 32/秒），1 小时视频 ≈ 108 万 token（建议复查日 2026-10-31，随 Multimodal 巡检顺带） | llm-inference-kv | 2026-07-20 | ai.google.dev/gemini-api/docs/video-understanding（raw-data/2026-07-20-联网核实笔记-视频token.md） | — | B | 90 | Gemini 单家换算口径，其他厂商与非默认分辨率不适用 |
+| RoPE 是主流开源模型位置编码的事实标准；超长上下文靠插值/YaRN 等扩展 | llm-architecture | 2026-07-08 | 开源架构对比综述（Raschka） | — | B | 180 | 综述口径，不代表每个新架构都用 RoPE |
+| MoE 为 2026 主流旗舰标配（DeepSeek-V3 总 671B/激活 37B；Qwen3.5、Kimi K2 同路线） | llm-architecture | 2026-07-08 | DeepSeek-V3 论文、架构对比综述 | — | B | 90 | 旗舰格局判断，不能推及中小尺寸与私有部署选型 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

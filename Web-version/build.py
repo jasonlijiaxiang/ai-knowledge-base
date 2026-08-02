@@ -381,6 +381,26 @@ def clean_layer(raw):
     return re.split(r"[（(]", raw, 1)[0].strip()
 
 
+def fact_due(f):
+    """事实的有效复查日 = min(复查日, 核实日期 + 节奏天)。
+
+    与 `_maintenance/check_freshness.py` 轴三同口径：「复查日」是把复核往前钉的钉子，
+    不能用来把常规节奏往后推。两处必须一致，否则看板绿着而门禁红着。
+    """
+    v = re.match(r"^(\d{4}-\d{2}-\d{2})$", f["verified"].strip())
+    cad = f["cadence"].strip()
+    derived = ""
+    if v and cad.isdigit():
+        d = datetime.date(*(int(x) for x in v.group(1).split("-")))
+        derived = (d + datetime.timedelta(days=int(cad))).isoformat()
+    pin = f["recheck"].strip()
+    if not re.match(r"^\d{4}-\d{2}-\d{2}$", pin):
+        pin = ""
+    if pin and derived:
+        return min(pin, derived)
+    return pin or derived
+
+
 def read_module(dirname):
     path = os.path.join(PPT, dirname, "MANIFEST.md")
     text = open(path, encoding="utf-8").read()
@@ -399,8 +419,11 @@ def read_module(dirname):
     for c in rows("时效性事实（巡检盘查对象）", text) or rows("时效性事实", text):
         if len(c) < 4:
             continue
-        facts.append({"text": c[0], "chapter": c[1], "verified": c[2],
-                      "source": c[3], "recheck": c[4] if len(c) > 4 else "—"})
+        f = {"text": c[0], "chapter": c[1], "verified": c[2],
+             "source": c[3], "recheck": c[4] if len(c) > 4 else "—",
+             "grade": c[5] if len(c) > 5 else "", "cadence": c[6] if len(c) > 6 else ""}
+        f["due"] = fact_due(f)
+        facts.append(f)
 
     edges = []
     for c in rows("串联出边", text):
@@ -1245,36 +1268,41 @@ def render_network(data):
 
 
 def _fresh_rows(data):
+    """全部事实按有效复查日排开。
+
+    2026-08-02 前每条事实只有「核实日期」，复查日是选填的（224 条里只有 30 条写了），
+    所以看板分两块：写了复查日的排期表 + 没写的按核实日期挑最久的几条兜底。
+    现在每条事实都自带节奏、都算得出到期日，兜底那块就没有存在理由了——
+    留着只会给出两套互相矛盾的优先级。
+    """
     rows_ = [(m, f) for m in data["modules"] for f in m["facts"]]
-    due = [(m, f) for m, f in rows_
-           if re.match(r"^\d{4}-\d{2}-\d{2}$", f.get("recheck", "").strip())]
-    due.sort(key=lambda x: x[1]["recheck"])
-    stale = sorted(rows_, key=lambda x: x[1]["verified"])[:8]
-    return rows_, due, stale
+    due = [(m, f) for m, f in rows_ if f.get("due")]
+    due.sort(key=lambda x: x[1]["due"])
+    return rows_, due
 
 
 def _href(m):
     return m["web"] or ("../PPT-version/%s/README.html" % m["dir"])
 
 
-def _fact_table(rows, kind):
-    """kind='due' 按复查日排，'stale' 按核实日排。"""
-    head = "复查日" if kind == "due" else "核实于"
+def _fact_table(rows):
+    """按有效复查日排开；档位与等级同列显示，一眼看得出「这条为什么这么快到期」。"""
     o = ['  <div class="tw"><table class="fresh">',
-         "   <thead><tr><th>%s</th><th>模块</th><th>事实</th></tr></thead><tbody>" % head]
+         "   <thead><tr><th>复查日</th><th>档 / 级</th><th>模块</th><th>事实</th>"
+         "</tr></thead><tbody>"]
     for m, f in rows:
         txt = esc(f["text"][:78] + ("…" if len(f["text"]) > 78 else ""))
-        if kind == "due":
-            overdue = f["recheck"] < BUILD_DATE
-            o.append('    <tr%s><td><span class="badge %s">%s%s</span></td>'
-                     '<td><a href="%s">%s</a></td><td>%s</td></tr>'
-                     % (' class="over"' if overdue else "",
-                        "over" if overdue else "recheck",
-                        "已过期 " if overdue else "", esc(f["recheck"]),
-                        esc(_href(m)), esc(m["dir"]), txt))
-        else:
-            o.append('    <tr><td>%s</td><td><a href="%s">%s</a></td><td>%s</td></tr>'
-                     % (esc(f["verified"]), esc(_href(m)), esc(m["dir"]), txt))
+        overdue = f["due"] < BUILD_DATE
+        cad = f.get("cadence", "")
+        tier = ("%s 天" % cad) if cad else "—"
+        pinned = " 📌" if f["recheck"] == f["due"] and f["recheck"] != "—" else ""
+        o.append('    <tr%s><td><span class="badge %s">%s%s</span></td>'
+                 '<td>%s / %s%s</td><td><a href="%s">%s</a></td><td>%s</td></tr>'
+                 % (' class="over"' if overdue else "",
+                    "over" if overdue else "recheck",
+                    "已过期 " if overdue else "", esc(f["due"]),
+                    esc(tier), esc(f.get("grade", "") or "—"), pinned,
+                    esc(_href(m)), esc(m["dir"]), txt))
     o.append("   </tbody></table></div>")
     return "\n".join(o)
 
@@ -1285,37 +1313,47 @@ def render_fresh(data):
     理由：首页是学习入口，不是维护看板。真到期的该在首页拦住人，
     「最久未核实」这类长尾是巡检时才翻的（2026-07-20 用户裁决）。
     """
-    rows_, due, stale = _fresh_rows(data)
+    rows_, due = _fresh_rows(data)
     y, mo, d = (int(x) for x in BUILD_DATE.split("-"))
     mo2, y2 = (mo + 1, y) if mo < 12 else (1, y + 1)
     horizon = "%04d-%02d-%02d" % (y2, mo2, d)      # 约 30 天
-    near = [(m, f) for m, f in due if f["recheck"] <= horizon]
+    near = [(m, f) for m, f in due if f["due"] <= horizon]
     later = len(due) - len(near)
 
     o = []
     if near:
         o.append('  <p class="net-lead">截至构建日 <b>%s</b>，'
                  '<b>%d 条</b>已到期或将在一个月内到期。</p>' % (BUILD_DATE, len(near)))
-        o.append(_fact_table(near, "due"))
+        o.append(_fact_table(near))
     else:
         o.append('  <p class="net-lead">截至构建日 <b>%s</b>，一个月内没有需要复查的事实。</p>'
                  % BUILD_DATE)
-    o.append('  <p class="net-lead">全库共 %d 条时效性事实；另有 %d 条排在一个月之后、'
-             '以及核实日期最早的若干条，见 <a href="./fresh.html">完整保鲜看板</a>。</p>'
+    o.append('  <p class="net-lead">全库共 %d 条时效性事实；另有 %d 条排在一个月之后，'
+             '见 <a href="./fresh.html">完整保鲜看板</a>。</p>'
              % (len(rows_), later))
     return "\n".join(o)
 
 
+def _tier_summary(due):
+    n = {}
+    for _, f in due:
+        n[f.get("cadence", "")] = n.get(f.get("cadence", ""), 0) + 1
+    parts = ["%s 天档 %d 条" % (k, n[k]) for k in ("30", "90", "180") if n.get(k)]
+    return "、".join(parts)
+
+
 def render_fresh_full(data):
-    rows_, due, stale = _fresh_rows(data)
-    o = ['  <p class="net-lead">截至构建日 <b>%s</b>。全库共 %d 条时效性事实登记在各模块清单里，'
-         '其中 %d 条写了定点复查日。引用任何数字前先核日期。</p>' % (BUILD_DATE, len(rows_), len(due))]
-    o.append("  <h2>定点复查日已排期</h2>")
-    o.append(_fact_table(due, "due"))
-    o.append("  <h2>核实日期最早的几条</h2>")
-    o.append('  <p class="net-lead">没写定点复查日，但放得最久——巡检默认按 90 天阈值筛，'
-             '这几条是每次巡检最先该看的。</p>')
-    o.append(_fact_table(stale, "stale"))
+    rows_, due = _fresh_rows(data)
+    over = sum(1 for _, f in due if f["due"] < BUILD_DATE)
+    o = ['  <p class="net-lead">截至构建日 <b>%s</b>。全库 %d 条时效性事实各自带着复核节奏——'
+         '%s；报价与榜单一个月一查，协议与平台能力三个月，原理与方法论半年。'
+         '引用任何数字前先核日期。</p>' % (BUILD_DATE, len(rows_), _tier_summary(due))]
+    o.append('  <p class="net-lead">下表按<b>有效复查日</b>排开：复查日取「核实日期 + 节奏」'
+             '与人工钉的日期中<b>更早</b>的那个——📌 是人工钉的（多半是已公告未生效的节点）。'
+             '%s</p>'
+             % ("目前 <b>%d 条</b>已过期。" % over if over else "目前没有过期的。"))
+    o.append("  <h2>按到期日排开</h2>")
+    o.append(_fact_table(due))
     return "\n".join(o)
 
 

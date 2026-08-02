@@ -26,18 +26,18 @@
 | rag-structured | 第 12 章 | 结构化数据 RAG（Text-to-SQL 与语义层） | ✅ | 2026-07-09 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| Cohere Rerank 当前主线 v4.0（pro 重质量 / fast 低延迟高吞吐，多语言+半结构化），v3.5 与 v3.0 系仍在服务线 | rag-reranking | 2026-07-12 | docs.cohere.com/docs/rerank |
-| 混合检索为生产最低标配，RRF k≈60 为主流引擎原生支持 | rag-hybrid | 2026-07-08 | Elasticsearch / Qdrant 官方文档 |
-| Agentic RAG 五大生产模式（Router/ReAct/Plan-Execute/Multi-Agent/Self-RAG）+ CRAG | rag-agentic | 2026-07-08 | arXiv 2501.09136、LangGraph 官方教程 |
-| 生产组合主流：LlamaIndex + LangGraph + Langfuse/LangSmith | rag-production | 2026-07-08 | 2026-07 框架对比评测 |
-| 朴素 RAG 检索环节失败率约四成 | rag-production | 2026-07-08 | raw-data/2026-07-08 核实笔记 |
-| Contextual Retrieval 实测降检索失败率 49%~67% | rag-chunking | 2026-07-07 | Anthropic Cookbook |
-| BGE M3 为开源多语言 embedding 代表方案 | rag-embedding | 2026-07-07 | arXiv 2402.03216 |
-| 全量 GraphRAG 索引成本 6–8 倍；LazyGraphRAG 压至 0.1%、全局查询省约 700 倍 | rag-graphrag | 2026-07-09 | Microsoft GraphRAG 文档、2026 实践者评测 |
-| 多模态三路线：Caption / 统一嵌入（Cohere Embed 4、voyage-multimodal）/ ColPali 系晚交互 | rag-multimodal | 2026-07-09 | arXiv 2407.01449、BigData Boutique 2026 |
-| 裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准 Spider 2.0 类约 20%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档 | rag-structured | 2026-07-23（分档口径与 SP 对齐，原 07-09 只登 50–70% 与 SP 的 10–21% 打架，已按基准真实度合成一套） | dbt 2026 基准 + Spider 2.0 / BEAVER / Spider-Ent（2026-07-23 复核） |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Cohere Rerank 当前主线 v4.0（pro 重质量 / fast 低延迟高吞吐，多语言+半结构化），v3.5 与 v3.0 系仍在服务线 | rag-reranking | 2026-07-12 | docs.cohere.com/docs/rerank | — | A | 90 | 模型目录快照，排序效果仍要用自家评估集实测 |
+| 混合检索为生产最低标配，RRF k≈60 为主流引擎原生支持 | rag-hybrid | 2026-07-08 | Elasticsearch / Qdrant 官方文档 | — | A | 90 | k≈60 是默认值不是最优值，各引擎参数细节不同 |
+| Agentic RAG 五大生产模式（Router/ReAct/Plan-Execute/Multi-Agent/Self-RAG）+ CRAG | rag-agentic | 2026-07-08 | arXiv 2501.09136、LangGraph 官方教程 | — | A | 180 | 是模式分类不是选型建议，落地效果要各自验证 |
+| 生产组合主流：LlamaIndex + LangGraph + Langfuse/LangSmith | rag-production | 2026-07-08 | 2026-07 框架对比评测 | — | B | 90 | 评测期的流行组合，不等于你的场景最优栈 |
+| 朴素 RAG 检索环节失败率约四成 | rag-production | 2026-07-08 | raw-data/2026-07-08 核实笔记 | — | B | 180 | 生产统计口径非普适常数，不能当自家系统预期 |
+| Contextual Retrieval 实测降检索失败率 49%~67% | rag-chunking | 2026-07-07 | Anthropic Cookbook | — | A | 180 | 官方实验语料的降幅，自家语料要复测 |
+| BGE M3 为开源多语言 embedding 代表方案 | rag-embedding | 2026-07-07 | arXiv 2402.03216 | — | B | 90 | 代表性不等于最优，检索质量要用自家评估集实测 |
+| 全量 GraphRAG 索引成本 6–8 倍；LazyGraphRAG 压至 0.1%、全局查询省约 700 倍 | rag-graphrag | 2026-07-09 | Microsoft GraphRAG 文档、2026 实践者评测 | — | B | 90 | 倍数随语料形态浮动，量级参考不能当预算 |
+| 多模态三路线：Caption / 统一嵌入（Cohere Embed 4、voyage-multimodal）/ ColPali 系晚交互 | rag-multimodal | 2026-07-09 | arXiv 2407.01449、BigData Boutique 2026 | — | B | 90 | 路线分类稳定，但点名的模型月级演进，选型前重核 |
+| 裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准 Spider 2.0 类约 20%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档 | rag-structured | 2026-07-23 | dbt 2026 基准 + Spider 2.0 / BEAVER / Spider-Ent（2026-07-23 复核；分档口径与 SP 对齐——原 07-09 只登 50–70%，与 SP 的 10–21% 打架，已按基准真实度合成一套） | — | B | 90 | 基准库口径，自家库 schema 更复杂，要实测 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

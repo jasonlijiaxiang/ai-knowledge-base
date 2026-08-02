@@ -22,17 +22,17 @@
 | llmtrain-eval | 第 8 章 | 评估与发布：怎么知道练成了 | ✅ | 2026-08-01 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| 后训练主流栈为 SFT →（可选 DPO）→ RLVR，GRPO/DAPO 一族为主力算法 | llmtrain-reasoning | 2026-07-08 | llm-stats.com 2026 后训练综述；arXiv 2407.16216 |
-| 旗舰开源模型几乎全是稀疏 MoE：Kimi K3 总参 2.8T / 激活 104B（1M 上下文，93 层 = 69 KDA + 24 Gated MLA），DeepSeek V4-Pro 1.6T/49B、Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B；Qwen3.6 开源线只放到 35B-A3B 与 27B dense，最大的开源 Qwen 仍是 3.5 这一代 | llmtrain-pretrain | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡 + K3 技术报告 arXiv 2607.24653；HF Qwen3.6 合集与 Qwen/Qwen3.5-397B-A17B 模型卡；其余型号沿用 OpenRouter 2026-06 盘点（建议复查日 2026-11-01） |
-| FP8 混合精度训练进入主流实践（如 MiMo-V2.5-Pro 27T token FP8） | llmtrain-pretrain | 2026-07-08 | OpenRouter 盘点、厂商技术报告 |
-| Muon/MuonClip：Kimi K2 15.5T token 零 spike；PyTorch 2.9 原生内置 torch.optim.Muon | llmtrain-pretrain | 2026-07-08 | PyTorch 官方博客；arXiv 2507.20534 |
-| 数据墙：互联网高质量文本存量约 10–50 万亿 token | llmtrain-data | 2026-07-08 | 多方分析（aimultiple、lifearchitect 等） |
-| 预测 2030 年推理算力占 AI 总算力约 75% | llmtrain-overview | 2026-07-08 | 行业分析（aibarcelona 等综述引用） |
-| 开源许可格局在分叉：Apache 2.0 仍是主流（Qwen 开源线 27B / 35B-A3B、Mistral、Gemma），DeepSeek 用 MIT；但旗舰另走一路——Qwen 3.7-Max 只出 API 不放权重，Kimi K3 用自有「Kimi K3 License」（MIT 式条款 + 商用阈值：做 Model as a Service 且连续 12 个月合计营收超 2000 万美元，须与月之暗面另签协议），**不是 Modified MIT** | llmtrain-eval | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 仓 LICENSE 原文；alibabacloud.com/help/en/model-studio/qwen3-7-max 官方模型页（只有 API 定价、无权重下载）；HF Qwen/Qwen3.6-35B-A3B 模型卡标 apache-2.0（建议复查日 2026-11-01） |
-| RLHF Book 2026-01 完成章节重组（对齐 Manning 印刷版），免费在线 | 书单 | 2026-07-08 | rlhfbook.com |
-| Stanford CS336 Spring 2026 视频与作业全部公开 | 书单 | 2026-07-08 | cs336.stanford.edu |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 后训练主流栈为 SFT →（可选 DPO）→ RLVR，GRPO/DAPO 一族为主力算法 | llmtrain-reasoning | 2026-07-08 | llm-stats.com 2026 后训练综述；arXiv 2407.16216 | — | B | 90 | 算法族迭代快，主流栈不等于你的数据规模适用 |
+| 旗舰开源模型几乎全是稀疏 MoE：Kimi K3 总参 2.8T / 激活 104B（1M 上下文，93 层 = 69 KDA + 24 Gated MLA），DeepSeek V4-Pro 1.6T/49B、Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B；Qwen3.6 开源线只放到 35B-A3B 与 27B dense，最大的开源 Qwen 仍是 3.5 这一代 | llmtrain-pretrain | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡 + K3 技术报告 arXiv 2607.24653；HF Qwen3.6 合集与 Qwen/Qwen3.5-397B-A17B 模型卡；其余型号沿用 OpenRouter 2026-06 盘点（建议复查日 2026-11-01） | — | B | 30 | 型号快照，旗舰配方季度级换代，不能当长期格局 |
+| FP8 混合精度训练进入主流实践（如 MiMo-V2.5-Pro 27T token FP8） | llmtrain-pretrain | 2026-07-08 | OpenRouter 盘点、厂商技术报告 | — | B | 90 | 旗舰厂的训练实践，小规模训练不必照搬 |
+| Muon/MuonClip：Kimi K2 15.5T token 零 spike；PyTorch 2.9 原生内置 torch.optim.Muon | llmtrain-pretrain | 2026-07-08 | PyTorch 官方博客；arXiv 2507.20534 | — | A | 90 | 单次大规模训练的稳定性结论，换配方要重验 |
+| 数据墙：互联网高质量文本存量约 10–50 万亿 token | llmtrain-data | 2026-07-08 | 多方分析（aimultiple、lifearchitect 等） | — | B | 180 | 估算区间宽达五倍，只作量级参考不能拿来算账 |
+| 预测 2030 年推理算力占 AI 总算力约 75% | llmtrain-overview | 2026-07-08 | 行业分析（aibarcelona 等综述引用） | — | B | 180 | 预测值非现状统计，不能当算力规划依据 |
+| 开源许可格局在分叉：Apache 2.0 仍是主流（Qwen 开源线 27B / 35B-A3B、Mistral、Gemma），DeepSeek 用 MIT；但旗舰另走一路——Qwen 3.7-Max 只出 API 不放权重，Kimi K3 用自有「Kimi K3 License」（MIT 式条款 + 商用阈值：做 Model as a Service 且连续 12 个月合计营收超 2000 万美元，须与月之暗面另签协议），**不是 Modified MIT** | llmtrain-eval | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 仓 LICENSE 原文；alibabacloud.com/help/en/model-studio/qwen3-7-max 官方模型页（只有 API 定价、无权重下载）；HF Qwen/Qwen3.6-35B-A3B 模型卡标 apache-2.0（建议复查日 2026-11-01） | — | B | 90 | 许可以各模型 LICENSE 原文为准，商用阈值不能跨型号套用 |
+| RLHF Book 2026-01 完成章节重组（对齐 Manning 印刷版），免费在线 | 书单 | 2026-07-08 | rlhfbook.com | — | A | 90 | 在线免费是当期状态，印刷版发行后可能变 |
+| Stanford CS336 Spring 2026 视频与作业全部公开 | 书单 | 2026-07-08 | cs336.stanford.edu | — | A | 90 | 本学期的开放状态，新学期页面可能替换或撤下 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

@@ -22,15 +22,15 @@
 | pe-presales-map | 第 7 章 | 售前视角收拢（问题速查、选型树、上云全景、串联） | ✅ | 2026-07-09 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 | 建议复查日 |
-| --- | --- | --- | --- | --- |
-| 推理模型阵容（GPT-5.6、Claude 5、Gemini 3.1 Pro、Grok 4.3、DeepSeek V4）已把 CoT 内建，不再需手写「一步步思考」；控制点从「思考预算 token 数」换成 effort（low/medium/high/xhigh/max，默认 high）；思考 token 照常计费但原始思维链不返回，最多给摘要 | pe-advanced-reasoning | 2026-07-30 | Claude API 参考（模型与 effort 口径）；阵容与本库 Model-Landscape 册同源 | 2026-10-31 |
-| 两个经典提示词旋钮在 Claude 当前主力模型上已移除：temperature/top_p/top_k（Opus 5、Fable 5、Opus 4.8·4.7 传了返回 400）与助手预填充 prefill（4.6 及以后返回 400，改用结构化输出） | pe-advanced-reasoning | 2026-07-30 | Claude API 参考（迁移指南 breaking changes） | 2026-10-31 |
-| DSPy 已到 3.x 线（当前稳定版 3.2.1，2026-05-05；3.3.0b1 为预发布，2026-05-28）——库内原写「2.x」是版本框架错，2026-08-01 更正；默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 +13%、rollout 少 35×，ICLR 2026 oral | pe-engineering | 版本 2026-08-01；MIPROv2/GEPA 数字 2026-07-09（本次未重核） | 版本＝github.com/stanfordnlp/dspy releases；优化器数字＝futureagi（DSPy optimizers 2026）、morphllm（GEPA） | 2026-11-30 |
-| 提示词缓存：截至 2026-06 三大厂缓存读取价约为基础输入价 0.1×（约 1 折，省约 90%）；OpenAI 自动（≥1024 token）、Anthropic 手动 cache_control 且写入加价（5min 1.25×/1h 2×）、Gemini 显式+按小时存储计费 | pe-engineering | 2026-07-20 | leanlm、prompthub、ofox.ai、artificialanalysis；2026-07-20 对照 Anthropic 官方定价文档修正折扣方向（原核实笔记为"省约 90%"，成品曾误写成"打 9 折"）；缓存按前缀匹配（前缀改一字节则其后全失效）；最小可缓存前缀随模型不同（512–4096 token，且不随代际单调），低于门槛静默不缓存不报错 | 2026-10-31 |
-| 各云提示词服务：AWS Bedrock Prompt Management + Advanced Prompt Optimization（改写/迁移+评估环）；Vertex AI / Gemini Enterprise Prompt Optimizer；Azure AI Foundry Prompt Flow | pe-engineering / pe-presales-map | 2026-07-09 | aws.amazon.com/bedrock/prompt-management、AWS News Blog、InfoWorld | 2027-01-31 |
-| OWASP Top 10 for LLM Applications 2025：LLM01 提示词注入连续两版第一；RAG 与微调都不能根治注入，只能纵深防御 | pe-security | 2026-07-09 | OWASP GenAI（https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/）、mend/aembit/promptfoo 解读 | 2027-01-31 |
-| 云护栏：AWS Bedrock Guardrails、Azure AI Content Safety、Google Vertex 安全过滤 / Model Armor | pe-security | 2026-07-09 | 各云官方文档 | 2027-01-31 |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 推理模型阵容（GPT-5.6、Claude 5、Gemini 3.1 Pro、Grok 4.3、DeepSeek V4）已把 CoT 内建，不再需手写「一步步思考」；控制点从「思考预算 token 数」换成 effort（low/medium/high/xhigh/max，默认 high）；思考 token 照常计费但原始思维链不返回，最多给摘要 | pe-advanced-reasoning | 2026-07-30 | Claude API 参考（模型与 effort 口径）；阵容与本库 Model-Landscape 册同源 | 2026-10-31 | B | 30 | 档位名与默认值按家不同，别把一家参数照搬另一家 |
+| 两个经典提示词旋钮在 Claude 当前主力模型上已移除：temperature/top_p/top_k（Opus 5、Fable 5、Opus 4.8·4.7 传了返回 400）与助手预填充 prefill（4.6 及以后返回 400，改用结构化输出） | pe-advanced-reasoning | 2026-07-30 | Claude API 参考（迁移指南 breaking changes） | 2026-10-31 | A | 90 | Claude 一家的接口变更，不能推给其它厂商同名参数 |
+| DSPy 已到 3.x 线（当前稳定版 3.2.1，2026-05-05；3.3.0b1 为预发布，2026-05-28）——库内原写「2.x」是版本框架错，2026-08-01 更正；默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 +13%、rollout 少 35×，ICLR 2026 oral | pe-engineering | 2026-07-09 | 版本＝github.com/stanfordnlp/dspy releases（版本口径 2026-08-01 重核）；优化器数字＝futureagi（DSPy optimizers 2026）、morphllm（GEPA，2026-07-09 后未重核） | 2026-11-30 | B | 90 | 基线口径已存疑，提升幅度不能当自家任务的预期值 |
+| 提示词缓存：截至 2026-06 三大厂缓存读取价约为基础输入价 0.1×（约 1 折，省约 90%）；OpenAI 自动（≥1024 token）、Anthropic 手动 cache_control 且写入加价（5min 1.25×/1h 2×）、Gemini 显式+按小时存储计费 | pe-engineering | 2026-07-20 | leanlm、prompthub、ofox.ai、artificialanalysis；2026-07-20 对照 Anthropic 官方定价文档修正折扣方向（原核实笔记为"省约 90%"，成品曾误写成"打 9 折"）；缓存按前缀匹配（前缀改一字节则其后全失效）；最小可缓存前缀随模型不同（512–4096 token，且不随代际单调），低于门槛静默不缓存不报错 | 2026-10-31 | B | 30 | 折扣与最小前缀按厂按模型不同，报价前逐家重核 |
+| 各云提示词服务：AWS Bedrock Prompt Management + Advanced Prompt Optimization（改写/迁移+评估环）；Vertex AI / Gemini Enterprise Prompt Optimizer；Azure AI Foundry Prompt Flow | pe-engineering / pe-presales-map | 2026-07-09 | aws.amazon.com/bedrock/prompt-management、AWS News Blog、InfoWorld | 2027-01-31 | B | 90 | 只说服务存在，不代表三家能力对等或目标区域可用 |
+| OWASP Top 10 for LLM Applications 2025：LLM01 提示词注入连续两版第一；RAG 与微调都不能根治注入，只能纵深防御 | pe-security | 2026-07-09 | OWASP GenAI（https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/）、mend/aembit/promptfoo 解读 | 2027-01-31 | A | 180 | 风险目录不是防护方案，也不能当合规验收清单 |
+| 云护栏：AWS Bedrock Guardrails、Azure AI Content Safety、Google Vertex 安全过滤 / Model Armor | pe-security | 2026-07-09 | 各云官方文档 | 2027-01-31 | A | 90 | 护栏是通用兜底，拦截率与中文场景效果须自行实测 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

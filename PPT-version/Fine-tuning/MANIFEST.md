@@ -22,19 +22,19 @@
 | ft-field-guide | 第 8 章 | 售前速查 | ✅ | 2026-07-09 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| OpenAI 微调平台收摊（官方挂「winding down」告示）：新组织 2026-05-07 起不能创建微调任务、60 天内未跑微调推理的组织 2026-07-02 起停止新建、存量活跃客户 2027-01-06 后停止新建；存量微调模型推理保留到对应底座退役（建议复查日 2026-10-31，收摊推进随官方页滚动） | ft-cloud | 2026-08-01 | developers.openai.com/api/docs/deprecations、model-optimization 指南 |
-| Claude 微调唯一托管路径：Amazon Bedrock 上 Claude 3 Haiku SFT（us-west-2）；官方建议 50–10,000 条样本 | ft-cloud | 2026-07-09 | AWS 官方博客、Claude Cookbook |
-| 三大云格局：Vertex 微调形态最灵活（全参/LoRA/adapter）；Azure AI Foundry 蒸馏 GA（GPT-4o→Phi-4）；AWS Bedrock 托管 + SageMaker 兜底 | ft-cloud | 2026-07-09 | 平台官方与 2026 对比评测 |
-| 开源框架四强功能趋同，stars（2026-07）：LLaMA-Factory ~68K、Unsloth ~54K、TRL ~18K、Axolotl ~11K | ft-training | 2026-07-09 | GitHub、框架对比评测 |
-| PEFT 稳定版 v0.20.0（2026-07-28，一次新增 9 种 PEFT 方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随季度巡检，版本号周级漂移） | ft-training | 2026-08-01 | github.com/huggingface/peft/releases |
-| TRL v1.9.2（2026-07-28）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随季度巡检，版本号周级漂移） | ft-training | 2026-08-01 | github.com/huggingface/trl/releases |
-| vLLM 动态加载 LoRA adapter 有官方安全警告：仅限隔离、完全受信环境（需显式开 VLLM_ALLOW_RUNTIME_LORA_UPDATING） | ft-eval-deploy | 2026-07-12 | docs.vllm.ai/en/stable/features/lora/ |
-| Unsloth 宣称较 HF+FA2 快 2×、省 70% 显存；3GB 显存可玩，Colab/Kaggle 免费笔记本生态 | ft-training | 2026-07-09 | Unsloth 官方文档 |
-| RFT（可验证奖励微调）为 2026 年微调新风向；开源侧主力算法 GRPO | ft-alignment | 2026-07-09 | OpenAI RFT 文档、行业综述 |
-| 显存量级：7B 全参约 110GB（多卡）；QLoRA 后 6–8GB 单张消费卡可跑，70B 可入单张 48GB 卡 | ft-methods | 2026-07-09 | QLoRA 论文、2026 实践指南 |
-| 合成数据 + 蒸馏为微调数据主流来源（种子→扩展→judge 过滤）；DeepSeek-R1/Qwen 蒸馏系小模型涌现 | ft-data | 2026-07-09 | 行业综述、Azure/厂商公告 |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| OpenAI 微调平台收摊（官方挂「winding down」告示）：新组织 2026-05-07 起不能创建微调任务、60 天内未跑微调推理的组织 2026-07-02 起停止新建、存量活跃客户 2027-01-06 后停止新建；存量微调模型推理保留到对应底座退役（建议复查日 2026-10-31，收摊推进随官方页滚动） | ft-cloud | 2026-08-01 | developers.openai.com/api/docs/deprecations、model-optimization 指南 | 2026-10-31 | A | 90 | 时间表随官方页滚动，对客承诺前必须查当日事实 |
+| Claude 微调唯一托管路径：Amazon Bedrock 上 Claude 3 Haiku SFT（us-west-2）；官方建议 50–10,000 条样本 | ft-cloud | 2026-07-09 | AWS 官方博客、Claude Cookbook | — | A | 90 | 区域与可调模型清单月级变化，样本区间是建议不是效果保证 |
+| 三大云格局：Vertex 微调形态最灵活（全参/LoRA/adapter）；Azure AI Foundry 蒸馏 GA（GPT-4o→Phi-4）；AWS Bedrock 托管 + SageMaker 兜底 | ft-cloud | 2026-07-09 | 平台官方与 2026 对比评测 | — | B | 90 | 三家形态对比是当日快照，GA 范围月级变，不能当长期能力差 |
+| 开源框架四强功能趋同，stars（2026-07）：LLaMA-Factory ~68K、Unsloth ~54K、TRL ~18K、Axolotl ~11K | ft-training | 2026-07-09 | GitHub、框架对比评测 | — | B | 90 | stars 周级漂移，星数不等于生产可用度，功能趋同是评测口径 |
+| PEFT 稳定版 v0.20.0（2026-07-28，一次新增 9 种 PEFT 方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随季度巡检，版本号周级漂移） | ft-training | 2026-08-01 | github.com/huggingface/peft/releases | — | A | 90 | 版本号周级漂移，兼容边界只对这条版本线，老环境要实测 |
+| TRL v1.9.2（2026-07-28）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随季度巡检，版本号周级漂移） | ft-training | 2026-08-01 | github.com/huggingface/trl/releases | — | A | 90 | 版本号周级漂移，v2.0 前的告警期以仓库当日公告为准 |
+| vLLM 动态加载 LoRA adapter 有官方安全警告：仅限隔离、完全受信环境（需显式开 VLLM_ALLOW_RUNTIME_LORA_UPDATING） | ft-eval-deploy | 2026-07-12 | docs.vllm.ai/en/stable/features/lora/ | — | A | 90 | 针对运行时动态加载的警告，不能外推到静态加载的部署形态 |
+| Unsloth 宣称较 HF+FA2 快 2×、省 70% 显存；3GB 显存可玩，Colab/Kaggle 免费笔记本生态 | ft-training | 2026-07-09 | Unsloth 官方文档 | — | B | 90 | 厂商自称口径，非第三方复现，换模型换硬件需复测 |
+| RFT（可验证奖励微调）为 2026 年微调新风向；开源侧主力算法 GRPO | ft-alignment | 2026-07-09 | OpenAI RFT 文档、行业综述 | — | B | 180 | 方法定位可用，可调模型清单与效果案例要另行核实 |
+| 显存量级：7B 全参约 110GB（多卡）；QLoRA 后 6–8GB 单张消费卡可跑，70B 可入单张 48GB 卡 | ft-methods | 2026-07-09 | QLoRA 论文、2026 实践指南 | — | B | 180 | 量级心算值，随序列长度与批大小浮动，精确数留给 POC 实测 |
+| 合成数据 + 蒸馏为微调数据主流来源（种子→扩展→judge 过滤）；DeepSeek-R1/Qwen 蒸馏系小模型涌现 | ft-data | 2026-07-09 | 行业综述、Azure/厂商公告 | — | B | 90 | 数据造法可复用，蒸馏系小模型举例随模型迭代过期 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

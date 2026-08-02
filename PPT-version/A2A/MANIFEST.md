@@ -21,18 +21,18 @@
 | a2a-security | 第 7 章 | 安全 · 售前速查 | ✅ | 2026-07-09 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| 规范稳定线 1.0（正文 Latest Released 1.0.0）；项目 release 当前 v1.0.1（2026-05-28 补丁；v1.0.0 于 2026-03-12 发布）；历史 0.1.0→0.2.6→0.3.0→1.0.0；以 Protocol Buffers 为唯一权威规范定义 | a2a-protocol | 2026-07-12 | a2a-protocol.org 规范页、github.com/a2aproject/A2A/releases |
-| v1.0 头号新特性 Signed Agent Cards（签名版 Agent Card，密码学验证签发方） | a2a-security | 2026-07-09 | LF 一周年 press |
-| 治理：Google 2025-04 发布并开源，2025-06 捐赠 Linux Foundation 成立中立的 A2A Project | a2a-what-why | 2026-07-09 | LF 项目成立公告 |
-| 采用度 150+ 组织、核心仓库 22,000+ stars；5 官方 SDK（Python/JS/Java/Go/.NET），Python SDK 实现 1.0 并提供 0.3 兼容模式、三种传输绑定 Client/Server 全覆盖 | a2a-production | 2026-07-12 | LF 一周年 press、github.com/a2aproject/a2a-python |
-| 官方配套工具：Inspector（联调）与 TCK（协议一致性测试）提供一致性证据，不替代安全与业务评测 | a2a-handson | 2026-07-12 | github.com/a2aproject/a2a-inspector、github.com/a2aproject/a2a-tck |
-| 云支持：Azure AI Foundry / Copilot Studio、AWS Bedrock AgentCore Runtime、Google Cloud（Vertex AI Agent Engine） | a2a-production | 2026-07-09 | LF 一周年 press |
-| 三种传输绑定：JSON-RPC 2.0 / gRPC / HTTP+JSON-REST；流式走 SSE，长任务用推送通知回调 | a2a-transport | 2026-07-09 | a2a-protocol.org 规范页 |
-| AP2（Agent Payments Protocol）为 A2A 之上支付扩展，60+ 组织 | a2a-production | 2026-07-09 | LF 一周年 press |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 规范稳定线 1.0（正文 Latest Released 1.0.0）；项目 release 当前 v1.0.1（2026-05-28 补丁；v1.0.0 于 2026-03-12 发布）；历史 0.1.0→0.2.6→0.3.0→1.0.0；以 Protocol Buffers 为唯一权威规范定义 | a2a-protocol | 2026-07-12 | a2a-protocol.org 规范页、github.com/a2aproject/A2A/releases | — | A | 90 | 补丁号月级变动，写方案前重新核 release |
+| v1.0 头号新特性 Signed Agent Cards（签名版 Agent Card，密码学验证签发方） | a2a-security | 2026-07-09 | LF 一周年 press | — | A | 90 | 规范提供签名能力，不等于对端已启用并验签 |
+| 治理：Google 2025-04 发布并开源，2025-06 捐赠 Linux Foundation 成立中立的 A2A Project | a2a-what-why | 2026-07-09 | LF 项目成立公告 | — | A | 180 | 中立治理不代表各家实现之间互通已被验证 |
+| 采用度 150+ 组织、核心仓库 22,000+ stars；5 官方 SDK（Python/JS/Java/Go/.NET），Python SDK 实现 1.0 并提供 0.3 兼容模式、三种传输绑定 Client/Server 全覆盖 | a2a-production | 2026-07-12 | LF 一周年 press、github.com/a2aproject/a2a-python | — | B | 90 | 组织数与 star 是通稿自报口径，不等于已上生产家数 |
+| 官方配套工具：Inspector（联调）与 TCK（协议一致性测试）提供一致性证据，不替代安全与业务评测 | a2a-handson | 2026-07-12 | github.com/a2aproject/a2a-inspector、github.com/a2aproject/a2a-tck | — | A | 90 | 工具随规范版本走，旧版跑过不等于新版仍一致 |
+| 云支持：Azure AI Foundry / Copilot Studio、AWS Bedrock AgentCore Runtime、Google Cloud（Vertex AI Agent Engine） | a2a-production | 2026-07-09 | LF 一周年 press | — | B | 90 | 只说明产品名在列，绑定深度与可用区不可外推 |
+| 三种传输绑定：JSON-RPC 2.0 / gRPC / HTTP+JSON-REST；流式走 SSE，长任务用推送通知回调 | a2a-transport | 2026-07-09 | a2a-protocol.org 规范页 | — | A | 90 | 规范列三种绑定，不代表各家 SDK 与对端都实现 |
+| AP2（Agent Payments Protocol）为 A2A 之上支付扩展，60+ 组织 | a2a-production | 2026-07-09 | LF 一周年 press | — | B | 90 | 参与组织数为通稿口径，扩展仍在早期不等于可用 |
 
-| Task 状态机共九种状态（进行中 2 + 中断 2 + 终态 4 + 兜底 unspecified），终态不可回跳、重试建新 Task | a2a-protocol | 2026-07-12 | a2a-protocol.org 规范 TaskState 枚举 |
+| Task 状态机共九种状态（进行中 2 + 中断 2 + 终态 4 + 兜底 unspecified），终态不可回跳、重试建新 Task | a2a-protocol | 2026-07-12 | a2a-protocol.org 规范 TaskState 枚举 | — | A | 90 | 九态是 1.0 枚举，实现方可能不全用或自加语义 |
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |

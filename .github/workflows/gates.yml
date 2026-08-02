@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   gates:
-    name: 十二道门禁
+    name: 十三道门禁
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,6 +38,12 @@ jobs:
 
       - name: _prep 取用文档同步
         run: python3 _maintenance/check_prep_coverage.py
+
+      # 事实是真的会随挂钟过期的。保鲜看板此前只是报表——可以一直红着而门禁全绿，
+      # 没有任何机制强迫人去看它（2026-08-02 补这道）。判据按每条事实自己的
+      # 30/90/180 天节奏，不再全库一个阈值。
+      - name: 保鲜（事实节奏与不可外推边界）
+        run: python3 _maintenance/check_freshness.py
 
       # ---- 呈现契约 ----
       - name: 样式契约（孤儿类与缓存版本戳）

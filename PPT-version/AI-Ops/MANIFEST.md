@@ -25,19 +25,19 @@
 | ops-cheatsheet | 第 8 章 | 售前速查（运营包五件套 / 指标速查 / 选型卡 / 串联地图） | ✅ | 2026-07-10 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| OTel GenAI 语义约定 2026-06-12（semconv v1.42.0）起全部 gen_ai.* span/指标/事件迁入独立仓 semantic-conventions-genai，主仓对应定义弃用；整体仍 Development、无一 Stable，新仓尚未发正式版；四类 span（agent/workflow/tool/model）实践已稳但命名仍可能变——「封装一层再用」升为硬要求（建议复查日 2026-10-31，随季度巡检） | ops-tracing | 2026-08-01 | github.com/open-telemetry/semantic-conventions v1.42.0 release notes / github.com/open-telemetry/semantic-conventions-genai（docs/gen-ai 状态徽标均 Development、releases 页为空） |
-| OTLP 规范 1.10.0：Trace/Metric/Log 三信号 Stable（profiles 仍开发中）——与 GenAI 语义约定的 Development 状态是两条轨，售前别混谈 | ops-tracing | 2026-07-12 | opentelemetry.io/docs/specs/otlp/ |
-| 平台许可证与版本锚点：Phoenix 主仓 ELv2（限托管转售，沿 07-12 核实）；Langfuse 已切 v4 大版本线（v4.0.0 2026-07-29 破坏性升级，最新 v4.2.0 2026-07-31；core MIT、ee/ 目录除外的许可结构在 v4 原样保留）；MLflow v3.15.0（2026-07-31，Apache-2.0） | ops-tooling | 2026-08-01 | GitHub releases（langfuse/langfuse、mlflow/mlflow）+ langfuse README 许可节；Phoenix 未复核沿旧记录 |
-| 六平台锚定：LangSmith（LangChain 原生）/ Langfuse（开源领袖，2026-01 被 ClickHouse 收购、开源线维护不变——v4 后 core 仍 MIT、README 明写归属 ClickHouse 且在持续招聘，2026-08-01 复核成立）/ Arize Phoenix（漂移与嵌入分析）/ Helicone（drop-in 代理）/ Datadog LLM Obs / Honeycomb | ops-tooling | 2026-07-10（Langfuse 行 2026-08-01 复核） | digitalapplied / latitude / laminar 2026 横评；github.com/langfuse/langfuse README（2026-08-01） |
-| Braintrust（观测评估一体，免费档 1M span/月 + 10K eval）；AgentOps（会话回放 time-travel debugging、无限循环检测） | ops-tooling | 2026-07-10 | braintrust.dev / github.com/agentops-ai |
-| APM 系 vs 专用系分工共识：Datadog 类管 token 成本与延迟够用；输出质量评估/漂移/评审队列需专用工具 | ops-tooling | 2026-07-10 | confident-ai / techsy 2026 对比 |
-| 观测成本：RAG 管线遥测量为等价传统 API 的 10–50 倍；接入 AI 负载后 APM 账单普遍 +40–200% | ops-what-why | 2026-07-10 | oneuptime 2026-04 |
-| 在线评估实践口径：采样 5–10% 真实流量、异步打分零应用时延；低分 trace 标注失败模式→晋升进回归集（dataset promotion）；闭环三件套 = 告警/评审队列/数据集晋升 | ops-online-eval | 2026-07-10 | braintrust.dev / towardsai 2026-04 |
-| 漂移三类：供应商静默换 checkpoint（上月测的≠这月答的）/ 输出漂移 / 性能漂移；检测靠嵌入距离 + judge 持续打分 + 回归集重跑 | ops-drift | 2026-07-10 | stackpulsar / galileo 2026 |
-| 发布管理成熟形态：版本注册表 + 评估门禁 + 金丝雀 5–10% 流量；LLM 金丝雀与传统的关键差异 = 必须在金丝雀流量上跑自动评估；回滚 = 改配置指针非重部署 | ops-release | 2026-07-10 | tianpan.co 2026-03 / arthur.ai / calmops |
-| 事故响应：成本尖峰常是第一信号（死循环/注入先表现为 token 暴涨）；急停开关（停任务不砸状态）；HITL 三分级（in/on/out-of-the-loop） | ops-incident | 2026-07-10 | zylos 2026-03 SRE-AI / deepinspect |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| OTel GenAI 语义约定 2026-06-12（semconv v1.42.0）起全部 gen_ai.* span/指标/事件迁入独立仓 semantic-conventions-genai，主仓对应定义弃用；整体仍 Development、无一 Stable，新仓尚未发正式版；四类 span（agent/workflow/tool/model）实践已稳但命名仍可能变——「封装一层再用」升为硬要求（建议复查日 2026-10-31，随季度巡检） | ops-tracing | 2026-08-01 | github.com/open-telemetry/semantic-conventions v1.42.0 release notes / github.com/open-telemetry/semantic-conventions-genai（docs/gen-ai 状态徽标均 Development、releases 页为空） | 2026-10-31 | A | 90 | 整体仍 Development，属性命名可能再变，不能当稳定字段直接落库 |
+| OTLP 规范 1.10.0：Trace/Metric/Log 三信号 Stable（profiles 仍开发中）——与 GenAI 语义约定的 Development 状态是两条轨，售前别混谈 | ops-tracing | 2026-07-12 | opentelemetry.io/docs/specs/otlp/ | — | A | 90 | OTLP 稳定不等于 GenAI 语义约定稳定，profiles 仍在开发 |
+| 平台许可证与版本锚点：Phoenix 主仓 ELv2（限托管转售，沿 07-12 核实）；Langfuse 已切 v4 大版本线（v4.0.0 2026-07-29 破坏性升级，最新 v4.2.0 2026-07-31；core MIT、ee/ 目录除外的许可结构在 v4 原样保留）；MLflow v3.15.0（2026-07-31，Apache-2.0） | ops-tooling | 2026-08-01 | GitHub releases（langfuse/langfuse、mlflow/mlflow）+ langfuse README 许可节；Phoenix 未复核沿旧记录 | — | A | 90 | Phoenix 一行沿旧记录未复核，版本号周级跳，引用前重核 |
+| 六平台锚定：LangSmith（LangChain 原生）/ Langfuse（开源领袖，2026-01 被 ClickHouse 收购、开源线维护不变——v4 后 core 仍 MIT、README 明写归属 ClickHouse 且在持续招聘，2026-08-01 复核成立）/ Arize Phoenix（漂移与嵌入分析）/ Helicone（drop-in 代理）/ Datadog LLM Obs / Honeycomb | ops-tooling | 2026-07-10 | digitalapplied / latitude / laminar 2026 横评；github.com/langfuse/langfuse README（Langfuse 行 2026-08-01 复核） | — | B | 90 | 第三方横评的格局排位，并购整合快，不代表当下归属与能力 |
+| Braintrust（观测评估一体，免费档 1M span/月 + 10K eval）；AgentOps（会话回放 time-travel debugging、无限循环检测） | ops-tooling | 2026-07-10 | braintrust.dev / github.com/agentops-ai | — | A | 30 | 免费档配额是官网当日口径，不能当长期承诺或容量规划依据 |
+| APM 系 vs 专用系分工共识：Datadog 类管 token 成本与延迟够用；输出质量评估/漂移/评审队列需专用工具 | ops-tooling | 2026-07-10 | confident-ai / techsy 2026 对比 | — | B | 90 | 分工共识按当前产品能力划线，不代表 APM 侧永远补不上质量评估 |
+| 观测成本：RAG 管线遥测量为等价传统 API 的 10–50 倍；接入 AI 负载后 APM 账单普遍 +40–200% | ops-what-why | 2026-07-10 | oneuptime 2026-04 | — | B | 180 | 区间是行业经验值，自家账单要按真实 span 量与计费口径实测 |
+| 在线评估实践口径：采样 5–10% 真实流量、异步打分零应用时延；低分 trace 标注失败模式→晋升进回归集（dataset promotion）；闭环三件套 = 告警/评审队列/数据集晋升 | ops-online-eval | 2026-07-10 | braintrust.dev / towardsai 2026-04 | — | B | 180 | 实践区间不是各家默认配置，采样率要按流量与预算自校 |
+| 漂移三类：供应商静默换 checkpoint（上月测的≠这月答的）/ 输出漂移 / 性能漂移；检测靠嵌入距离 + judge 持续打分 + 回归集重跑 | ops-drift | 2026-07-10 | stackpulsar / galileo 2026 | — | B | 180 | 只给分类法与检测思路，不含阈值，阈值要按自家基线定 |
+| 发布管理成熟形态：版本注册表 + 评估门禁 + 金丝雀 5–10% 流量；LLM 金丝雀与传统的关键差异 = 必须在金丝雀流量上跑自动评估；回滚 = 改配置指针非重部署 | ops-release | 2026-07-10 | tianpan.co 2026-03 / arthur.ai / calmops | — | B | 180 | 5–10% 金丝雀比例是惯例不是硬标准，按风险与流量规模调 |
+| 事故响应：成本尖峰常是第一信号（死循环/注入先表现为 token 暴涨）；急停开关（停任务不砸状态）；HITL 三分级（in/on/out-of-the-loop） | ops-incident | 2026-07-10 | zylos 2026-03 SRE-AI / deepinspect | — | B | 180 | 经验法则，不代表所有 LLM 事故都先表现为 token 暴涨 |
 
 ## 稳定事实（不会过期，无需巡检）
 | 事实 | 章节 ID | 说明 |

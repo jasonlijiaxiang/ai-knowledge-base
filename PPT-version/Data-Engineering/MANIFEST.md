@@ -25,14 +25,14 @@
 | de-cheatsheet | 第 8 章 | 售前速查（管线总图 / 工具速查 / 八坑清单 / 串联） | ✅ | 2026-07-11 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| 解析四强：LlamaParse（VLM 托管、agentic OCR、<1000 页/天甜区）/ Docling（IBM 开源、AI 版面检测）/ MinerU（OpenDataLab，**2.5 起改走 1.2B 视觉语言模型路线**，当前主力模型 MinerU2.5-Pro-2605-1.2B；**3.1.0 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可**，商用门槛明显降低）/ Unstructured；云文档智能三家为企业默认起点 | de-parsing | 2026-08-01 | github.com/opendatalab/MinerU README「Changelog」：3.1.0（2026-04-18 许可变更 + 换 2604 模型）、3.3（2026-06-11 换 2605 模型）、3.4（2026-06-18 OCR 换 PP-OCRv6）；建议复查日 2026-11-30 |
-| **基准要看两榜、不能用单一排序下结论**：OmniDocBench v1.6 端到端 Overall——MinerU2.5-Pro 95.75、MinerU 管线后端 86.47、Marker 78.44（榜首是 PaddleOCR-VL-1.6 的 96.34，Docling 未列入该版榜）；olmOCR-bench——Marker 2（balanced）76.0 > MinerU 管线后端 72.7 > Docling 50.3。两榜排序不一致的原因有二：**维护方各是当事人**（OmniDocBench 由 MinerU 同门的 OpenDataLab 维护；olmOCR-bench 题库虽是 Ai2 第三方，但这组分数由 Marker 作者 Datalab 自跑），**测的后端也不同**（Datalab 自己注明比的是「文本层管线」这一档，MinerU 的视觉语言模型后端分数更高）。旧登记的「opendataloader-bench 上 Docling 0.877 居首」已作废 | de-parsing | 2026-08-01 | github.com/opendatalab/OmniDocBench README 端到端榜（v1.6，2026-04-10 更新）；github.com/datalab-to/marker README 基准表（olmOCR-bench 自跑，附可复现 harness）；建议复查日 2026-11-30 |
-| 向量库口径：pgvector 生产上限约 50–100M 向量（HNSW 重建成瓶颈）；Qdrant p50 4ms/p99 25ms、过滤最强开源；Milvus/Zilliz 十亿级；Weaviate/ES 原生混合最成熟；Pinecone 等托管按量 | de-vectordb | 2026-07-11 | firecrawl / layerbase / encore 2026 对比 |
-| 选型共识：已有 Postgres→pgvector、有 ES→就地升级、重过滤→Qdrant、十亿级→Milvus、免运维→托管 | de-vectordb | 2026-07-11 | 同上（"100+ 企业部署决策指南"口径） |
-| 增量同步三模式（轮询/webhook/CDC）与连接器五件事（认证/拉取/解析/ACL/增量）为工程量估算框架；成熟源参照 Airbyte 模式 | de-pipeline | 2026-07-11 | dbt/Airbyte 文档模式（稳定工程共识） |
-| 治理工具锚点：OpenLineage 1.52.0（2026-07-23，Run/Job/Dataset 三实体 + facets）、OPA v1.19.0（2026-07-30）；注意血缘解释「数据怎么来」≠ 访问控制。**本行 2026-08-01 从「稳定事实」表挪回本表**——带版本号的行天然会漂，放在免巡检表里每轮都要靠补审兜底（2026-08-01 巡检结构小修，两处同批：另一处是 AIP 的 KServe/Kueue 行） | de-governance | 2026-08-01 | github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随季度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记） |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 解析四强：LlamaParse（VLM 托管、agentic OCR、<1000 页/天甜区）/ Docling（IBM 开源、AI 版面检测）/ MinerU（OpenDataLab，**2.5 起改走 1.2B 视觉语言模型路线**，当前主力模型 MinerU2.5-Pro-2605-1.2B；**3.1.0 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可**，商用门槛明显降低）/ Unstructured；云文档智能三家为企业默认起点 | de-parsing | 2026-08-01 | github.com/opendatalab/MinerU README「Changelog」：3.1.0（2026-04-18 许可变更 + 换 2604 模型）、3.3（2026-06-11 换 2605 模型）、3.4（2026-06-18 OCR 换 PP-OCRv6）；建议复查日 2026-11-30 | — | A | 90 | 模型路线与许可跟着版本走，选型仍要用客户文档自测 |
+| **基准要看两榜、不能用单一排序下结论**：OmniDocBench v1.6 端到端 Overall——MinerU2.5-Pro 95.75、MinerU 管线后端 86.47、Marker 78.44（榜首是 PaddleOCR-VL-1.6 的 96.34，Docling 未列入该版榜）；olmOCR-bench——Marker 2（balanced）76.0 > MinerU 管线后端 72.7 > Docling 50.3。两榜排序不一致的原因有二：**维护方各是当事人**（OmniDocBench 由 MinerU 同门的 OpenDataLab 维护；olmOCR-bench 题库虽是 Ai2 第三方，但这组分数由 Marker 作者 Datalab 自跑），**测的后端也不同**（Datalab 自己注明比的是「文本层管线」这一档，MinerU 的视觉语言模型后端分数更高）。旧登记的「opendataloader-bench 上 Docling 0.877 居首」已作废 | de-parsing | 2026-08-01 | github.com/opendatalab/OmniDocBench README 端到端榜（v1.6，2026-04-10 更新）；github.com/datalab-to/marker README 基准表（olmOCR-bench 自跑，附可复现 harness）；建议复查日 2026-11-30 | — | B | 90 | 当事人维护、后端不同，不能当跨工具的统一排名 |
+| 向量库口径：pgvector 生产上限约 50–100M 向量（HNSW 重建成瓶颈）；Qdrant p50 4ms/p99 25ms、过滤最强开源；Milvus/Zilliz 十亿级；Weaviate/ES 原生混合最成熟；Pinecone 等托管按量 | de-vectordb | 2026-07-11 | firecrawl / layerbase / encore 2026 对比 | — | B | 90 | 第三方评测量级，换硬件与数据分布必须自测复现 |
+| 选型共识：已有 Postgres→pgvector、有 ES→就地升级、重过滤→Qdrant、十亿级→Milvus、免运维→托管 | de-vectordb | 2026-07-11 | 同上（"100+ 企业部署决策指南"口径） | — | B | 180 | 是实践共识不是硬规则，遇规模或合规约束要重算 |
+| 增量同步三模式（轮询/webhook/CDC）与连接器五件事（认证/拉取/解析/ACL/增量）为工程量估算框架；成熟源参照 Airbyte 模式 | de-pipeline | 2026-07-11 | dbt/Airbyte 文档模式（稳定工程共识） | — | A | 180 | 是工程量估算框架，不能替代按客户系统实测的工时 |
+| 治理工具锚点：OpenLineage 1.52.0（2026-07-23，Run/Job/Dataset 三实体 + facets）、OPA v1.19.0（2026-07-30）；注意血缘解释「数据怎么来」≠ 访问控制。**本行 2026-08-01 从「稳定事实」表挪回本表**——带版本号的行天然会漂，放在免巡检表里每轮都要靠补审兜底（2026-08-01 巡检结构小修，两处同批：另一处是 AIP 的 KServe/Kueue 行） | de-governance | 2026-08-01 | github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随季度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记） | — | A | 90 | 版本号周级在动；血缘解释来源，不承担访问控制 |
 
 ## 稳定事实（不会过期，无需巡检）
 | 事实 | 章节 ID | 说明 |

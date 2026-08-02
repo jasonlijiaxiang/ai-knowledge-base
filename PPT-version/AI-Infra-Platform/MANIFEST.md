@@ -22,17 +22,17 @@
 | aip-cloud | 第 8 章 | 云上算力形态与售前速查 | ✅ | 2026-07-09 |
 
 ## 时效性事实（巡检盘查对象）
-| 事实 | 章节 ID | 核实日期 | 来源 |
-| --- | --- | --- | --- |
-| DRA（Dynamic Resource Allocation）K8s v1.34（2025-08）GA 并默认启用，取代 device plugin 的"只数卡"模式；GKE/AKS/OpenShift 4.21 等托管发行版已跟进 | aip-k8s-gpu | 2026-07-09 | kubernetes.io 官方博客、Red Hat、Google Cloud、AKS 工程博客 |
-| KubeCon EU 2026 上 NVIDIA 把 NVIDIA DRA Driver for GPUs 捐给 CNCF；DRA 成 GPU 调度社区主线 | aip-k8s-gpu | 2026-07-09 | KubeCon EU 2026 报道、AKS 博客 2026-03 |
-| KAI Scheduler：NVIDIA 2025-04 开源（Apache 2.0），与商业版 Run:ai 同一调度核（gang/拓扑感知/bin-packing/DRA 集成）；Run:ai 差异=UI/多集群/SLA/fractional GPU | aip-scheduling | 2026-07-09 | zenml/cloudoptimo/rack2cloud 2026 对比综述 |
-| 调度分层共识：Kueue 管准入配额、Volcano/KAI 管 gang 与放置，生产常两层叠用；小集群（<16 卡）单用 Kueue 或 KAI 够用；Slurm 在 HPC 与托管服务中仍主力 | aip-scheduling | 2026-07-09 | cloudoptimo/zenml 2026 综述 |
-| GPU 切分三板斧口径：MIG（硬件隔离、最多 7 实例）、时间片（高密度无隔离、不宜生产多租户）、MPS；HAMi（CNCF）任意 NVIDIA 卡细粒度配额；MIG 正与 DRA 打通 | aip-sharing | 2026-07-09 | NVIDIA GPU Operator 文档、scaleops/collabnix/rafay 2026 教程 |
-| SageMaker HyperPod：EKS/Slurm 双编排 + 弹性容错（自动检测-替换-续训）；2026 上新一键建集群、Slurm continuous provisioning（2026-03）、G7e 实例（2026-04） | aip-faulttol | 2026-07-09 | AWS 官方文档/What's New |
-| llm-d（K8s 系 P/D 分离）、NVIDIA Dynamo 1.0（2026-03 GTC GA，P/D 编排+KV 感知路由+NIXL）为推理平台化承载 | aip-serving | 2026-07-09 | 沿用 llm-inference#llminf-disagg 同源口径 |
-| 自建盈亏线利用率约 40-50%、托管 API $2-5/百万输出 token | aip-cloud | 2026-07-09 | 沿用 llm-inference#llminf-production 同源口径 |
-| K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随季度巡检，版本号周级漂移） | aip-serving | 2026-08-01 | github.com/kserve/kserve/releases、kserve.github.io 文档（LLMInferenceService 概览 / CRD API）、github.com/kubernetes-sigs/kueue/releases |
+| 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| DRA（Dynamic Resource Allocation）K8s v1.34（2025-08）GA 并默认启用，取代 device plugin 的"只数卡"模式；GKE/AKS/OpenShift 4.21 等托管发行版已跟进 | aip-k8s-gpu | 2026-07-09 | kubernetes.io 官方博客、Red Hat、Google Cloud、AKS 工程博客 | — | A | 90 | 上游 GA 不等于各托管发行版默认开，落地版本逐云核 |
+| KubeCon EU 2026 上 NVIDIA 把 NVIDIA DRA Driver for GPUs 捐给 CNCF；DRA 成 GPU 调度社区主线 | aip-k8s-gpu | 2026-07-09 | KubeCon EU 2026 报道、AKS 博客 2026-03 | — | B | 90 | 捐赠只是治理归属变化，不代表已毕业或生产就绪 |
+| KAI Scheduler：NVIDIA 2025-04 开源（Apache 2.0），与商业版 Run:ai 同一调度核（gang/拓扑感知/bin-packing/DRA 集成）；Run:ai 差异=UI/多集群/SLA/fractional GPU | aip-scheduling | 2026-07-09 | zenml/cloudoptimo/rack2cloud 2026 对比综述 | — | B | 90 | 三方综述的商开差异，签单前按当期官方功能表核 |
+| 调度分层共识：Kueue 管准入配额、Volcano/KAI 管 gang 与放置，生产常两层叠用；小集群（<16 卡）单用 Kueue 或 KAI 够用；Slurm 在 HPC 与托管服务中仍主力 | aip-scheduling | 2026-07-09 | cloudoptimo/zenml 2026 综述 | — | B | 90 | 分层是社区共识与经验阈值，不是某客户集群的选型结论 |
+| GPU 切分三板斧口径：MIG（硬件隔离、最多 7 实例）、时间片（高密度无隔离、不宜生产多租户）、MPS；HAMi（CNCF）任意 NVIDIA 卡细粒度配额；MIG 正与 DRA 打通 | aip-sharing | 2026-07-09 | NVIDIA GPU Operator 文档、scaleops/collabnix/rafay 2026 教程 | — | B | 90 | 切分能力随卡型不同，隔离强度不能按一款卡外推 |
+| SageMaker HyperPod：EKS/Slurm 双编排 + 弹性容错（自动检测-替换-续训）；2026 上新一键建集群、Slurm continuous provisioning（2026-03）、G7e 实例（2026-04） | aip-faulttol | 2026-07-09 | AWS 官方文档/What's New | — | A | 90 | 云厂能力月级上新，实例型号与区域可用性要按当期核 |
+| llm-d（K8s 系 P/D 分离）、NVIDIA Dynamo 1.0（2026-03 GTC GA，P/D 编排+KV 感知路由+NIXL）为推理平台化承载 | aip-serving | 2026-07-09 | 沿用 llm-inference#llminf-disagg 同源口径 | — | B | 90 | GA 只说明可用，P/D 分离收益需按自家流量形态实测 |
+| 自建盈亏线利用率约 40-50%、托管 API $2-5/百万输出 token | aip-cloud | 2026-07-09 | 沿用 llm-inference#llminf-production 同源口径 | — | B | 30 | 量级参考不是报价，盈亏线随卡价电价与合同期变 |
+| K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随季度巡检，版本号周级漂移） | aip-serving | 2026-08-01 | github.com/kserve/kserve/releases、kserve.github.io 文档（LLMInferenceService 概览 / CRD API）、github.com/kubernetes-sigs/kueue/releases | — | A | 90 | 版本号周级漂移；alpha CRD 不能按稳定 API 承诺 |
 
 ## 稳定事实（不会过期，无需巡检）
 | 事实 | 章节 ID | 说明 |
