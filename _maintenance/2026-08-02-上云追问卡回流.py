@@ -6,8 +6,8 @@
 「这个环节有哪些服务」，没有「该顺着问什么」与「哪些事云替你做不了」。
 前者是服务名地图，后者才是售前站在客户面前当场说出口的话——它改变读者的动作。
 
-**落在哪**：每册**速查章**追加「上云追问卡」页。速查章豁免「每章固定元素」，
-追加页不动章结构；这本来就是速查形态——一张对客时抽出来的卡；插在末章，页码重排波及最小。
+**落在哪**：每册**正文末章之后、收尾四件套之前**追加「上云追问卡」页。它不带「第 N 章」页题，
+所以不受「每章固定元素」约束；这本来就是速查形态——一张对客时抽出来的卡；插在正文末尾，页码重排波及最小。
 
 **画布**：11 册里两种规格并存（10×5.625 与 13.333×7.5），本脚本按目标册的实际
 `sldSz` 重算所有版式常量与字号（比例恰好 0.75，两种规格同为 16:9）。
@@ -43,7 +43,6 @@ WEB2MOD = {
     "multimodal": "Multimodal", "prompt-engineering": "Prompt-Engineering",
     "rag": "RAG", "security": "Security", "solution-patterns": "Solution-Patterns",
 }
-ROWS_PER_PAGE = 3
 
 # kb_deck_build 的版式常量是按 13.333×7.5 写的，换画布要整套按比例重算
 _BASE = dict(W=K.W, H=K.H, MARGIN=K.MARGIN, TOP=K.TOP, FOOT_Y=K.FOOT_Y,
@@ -78,21 +77,59 @@ def deck_pages(pptx):
     return pages
 
 
-def make_drawer(mod_display, foot, rows, k):
+def metrics(k):
+    """这一册画布下的表格版式度量。切页与绘制共用同一份，免得两边各算一套。"""
+    wid = K.W - 2 * K.MARGIN
+    cw = [wid * 0.20, wid * 0.40, wid * 0.40]
+    y0 = K.BODY_TOP + 0.06 * k + 0.34 * k + 0.05 * k      # 表头之下
+    avail = K.FOOT_Y - 0.18 * k - y0
+    lh = K.FS["note"] / 72.0 * 1.18                        # 一行文字高（英寸）
+    cpl = max(8, int((cw[1] - 0.18 * k) / (K.FS["note"] / 72.0)))   # 一行放几个中文字
+    return cw, y0, avail, lh, cpl
+
+
+def row_height(r, lh, cpl, k):
+    """一行需要多高：按两个文本栏里较长的那栏折行数算，加上下内边距。"""
+    n = max(-(-len(r["ask"]) // cpl), -(-len(r["cant"]) // cpl), 1)
+    return n * lh + 0.30 * k
+
+
+def paginate(groups, lh, cpl, k, avail):
+    """按**高度**装页，不按固定行数。
+
+    先按固定 3 行切，出来两种难看：4 组切成 3+1，第二页孤零零一行；
+    行高改成按内容估之后，一页其实装得下四五行，再按 3 行切就是半页空白。
+    现在让内容决定页数——装得下就不翻页。
+    """
+    pages, cur, used = [], [], 0.0
+    for g in groups:
+        h = row_height(g, lh, cpl, k)
+        if cur and used + h > avail:
+            pages.append(cur)
+            cur, used = [], 0.0
+        cur.append(g)
+        used += h
+    if cur:
+        pages.append(cur)
+    return pages
+
+
+def make_drawer(mod_display, foot, rows, k, pagenum=None, suffix=""):
     """一页「上云追问卡」：三列表——阶段 / 顺着追问什么 / 云替你做不了什么。
 
     行高按两栏文字里较长的那栏算，不写死——写死行高的表格在长文本上会溢出到页脚。
     """
     def draw(s):
-        K.head(s, "上云追问卡：顺着追问什么 · 云替你做不了什么",
+        # 多页时标题必须带「· 续N」——audit 有一道「标题重名」硬门禁（防的是配图批次
+        # 留下的残留源页），只在页脚区分两页它照样报错。
+        K.head(s, "上云追问卡：顺着追问什么 · 云替你做不了什么%s" % suffix,
                eyebrow="售前速查")
         K.box(s, K.MARGIN, K.BODY_TOP - 0.42 * k, K.W - 2 * K.MARGIN, 0.34 * k,
               "云服务清单答的是「有什么」，这张卡答的是「当场该问什么、哪些事别答应」。",
               K.FS["note"], "ink2")
 
         x0 = K.MARGIN
-        wid = K.W - 2 * K.MARGIN
-        cw = [wid * 0.20, wid * 0.40, wid * 0.40]
+        cw, _, avail, lh, cpl = metrics(k)
         y = K.BODY_TOP + 0.06 * k
         hh = 0.34 * k
         for i, t in enumerate(("落地阶段", "顺着追问什么", "云替你做不了什么")):
@@ -101,9 +138,12 @@ def make_drawer(mod_display, foot, rows, k):
                   hh, t, K.FS["table"], "white", bold=True)
         y += hh + 0.05 * k
 
-        avail = K.FOOT_Y - 0.18 * k - y
-        rh = avail / len(rows)
+        need = [row_height(r, lh, cpl, k) for r in rows]
+        total_need = sum(need)
+        if total_need > avail:                            # 装不下就整体压缩，不裁字
+            need = [h * avail / total_need for h in need]
         for j, r in enumerate(rows):
+            rh = need[j]
             fill = "card" if j % 2 == 0 else "card2"
             for i, t in enumerate((r["stage"], r["ask"], r["cant"])):
                 K.rect(s, x0 + sum(cw[:i]), y, cw[i], rh - 0.06 * k, fill, "rule")
@@ -114,7 +154,12 @@ def make_drawer(mod_display, foot, rows, k):
                            bold=(i == 0), spacing=1.18)
                 sh.text_frame.word_wrap = True
             y += rh
-        K.footer(s, mod_display, None, 0, foot=foot)
+        # 页码只在本来就带页码的册上写：全库 21 册里只有两册用页脚页码，
+        # 给不带页码的册凭空加一个「p.124」，翻页时会突兀得像另一份文件。
+        if pagenum is None:
+            K.box(s, K.MARGIN, K.FOOT_Y, 8.0 * k, 0.3 * k, foot, K.FS["foot"], "ink2")
+        else:
+            K.footer(s, mod_display, None, pagenum, foot=foot)
     return draw
 
 
@@ -123,16 +168,35 @@ def load_cards():
         return json.load(f)
 
 
-def find_cheatsheet_tail(pages):
-    """找速查章的最后一页（＝插入点）。判据：页脚里带「速查」的最后一页；
-    找不到就退回全册最后一页，并在报告里说明——不静默猜。"""
-    hit = None
-    for num, body in pages:
+CHAP_TITLE = re.compile(r"^第 \d+ 章")
+PAGENUM = re.compile(r"<a:t>\s*p\.\s*\d+\s*</a:t>")
+
+
+def has_pagenum(pptx):
+    """这一册的页脚用不用页码。21 册里只有两册用——给不用的册凭空加一个「p.124」，
+    翻到那页会突兀得像另一份文件混进来了。"""
+    with zipfile.ZipFile(pptx) as z:
+        for n in z.namelist():
+            if re.match(r"ppt/slides/slide\d+\.xml$", n) and PAGENUM.search(
+                    z.read(n).decode("utf-8", "replace")):
+                return True
+    return False
+
+
+def find_body_tail(pages):
+    """插入点＝**正文最后一章的最后一页**，也就是收尾四件套之前。
+
+    第一版按「页脚带速查」找，两册踩空（LLM-Training、RAG 落到了「来源与核实」之后，
+    Solution-Patterns 被正文里一句「第 10 章速查」骗到了总收束页）。
+    改用页题判据：章内页的页题一律以「第 N 章」开头，而总收束／全书串联／生产验收／
+    来源与核实／「· 完」这些收尾页都不带章号——从后往前找第一个带章号的页题即可。
+    注意必须带空格：某册「来源与核实」页正文里出现过「第10章」，宽松匹配会把它当成章内页。
+    """
+    for num, body in reversed(pages):
         lines = [x for x in body.split("\n") if x.strip()]
-        foot = "\n".join(lines[-2:])
-        if "速查" in foot or "速查" in (lines[0] if lines else ""):
-            hit = num
-    return (hit, "速查章末页") if hit else (pages[-1][0], "全册末页（未识别到速查章）")
+        if lines and CHAP_TITLE.match(lines[0].strip()):
+            return num, "正文末章末页（%s）" % lines[0].strip()[:22]
+    raise SystemExit("找不到任何带「第 N 章」页题的页——这册的页题写法与其余册不同，去看一眼")
 
 
 def main(argv):
@@ -147,16 +211,22 @@ def main(argv):
         w, h = canvas_of(pptx)
         k = set_canvas(w, h)
         pages = deck_pages(pptx)
-        after, how = find_cheatsheet_tail(pages)
+        after, how = find_body_tail(pages)
+        numbered = has_pagenum(pptx)
 
-        chunks = [groups[i:i + ROWS_PER_PAGE]
-                  for i in range(0, len(groups), ROWS_PER_PAGE)]
+        _, _, avail, lh, cpl = metrics(k)
+        chunks = paginate(groups, lh, cpl, k, avail)
         display = cards["_display"][web]
+        # 同一个插入点插多页：kb_insert 的 `after` 一律按**原始**放映序算，
+        # 所以不能写 after+i（第二页会落到原 p(after+1) 之后，中间夹进总收束——实测踩过）；
+        # 正确用法是全部用同一个 after，并**逆序**传参，插完自然是正序。
         specs = []
-        for i, rows in enumerate(chunks):
+        for i, rows in reversed(list(enumerate(chunks))):
             suffix = "" if len(chunks) == 1 else " · 续%d" % (i + 1)
             foot = "%s · 售前速查 · 上云追问卡%s" % (display, suffix)
-            specs.append((after + i, make_drawer(display, foot, rows, k),
+            specs.append((after, make_drawer(display, foot, rows, k,
+                                             pagenum=after + i + 1 if numbered else None,
+                                             suffix=suffix),
                           "上云追问卡%s" % suffix))
         total += len(specs)
         print("%-20s 画布 %.3f×%.3f  %d 组 → %d 页，插在 p%d 之后（%s）"

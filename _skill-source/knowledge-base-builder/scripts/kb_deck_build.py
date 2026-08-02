@@ -130,21 +130,39 @@ def new_slide(prs, kind):
     return s
 
 
-def footer(slide, mod, chap, num, dark=False):
-    """ppt-design-system §7：左下「模块 · 章节 ID」，右下页码；页码＝放映位。"""
+def _k():
+    """当前画布相对标准画布（13.333in）的比例。
+
+    本模块的版式常量按 13.333×7.5 写死，改 W/H 只改了一部分——`head` 的眉题宽 11.5、
+    `footer` 的左栏宽 8.0 与页码栏宽 1.2 都是绝对英寸。往 10×5.625 的册插页时，
+    这三处会顶到 12.0in，被 audit 的检查项 16 判成「大画布坐标页嫁接进小画布册」。
+    这里统一按比例取，W=13.333 时恒为 1，既有产物字节不变。
+    """
+    return W / 13.333
+
+
+def footer(slide, mod, chap, num, dark=False, foot=None):
+    """ppt-design-system §7：左下页脚，右下页码；页码＝放映位。
+
+    左下优先用 `foot`（形如「第 3 章 · 把业务问题切成可学的题 · 本章小结」）——
+    **audit 靠这一行把学习目标/动手做/对练/小结归到章**，只写「模块 · 章节 ID」它归不上，
+    会误报「每章固定元素缺失」。既有 19 册用的就是这个写法，照它来。
+    """
     col = "faint" if dark else "ink2"
-    left = "%s · %s" % (mod, chap) if chap else mod
-    box(slide, MARGIN, FOOT_Y, 8.0, 0.3, left, FS["foot"], col)
-    b = box(slide, W - MARGIN - 1.2, FOOT_Y, 1.2, 0.3, "p.%d" % num,
+    left = foot or ("%s · %s" % (mod, chap) if chap else mod)
+    k = _k()
+    box(slide, MARGIN, FOOT_Y, 8.0 * k, 0.3 * k, left, FS["foot"], col)
+    b = box(slide, W - MARGIN - 1.2 * k, FOOT_Y, 1.2 * k, 0.3 * k, "p.%d" % num,
             FS["foot"], col, align=PP_ALIGN.RIGHT)
     return b
 
 
 def head(slide, title, dark=False, eyebrow=None):
+    k = _k()
     if eyebrow:
-        box(slide, MARGIN, TOP - 0.28, 11.5, 0.3, eyebrow, FS["foot"] + 1.5,
+        box(slide, MARGIN, TOP - 0.28 * k, 11.5 * k, 0.3 * k, eyebrow, FS["foot"] + 1.5,
             "cyan_lt" if dark else "cyan", bold=True)
-    box(slide, MARGIN, TOP, W - 2 * MARGIN, 0.95, title, FS["h1"],
+    box(slide, MARGIN, TOP, W - 2 * MARGIN, 0.95 * k, title, FS["h1"],
         "white" if dark else "ink", bold=True, font=TITLE_FONT)
 
 
@@ -420,7 +438,7 @@ def build(spec, out):
         RENDER[kind](s, p, ctx)
         if kind != "cover":
             footer(s, spec["module"], p.get("chapter_id", ""), i,
-                   dark=kind in DARK_KINDS)
+                   dark=kind in DARK_KINDS, foot=p.get("foot"))
     prs.save(out)
     fix_app_xml(out, [p.get("title") or p.get("no", "") for p in spec["pages"]])
     return len(spec["pages"])

@@ -130,6 +130,17 @@ def new_slide(prs, kind):
     return s
 
 
+def _k():
+    """当前画布相对标准画布（13.333in）的比例。
+
+    本模块的版式常量按 13.333×7.5 写死，改 W/H 只改了一部分——`head` 的眉题宽 11.5、
+    `footer` 的左栏宽 8.0 与页码栏宽 1.2 都是绝对英寸。往 10×5.625 的册插页时，
+    这三处会顶到 12.0in，被 audit 的检查项 16 判成「大画布坐标页嫁接进小画布册」。
+    这里统一按比例取，W=13.333 时恒为 1，既有产物字节不变。
+    """
+    return W / 13.333
+
+
 def footer(slide, mod, chap, num, dark=False, foot=None):
     """ppt-design-system §7：左下页脚，右下页码；页码＝放映位。
 
@@ -139,17 +150,19 @@ def footer(slide, mod, chap, num, dark=False, foot=None):
     """
     col = "faint" if dark else "ink2"
     left = foot or ("%s · %s" % (mod, chap) if chap else mod)
-    box(slide, MARGIN, FOOT_Y, 8.0, 0.3, left, FS["foot"], col)
-    b = box(slide, W - MARGIN - 1.2, FOOT_Y, 1.2, 0.3, "p.%d" % num,
+    k = _k()
+    box(slide, MARGIN, FOOT_Y, 8.0 * k, 0.3 * k, left, FS["foot"], col)
+    b = box(slide, W - MARGIN - 1.2 * k, FOOT_Y, 1.2 * k, 0.3 * k, "p.%d" % num,
             FS["foot"], col, align=PP_ALIGN.RIGHT)
     return b
 
 
 def head(slide, title, dark=False, eyebrow=None):
+    k = _k()
     if eyebrow:
-        box(slide, MARGIN, TOP - 0.28, 11.5, 0.3, eyebrow, FS["foot"] + 1.5,
+        box(slide, MARGIN, TOP - 0.28 * k, 11.5 * k, 0.3 * k, eyebrow, FS["foot"] + 1.5,
             "cyan_lt" if dark else "cyan", bold=True)
-    box(slide, MARGIN, TOP, W - 2 * MARGIN, 0.95, title, FS["h1"],
+    box(slide, MARGIN, TOP, W - 2 * MARGIN, 0.95 * k, title, FS["h1"],
         "white" if dark else "ink", bold=True, font=TITLE_FONT)
 
 
