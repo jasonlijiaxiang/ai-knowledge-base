@@ -2128,7 +2128,7 @@ window.KB = {
    "dir": "Data-Engineering",
    "layer": "数据底座层",
    "created": "2026-07-11",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "de-what-why",
@@ -3047,7 +3047,7 @@ window.KB = {
    "dir": "LLM",
    "layer": "基础层",
    "created": "2026-07-08",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "llm-why-transformer",
@@ -3308,7 +3308,7 @@ window.KB = {
    "dir": "LLM-Inference",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "llminf-anatomy",
@@ -4293,7 +4293,7 @@ window.KB = {
    "dir": "Model-Landscape",
    "layer": "解决方案层",
    "created": "2026-07-10",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "ml-map",
