@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   gates:
-    name: 十三道门禁
+    name: 十四道门禁
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +44,12 @@ jobs:
       # 30/90/180 天节奏，不再全库一个阈值。
       - name: 保鲜（事实节奏与不可外推边界）
         run: python3 _maintenance/check_freshness.py
+
+      # 网页版按读者判断链重组时，章节 ID 会与讲义脱钩。既有门禁一道都发现不了：
+      # 坏链只查文件在不在、页数账不管章节、_prep 覆盖率拿讲义章节当账本。
+      # 这道立两条契约——讲义章节一个都不许丢，旧锚点必须留隐藏别名（2026-08-02 补）。
+      - name: 网页章节契约（重组不丢内容、深链不断）
+        run: python3 _maintenance/check_web_chapters.py
 
       # ---- 呈现契约 ----
       - name: 样式契约（孤儿类与缓存版本戳）

@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""网页章节契约：重组网页版时，深链不许断、讲义内容不许丢（零第三方依赖）。
+
+**为什么要有它**（2026-08-02 立，先于任何重组落地）：在此之前，模块 `MANIFEST.md` 的
+章节 ID 身兼两职——既是讲义章节，也是网页锚点，`Web-version/build.py` 据此生成
+`data.js`、问答落点、链接图与串联出边。网页版一旦按读者的判断链重组，两面就不再 1:1，
+这套 ID 会同时丢掉两个身份中的一个，而**现有门禁一道都发现不了**：
+
+  · `check_html_links` 只查链接指向的文件在不在，不查锚点语义换没换；
+  · `check_page_ledger` 只对页数，不管章节；
+  · `check_prep_coverage` 查的是 `_prep` 的深潜指针能不能落到锚点——**它拿 `data.js` 当账本，
+    而 `data.js` 是从讲义章节生成的**，网页锚点改名后它反而查不出来。
+
+于是本脚本立两条契约，并给重组留一条安全通道。
+
+## 契约一 · 默认态（没重组的册）
+
+模块 `MANIFEST.md` 里**没有**「网页章节」一节时，网页版的每个内容小节 id 必须是该模块的
+讲义章节 ID。这就是 2026-08-02 之前全库的实际状态，所以这道门上线即绿。
+
+结构性小节不在此列，它们不是讲义的某一章，白名单是显式的：
+
+    qa · related · sources · cloud · boundary
+
+## 契约二 · 重组态（有「网页章节」一节的册）
+
+MANIFEST 增一节，讲义章节清单**照旧不动**（它仍是讲义面的出处）：
+
+    ## 网页章节
+    | 网页章节 ID | 标题 | 承载的讲义章节 |
+    | --- | --- | --- |
+    | sec-threat-path | 威胁怎么进来 | sec-prompt-injection / sec-agentic |
+
+三条判据：
+
+  1. **表与页面互相对得上**——页面里的内容小节 id 与表中的 id 一一对应，多一个少一个都算错；
+  2. **讲义章节一个都不许丢**——每个讲义章节至少被一个网页章节承载。**重组可以打散顺序，
+     不能丢内容**，这是重组与"顺手删一章"的分界线；
+  3. **旧锚点必须还在**——凡是不再作为网页小节 id 的讲义章节 ID，页面里必须留一个隐藏别名
+     （`<span id="旧ID" hidden></span>` 或等价形式）。已经发出去的深链不会因为我们改版而失效。
+
+用法:
+    python3 check_web_chapters.py [知识库根目录]   # 缺省为脚本上级目录
+
+退出码: 0 = 全部模块符合契约, 1 = 存在违约, 2 = 读取失败。
+"""
+import glob
+import json
+import os
+import re
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+STRUCTURAL = {"qa", "related", "sources", "cloud", "boundary"}
+SEC_RE = re.compile(r'<section class="sec" id="([^"]+)">')
+WEB_SECTION = "网页章节"
+
+
+def die(msg):
+    print("[读取失败] %s" % msg, file=sys.stderr)
+    sys.exit(2)
+
+
+def rows(section, text):
+    m = re.search(r"^## %s.*?$(.*?)(?=^## |\Z)" % re.escape(section), text, re.S | re.M)
+    if not m:
+        return None
+    out = []
+    for line in m.group(1).split("\n"):
+        line = line.strip()
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if not cells or set(cells[0]) <= set("- :"):
+            continue
+        if cells[0] in ("章节 ID", "网页章节 ID"):
+            continue
+        out.append(cells)
+    return out
+
+
+def has_alias(html, anchor):
+    """旧锚点是否以隐藏元素形式留在页面里。不限定标签，只要带这个 id 且标了 hidden。"""
+    pat = re.compile(r'<[a-z]+[^>]*\bid="%s"[^>]*>' % re.escape(anchor))
+    for m in pat.finditer(html):
+        tag = m.group(0)
+        if "hidden" in tag or 'style="display:none' in tag.replace(" ", ""):
+            return True
+    return False
+
+
+def load_ledger(root):
+    path = os.path.join(root, "Web-version", "data.js")
+    try:
+        raw = open(path, encoding="utf-8").read()
+    except OSError as e:
+        die("%s：%s" % (path, e))
+    data = json.loads(raw[raw.index("{"):raw.rindex("}") + 1])
+    out = {}
+    for m in data["modules"]:
+        web = m.get("web") or ""
+        out[m["dir"]] = {
+            "id": m["id"],
+            "web": web.split("/")[-2] if web else None,
+            "chapters": [c["id"] for c in m["chapters"]],
+        }
+    return out
+
+
+def check(mod, info, root):
+    fails = []
+    if not info["web"]:
+        return fails, "无网页版"
+    page = os.path.join(root, "Web-version", info["web"], "index.html")
+    try:
+        html = open(page, encoding="utf-8").read()
+    except OSError as e:
+        die("%s：%s" % (page, e))
+
+    secs = [i for i in SEC_RE.findall(html) if i not in STRUCTURAL]
+    chapters = info["chapters"]
+
+    mpath = os.path.join(root, "PPT-version", mod, "MANIFEST.md")
+    table = rows(WEB_SECTION, open(mpath, encoding="utf-8").read())
+
+    if table is None:
+        # ---- 契约一 · 默认态 ----
+        for sid in secs:
+            if sid not in chapters:
+                fails.append("网页小节「%s」既不是讲义章节，也不在结构性白名单里；"
+                             "若这是重组，MANIFEST 要加「## %s」一节登记映射"
+                             % (sid, WEB_SECTION))
+        return fails, "默认态（%d 节）" % len(secs)
+
+    # ---- 契约二 · 重组态 ----
+    tids, carried = [], set()
+    for c in table:
+        if len(c) < 3:
+            fails.append("「%s」表某行不足 3 列：%s" % (WEB_SECTION, " | ".join(c)))
+            continue
+        tids.append(c[0])
+        for part in re.split(r"[/、,，]", c[2]):
+            part = part.strip()
+            if not part:
+                continue
+            if part not in chapters:
+                fails.append("「%s」行「%s」承载的讲义章节「%s」不在章节清单里"
+                             % (WEB_SECTION, c[0], part))
+            carried.add(part)
+
+    dup = {x for x in tids if tids.count(x) > 1}
+    if dup:
+        fails.append("「%s」表里 id 重复：%s" % (WEB_SECTION, "、".join(sorted(dup))))
+
+    only_page = [x for x in secs if x not in tids]
+    only_table = [x for x in tids if x not in secs]
+    if only_page:
+        fails.append("页面上有、表里没有的小节：%s" % "、".join(only_page))
+    if only_table:
+        fails.append("表里有、页面上没有的小节：%s" % "、".join(only_table))
+
+    lost = [c for c in chapters if c not in carried]
+    if lost:
+        fails.append("讲义章节没有任何网页章节承载：%s"
+                     "\n        （重组可以打散顺序，不能丢内容）" % "、".join(lost))
+
+    for old in chapters:
+        if old not in secs and not has_alias(html, old):
+            fails.append("旧锚点「%s」不再是网页小节，页面里也没有隐藏别名——"
+                         "已发出去的深链会断" % old)
+
+    return fails, "重组态（%d 节 / 承载 %d 章）" % (len(secs), len(carried))
+
+
+def main(argv):
+    root = argv[1] if len(argv) > 1 else os.path.dirname(HERE)
+    ledger = load_ledger(root)
+    if not ledger:
+        die("data.js 里没有模块")
+
+    print("===== 网页章节契约 =====")
+    allfail = []
+    for mod in sorted(ledger):
+        f, note = check(mod, ledger[mod], root)
+        flag = "FAIL" if f else "ok"
+        print("  %-22s %-22s %s" % (mod, note, flag))
+        for x in f:
+            allfail.append((mod, x))
+
+    if allfail:
+        print("\n===== FAIL：%d 处 =====" % len(allfail))
+        for mod, x in allfail:
+            print("  [%s] %s" % (mod, x))
+        return 1
+    print("\n%d 个模块全部符合契约。" % len(ledger))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
