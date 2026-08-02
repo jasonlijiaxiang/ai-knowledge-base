@@ -299,9 +299,12 @@ MANIFEST「最后更新」同时记两面落地情况；哪面欠着就显式登
    注入路径都由它派生。此前是两份字典各写一遍，因值格式不同导致批量注册脚本直接产出
    语法错误、返工一轮——2026-07-22 已合一）。
 4. **跑生成器**：`build.py` 再 `build.py --check`（第五·五节：用户永远不手跑）。
-5. **过门禁**：`check_kb_layout` / `check_html_links` / `check_page_ledger` /
-   `check_ebook_ledger` / `check_css_classes` / `check_prep_coverage` / `build.py --check` /
-   `check_skill_package`（八道）。
+5. **过门禁**：**跑 `run_all_gates.sh`，不要挑着跑**——它按 CI 的顺序跑完全部（本库现十五道：
+   布局、坏链、页数账、书单账、_prep 同步、保鲜、网页章节契约、样式契约、标签配平、
+   讲义 audit、页脚页码、`build.py --check`、技能包结构、技能包同步、无绝对路径），
+   末尾自检与 CI 配置的道数对不对得上。2026-08-02 一天两次「本地绿 / CI 红」，
+   根因都是提交前只挑了几道跑，漏掉的那道恰好是坏的。
+   账实不符不用手改，`fix_page_ledger.py --apply` 一次刷完四面加全库总数。
    **脚本引用也要带版本戳**：`site.js` / `data.js` 与 `kb.css` 同戳，`bump_style_version.py`
    一并推进、`check_css_classes` 一并校验。此前只有 CSS 带戳，改完 JS 浏览器照吃旧缓存
    ——「改了但看不见」这个坑之前只堵了一半（2026-07-22 调本页查找时实测踩到）。
