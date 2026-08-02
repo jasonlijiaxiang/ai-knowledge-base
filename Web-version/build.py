@@ -38,6 +38,10 @@ QAPAGE = os.path.join(HERE, "qa", "index.html")
 QA_BEGIN = "<!-- QA:BEGIN 由 build.py 从各模块页与实战包抽取，请勿手工编辑 -->"
 QA_END = "<!-- QA:END -->"
 PREPQA = os.path.join(ROOT, "_prep", "实战包.html")
+GLOSSPAGE = os.path.join(HERE, "glossary", "index.html")
+GLOSS_BEGIN = "<!-- GLOSSARY:BEGIN 由 build.py 从 _prep/术语表.md 生成，请勿手工编辑 -->"
+GLOSS_END = "<!-- GLOSSARY:END -->"
+GLOSSSRC = os.path.join(ROOT, "_prep", "术语表.md")
 # 库根 README.md 的模块表：GitHub 仓库首页是这个库在线的第一入口，而它此前是**手写**的
 # ——2026-07-29 GitHub 化改造时发现它还停在「Web-version 待建」，实际 19/19 早已建成。
 # 手写的账迟早会停在旧阶段（这库反复吃过的「语义过期」），所以按 core-rules §一
@@ -377,7 +381,7 @@ def rows(section, text):
         cells = [c.strip() for c in line.strip("|").split("|")]
         if not cells or set(cells[0]) <= set("- :"):   # 分隔行
             continue
-        if cells[0] in ("字段", "章节 ID", "事实", "本模块章节"):  # 表头
+        if cells[0] in ("字段", "章节 ID", "事实", "本模块章节", "词条"):  # 表头
             continue
         out.append(cells)
     return out
@@ -603,6 +607,82 @@ def render_qa(data, prep_qs):
                      % (esc(WEB_DIRS[m["id"]]), esc(q["id"]), esc(mono(m["dir"])),
                         esc(q["q"]), badge))
     o.append("  </div>")
+    return "\n".join(o)
+
+
+GLOSS_KINDS = [
+    ("甲", "同一个词，两册指两件事",
+     "问「有没有做漂移监控」的客户，说的可能是两种完全不同的漂移。这一组最值钱："
+     "认错了，两边的人会以为谈的是同一件事，一直谈到验收才发现不是。"),
+    ("乙", "两个词，常被当成一件事",
+     "它们答的不是同一个问题。混着用不会当场报错，会在方案里留一个说不清的洞。"),
+    ("丙", "客户当场会问，答偏要付代价",
+     "不是难词，是答错成本高的词——口径先对齐，再谈方案。"),
+]
+
+
+def read_glossary():
+    """读 `_prep/术语表.md` 的「## 术语」表。真源是那份 .md，页面只是它的一个派生面。"""
+    if not os.path.exists(GLOSSSRC):
+        return []
+    text = open(GLOSSSRC, encoding="utf-8").read()
+    out = []
+    for cells in rows("术语", text):
+        if len(cells) < 5:
+            raise SystemExit("术语表某行不足 5 列：%s" % " | ".join(cells))
+        term, kind, gloss, confuse, where = cells[:5]
+        if kind not in ("甲", "乙", "丙"):
+            raise SystemExit("术语「%s」的类是「%s」，只能是甲/乙/丙" % (term, kind))
+        if "#" not in where:
+            raise SystemExit("术语「%s」的去处「%s」不是 模块ID#章节ID" % (term, where))
+        out.append({"term": term, "kind": kind, "gloss": gloss,
+                    "confuse": "" if confuse in ("—", "-", "") else confuse,
+                    "mod": where.split("#")[0], "chap": where.split("#")[1]})
+    return out
+
+
+def render_glossary(terms, by_id):
+    """全库术语表：词 → 一句话 → 它容易被认成什么 → 去哪一章读。
+
+    **索引不是副本**（同 `render_qa`）：完整解释留在主场那一章，这里只给一句话和去处，
+    所以改内容不用记得改第二个地方。筛选件复用问答库那一套（`#qf`/`#qc`/`#qn` + `.qrow`），
+    量词由页面上的 `data-unit` 给——同一套件服务两页，写死量词术语表会读成「共 99 道题」。
+    """
+    if not terms:
+        return "  <p class=\"net-lead\">术语表源文件不在，本页暂空。</p>"
+    for t in terms:                       # 落点必须真能落——断的去处比没有更糟
+        if t["mod"] not in by_id:
+            raise SystemExit("术语「%s」的模块 %s 不在账本里" % (t["term"], t["mod"]))
+        if t["chap"] not in {c["id"] for c in by_id[t["mod"]]["chapters"]}:
+            raise SystemExit("术语「%s」的章节 %s 不属于 %s"
+                             % (t["term"], t["chap"], t["mod"]))
+    n = {k: sum(1 for t in terms if t["kind"] == k) for k, _, _ in GLOSS_KINDS}
+    o = ['  <p class="net-lead">共 <b>%d 条</b>，覆盖 %d 册。'
+         '收录判据只有一条：<b>这个词读者理解偏了，会做出不同的决定</b>——'
+         '所以这里没有面面俱到的词典条目。</p>'
+         % (len(terms), len({t["mod"] for t in terms}))]
+    o.append('  <div class="qa-tools">')
+    o.append('   <input id="qf" type="search" data-unit="条" data-unit-all="条"'
+             ' placeholder="搜词条或释义里的字（如：漂移、备案、缓存、金丝雀）" autocomplete="off">')
+    o.append('   <div class="qa-chips" id="qc"><button class="chip on" data-g="">全部</button>'
+             + "".join('<button class="chip" data-g="%s">%s（%d）</button>' % (k, d, n[k])
+                       for k, d, _ in GLOSS_KINDS)
+             + "</div>")
+    o.append('   <p class="qa-count" id="qn"></p>')
+    o.append("  </div>")
+    for kind, title, why in GLOSS_KINDS:
+        picked = [t for t in terms if t["kind"] == kind]
+        if not picked:
+            continue
+        o.append('  <div class="qa-group" data-g="%s">' % kind)
+        o.append('   <h3>%s<span class="n">%d 条</span></h3>' % (esc(title), len(picked)))
+        o.append('   <p class="qa-dim">%s</p>' % esc(why))
+        for t in picked:
+            tail = ('<span class="n">　容易认成：%s</span>' % esc(t["confuse"])) if t["confuse"] else ""
+            o.append('   <a class="qrow" href="%s#%s"><span class="qn">%s</span>%s%s</a>'
+                     % (esc(mod_href(t["mod"], by_id, "../")), esc(t["chap"]),
+                        esc(t["term"]), esc(t["gloss"]), tail))
+        o.append("  </div>")
     return "\n".join(o)
 
 
@@ -1412,6 +1492,13 @@ def main(argv):
             page_edits[PREPQA] = (prep_cur, prep_new)
         qa_cur = open(QAPAGE, encoding="utf-8").read()
         qa_new = inject(qa_cur, QA_BEGIN, QA_END, render_qa(data, prep_qs), "QA")
+        gl_cur = gl_new = None
+        if os.path.exists(GLOSSPAGE):
+            gl_cur = open(GLOSSPAGE, encoding="utf-8").read()
+            gl_new = inject(gl_cur, GLOSS_BEGIN, GLOSS_END,
+                            render_glossary(read_glossary(),
+                                            {m["id"]: m for m in data["modules"]}),
+                            "GLOSSARY")
         blurbs = load_blurbs()
         # 库根 README.md 的模块表：没这文件、或文件里没埋标记，就当这个库不走这条链。
         rdme_cur = rdme_new = None
@@ -1469,6 +1556,8 @@ def main(argv):
             bad.append("库根 README.md 的模块表")
         if qa_cur != qa_new:
             bad.append("qa/index.html 的问答库")
+        if gl_new is not None and gl_cur != gl_new:
+            bad.append("glossary/index.html 的术语表")
         for path in mod_new:
             if mod_cur[path] != mod_new[path]:
                 bad.append("%s 的最近改动" % os.path.relpath(path, ROOT))
@@ -1488,6 +1577,8 @@ def main(argv):
     open(FRESHPAGE, "w", encoding="utf-8").write(fp_new)
     open(ROOT_INDEX, "w", encoding="utf-8").write(root_new)
     open(QAPAGE, "w", encoding="utf-8").write(qa_new)
+    if gl_new is not None:
+        open(GLOSSPAGE, "w", encoding="utf-8").write(gl_new)
     if rdme_new is not None:
         open(README_MD, "w", encoding="utf-8").write(rdme_new)
     for path, content in mod_new.items():

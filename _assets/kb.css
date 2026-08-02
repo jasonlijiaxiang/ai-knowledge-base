@@ -563,6 +563,11 @@ footer { border-top: 1px solid var(--line); margin-top: 2.5rem; padding: 1.2rem 
             font-family: var(--mono); font-size: 11.5px; font-weight: 600;
             color: var(--ink-400); vertical-align: 1px; }
 .qrow .must { color: var(--warn); margin-right: .25rem; }
+/* 术语表复用 .qrow：词条用 .qn 那一格（比问答的编号宽，容得下中文词），
+   「容易认成什么」用 .n 压下去——不压的话它和释义一样重，一行里读不出主次。 */
+.glossary .qrow .qn { min-width: 8.4rem; font-family: inherit; font-size: 14px;
+                      font-weight: 700; color: var(--ink-900); }
+.qrow .n { color: var(--ink-400); font-size: 13px; }
 .qrow .fresh, .qrow .added { margin-left: .45rem; }
 .qrow .fresh { font-size: 11.5px; color: var(--warn); white-space: nowrap; }
 .qa-hide { display: none; }

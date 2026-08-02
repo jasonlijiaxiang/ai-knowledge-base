@@ -360,9 +360,13 @@
         if (g.querySelectorAll(".qrow:not(.qa-hide)").length) { g.className = "qa-group"; }
         else { g.className = "qa-group qa-hide"; }
       });
+      /* 量词由页面给：问答库数「道题」，术语表数「条」。同一套筛选件服务两页，
+         把量词写死会让术语表读出「共 99 道题」。 */
+      var unit = qf.getAttribute("data-unit") || "道";
+      var unitAll = qf.getAttribute("data-unit-all") || (unit + "题");
       qcount.textContent = (q || group)
-        ? ("匹配 " + shown + " 道 / 共 " + rows.length + " 道")
-        : ("共 " + rows.length + " 道题");
+        ? ("匹配 " + shown + " " + unit + " / 共 " + rows.length + " " + unit)
+        : ("共 " + rows.length + " " + unitAll);
     };
 
     chips.forEach(function (c) {
