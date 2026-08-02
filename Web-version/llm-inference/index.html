@@ -42,6 +42,7 @@
     <li><a href="#llminf-speculative">6 · 投机解码</a></li>
     <li><a href="#llminf-disagg">7 · P/D 分离与分布式</a></li>
     <li><a href="#llminf-production">8 · 生产化与排错</a></li>
+    <li><a href="#qa">9 · 现场高频追问</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
   </ol>
@@ -541,72 +542,10 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../ai-infra-platform/index.html#aip-observability" title="利用率/goodput/SLO 运营两侧互指（2026-07-09 补）">可观测性与利用率运营<span class="xm">AI-Infra-Platform</span></a></div>
 </section>
 
-<!-- ============ 相关模块 ============ -->
-<section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
-  <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
-  <div class="rel">
-    <a href="../../PPT-version/LLM/README.html">
-      <div class="nm">LLM 原理 · 第 4/5 章</div>
-      <div class="why">KV Cache 为什么存在（机制）在那册，怎么管好（系统）在本页——互为前后篇；
-        FlashAttention/MLA 的架构侧也在那边。</div>
-    </a>
-    <a href="../../PPT-version/LLM-Training/README.html">
-      <div class="nm">LLM-Training</div>
-      <div class="why">「训练一次性重投入 vs 推理持续账单」同一事实两侧；RLVR 推理模型让 decode
-        暴涨的来龙去脉在其第 6 章。</div>
-    </a>
-    <a href="../../PPT-version/AI-Infra-Compute/README.html">
-      <div class="nm">AI-Infra-Compute</div>
-      <div class="why">KV 显存账的硬件地基：HBM 带宽、FP8/FP4 精度阶梯、KV 外置存储。</div>
-    </a>
-    <a href="../../PPT-version/AI-Infra-Platform/README.html">
-      <div class="nm">AI-Infra-Platform · 第 7 章</div>
-      <div class="why">P/D 分离的机制在本页，平台承载（编排/扩缩/路由）在那册；利用率与 goodput
-        的运营两侧互指。</div>
-    </a>
-    <a href="./../model-landscape/index.html">
-      <div class="nm">Model-Landscape · 网页版</div>
-      <div class="why">思考预算与价格档位的市场侧；自托管开放权重的选型判据在那页，显存账在本页。</div>
-    </a>
-    <a href="../../PPT-version/Agent/README.html">
-      <div class="nm">Agent</div>
-      <div class="why">Prefix Caching 的最大受益者是多轮 Agent——上下文工程在推理侧的回报。</div>
-    </a>
-    <a href="../../PPT-version/RAG/README.html">
-      <div class="nm">RAG</div>
-      <div class="why">长上下文两头吃钱是「1M 窗口不是 RAG 终结者」的推理侧论据。</div>
-    </a>
-  </div>
-</section>
+<!-- ============ 问答 ============ -->
+<section class="sec" id="qa">
+  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
 
-<!-- ============ 来源 ============ -->
-<section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
-  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/LLM-Inference/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-08-01。<b>引用任何数字前先核日期。</b></p>
-  <div class="tw">
-  <table>
-    <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
-    <tbody>
-      <tr id="src-engines"><td><code>src-engines</code></td><td>GitHub releases / 2026 对比评测</td>
-          <td>四引擎版本号与格局（2026-08-01）</td><td>版本号周级过期；对比结论依赖负载画像</td></tr>
-      <tr id="src-quant"><td><code>src-quant</code></td><td>2026 量化综述（vrlatech/sesamedisk）</td>
-          <td>精度谱系地位与损失量级</td><td>具体任务的损失要用业务评测集实测</td></tr>
-      <tr id="src-spec"><td><code>src-spec</code></td><td>2026 实测综述（spheron/sesamedisk）</td>
-          <td>投机解码加速量级与接受率口径</td><td>加速比不能脱离并发与文本类型外推</td></tr>
-      <tr id="src-dynamo"><td><code>src-dynamo</code></td><td>NVIDIA 官方博客 / GitHub releases</td>
-          <td>Dynamo 版本与 GA 时间线</td><td>「最高 7×」为厂商基准，不能当生产承诺</td></tr>
-      <tr id="src-mooncake"><td><code>src-mooncake</code></td><td>arXiv 2407.00079（Mooncake）等</td>
-          <td>P/D 分离的生产验证与收益量级</td><td>论文负载与你的负载不同，量级参考</td></tr>
-      <tr id="src-aiperf"><td><code>src-aiperf</code></td><td>pypi.org/aiperf / GitHub</td>
-          <td>压测工具换代（AIPerf 接棒 GenAI-Perf）</td><td>不涉及具体容量结论</td></tr>
-      <tr id="src-cost"><td><code>src-cost</code></td><td>2026 年中多方评测量级归纳</td>
-          <td>时租/吞吐/盈亏线的量级直觉</td><td><b>不能当报价</b>——各云差异大，以实测与当期价格为准</td></tr>
-    </tbody>
-  </table>
-  </div>
-
-  <h3>现场高频追问</h3>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 的来自讲义首版对练页，<b>2026-07-12</b> 的来自引擎版本复核，<b>2026-07-20</b> 的来自容量规划增补，<b>2026-07-23</b> 是按客户交锋场景补的三题（上线验收 / 扛不住怎么办 / 已经自己跑起来了）。</p>
   <div class="qa">
@@ -731,6 +670,72 @@
         <p class="qa-src">依据　<a href="#llminf-engines">推理框架图鉴</a> · <a href="#llminf-batching">批处理与调度</a></p>
       </div>
     </details>
+  </div>
+</section>
+
+<!-- ============ 相关模块 ============ -->
+<section class="sec" id="related">
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
+  <div class="rel">
+    <a href="../../PPT-version/LLM/README.html">
+      <div class="nm">LLM 原理 · 第 4/5 章</div>
+      <div class="why">KV Cache 为什么存在（机制）在那册，怎么管好（系统）在本页——互为前后篇；
+        FlashAttention/MLA 的架构侧也在那边。</div>
+    </a>
+    <a href="../../PPT-version/LLM-Training/README.html">
+      <div class="nm">LLM-Training</div>
+      <div class="why">「训练一次性重投入 vs 推理持续账单」同一事实两侧；RLVR 推理模型让 decode
+        暴涨的来龙去脉在其第 6 章。</div>
+    </a>
+    <a href="../../PPT-version/AI-Infra-Compute/README.html">
+      <div class="nm">AI-Infra-Compute</div>
+      <div class="why">KV 显存账的硬件地基：HBM 带宽、FP8/FP4 精度阶梯、KV 外置存储。</div>
+    </a>
+    <a href="../../PPT-version/AI-Infra-Platform/README.html">
+      <div class="nm">AI-Infra-Platform · 第 7 章</div>
+      <div class="why">P/D 分离的机制在本页，平台承载（编排/扩缩/路由）在那册；利用率与 goodput
+        的运营两侧互指。</div>
+    </a>
+    <a href="./../model-landscape/index.html">
+      <div class="nm">Model-Landscape · 网页版</div>
+      <div class="why">思考预算与价格档位的市场侧；自托管开放权重的选型判据在那页，显存账在本页。</div>
+    </a>
+    <a href="../../PPT-version/Agent/README.html">
+      <div class="nm">Agent</div>
+      <div class="why">Prefix Caching 的最大受益者是多轮 Agent——上下文工程在推理侧的回报。</div>
+    </a>
+    <a href="../../PPT-version/RAG/README.html">
+      <div class="nm">RAG</div>
+      <div class="why">长上下文两头吃钱是「1M 窗口不是 RAG 终结者」的推理侧论据。</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 来源 ============ -->
+<section class="sec" id="sources">
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/LLM-Inference/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-08-01。<b>引用任何数字前先核日期。</b></p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
+    <tbody>
+      <tr id="src-engines"><td><code>src-engines</code></td><td>GitHub releases / 2026 对比评测</td>
+          <td>四引擎版本号与格局（2026-08-01）</td><td>版本号周级过期；对比结论依赖负载画像</td></tr>
+      <tr id="src-quant"><td><code>src-quant</code></td><td>2026 量化综述（vrlatech/sesamedisk）</td>
+          <td>精度谱系地位与损失量级</td><td>具体任务的损失要用业务评测集实测</td></tr>
+      <tr id="src-spec"><td><code>src-spec</code></td><td>2026 实测综述（spheron/sesamedisk）</td>
+          <td>投机解码加速量级与接受率口径</td><td>加速比不能脱离并发与文本类型外推</td></tr>
+      <tr id="src-dynamo"><td><code>src-dynamo</code></td><td>NVIDIA 官方博客 / GitHub releases</td>
+          <td>Dynamo 版本与 GA 时间线</td><td>「最高 7×」为厂商基准，不能当生产承诺</td></tr>
+      <tr id="src-mooncake"><td><code>src-mooncake</code></td><td>arXiv 2407.00079（Mooncake）等</td>
+          <td>P/D 分离的生产验证与收益量级</td><td>论文负载与你的负载不同，量级参考</td></tr>
+      <tr id="src-aiperf"><td><code>src-aiperf</code></td><td>pypi.org/aiperf / GitHub</td>
+          <td>压测工具换代（AIPerf 接棒 GenAI-Perf）</td><td>不涉及具体容量结论</td></tr>
+      <tr id="src-cost"><td><code>src-cost</code></td><td>2026 年中多方评测量级归纳</td>
+          <td>时租/吞吐/盈亏线的量级直觉</td><td><b>不能当报价</b>——各云差异大，以实测与当期价格为准</td></tr>
+    </tbody>
+  </table>
   </div>
 </section>
 
