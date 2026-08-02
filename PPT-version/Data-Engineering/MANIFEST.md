@@ -43,6 +43,9 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| de-pipeline | predictive-ai-mlops#pam-features-time | 反向回指（2026-08-02 新模块建立）：上下游：数据怎么进来、怎么增量同步归 DE，本册接手的是同一份数据被当成特征时的时间语义与点时取数 |
+| de-quality | predictive-ai-mlops#pam-monitoring | 反向回指（2026-08-02 新模块建立）：七类信号里第一类「数据质量故障」的检查项与责任面在 DE 第 5 章，本册只讲怎么把它和漂移信号分开——分不开就 |
+| de-governance | ai-governance#gov-impact | 反向回指（2026-08-02 新模块建立）：影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行；执行点、权限与越权测试在 |
 | de-what-why | solution-patterns#sp-method | SP 说「数据坑是第一风险」，本模块把它变成显性工程件与报价项（双向） |
 | de-parsing | rag#rag-chunking | 解析产物交给 RAG 切分：解析质量决定切分质量——上游下游（双向） |
 | de-pipeline | solution-patterns#sp-knowledge-search | SP 说「连接器是报价大头」，本章给五件事工程清单（双向） |

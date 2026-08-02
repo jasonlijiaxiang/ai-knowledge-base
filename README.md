@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 面向"售前技术"角色的 AI 知识库，持续扩充、持续更新。同一套知识做了两个版本：**PPT** 是内容出处
-（讲义 + 精选书单），**网页版**是可搜索、可串联的延伸。当前 **19 个模块 / 1738 页讲义**，七层书架。
+（讲义 + 精选书单），**网页版**是可搜索、可串联的延伸。当前 **21 个模块 / 1977 页讲义**，七层书架。
 
 **维护它的那套方法本身也在库里**——技能 `knowledge-base-builder` 单独打包，装上就能在这份内容的
 基础上继续建你自己的库。
@@ -20,7 +20,7 @@
 | --- | --- |
 | **[实战包](https://jasonlijiaxiang.github.io/ai-knowledge-base/_prep/实战包.html)** | 对客交锋 91 题，每题 15–30 秒的电梯版。时间紧只刷标 ★ 的 24 道 |
 | **[网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/)** | 19 册每册一页读完，可搜索、按层浏览；带关系网与保鲜看板 |
-| **[PPT 总览](https://jasonlijiaxiang.github.io/ai-knowledge-base/PPT-version/README.html)** | 19 册讲义与精选书单，内容出处。要投屏、要逐页讲用这边 |
+| **[PPT 总览](https://jasonlijiaxiang.github.io/ai-knowledge-base/PPT-version/README.html)** | 21 册讲义与精选书单，内容出处。要投屏、要逐页讲用这边 |
 
 另有[全库一页纸](https://jasonlijiaxiang.github.io/ai-knowledge-base/_prep/全库一页纸.html)、
 [学习路径](https://jasonlijiaxiang.github.io/ai-knowledge-base/_prep/学习路径.html)、
@@ -50,7 +50,7 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 「读者画像」「知识领域」，对 Claude 说一句「把 ×× 整理进知识库」，它就会按同一套结构、
 同一套风格建你自己的库，做完自动跑门禁。
 
-## 🗂 19 个模块
+## 🗂 21 个模块
 
 <!-- MODULES:BEGIN 由 Web-version/build.py 从各模块 MANIFEST.md 生成，请勿手工编辑 -->
 | 层 | 模块 | 一句话 | 在线读 | 源文件 |
@@ -63,9 +63,11 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 | 协议层 | **A2A** | 智能体间协议：让不同厂商/框架的 Agent 互相发现、委派、协作 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/a2a/) | [讲义](PPT-version/A2A/A2A-讲义.pptx) · [清单](PPT-version/A2A/MANIFEST.md) · [书单](PPT-version/A2A/电子书书单.md) |
 | 协议层 | **MCP** | 模型上下文协议：M×N→M+N 的标准插座 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/mcp/) | [讲义](PPT-version/MCP/MCP-讲义.pptx) · [清单](PPT-version/MCP/MANIFEST.md) · [书单](PPT-version/MCP/电子书书单.md) |
 | 工程保障层 | **AI-Gateway** | AI 网关：多模型系统的统一入口与运营管控层 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/ai-gateway/) | [讲义](PPT-version/AI-Gateway/AI-Gateway-讲义.pptx) · [清单](PPT-version/AI-Gateway/MANIFEST.md) · [书单](PPT-version/AI-Gateway/电子书书单.md) |
+| 工程保障层 | **AI-Governance** | AI 治理、风险与合规：治理是一套一直在跑的决定系统而非一份文档 | — | [讲义](PPT-version/AI-Governance/AI-Governance-讲义.pptx) · [清单](PPT-version/AI-Governance/MANIFEST.md) · [书单](PPT-version/AI-Governance/电子书书单.md) |
 | 工程保障层 | **AI-Ops** | LLM 可观测与运维 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/ai-ops/) | [讲义](PPT-version/AI-Ops/AI-Ops-讲义.pptx) · [清单](PPT-version/AI-Ops/MANIFEST.md) · [书单](PPT-version/AI-Ops/电子书书单.md) |
 | 工程保障层 | **Evaluation** | LLM 评估体系：八章覆盖为什么评估难、模型基准全景 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/evaluation/) | [讲义](PPT-version/Evaluation/Evaluation-讲义.pptx) · [清单](PPT-version/Evaluation/MANIFEST.md) · [书单](PPT-version/Evaluation/电子书书单.md) |
 | 工程保障层 | **Fine-tuning** | 微调工程实践：拿自己的数据定制模型 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/fine-tuning/) | [讲义](PPT-version/Fine-tuning/Fine-tuning-讲义.pptx) · [清单](PPT-version/Fine-tuning/MANIFEST.md) · [书单](PPT-version/Fine-tuning/电子书书单.md) |
+| 工程保障层 | **Predictive-AI-MLOps** | 预测式 AI 与 MLOps：接住客户已有的那批传统模型 | — | [讲义](PPT-version/Predictive-AI-MLOps/Predictive-AI-MLOps-讲义.pptx) · [清单](PPT-version/Predictive-AI-MLOps/MANIFEST.md) · [书单](PPT-version/Predictive-AI-MLOps/电子书书单.md) |
 | 工程保障层 | **Security** | AI 安全：九章覆盖威胁全景 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/security/) | [讲义](PPT-version/Security/Security-讲义.pptx) · [清单](PPT-version/Security/MANIFEST.md) · [书单](PPT-version/Security/电子书书单.md) |
 | 基础层 | **LLM** | 大模型的发动机舱：原理三章 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/llm/) | [讲义](PPT-version/LLM/LLM-讲义.pptx) · [清单](PPT-version/LLM/MANIFEST.md) · [书单](PPT-version/LLM/电子书书单.md) |
 | 基础层 | **LLM-Inference** | LLM 推理服务：训练好的模型怎么又快又省地跑起来 | [网页版](https://jasonlijiaxiang.github.io/ai-knowledge-base/Web-version/llm-inference/) | [讲义](PPT-version/LLM-Inference/LLM-Inference-讲义.pptx) · [清单](PPT-version/LLM-Inference/MANIFEST.md) · [书单](PPT-version/LLM-Inference/电子书书单.md) |
@@ -80,7 +82,7 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 
 | 目录 | 作用 |
 | --- | --- |
-| `PPT-version/` | **内容出处**，19 个模块整体在此（讲义 pptx + README + MANIFEST + 电子书书单 + raw-data 留痕） |
+| `PPT-version/` | **内容出处**，21 个模块整体在此（讲义 pptx + README + MANIFEST + 电子书书单 + raw-data 留痕） |
 | `Web-version/` | 网页派生站点，由 `build.py` 从各模块 MANIFEST 生成，19/19 已建成 |
 | `_prep/` | 库级取用产物（全库一页纸、学习路径、实战包） |
 | `_reference/` | 库级参考材料（吸收清单与外部对照材料） |
@@ -105,7 +107,7 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 | `check_prep_coverage` | `_prep/` 三份取用文档与源模块同步 |
 | `check_count_claims` | 「共 N 章」「N 道题」这类数目声明与实际相符 |
 | `check_html_wellformed` | 正文标签配平（真 XML 解析器验，浏览器容错掩盖不了） |
-| `audit_pptx` | 19 册讲义的排版契约（17 项检查，含画布越界与 XML 良构） |
+| `audit_pptx` | 21 册讲义的排版契约（17 项检查，含画布越界与 XML 良构） |
 | `build.py --check` | 网页产物与 MANIFEST 无漂移 |
 | `check_skill_package` | 技能分发包结构合格（能装） |
 | `check_skill_sync` | 库内 `.skill` 与技能源目录逐文件一致（防包悄悄过期） |

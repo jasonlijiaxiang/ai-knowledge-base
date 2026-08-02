@@ -130,10 +130,15 @@ def new_slide(prs, kind):
     return s
 
 
-def footer(slide, mod, chap, num, dark=False):
-    """ppt-design-system §7：左下「模块 · 章节 ID」，右下页码；页码＝放映位。"""
+def footer(slide, mod, chap, num, dark=False, foot=None):
+    """ppt-design-system §7：左下页脚，右下页码；页码＝放映位。
+
+    左下优先用 `foot`（形如「第 3 章 · 把业务问题切成可学的题 · 本章小结」）——
+    **audit 靠这一行把学习目标/动手做/对练/小结归到章**，只写「模块 · 章节 ID」它归不上，
+    会误报「每章固定元素缺失」。既有 19 册用的就是这个写法，照它来。
+    """
     col = "faint" if dark else "ink2"
-    left = "%s · %s" % (mod, chap) if chap else mod
+    left = foot or ("%s · %s" % (mod, chap) if chap else mod)
     box(slide, MARGIN, FOOT_Y, 8.0, 0.3, left, FS["foot"], col)
     b = box(slide, W - MARGIN - 1.2, FOOT_Y, 1.2, 0.3, "p.%d" % num,
             FS["foot"], col, align=PP_ALIGN.RIGHT)
@@ -420,7 +425,7 @@ def build(spec, out):
         RENDER[kind](s, p, ctx)
         if kind != "cover":
             footer(s, spec["module"], p.get("chapter_id", ""), i,
-                   dark=kind in DARK_KINDS)
+                   dark=kind in DARK_KINDS, foot=p.get("foot"))
     prs.save(out)
     fix_app_xml(out, [p.get("title") or p.get("no", "") for p in spec["pages"]])
     return len(spec["pages"])

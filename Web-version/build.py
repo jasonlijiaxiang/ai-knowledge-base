@@ -100,6 +100,18 @@ WEB_DIRS = {
 
 # 派生一：站内相对路径。必须指到文件——file:// 下目录链接不会自动打开 index.html。
 WEB_PAGES = {mid: "./%s/index.html" % d for mid, d in WEB_DIRS.items()}
+
+def mod_href(mid, by_id, prefix="./"):
+    """模块链接：有网页版就指网页版，只有讲义的回落到讲义 README。
+
+    库的分批扩建纪律允许模块先只有讲义（19 册当年都是这么过来的），
+    但生成器一度假设「每个模块都在 WEB_DIRS 里」——新模块一进来就 KeyError。
+    这里统一出口，别在四处各写一遍。
+    """
+    if mid in WEB_DIRS:
+        return "%s%s/index.html" % (prefix, WEB_DIRS[mid])
+    return "%s../PPT-version/%s/README.html" % (prefix, by_id[mid]["dir"])
+
 # 派生二：模块页绝对路径，用于注入页脚「本册最近改动」（从 MANIFEST 取，手写会漂）。
 MOD_PAGES = {mid: os.path.join(HERE, d, "index.html") for mid, d in WEB_DIRS.items()}
 
@@ -1169,9 +1181,9 @@ def render_graph(data):
             w = NW[mid]
             deg = len(adj[mid])
             adjids = ",".join(sorted(adj[mid]))
-            o.append('    <a class="knode hue-%d" href="./%s/index.html" data-m="%s" '
+            o.append('    <a class="knode hue-%d" href="%s" data-m="%s" '
                      'data-adj="%s" transform="translate(%.1f,%.1f)" tabindex="0">'
-                     % (i, esc(WEB_DIRS[mid]), esc(mid), esc(adjids), xc, yc))
+                     % (i, esc(mod_href(mid, by_id)), esc(mid), esc(adjids), xc, yc))
             o.append('     <title>%s · 关联 %d 个模块</title>' % (esc(m["dir"]), deg))
             o.append('     <rect class="kbox" x="%.1f" y="%.1f" width="%d" height="%d" rx="10"/>'
                      % (-w / 2, -nh / 2, w, nh))

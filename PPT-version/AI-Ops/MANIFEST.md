@@ -48,6 +48,10 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| ops-drift | predictive-ai-mlops#pam-monitoring | 反向回指（2026-08-02 新模块建立）：同名不同物，最需要互指的一条：那边的漂移发生在没有客观真值的生成式应用上（供应商静默换权重、输出漂移），本册的漂 |
+| ops-release | predictive-ai-mlops#pam-lifecycle | 反向回指（2026-08-02 新模块建立）：发布门的骨架（门禁在前、影子、金丝雀、回滚是切指针）两边共用，不重讲；本册只补预测式独有的两点——可以双跑逐条对 |
+| ops-drift | ai-governance#gov-change-triggers | 反向回指（2026-08-02 新模块建立）：供应商静默换 checkpoint 与三类漂移由 AI-Ops 监测；本册把这些告警接成「重新决定」的触发口，规 |
+| ops-incident | ai-governance#gov-decision | 反向回指（2026-08-02 新模块建立）：暂停一个用途的技术动作（急停、回滚指针）在 AI-Ops 第 6 章；本册管谁有权按下、按下之后走什么复核路径、 |
 | ops-online-eval | evaluation#eval-build / evaluation#eval-judge | 全库最强新搭档：离线建集与判官方法在那边，在线采样运营在本模块——共享判分器定义（双向） |
 | ops-what-why / ops-tracing | ai-gateway#gw-observe | 网关是数据源与统一采集层，本模块是消费与行动层；trace id 两层贯通（双向） |
 | ops-incident | security#sec-defense / security#sec-agentic | 「被攻破了怎么办」的防护弹药在 Security；注入检测与工具权限急冻同源 |

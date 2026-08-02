@@ -41,6 +41,8 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| eval-build | predictive-ai-mlops#pam-problem-framing | 反向回指（2026-08-02 新模块建立）：对照关系：Evaluation 讲没有客观真值时怎么建集、怎么判分，本册讲有客观真值时指标怎么挑、离线指标涨了业 |
+| eval-build | ai-governance#gov-evidence | 反向回指（2026-08-02 新模块建立）：证据包里「测过什么、结果多少」由 Evaluation 产出；本册只规定哪一档用途必须附哪几类测量证据、证据绑到 |
 | eval-methods | pe#pe-engineering | 提示词的评估驱动优化用本模块判分四法 / LLM-as-a-Judge；讲义已加「与 Prompt Engineering 的关系」页回指 |
 | eval-scenarios | rag#rag-eval | RAG 检索质量指标在本模块收编为「场景验收」并补全端到端方法 |
 | eval-scenarios | agent#agent-eval | Agent「评估与护栏」提出「要评」,本模块给出轨迹/结果分层的「怎么评」 |

@@ -691,6 +691,577 @@ window.KB = {
    ]
   },
   {
+   "id": "ai-governance",
+   "dir": "AI-Governance",
+   "layer": "工程保障层",
+   "created": "2026-08-02",
+   "updated": "2026-08-02",
+   "chapters": [
+    {
+     "id": "gov-what-why",
+     "no": "第 1 章",
+     "title": "治理是一套决定系统，不是一份文档",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-registry",
+     "no": "第 2 章",
+     "title": "按用途登记，不按模型登记",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-risk-tiering",
+     "no": "第 3 章",
+     "title": "组织风险分层与法律分类是两把尺子",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-impact",
+     "no": "第 4 章",
+     "title": "影响评估在架构冻结前做",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-decision",
+     "no": "第 5 章",
+     "title": "五种决定：批准、条件批准、例外、暂停、退役",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-evidence",
+     "no": "第 6 章",
+     "title": "证据包怎么组装",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-change-triggers",
+     "no": "第 7 章",
+     "title": "什么变化让原来的批准失效",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-frameworks",
+     "no": "第 8 章",
+     "title": "各框架分别能证明什么、不能证明什么",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-china-interface",
+     "no": "第 9 章",
+     "title": "用途登记与中国备案要求怎么对接",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-operating",
+     "no": "第 10 章",
+     "title": "跑起来需要的角色、节奏与工具",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "gov-cheatsheet",
+     "no": "第 11 章",
+     "title": "售前速查",
+     "verified": "2026-08-02"
+    }
+   ],
+   "facts": [
+    {
+     "text": "欧盟《人工智能法》分类规则：附件三所列系统推定为高风险（第 6 条第 2 款）；第 6 条第 3 款给四个出口——窄程序任务、改进已完成的人工结果、只检测与既往决策的偏差且不替代人的判断、为后续评估做准备性工作；但对自然人做画像的一律仍为高风险；用了出口的提供方须在上市前记录判定依据，并按第 49 条第 2 款在欧盟数据库登记。与企业最相关的附件三类别：第 4 类就业（招聘或遴选，特别是定向投放职位广告、分析筛选求职申请、评估候选人；以及晋升终止、任务分配、绩效与行为监测），第 5 类(b)信用评估与信用评分（欺诈检测除外）、(c)人寿与健康保险的风险评估与定价",
+     "chapter": "gov-risk-tiering",
+     "verified": "2026-08-02",
+     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 6 条、附件三，2026-08-02 读自 https://artificialintelligenceact.eu/article/6/ 与 https://artificialintelligenceact.eu/annex/3/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟《人工智能法》的三份清单：附件三共 8 个高风险领域——①生物识别 ②关键基础设施 ③教育与职业培训（入学与录取、学习成果评估、教育层级判定、考试作弊监测）④就业与劳动者管理 ⑤基本公私服务与福利的可及性（含 (b) 信用评估与信用评分、(c) 人寿与健康保险的风险评估与定价）⑥执法 ⑦移民庇护与边控 ⑧司法与民主程序；第 5 条第 1 款禁止清单 (a)–(h) 含社会评分（(c)）与职场及教育机构的情绪推断（(f)，医疗或安全用途除外）；第 50 条透明度义务：第 1 款直接与自然人交互的系统要告知，第 2 款合成音频图像视频文本要做机器可读标记，第 3 款情绪识别与生物特征分类要告知被作用的人，第 4 款深度伪造与公共议题的 AI 生成文本要披露",
+     "chapter": "gov-risk-tiering",
+     "verified": "2026-08-02",
+     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 附件三、第 5 条、第 50 条，2026-08-02 读自 https://artificialintelligenceact.eu/annex/3/、/article/5/、/article/50/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟《人工智能法》角色与登记义务：第 25 条第 1 款——贴上自己的名称或商标、做出重大修改、或改变预期用途使系统变成高风险，这三种情形下分销商、进口商、部署方或第三方即被视为该高风险系统的提供方；第 49 条——提供方在投放市场前须登记自身与系统，自行判定为不高风险的（第 6 条第 3 款）同样要登记，公共机构类部署方还须登记其使用；第 26 条第 7 款——雇主在职场投用高风险系统前须告知工会代表与受影响员工",
+     "chapter": "gov-registry",
+     "verified": "2026-08-02",
+     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 25、26、49 条，2026-08-02 读自 https://artificialintelligenceact.eu/article/25/、/article/26/、/article/49/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟《人工智能法》第 26 条第 6 款：高风险 AI 系统的部署方保存系统自动生成日志的期限，须与该系统的预期用途相称，且至少 6 个月",
+     "chapter": "gov-what-why",
+     "verified": "2026-08-02",
+     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 26 条，2026-08-02 读自 https://artificialintelligenceact.eu/article/26/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟《人工智能法》第 27 条基本权利影响评估（FRIA）：适用主体是受公法管辖的机构、提供公共服务的私营主体，以及附件三第 5 类(b)(c)（信用评分、人寿与健康保险风险评估定价）的部署方；内容须含 (a) 使用该系统的流程描述、(b) 使用时段与频率、(c) 可能受影响的自然人与群体类别、(d) 具体伤害风险、(e) 人工监督措施如何落实、(f) 风险发生时的措施含内部治理安排与投诉机制；第 3 款要求把评估连同模板通知市场监管机构（第 46 条第 1 款情形除外）；第 4 款明确若相关义务已通过 GDPR 第 35 条的数据保护影响评估完成，FRIA 是对其的补充而非替代",
+     "chapter": "gov-impact",
+     "verified": "2026-08-02",
+     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 27 条，2026-08-02 读自 https://artificialintelligenceact.eu/article/27/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "ISO/IEC 42005:2025《信息技术—人工智能—AI 系统影响评估》为第 1 版，2025-05-28 发布（ISO/IEC JTC 1/SC 42 归口），给出组织如何为受 AI 系统及其可预见应用影响的个人与社会做影响评估的指南，涵盖何时做、在生命周期哪些阶段做以及评估文档要求，并说明如何并入既有 AI 风险管理与管理体系；它是 ISO/IEC 42001 的配套指南",
+     "chapter": "gov-impact",
+     "verified": "2026-08-02",
+     "source": "IEC Webstore，ISO/IEC 42005:2025 出版物页 https://webstore.iec.ch/en/publication/107659",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "美国 OMB M-25-21 备忘录（2025-04-03 发布，取代 M-24-10）要求各机构维护并每年公开更新「AI 用途清单」（AI Use Case Inventory），登记与报送单位是「用途（use case）」而非模型；国防部与情报体系另有安排",
+     "chapter": "gov-registry",
+     "verified": "2026-08-02",
+     "source": "美国管理和预算办公室 OMB Memorandum M-25-21《Accelerating Federal Use of AI through Innovation, Governance, and Public Trust》原文 PDF（whitehouse.gov）第 3(b)(v) 节与附表",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "OMB M-25-21 对「高影响 AI（high-impact AI）」的判据是：其输出成为对权利或安全具有法律、实质、约束或重大影响的决定或行动的「主要依据（principal basis）」；有没有人工监督不改变这一判定。备忘录第 6 节另列 15 类推定为高影响的用途（含关键基础设施安全功能、医疗诊断与治疗、执法风险评估、公共场所一对多生物识别、联邦福利与贷款审批、以及联邦雇佣条件的确定含录用前筛查、薪酬晋升、绩效管理、招聘解雇）；机构若认定某个落在推定清单内的用途实际不属高影响，须书面报首席 AI 官（CAIO）备案",
+     "chapter": "gov-risk-tiering",
+     "verified": "2026-08-02",
+     "source": "美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）第 4(a) 节与第 6 节",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "OMB M-25-21 对高影响 AI 规定七条最低风险管理实践：上线前测试、完成 AI 影响评估、持续监测性能与不利影响、确保操作人员培训与考核、额外的人工监督与问责（含 fail-safe）、提供一致的救济或申诉渠道、征询并吸收终端用户与公众反馈。其中影响评估须在部署前完成、并在生命周期内定期更新，文档至少含预期目的与收益指标、数据与模型能力的适配性、对隐私与公民权利的潜在影响、重评时间表与触发条件、成本分析、由未参与开发的独立复核人出具意见（意见须原样留档并交给风险接受人）、以及风险接受人签名",
+     "chapter": "gov-impact",
+     "verified": "2026-08-02",
+     "source": "美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）第 4(a)(i)–(iv)、4(b)(i)–(vii) 节",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "OMB M-25-21 的停用与豁免机制：某个高影响 AI 用途若无法满足七条最低风险管理实践，机构必须安全停用该 AI 功能；首席 AI 官（CAIO，Chief AI Officer）可基于书面的系统与情境风险评估豁免个别要求，豁免须每年重新确认有效性、可随时撤销、并在批准或撤销后 30 天内报 OMB，该职责不得下放",
+     "chapter": "gov-what-why",
+     "verified": "2026-08-02",
+     "source": "美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）第 4(a) 节豁免与停用条款",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "NIST AI RMF 1.0 的 GOVERN 1.6 类目原文为「Mechanisms are in place to inventory AI systems and are resourced according to organizational risk priorities」；配套 Playbook 建议：以政策定义清单的建立与维护流程、指定专人或专队负责、范围优先覆盖全部模型或至少高风险与高风险场景中的系统、清单属性含文档、源码链接、事故响应计划、数据字典与相关责任人联系方式",
+     "chapter": "gov-registry",
+     "verified": "2026-08-02",
+     "source": "NIST AI RMF Playbook（GOVERN 部分），美国国家标准与技术研究院 AI 资源中心 https://airc.nist.gov/AI_RMF_Knowledge_Base/Playbook/Govern",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "美国科罗拉多州 SB26-189《Automated Decision-Making Technology》2026-05-01 提出、05-07 参议院通过、05-09 众议院通过、2026-05-14 州长签署成法，生效日 2027-01-01，取代 2024 年的 SB24-205（原定 2026-06-30 生效）。新法把原来针对「高风险 AI 系统」的框架换成针对「自动化决策技术（ADMT）」在「重大决定」中的使用，要求开发方向部署方提供技术文档（预期用途、训练数据类别、已知局限、使用与人工复核说明）、部署方在交互点告知并在不利决定后 30 天内给出通俗解释，消费者有权访问与更正个人数据、有权要求有实质意义的人工复核；原法中部署方的风险管理程序与影响评估义务、以及部分向州总检察长报告的义务被删除。由州总检察长按州消费者保护法作为欺骗性商业行为执法，至 2030 年前执法须提前 60 天告知",
+     "chapter": "gov-risk-tiering",
+     "verified": "2026-08-02",
+     "source": "科罗拉多州议会法案页 https://leg.colorado.gov/bills/sb26-189 ；变更要点另经 Hunton 隐私与网络安全法律博客交叉核对",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "纽约市第 144 号地方法（Local Law 144，自动化雇佣决策工具 AEDT）要求：使用前一年内须由独立审计方完成偏见审计、审计结果摘要须公开发布；在职位公告或使用前至少提前 10 个工作日告知候选人与员工，并说明所评估的资质与特征；违规每次最高 500 美元且按日累计。2026 年纽约市审计长的一份审计报告指出主管部门 DCWP 在投诉受理、合规检查与专业力量使用上执行不力",
+     "chapter": "gov-risk-tiering",
+     "verified": "2026-08-02",
+     "source": "纽约市 Local Law 144-21 实务解读（Deloitte、DCI Consulting）与 DLA Piper 对 2026 年市审计长报告的报道",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "三云的 AI 资产发现能力现状：Google Cloud Security Command Center 的 AI Protection 可在 Assets 页 AI resources 标签盘点模型、数据源、端点、Agent 与 MCP 服务器（需 Premium 或 Enterprise 层级；MCP 服务器发现另需各项目启用 App Hub API），官方文档明确写明「影子 AI 资源在 Google Cloud 控制台的 Security Command Center 中不受支持」；Microsoft 侧覆盖第三方 AI 站点的 Purview DSPM for AI 需要启用按量计费，且多数能力依赖 Purview 浏览器扩展与设备接入，影子 AI 发现通常要与 Defender for Cloud Apps 的云发现组合使用",
+     "chapter": "gov-registry",
+     "verified": "2026-08-02",
+     "source": "Google Cloud 官方文档 https://docs.cloud.google.com/security-command-center/docs/ai-protection-overview ；Microsoft Learn 官方文档 https://learn.microsoft.com/en-us/purview/ai-other-apps",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "AWS Audit Manager 的「AWS Generative AI Best Practices Framework v2」（2024-06-11 升级到 v2）含 72 项自动控制 + 38 项手动控制、共 8 个控制集，按 responsible / safe / fair / sustainable / privacy / resilience / accuracy / secure 八项原则组织，覆盖 Amazon Bedrock 与 Amazon SageMaker AI；官方文档同时声明这些控制不用于验证系统是否合规、也不保证通过审计。该文档页顶已公告 AWS Audit Manager 不再向新客户开放，现有客户可继续使用",
+     "chapter": "gov-registry",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档 https://docs.aws.amazon.com/audit-manager/latest/userguide/aws-generative-ai-best-practices.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "NIST AI 风险管理框架 MANAGE 2.4 要求：事先建好机制并指定责任人，用于替换、脱离或停用表现与预期用途不符的 AI 系统",
+     "chapter": "gov-decision",
+     "verified": "2026-08-02",
+     "source": "NIST AI RMF Playbook（MANAGE 函数），airc.nist.gov/airmf-resources/playbook/manage/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "欧盟人工智能法案第 26(5) 条：高风险系统的部署方发现使用可能带来风险时，须立即通知提供方、分销方与市场监管机构，并暂停使用",
+     "chapter": "gov-decision",
+     "verified": "2026-08-02",
+     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 26(5) 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/26/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "纽约市 Local Law 144 实施细则 §5-303(c)：偏见审计摘要与分发日期，须在该工具最后一次用于雇佣决定之后继续公示至少 6 个月；审计须在使用前一年内完成，§5-304 要求提前 10 个工作日通知候选人",
+     "chapter": "gov-decision",
+     "verified": "2026-08-02",
+     "source": "NYC DCWP 最终规则原文 PDF，rules.cityofnewyork.us/wp-content/uploads/2023/04/DCWP-NOA-for-Use-of-Automated-Employment-Decisionmaking-Tools-2.pdf",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "美联储 SR 11-7（2011）与 SR 21-8 已被 2026-04-17 发布的 SR 26-2 取代；SR 26-2 脚注明确「生成式 AI 与 agentic AI 模型不在本指引范围内」，其原则适用于传统统计模型与非生成式、非 agentic 的 AI 模型；重要性由模型用途与暴露共同决定；指引称最相关于总资产超 300 亿美元的受监管银行机构",
+     "chapter": "gov-decision",
+     "verified": "2026-08-02",
+     "source": "美联储 SR 26-2 letter 页与 PDF 全文，federalreserve.gov/supervisionreg/srletters/SR2602.htm",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟人工智能法案第 18 条：高风险系统的技术文档、质量管理体系文件、变更批准记录与欧盟符合性声明等，须自投放市场或投入使用起保存 10 年，并能应主管机关要求提供",
+     "chapter": "gov-evidence",
+     "verified": "2026-08-02",
+     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 18 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/18/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟人工智能法案第 19 条（提供方）与第 26(6) 条（部署方）：在自己控制范围内的自动生成日志，须按与预期用途相称的期限保存，至少 6 个月，除非欧盟或成员国法另有规定",
+     "chapter": "gov-evidence",
+     "verified": "2026-08-02",
+     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 19 条与第 26(6) 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/19/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Google Cloud Logging：_Required 日志桶固定保存 400 天且不可配置，_Default 日志桶默认保存 30 天，_Default 与自定义桶可配置为 1 至 3650 天",
+     "chapter": "gov-evidence",
+     "verified": "2026-08-02",
+     "source": "Google Cloud 官方文档 docs.cloud.google.com/logging/quotas",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Amazon Bedrock 的模型调用日志默认关闭，需手动开启并指定 CloudWatch Logs 或 S3 目的地；Google Cloud 的数据访问审计日志默认关闭（BigQuery 除外），管理活动审计日志则始终开启且不可关闭",
+     "chapter": "gov-evidence",
+     "verified": "2026-08-02",
+     "source": "docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html；docs.cloud.google.com/logging/docs/audit",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "AWS Audit Manager 已转入维护模式：自 2026-04-30 起不再支持在新账号中启用；其 Generative AI Best Practices Framework v2 含 72 项自动控制与 38 项手动控制、8 个控制组，文档明确写明该框架不用于验证系统是否合规、也不保证通过审计；停用服务后已收集的证据保留 2 年",
+     "chapter": "gov-evidence",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档 docs.aws.amazon.com/audit-manager/latest/userguide/audit-manager-availability-change.html 与 /aws-generative-ai-best-practices.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "欧盟人工智能法案第 3(23) 条定义「实质性修改」：投放市场或投入使用后发生、初次符合性评估未预见或未计划、并因此影响第三章第二节要求的合规性或改变已评估的预期用途；第 43(4) 条另规定，提供方在初次符合性评估时已预先确定并写入技术文档的变化，不构成实质性修改",
+     "chapter": "gov-change-triggers",
+     "verified": "2026-08-02",
+     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 3(23) 条与第 43(4) 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/3/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟人工智能法案第 25(1) 条：分销方、进口方、部署方或第三方在三种情形下被视为高风险系统的提供方——(a) 在已上市系统上贴自己的名称或商标；(b) 对已上市系统作实质性修改且其仍为高风险；(c) 改变系统的预期用途使其成为高风险。第 25(2) 条规定原提供方此时不再被视为该系统的提供方，但须配合并提供必要信息与技术接入",
+     "chapter": "gov-change-triggers",
+     "verified": "2026-08-02",
+     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 25 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/25/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "美联储 SR 26-2 原文：把模型用于其预期用途之外会带来额外的不确定性与风险；将模型使用扩展到原应用之外时，稳妥做法是对新用法及其局限补做分析，并复核现有控制",
+     "chapter": "gov-change-triggers",
+     "verified": "2026-08-02",
+     "source": "美联储 SR 26-2 全文 PDF（Model Use 一节），federalreserve.gov/supervisionreg/srletters/SR2602.pdf",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "科罗拉多 AI 法（SB 24-205）延期后于 2026-06-30 生效，但在 X.AI 于 2026-04 提起诉讼后，州总检察长同意在其初步禁令动议及法律修订解决前暂缓执法；替代法 SB 26-189 已于 2026-05-14 签署，自 2027-01-01 起取代原法，框架从算法歧视与注意义务转为披露与权利型",
+     "chapter": "gov-change-triggers",
+     "verified": "2026-08-02",
+     "source": "Skadden 法律分析《Colorado Repeals and Replaces Its AI Act》(2026-06)；Norton Rose Fulbright 同题分析",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "ISO/IEC 42005:2025《AI 系统影响评估》2025-05-28 发布，属指导文件（guidance），不用于认证、不需要外部审核",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "IEC Webstore 官方条目 ISO/IEC 42005:2025 https://webstore.iec.ch/en/publication/107659",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "ISO/IEC 42006:2025 2025-07-07 发布，规定审核与认证 AI 管理体系的机构（认证机构）应满足的要求，基于 ISO/IEC 17021-1，含审核员能力与审核工时",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "IEC Webstore 官方条目 ISO/IEC 42006:2025 https://webstore.iec.ch/en/publication/108460",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "欧盟人工智能法案留存期：提供者的技术文档等文件保存至投放市场或投入使用后 10 年（第 18 条）；自动生成日志按用途适当期限保存、至少 6 个月（第 19 条，部署者同为至少 6 个月，第 26 条）",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "欧盟人工智能法案第 18、19、26 条全文页 https://artificialintelligenceact.eu/article/18/",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "第 27 条 FRIA 适用主体：部署高风险系统的公法机构、提供公共服务的私营主体，以及附件三 5(b) 信贷评估与 5(c) 人寿健康保险定价的全部部署者；附件三第 2 点除外",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "欧盟人工智能法案第 27 条全文页 https://artificialintelligenceact.eu/article/27/",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "第 25 条：贴上自己名称或商标、对已上市高风险系统做实质性修改、或把非高风险系统的预期用途改成高风险，部署者或第三方即被视为提供者",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "欧盟人工智能法案第 25 条全文页 https://artificialintelligenceact.eu/article/25/",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "附件三第 4 点(a)把「招聘或选拔，特别是定向投放招聘广告、分析筛选求职申请、评估候选人」并列点名为高风险",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "欧盟人工智能法案附件三全文页 https://artificialintelligenceact.eu/annex/3/",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "SR 11-7（2011）与 SR 21-8（2021）已于 2026-04-17 被 SR 26-2《Revised Guidance on Model Risk Management》与 OCC Bulletin 2026-13 取代",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "美联储 SR 26-2 官方页 https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "SR 26-2 修订版把生成式 AI 与代理式 AI 以「新颖且快速演进」为由排除在适用范围外，三家机构另计划就银行使用 AI 发布问询（RFI）",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "Sullivan & Cromwell 2026-04 客户备忘录（转述 SR 26-2／OCC 2026-13 原文）https://www.sullcrom.com/insights/memo/2026/April/OCC-Fed-FDIC-Issue-Revised-Guidance-Model-Risk-Management",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "纽约市 Local Law 144：使用自动化雇佣决策工具须做年度独立偏见审计并公开摘要，使用前至少提前 10 个工作日告知候选人，由 DCWP 执法",
+     "chapter": "gov-frameworks",
+     "verified": "2026-08-02",
+     "source": "纽约市 DCWP 规则与多家实务解读一致口径（warden-ai、verifywise 等 2026 版汇总）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "《互联网信息服务算法推荐管理规定》第 24、25 条：提供服务之日起 10 个工作日内填报备案；备案信息变更之日起 10 个工作日内办变更；终止服务之日起 20 个工作日内办注销；主管部门收到完整材料后 30 个工作日内予以备案并发放编号",
+     "chapter": "gov-china-interface",
+     "verified": "2026-08-02",
+     "source": "中央网信办官网原文 https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "《生成式人工智能服务管理暂行办法》第 2 条：未向境内公众提供服务的研发应用不适用本办法；第 17 条：有舆论属性或社会动员能力的服务须开展安全评估并履行算法备案及变更、注销手续",
+     "chapter": "gov-china-interface",
+     "verified": "2026-08-02",
+     "source": "中央网信办官网原文 https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "《人工智能安全治理框架》2.0 于 2025-09-15 国家网络安全宣传周发布，为全国网安标委技术文件，非强制性法规",
+     "chapter": "gov-china-interface",
+     "verified": "2026-08-02",
+     "source": "中央网信办官网发布稿 https://www.cac.gov.cn/2025-09/15/c_1759653448369123.htm",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "AWS Audit Manager 转入维护模式：2026-04-30 起新账号无法启用，存量账号可继续使用；停用后证据保留两年；官方指向 AWS Config Conformance Packs 作为替代，但 SOC2、GDPR 无对应模板",
+     "chapter": "gov-operating",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档「AWS Audit Manager availability change」https://docs.aws.amazon.com/audit-manager/latest/userguide/audit-manager-availability-change.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "治理与证据类云服务名：Microsoft Purview DSPM for AI 与 Microsoft Foundry（原 Azure AI Foundry，2025-11-18 Ignite 更名）／Google Cloud Dataplex 已同步 Vertex AI 模型与数据集／Vertex AI Model Registry／SageMaker Model Registry 与 Model Cards／ServiceNow AI Control Tower（2026-06 起把 MCP 服务器纳入受管资产）",
+     "chapter": "gov-operating",
+     "verified": "2026-08-02",
+     "source": "各厂商官方文档与发布说明（Microsoft Learn、Google Cloud Blog、ServiceNow Community 2026-06 release notes）",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "欧盟人工智能法案第 4 条 AI 素养义务自 2025-02-02 适用，由成员国市场监管机构自 2026-08-02 起监督执行；欧委会明确未规定「足够」的具体水平，也不要求任何证书",
+     "chapter": "gov-operating",
+     "verified": "2026-08-02",
+     "source": "欧盟委员会官方 Q&A「AI literacy – questions & answers」https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    }
+   ],
+   "edges": [
+    {
+     "from": "gov-frameworks",
+     "to": "security#sec-governance",
+     "why": "Security 第 7 章把 NIST／ISO／欧盟法案摆在威胁防护的收尾位置，给的是方位与时间线；本章接着讲每张纸能证明什么、不能证明什么，以及义务落到提供者还是部署者。时间线数字只在 Security 登记一次，本册引用不复制（双向互指）",
+     "resolved": true
+    },
+    {
+     "from": "gov-china-interface",
+     "to": "security#sec-china",
+     "why": "备案、登记、标识、国标、数据出境的条目与时点全在 Security 第 8 章；本章只讲分诊结论怎么变成用途登记表的字段、备案材料从证据包取哪几件、周期怎么倒排评审启动时间",
+     "resolved": true
+    },
+    {
+     "from": "gov-registry",
+     "to": "security#sec-supply-chain",
+     "why": "AI-BOM 记「系统里有哪些模型与组件」，用途登记记「有哪些 AI 用途、谁批的」，一条用途对应多条 AI-BOM 项，两张表用同一个用途 ID 串；准入门禁的技术检查项归 Security，本册管这道门是谁的门、不过怎么办",
+     "resolved": true
+    },
+    {
+     "from": "gov-evidence",
+     "to": "evaluation#eval-build",
+     "why": "证据包里「测过什么、结果多少」由 Evaluation 产出；本册只规定哪一档用途必须附哪几类测量证据、证据绑到哪个版本、失效期多长，不重讲任何指标定义",
+     "resolved": true
+    },
+    {
+     "from": "gov-evidence",
+     "to": "security#sec-defense",
+     "why": "红队报告是高风险用途证据包的必备件；怎么打、打什么在 Security 第 6 章，本册管这件证据在不在包里、有没有过期、结论有没有转成上线条件",
+     "resolved": true
+    },
+    {
+     "from": "gov-change-triggers",
+     "to": "ai-ops#ops-drift",
+     "why": "供应商静默换 checkpoint 与三类漂移由 AI-Ops 监测；本册把这些告警接成「重新决定」的触发口，规定哪类漂移触发重审哪一步",
+     "resolved": true
+    },
+    {
+     "from": "gov-decision",
+     "to": "ai-ops#ops-incident",
+     "why": "暂停一个用途的技术动作（急停、回滚指针）在 AI-Ops 第 6 章；本册管谁有权按下、按下之后走什么复核路径、多久必须给出结论",
+     "resolved": true
+    },
+    {
+     "from": "gov-impact",
+     "to": "data-engineering#de-governance",
+     "why": "影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行；执行点、权限与越权测试在 DE 第 7 章，本册只出约束与验收点",
+     "resolved": true
+    },
+    {
+     "from": "gov-risk-tiering",
+     "to": "agent#agent-eval-guardrails",
+     "why": "自主度是组织风险分层的一根轴；自主度的技术形态与控权手段在 Agent 与 Security，本册只规定从「给建议」升到「自动执行」跨档必须重新过决定门",
+     "resolved": true
+    },
+    {
+     "from": "gov-decision",
+     "to": "solution-patterns#sp-method",
+     "why": "SP 第 2 章讲对客交付里的责任落点与合同话术（乙方视角），本册讲客户内部的决定权归属与证据链（甲方视角），两边在「谁签字」这一点接上（双向）",
+     "resolved": true
+    }
+   ],
+   "web": "",
+   "questions": []
+  },
+  {
    "id": "ai-infra-compute",
    "dir": "AI-Infra-Compute",
    "layer": "算力底座层",
@@ -1185,6 +1756,12 @@ window.KB = {
    ],
    "edges": [
     {
+     "from": "aip-overview",
+     "to": "predictive-ai-mlops#pam-platform",
+     "why": "反向回指（2026-08-02 新模块建立）：共用得了的那半截（K8s+GPU、队列与配额、存储、容错）全在 AIP，本册不重讲，只讲上层为什么合并不了",
+     "resolved": true
+    },
+    {
      "from": "aip-overview / 全书",
      "to": "ai-infra-compute",
      "why": "姊妹模块：本模块讲平台（调度/切分/容错/观测/云形态），对方讲硬件（卡/网/存储/电）；两模块封面/总览页互指",
@@ -1484,6 +2061,30 @@ window.KB = {
     }
    ],
    "edges": [
+    {
+     "from": "ops-drift",
+     "to": "predictive-ai-mlops#pam-monitoring",
+     "why": "反向回指（2026-08-02 新模块建立）：同名不同物，最需要互指的一条：那边的漂移发生在没有客观真值的生成式应用上（供应商静默换权重、输出漂移），本册的漂",
+     "resolved": true
+    },
+    {
+     "from": "ops-release",
+     "to": "predictive-ai-mlops#pam-lifecycle",
+     "why": "反向回指（2026-08-02 新模块建立）：发布门的骨架（门禁在前、影子、金丝雀、回滚是切指针）两边共用，不重讲；本册只补预测式独有的两点——可以双跑逐条对",
+     "resolved": true
+    },
+    {
+     "from": "ops-drift",
+     "to": "ai-governance#gov-change-triggers",
+     "why": "反向回指（2026-08-02 新模块建立）：供应商静默换 checkpoint 与三类漂移由 AI-Ops 监测；本册把这些告警接成「重新决定」的触发口，规",
+     "resolved": true
+    },
+    {
+     "from": "ops-incident",
+     "to": "ai-governance#gov-decision",
+     "why": "反向回指（2026-08-02 新模块建立）：暂停一个用途的技术动作（急停、回滚指针）在 AI-Ops 第 6 章；本册管谁有权按下、按下之后走什么复核路径、",
+     "resolved": true
+    },
     {
      "from": "ops-online-eval",
      "to": "evaluation#eval-build / evaluation#eval-judge",
@@ -1890,6 +2491,12 @@ window.KB = {
    ],
    "edges": [
     {
+     "from": "agent-eval-guardrails",
+     "to": "ai-governance#gov-risk-tiering",
+     "why": "反向回指（2026-08-02 新模块建立）：自主度是组织风险分层的一根轴；自主度的技术形态与控权手段在 Agent 与 Security，本册只规定从「给建",
+     "resolved": true
+    },
+    {
      "from": "agent-context",
      "to": "pe#pe-advanced-reasoning",
      "why": "上下文工程 / ReAct 是提示词技巧在工具循环里的应用；讲义已加「与 Prompt Engineering 的关系」页回指",
@@ -2243,6 +2850,24 @@ window.KB = {
    ],
    "edges": [
     {
+     "from": "de-pipeline",
+     "to": "predictive-ai-mlops#pam-features-time",
+     "why": "反向回指（2026-08-02 新模块建立）：上下游：数据怎么进来、怎么增量同步归 DE，本册接手的是同一份数据被当成特征时的时间语义与点时取数",
+     "resolved": true
+    },
+    {
+     "from": "de-quality",
+     "to": "predictive-ai-mlops#pam-monitoring",
+     "why": "反向回指（2026-08-02 新模块建立）：七类信号里第一类「数据质量故障」的检查项与责任面在 DE 第 5 章，本册只讲怎么把它和漂移信号分开——分不开就",
+     "resolved": true
+    },
+    {
+     "from": "de-governance",
+     "to": "ai-governance#gov-impact",
+     "why": "反向回指（2026-08-02 新模块建立）：影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行；执行点、权限与越权测试在",
+     "resolved": true
+    },
+    {
      "from": "de-what-why",
      "to": "solution-patterns#sp-method",
      "why": "SP 说「数据坑是第一风险」，本模块把它变成显性工程件与报价项（双向）",
@@ -2551,6 +3176,18 @@ window.KB = {
     }
    ],
    "edges": [
+    {
+     "from": "eval-build",
+     "to": "predictive-ai-mlops#pam-problem-framing",
+     "why": "反向回指（2026-08-02 新模块建立）：对照关系：Evaluation 讲没有客观真值时怎么建集、怎么判分，本册讲有客观真值时指标怎么挑、离线指标涨了业",
+     "resolved": true
+    },
+    {
+     "from": "eval-build",
+     "to": "ai-governance#gov-evidence",
+     "why": "反向回指（2026-08-02 新模块建立）：证据包里「测过什么、结果多少」由 Evaluation 产出；本册只规定哪一档用途必须附哪几类测量证据、证据绑到",
+     "resolved": true
+    },
     {
      "from": "eval-methods",
      "to": "pe#pe-engineering",
@@ -2882,6 +3519,12 @@ window.KB = {
     }
    ],
    "edges": [
+    {
+     "from": "ft-eval-deploy",
+     "to": "predictive-ai-mlops#pam-lifecycle",
+     "why": "反向回指（2026-08-02 新模块建立）：「训练」这个词两边指的不是一回事：那边是拿自己数据改 LLM 权重、产物是 adapter，本册是从头拟合一个预",
+     "resolved": true
+    },
     {
      "from": "ft-when",
      "to": "pe#pe-what-why",
@@ -4561,6 +5204,12 @@ window.KB = {
    "edges": [
     {
      "from": "ml-selection",
+     "to": "predictive-ai-mlops#pam-model-choice",
+     "why": "反向回指（2026-08-02 新模块建立）：边界声明：客户问「用什么模型」要先分清问的是哪一类——大模型选型（榜单、价格带、许可证）在 Model-Land",
+     "resolved": true
+    },
+    {
+     "from": "ml-selection",
      "to": "evaluation#eval-benchmarks",
      "why": "榜单饱和与 Leaderboard Illusion 的完整弹药在 Evaluation 第 2 章；自建评估集方法在其第 5 章——选型终审依赖它（双向）",
      "resolved": true
@@ -5133,6 +5782,441 @@ window.KB = {
      ]
     }
    ]
+  },
+  {
+   "id": "predictive-ai-mlops",
+   "dir": "Predictive-AI-MLOps",
+   "layer": "工程保障层",
+   "created": "2026-08-02",
+   "updated": "2026-08-02",
+   "chapters": [
+    {
+     "id": "pam-what-why",
+     "no": "第 1 章",
+     "title": "「我们已经有一堆模型了」：两种 AI 各管什么",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-model-choice",
+     "no": "第 2 章",
+     "title": "算法取舍地图：表格、时序、排序、异常",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-problem-framing",
+     "no": "第 3 章",
+     "title": "把业务问题切成可学的题：预测时点、标签窗口、样本单元",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-features-time",
+     "no": "第 4 章",
+     "title": "特征的时间语义：point-in-time 正确性、穿越与训练服务偏差",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-feature-store",
+     "no": "第 5 章",
+     "title": "特征平台：Feature Store 什么时候才真需要",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-lifecycle",
+     "no": "第 6 章",
+     "title": "从实验到生产：实验记录、模型注册表与发布门",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-monitoring",
+     "no": "第 7 章",
+     "title": "上线之后：七类信号、七种动作与再训练触发",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-governance",
+     "no": "第 8 章",
+     "title": "可解释、公平与模型风险管理",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-platform",
+     "no": "第 9 章",
+     "title": "一套平台装得下生成式和预测式吗",
+     "verified": "2026-08-02"
+    },
+    {
+     "id": "pam-cheatsheet",
+     "no": "第 10 章",
+     "title": "售前速查",
+     "verified": "2026-08-02"
+    }
+   ],
+   "facts": [
+    {
+     "text": "Google《Rules of Machine Learning》第 1 条为「Don't be afraid to launch a product without machine learning」，并写明「若你认为机器学习能带来 100% 的提升，启发式规则能带你走完其中一半」；第 4 条为「Keep the first model simple and get the infrastructure right」",
+     "chapter": "pam-what-why",
+     "verified": "2026-08-02",
+     "source": "Google Developers 官方文档《Rules of Machine Learning: Best Practices for ML Engineering》 https://developers.google.com/machine-learning/guides/rules-of-ml",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "Sculley 等《Hidden Technical Debt in Machine Learning Systems》（NeurIPS 2015）的核心论断：真实世界的机器学习系统普遍会背上巨大的持续维护成本，风险因子包括边界侵蚀、纠缠、隐藏反馈回路、未申报的消费方、数据依赖与外部世界变化",
+     "chapter": "pam-what-why",
+     "verified": "2026-08-02",
+     "source": "NeurIPS 2015 论文页（摘要原文） https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "TabArena 活体基准（NeurIPS 2025 D&B Spotlight，arXiv:2506.16791 v4 2025-11-03）结论：梯度提升树在实用表格数据上仍是强对手；深度学习方法在更大时间预算下配合集成才追上；基础模型在小数据集上表现突出；跨模型集成才是当前表格机器学习的最好成绩",
+     "chapter": "pam-model-choice",
+     "verified": "2026-08-02",
+     "source": "arXiv:2506.16791《TabArena: A Living Benchmark for Machine Learning on Tabular Data》摘要 https://arxiv.org/abs/2506.16791",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "TabPFN 官方模型规模上限（Prior Labs 文档 Models 页）：TabPFNv2 为 1 万样本 / 500 特征 / 10 类；TabPFN-2.6 为 10 万样本 / 2000 特征；TabPFN-3 与 TabPFN-3-Plus 为 100 万行 × 200 特征（可换成 10 万 ×2000 或 1000×2 万）、160 类",
+     "chapter": "pam-model-choice",
+     "verified": "2026-08-02",
+     "source": "Prior Labs 官方文档 Models 页 https://docs.priorlabs.ai/models",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "M5 零售销量预测竞赛官方结论：这是第一次所有顶尖方法都是「纯」机器学习方法、且显著优于全部统计基准及其组合；前 50 名几乎全部采用按门店/品类训练的 LightGBM 模型，且全部使用跨序列共学；获奖方案在 WRMSSE 上平均比 24 个基准好 20% 以上；冠军是 6 个模型的等权平均",
+     "chapter": "pam-model-choice",
+     "verified": "2026-08-02",
+     "source": "Makridakis / Spiliotis / Assimakopoulos《The M5 Accuracy competition: Results, findings and conclusions》（International Journal of Forecasting，预印本 PDF 第 22–24 页 Key findings 节） https://statmodeling.stat.columbia.edu/wp-content/uploads/2021/10/M5_accuracy_competition.pdf",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "ADBench 异常检测基准（30 个算法 × 57 个数据集，NeurIPS 2022）三条结论：被测无监督算法之间统计上谁也不比谁强；只要 1% 的标注异常，多数半监督方法就能超过最好的无监督方法；在受控环境下针对特定异常类型的最佳无监督方法可反超半监督与全监督",
+     "chapter": "pam-model-choice",
+     "verified": "2026-08-02",
+     "source": "arXiv:2206.09426《ADBench: Anomaly Detection Benchmark》论文原文（NeurIPS 2022 Datasets & Benchmarks Track）摘要 https://arxiv.org/abs/2206.09426",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "谷歌《Rules of Machine Learning》第 29 条：把服务时用过的那组特征打进日志、再拿去训练，是保证「训得像服务」最稳的办法；同文给出训练服务偏差（training-serving skew）的三类成因——训练与服务管线处理数据的方式不同、训练与服务之间数据变了、模型与算法之间存在反馈回路",
+     "chapter": "pam-features-time",
+     "verified": "2026-08-02",
+     "source": "Google for Developers《Rules of Machine Learning: Best Practices for ML Engineering》Rule #29 与 Training-Serving Skew 节，https://developers.google.com/machine-learning/guides/rules-of-ml",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "SageMaker Feature Store 离线库自动给每条记录附加三列：api_invocation_time（服务收到写入调用的时间）、write_time（真正落到离线库的时间，官方注明可用于构造时间旅行类查询）、is_deleted；事件时间由用户自建的时间列提供",
+     "chapter": "pam-features-time",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档《Amazon SageMaker Feature Store offline store data format》，https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "SageMaker Feature Store 调用 PutRecord 后数据先缓冲、批量，在 15 分钟内写入 S3 离线库；离线库只支持 Parquet 文件格式，表格式可选 AWS Glue（默认）或 Apache Iceberg",
+     "chapter": "pam-feature-store",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档《Amazon SageMaker Feature Store offline store data format》，https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Feast 官方文档明列它「不是什么」：不是通用数据管线系统、不管理或编排复杂工作流 DAG、不是数据仓库也不是组织内加工数据的权威存放地、不是数据库；它是数仓下游的一层轻量服务层。其核心卖点之一是生成时点正确（point-in-time correct）的特征集以避免数据泄漏",
+     "chapter": "pam-feature-store",
+     "verified": "2026-08-02",
+     "source": "Feast 官方文档 Introduction 页与 FAQ，https://docs.feast.dev/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "Vertex AI Feature Store（Legacy）已弃用：官方通告写明自 2026-05-17 起不再新增功能、只提供关键补丁，2027-02-17 完全退役且 API 下线；去处是 Vertex AI Feature Store（V2，2023-11-17 推出）或按官方迁移指南迁到 Bigtable。该产品线的当前文档挂在「Gemini Enterprise Agent Platform」名下",
+     "chapter": "pam-feature-store",
+     "verified": "2026-08-02",
+     "source": "Google Cloud 官方文档 Vertex AI Feature Store 概述页弃用通告，https://docs.cloud.google.com/vertex-ai/docs/featurestore/overview；配套《Migrate from Vertex AI Feature Store (Legacy) to Bigtable》",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "阿里云 PAI-FeatureStore 自动完成在线表与离线表的构建并保证两侧一致：离线存储对接 MaxCompute，在线可经 Flink 处理后写入 Hologres、Tablestore 或自研的 FeatureDB",
+     "chapter": "pam-feature-store",
+     "verified": "2026-08-02",
+     "source": "阿里云帮助中心《FeatureStore 概述》（人工智能平台 PAI），https://help.aliyun.com/zh/pai/featurestore",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Azure Machine Learning 托管特征库的特征取回支持时点连接（point-in-time join，官方也称 time travel）以避免数据泄漏，走 SDK 的 get_offline_features() 或内置特征取回流水线组件；Databricks 侧对应能力靠在特征表上声明 timeseries_columns（Unity Catalog 版）或 timestamp_keys（工作区版），且时序特征表须恰有一个时间键、不能带分区列",
+     "chapter": "pam-feature-store",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn《Feature retrieval specification and usage in training and inference》；Databricks 官方文档《Point-in-time feature joins》",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "MLflow 自 2.9.0 起把模型注册表的四阶段（None / Staging / Production / Archived）标为弃用、将在未来某个大版本移除，官方替代是模型版本别名（alias）与标签（tag）；官方理由是阶段这套状态机对 MLOps 流程「过于死板」，而别名允许同一版本挂多个、可随时改指",
+     "chapter": "pam-lifecycle",
+     "verified": "2026-08-02",
+     "source": "MLflow 官方文档《Model Registry Workflows》弃用说明，https://mlflow.org/docs/latest/ml/model-registry/workflow/",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "SageMaker 模型注册表的批准状态为 PendingManualApproval / Approved / Rejected 三态，可由 SDK、Studio 或流水线中的条件步骤更新；官方列出的合法迁移含 PendingManualApproval→Approved（触发 CI/CD 部署）、→Rejected、Rejected→Approved、Approved→Rejected",
+     "chapter": "pam-lifecycle",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档《Update the Approval Status of a Model》，https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "SageMaker 影子测试：影子变体接收从生产变体复制来的一定比例请求但不返回任何响应；一个端点最多一个影子变体，且此时最多一个生产变体；时长默认 7 天、最短 1 小时、最长 30 天，测试结束端点自动恢复原状；Serverless 推理、异步推理、多模型端点、多容器端点、Marketplace 容器与 Inf1 实例的端点不支持",
+     "chapter": "pam-lifecycle",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档《Create a shadow test》，https://docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests-create.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "阿里云 PAI 在同一工作空间内提供两件对应能力：「AI 资产管理 > 模型」支持把训练好的模型注册进来、按版本持续更新并直接部署至 EAS（部署配置自动透传）；Model Gallery 创建微调训练任务时可关联新建或已有实验，任务的超参等元数据、TensorBoard 指标与输出模型统一落在实验输出路径下",
+     "chapter": "pam-lifecycle",
+     "verified": "2026-08-02",
+     "source": "阿里云帮助中心《如何注册模型、部署模型及管理模型》，https://help.aliyun.com/zh/pai/user-guide/register-and-manage-models；《在 Model Gallery 中使用实验管理》，https://help.aliyun.com/zh/pai/experiment-management",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Evidently 的漂移检测默认规则按参考集大小切换：参考集 ≤1000 行用 KS 检验（数值型）与卡方检验（类别型），p≤0.05 判漂移；>1000 行改用 Wasserstein 距离与 Jensen-Shannon 散度，阈值均为 ≥0.1",
+     "chapter": "pam-monitoring",
+     "verified": "2026-08-02",
+     "source": "Evidently 官方文档 Data drift（docs.evidentlyai.com/metrics/explainer_drift）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "PSI（群体稳定性指数）的 0.1 / 0.25 分档最早出自 Lewis 1994 的信用评分实务，是与样本量无关的经验常数；近年学术综述批评它在小样本上频繁误报、在大样本上该报不报",
+     "chapter": "pam-monitoring",
+     "verified": "2026-08-02",
+     "source": "《A critical review of existing and new population stability testing procedures in credit risk scoring》arXiv 2303.01227；Yurdakul & Naranjo 2020《Statistical properties of the population stability index》",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "无真值期性能估计（NannyML 的 CBPE，Confidence-Based Performance Estimation）以概率校准良好与样本量充足为前提；官方明确写「CBPE 在概念漂移（P(Y／X) 改变）下不成立」，且在训练时未覆盖的特征空间区域会失效；回归任务对应方法为 DLE",
+     "chapter": "pam-monitoring",
+     "verified": "2026-08-02",
+     "source": "NannyML 官方文档 how_it_works/performance_estimation（nannyml.readthedocs.io/en/stable）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "Azure Machine Learning 表格数据内建监控信号五类：数据漂移、预测漂移、数据质量、特征归因漂移、模型性能；其中特征归因漂移必须有训练数据、模型性能必须有回灌真值，且两者当日均标 preview",
+     "chapter": "pam-monitoring",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn《Model monitoring in production - Azure Machine Learning》（文档标注日期 2026-01-27）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "AWS 文档标明 Amazon SageMaker Model Monitor 已不再向新客户开放，现有客户照常使用但不再新增功能；官方改荐用开源方案（SageMaker MLflow Apps + Evidently）配合 QuickSight 与 CloudWatch 自建替代",
+     "chapter": "pam-monitoring",
+     "verified": "2026-08-02",
+     "source": "AWS 文档 sagemaker/latest/dg/model-monitor.html 与 model-monitor-availability-change.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "美联储、OCC、FDIC 于 2026-04-17 发布 SR 26-2《Revised Guidance on Model Risk Management》，取代 SR 11-7（2011-04-04）与 SR 21-8，主要适用于总资产超 300 亿美元的美国银行；保留概念稳健性／持续监测／结果分析三件验证与「有效挑战」及独立性要求；全文未出现 AI 或机器学习字样，模型被定义为把输入变成定量估计的复杂定量方法，排除纯算术与确定性规则",
+     "chapter": "pam-governance",
+     "verified": "2026-08-02",
+     "source": "美联储 SR 26-2 通知页与所附指引全文（federalreserve.gov/supervisionreg/srletters/sr2602.htm 与 SR2602.pdf）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Kleinberg、Mullainathan、Raghavan 2016 证明：校准性与两类错误率均等这三个公平条件，除非各群基础率相同或预测完美，否则不可同时满足",
+     "chapter": "pam-governance",
+     "verified": "2026-08-02",
+     "source": "《Inherent Trade-Offs in the Fair Determination of Risk Scores》arXiv 1609.05807",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "Shapley 型归因在特征相关时会把同一份贡献在相关特征间任意分配，并可能采样出现实中不存在的特征组合；它衡量的是与模型输出的统计关联，不含因果结构",
+     "chapter": "pam-governance",
+     "verified": "2026-08-02",
+     "source": "Molnar《Interpretable Machine Learning》Shapley 章；《Causal Analysis of Shapley Values: Conditional vs. Marginal》arXiv 2409.06157",
+     "recheck": "—",
+     "grade": "B",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "模型卡（Model Card）格式出自 Mitchell 等 2019 年论文，要求写明预期用途与不适用场景、评估过程，以及按人群分组和交叉分组的表现",
+     "chapter": "pam-governance",
+     "verified": "2026-08-02",
+     "source": "《Model Cards for Model Reporting》arXiv 1810.03993（Mitchell 等，FAT* 2019）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "180",
+     "due": "2027-01-29"
+    },
+    {
+     "text": "同一套实验追踪与模型注册表可以同时装传统预测式模型与生成式应用：MLflow 官方表述为同一套工具既管 transformer 训练管线，也管多智能体 RAG 系统",
+     "chapter": "pam-platform",
+     "verified": "2026-08-02",
+     "source": "MLflow 官方博客与文档（mlflow.org，2026-08-02 查见）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Azure 侧两种 AI 分属两个门面：Azure Machine Learning 主管自训练的预测式模型与 MLOps，Microsoft Foundry 主管生成式应用；两处都能接大模型，微软官方为此专门提供「该用哪个工作室」的选择指引",
+     "chapter": "pam-platform",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn《What is Azure Machine Learning?》（页面 updated 2026-03-30）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "预测式监控的云上落点（服务名快照）：Azure ML 表格数据内建监控信号、Vertex AI 模型监控、AWS SageMaker Model Monitor（已不再向新客户开放，官方改荐开源自建）；开源侧代表为 Evidently（漂移检测）与 NannyML（无真值期性能估计）",
+     "chapter": "pam-monitoring",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn《Model monitoring in production - Azure Machine Learning》；AWS 文档 sagemaker/latest/dg/model-monitor.html 与 model-monitor-availability-change.html；Google Cloud Vertex AI 模型监控文档；Evidently 与 NannyML 官方文档（均 2026-08-02 查见）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "两种 AI 的云上门面（服务名快照）：注册与实验为 SageMaker 托管 MLflow、Vertex AI 模型注册表、Azure ML 注册表；生成式侧另有 Bedrock、Vertex AI Studio、Microsoft Foundry；在线服务为 SageMaker 端点、Vertex 端点、Azure ML 在线端点",
+     "chapter": "pam-platform",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn《What is Azure Machine Learning?》（页面 updated 2026-03-30）；AWS SageMaker 与 Bedrock 产品文档；Google Cloud Vertex AI 产品文档（均 2026-08-02 查见）",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    }
+   ],
+   "edges": [
+    {
+     "from": "pam-what-why",
+     "to": "solution-patterns#sp-method",
+     "why": "「我们已经有 X 了」的通用答法（增量价值三问）在 SP 与实战包已成型，本册补预测式这一格的具体内容：存量模型是资产不是竞品，切入点在运维、生成式能力、数据与特征底座三条（双向）",
+     "resolved": true
+    },
+    {
+     "from": "pam-monitoring",
+     "to": "ai-ops#ops-drift",
+     "why": "同名不同物，最需要互指的一条：那边的漂移发生在没有客观真值的生成式应用上（供应商静默换权重、输出漂移），本册的漂移有真值但有标签延迟，七类信号对七种动作；两章各自声明「这里说的漂移指哪一种」（双向）",
+     "resolved": true
+    },
+    {
+     "from": "pam-lifecycle",
+     "to": "ai-ops#ops-release",
+     "why": "发布门的骨架（门禁在前、影子、金丝雀、回滚是切指针）两边共用，不重讲；本册只补预测式独有的两点——可以双跑逐条对账，以及标签没成熟前判不出胜负",
+     "resolved": true
+    },
+    {
+     "from": "pam-features-time",
+     "to": "data-engineering#de-pipeline",
+     "why": "上下游：数据怎么进来、怎么增量同步归 DE，本册接手的是同一份数据被当成特征时的时间语义与点时取数",
+     "resolved": true
+    },
+    {
+     "from": "pam-monitoring",
+     "to": "data-engineering#de-quality",
+     "why": "七类信号里第一类「数据质量故障」的检查项与责任面在 DE 第 5 章，本册只讲怎么把它和漂移信号分开——分不开就会去重训一个其实没坏的模型（双向）",
+     "resolved": true
+    },
+    {
+     "from": "pam-model-choice",
+     "to": "model-landscape#ml-selection",
+     "why": "边界声明：客户问「用什么模型」要先分清问的是哪一类——大模型选型（榜单、价格带、许可证）在 Model-Landscape，表格与时序模型的算法取舍在本册",
+     "resolved": true
+    },
+    {
+     "from": "pam-problem-framing",
+     "to": "evaluation#eval-build",
+     "why": "对照关系：Evaluation 讲没有客观真值时怎么建集、怎么判分，本册讲有客观真值时指标怎么挑、离线指标涨了业务没涨怎么办；两边共用「签字的验收线」这套交付语言",
+     "resolved": true
+    },
+    {
+     "from": "pam-lifecycle",
+     "to": "fine-tuning#ft-eval-deploy",
+     "why": "「训练」这个词两边指的不是一回事：那边是拿自己数据改 LLM 权重、产物是 adapter，本册是从头拟合一个预测式模型、产物多数走批量打分；售前要能当场分清客户说的是哪一种",
+     "resolved": true
+    },
+    {
+     "from": "pam-platform",
+     "to": "ai-infra-platform#aip-overview",
+     "why": "共用得了的那半截（K8s+GPU、队列与配额、存储、容错）全在 AIP，本册不重讲，只讲上层为什么合并不了",
+     "resolved": true
+    },
+    {
+     "from": "pam-governance",
+     "to": "security#sec-china",
+     "why": "备案范围与合规数字在 Security 第 8 章，本册不复制；只讲预测式独有的落点——拒绝理由要说得出、模型卡、独立验证与持续监控记录",
+     "resolved": true
+    }
+   ],
+   "web": "",
+   "questions": []
   },
   {
    "id": "pe",
@@ -6013,6 +7097,36 @@ window.KB = {
    ],
    "edges": [
     {
+     "from": "sec-china",
+     "to": "predictive-ai-mlops#pam-governance",
+     "why": "反向回指（2026-08-02 新模块建立）：备案范围与合规数字在 Security 第 8 章，本册不复制；只讲预测式独有的落点——拒绝理由要说得出、模型卡",
+     "resolved": true
+    },
+    {
+     "from": "sec-governance",
+     "to": "ai-governance#gov-frameworks",
+     "why": "反向回指（2026-08-02 新模块建立）：Security 第 7 章把 NIST／ISO／欧盟法案摆在威胁防护的收尾位置，给的是方位与时间线；本章接着讲",
+     "resolved": true
+    },
+    {
+     "from": "sec-china",
+     "to": "ai-governance#gov-china-interface",
+     "why": "反向回指（2026-08-02 新模块建立）：备案、登记、标识、国标、数据出境的条目与时点全在 Security 第 8 章；本章只讲分诊结论怎么变成用途登记",
+     "resolved": true
+    },
+    {
+     "from": "sec-supply-chain",
+     "to": "ai-governance#gov-registry",
+     "why": "反向回指（2026-08-02 新模块建立）：AI-BOM 记「系统里有哪些模型与组件」，用途登记记「有哪些 AI 用途、谁批的」，一条用途对应多条 AI-B",
+     "resolved": true
+    },
+    {
+     "from": "sec-defense",
+     "to": "ai-governance#gov-evidence",
+     "why": "反向回指（2026-08-02 新模块建立）：红队报告是高风险用途证据包的必备件；怎么打、打什么在 Security 第 6 章，本册管这件证据在不在包里、有",
+     "resolved": true
+    },
+    {
      "from": "sec-defense",
      "to": "evaluation#eval-scenarios",
      "why": "红队产出的攻破率/有害内容率/注入抵抗率汇入 Evaluation 安全维度验收,兑现其 `eval-scenarios → security(候选)` 边",
@@ -6331,6 +7445,18 @@ window.KB = {
     }
    ],
    "edges": [
+    {
+     "from": "sp-method",
+     "to": "predictive-ai-mlops#pam-what-why",
+     "why": "反向回指（2026-08-02 新模块建立）：「我们已经有 X 了」的通用答法（增量价值三问）在 SP 与实战包已成型，本册补预测式这一格的具体内容：存量模型",
+     "resolved": true
+    },
+    {
+     "from": "sp-method",
+     "to": "ai-governance#gov-decision",
+     "why": "反向回指（2026-08-02 新模块建立）：SP 第 2 章讲对客交付里的责任落点与合同话术（乙方视角），本册讲客户内部的决定权归属与证据链（甲方视角），两",
+     "resolved": true
+    },
     {
      "from": "sp-what-why",
      "to": "（全库）",

@@ -48,6 +48,11 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| sec-china | predictive-ai-mlops#pam-governance | 反向回指（2026-08-02 新模块建立）：备案范围与合规数字在 Security 第 8 章，本册不复制；只讲预测式独有的落点——拒绝理由要说得出、模型卡 |
+| sec-governance | ai-governance#gov-frameworks | 反向回指（2026-08-02 新模块建立）：Security 第 7 章把 NIST／ISO／欧盟法案摆在威胁防护的收尾位置，给的是方位与时间线；本章接着讲 |
+| sec-china | ai-governance#gov-china-interface | 反向回指（2026-08-02 新模块建立）：备案、登记、标识、国标、数据出境的条目与时点全在 Security 第 8 章；本章只讲分诊结论怎么变成用途登记 |
+| sec-supply-chain | ai-governance#gov-registry | 反向回指（2026-08-02 新模块建立）：AI-BOM 记「系统里有哪些模型与组件」，用途登记记「有哪些 AI 用途、谁批的」，一条用途对应多条 AI-B |
+| sec-defense | ai-governance#gov-evidence | 反向回指（2026-08-02 新模块建立）：红队报告是高风险用途证据包的必备件；怎么打、打什么在 Security 第 6 章，本册管这件证据在不在包里、有 |
 | sec-defense | evaluation#eval-scenarios | 红队产出的攻破率/有害内容率/注入抵抗率汇入 Evaluation 安全维度验收,兑现其 `eval-scenarios → security(候选)` 边 |
 | sec-agentic | agent#(护栏章) | Agent「评估与护栏」提出要防,本模块给系统性威胁与控权(最小权限/爆炸半径) |
 | sec-agentic | mcp#(安全章) | MCP 工具描述投毒与供应链安全,本模块第 4/5 章深化 |

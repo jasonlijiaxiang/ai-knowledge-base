@@ -43,6 +43,7 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| aip-overview | predictive-ai-mlops#pam-platform | 反向回指（2026-08-02 新模块建立）：共用得了的那半截（K8s+GPU、队列与配额、存储、容错）全在 AIP，本册不重讲，只讲上层为什么合并不了 |
 | aip-overview / 全书 | ai-infra-compute | 姊妹模块：本模块讲平台（调度/切分/容错/观测/云形态），对方讲硬件（卡/网/存储/电）；两模块封面/总览页互指 |
 | aip-scheduling / aip-faulttol | llm-training#llmtrain-infra | 训练作业是集群调度与容错的头号负载；那边讲并行怎么切模型，本模块讲作业怎么被调度、崩了怎么续 |
 | aip-serving | llm-inference#llminf-disagg | 推理引擎（vLLM/SGLang）与 P/D 分离（Dynamo/llm-d）机制在对方讲，本章讲平台承载：怎么被编排、部署、扩缩、路由 |

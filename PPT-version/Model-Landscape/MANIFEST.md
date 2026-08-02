@@ -59,6 +59,7 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| ml-selection | predictive-ai-mlops#pam-model-choice | 反向回指（2026-08-02 新模块建立）：边界声明：客户问「用什么模型」要先分清问的是哪一类——大模型选型（榜单、价格带、许可证）在 Model-Land |
 | ml-selection | evaluation#eval-benchmarks | 榜单饱和与 Leaderboard Illusion 的完整弹药在 Evaluation 第 2 章；自建评估集方法在其第 5 章——选型终审依赖它（双向） |
 | ml-selection / ml-price | ai-gateway#gw-route / ai-gateway#gw-cost | 三层路由与成本治理的工程落地件；Gartner 网关趋势同源（双向） |
 | ml-map / ml-open | llm#llm-architecture | MoE 稀疏激活是「开源追平」与三档定价的架构根源 |

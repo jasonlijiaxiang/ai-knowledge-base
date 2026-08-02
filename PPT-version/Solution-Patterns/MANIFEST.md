@@ -44,6 +44,8 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| sp-method | predictive-ai-mlops#pam-what-why | 反向回指（2026-08-02 新模块建立）：「我们已经有 X 了」的通用答法（增量价值三问）在 SP 与实战包已成型，本册补预测式这一格的具体内容：存量模型 |
+| sp-method | ai-governance#gov-decision | 反向回指（2026-08-02 新模块建立）：SP 第 2 章讲对客交付里的责任落点与合同话术（乙方视角），本册讲客户内部的决定权归属与证据链（甲方视角），两 |
 | sp-what-why | （全库） | 本模块是场景索引层：单向引用所有技术模块，技术模块无需反向依赖 |
 | sp-method | ai-gateway#gw-cost | 三本账的 token/并发治理在网关落地；成本治理机制见 AI-Gateway 第 4 章 |
 | sp-method | evaluation#eval-build | POC 三要素中「签字的指标」= 自建评估集方法，见 Evaluation 第 5 章 |

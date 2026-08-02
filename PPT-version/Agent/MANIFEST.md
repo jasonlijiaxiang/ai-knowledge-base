@@ -51,6 +51,7 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| agent-eval-guardrails | ai-governance#gov-risk-tiering | 反向回指（2026-08-02 新模块建立）：自主度是组织风险分层的一根轴；自主度的技术形态与控权手段在 Agent 与 Security，本册只规定从「给建 |
 | agent-context | pe#pe-advanced-reasoning | 上下文工程 / ReAct 是提示词技巧在工具循环里的应用；讲义已加「与 Prompt Engineering 的关系」页回指 |
 | agent-tools-mcp | mcp#mcp-what-why | Agent 第 4 章讲 MCP 概览，协议细节深入见 MCP 模块 |
 | agent-context | rag#rag-agentic | Agent 第 5 章"与 RAG 的握手" ↔ RAG 第 8 章，双向互引 |

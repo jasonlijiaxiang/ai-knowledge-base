@@ -40,6 +40,7 @@
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |
 | --- | --- | --- |
+| ft-eval-deploy | predictive-ai-mlops#pam-lifecycle | 反向回指（2026-08-02 新模块建立）：「训练」这个词两边指的不是一回事：那边是拿自己数据改 LLM 权重、产物是 adapter，本册是从头拟合一个预 |
 | ft-when | pe#pe-what-why | 选型链两端：提示词到头才微调；讲义已加「与 Prompt Engineering 的关系」页回指 |
 | ft-when | rag#rag-what-why | 「微调 vs RAG」互为镜像：RAG 从应用侧答，本章从微调侧收口（讲义第 1 章有专页） |
 | ft-methods | llm-training#llmtrain-sft | SFT 原理在那边，「拿自己数据落地」的方法选择在这边 |
