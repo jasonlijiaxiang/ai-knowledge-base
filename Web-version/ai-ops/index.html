@@ -207,7 +207,7 @@
   <p><b>巡检节奏</b>：日看板；周报告三个数字（judge 趋势 / 嵌入距离 / 回归通过率——<b>玄学变仪表盘</b>）；发现漂移先查供应商公告，再查自己的发布记录。</p>
   <p><b>巡检为什么持续收费</b>：威胁是持续的，基线断一个月就没了——像体检，<b>价值在连续性</b>。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../model-landscape/index.html#ml-selection" title="换模型/供应商静默更新的回归验证是「保持可换」的运维面">选型方法论<span class="xm">Model-Landscape</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../predictive-ai-mlops/index.html#pam-monitoring" title="反向回指（2026-08-02 新模块建立）：同名不同物，最需要互指的一条：那边的漂移发生在没有客观真值的生成式应用上（供应商静默换权重、输出漂移），本册的漂">上线之后：七类信号、七种动作与再训练触发<span class="xm">Predictive-AI-MLOps</span></a><a href="../ai-governance/index.html#gov-change-triggers" title="反向回指（2026-08-02 新模块建立）：供应商静默换 checkpoint 与三类漂移由 AI-Ops 监测；本册把这些告警接成「重新决定」的触发口，规">什么变化让原来的批准失效<span class="xm">AI-Governance</span></a><a href="../model-landscape/index.html#ml-selection" title="换模型/供应商静默更新的回归验证是「保持可换」的运维面">选型方法论<span class="xm">Model-Landscape</span></a></div>
 </section>
 
 <!-- ============ 5 ============ -->
@@ -285,7 +285,7 @@
   </div>
   <p>拼成组合发布号，<b>从任何一条 trace 一跳定位每层的不可变版本</b>。「什么都没改质量却掉了」，十有八九是没版本化的那层在动。模型升级当成一次大发布走全流程——<b>换模型是流程不是冒险</b>。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../prompt-engineering/index.html#pe-engineering" title="提示词版本化在 PE 第 5 章点过，本模块升级为发布工程（注册表/门禁/金丝雀）">工程化与自动优化<span class="xm">Prompt-Engineering</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../predictive-ai-mlops/index.html#pam-lifecycle" title="反向回指（2026-08-02 新模块建立）：发布门的骨架（门禁在前、影子、金丝雀、回滚是切指针）两边共用，不重讲；本册只补预测式独有的两点——可以双跑逐条对">从实验到生产：实验记录、模型注册表与发布门<span class="xm">Predictive-AI-MLOps</span></a><a href="../prompt-engineering/index.html#pe-engineering" title="提示词版本化在 PE 第 5 章点过，本模块升级为发布工程（注册表/门禁/金丝雀）">工程化与自动优化<span class="xm">Prompt-Engineering</span></a></div>
 </section>
 
 <!-- ============ 6 ============ -->
@@ -341,7 +341,7 @@
   <p><b>P1 的定义要和客户共创</b>——什么算「高危错误输出」由业务定。</p>
   <p><b>能签进 SLA 的和不能签的，先自己分清</b>：可用性、延迟、错误率，加上上面这张响应时效表，都是传统 SLO 的形态，照旧签得下来；<b>质量轴不能签成一个绝对分数</b>——同一套系统换个语料、换个问法就是另一个数，何况供应商还会静默换 checkpoint，今天签的分数下个月未必是同一个模型答的。质量轴该签的是三件守得住的事：<b>不跌破基线</b>（阈值从自己跑出来的基线定，不拍脑袋）、<b>发现得了</b>（回归集重跑与 judge 趋势的巡检节奏）、<b>止得住</b>（回滚与急停的时限）。把「答得多准」换成「坏了多久能发现、多久能止住」，是这类承诺唯一能兑现的写法。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-defense" title="「被攻破了怎么办」的防护弹药在 Security；注入检测与工具权限急冻同源">防护工程:护栏·模式·红队<span class="xm">Security</span></a><a href="../security/index.html#sec-agentic" title="「被攻破了怎么办」的防护弹药在 Security；注入检测与工具权限急冻同源">Agent 与工具安全<span class="xm">Security</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-governance/index.html#gov-decision" title="反向回指（2026-08-02 新模块建立）：暂停一个用途的技术动作（急停、回滚指针）在 AI-Ops 第 6 章；本册管谁有权按下、按下之后走什么复核路径、">五种决定：批准、条件批准、例外、暂停、退役<span class="xm">AI-Governance</span></a><a href="../security/index.html#sec-defense" title="「被攻破了怎么办」的防护弹药在 Security；注入检测与工具权限急冻同源">防护工程:护栏·模式·红队<span class="xm">Security</span></a><a href="../security/index.html#sec-agentic" title="「被攻破了怎么办」的防护弹药在 Security；注入检测与工具权限急冻同源">Agent 与工具安全<span class="xm">Security</span></a></div>
 </section>
 
 <!-- ============ 7 ============ -->
@@ -647,7 +647,7 @@
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
   <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
-   <a href="../ai-gateway/index.html"><span class="k">上一册 · 工程保障层</span><b>AI-Gateway</b></a>
+   <a href="../ai-governance/index.html"><span class="k">上一册 · 工程保障层</span><b>AI-Governance</b></a>
    <a class="nx" href="../evaluation/index.html"><span class="k">下一册 · 工程保障层</span><b>Evaluation</b></a>
   </nav>
   <!-- UPDATED:END -->

@@ -244,7 +244,7 @@
   </figure>
   <p>只签容器不签模型和数据，等于安检只查行李不查人；组合发布把全部组件一起固定，任一撤回都能定位受影响部署。MCP 工具生态的供应链面（工具描述投毒）在下一节与 <a href="../mcp/index.html">MCP 网页版</a>。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../fine-tuning/index.html" title="微调数据泄露、模型投毒与来源验证,是这两个模块的安全侧">Fine-tuning</a><a href="../llm-training/index.html" title="微调数据泄露、模型投毒与来源验证,是这两个模块的安全侧">LLM-Training</a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-governance/index.html#gov-registry" title="反向回指（2026-08-02 新模块建立）：AI-BOM 记「系统里有哪些模型与组件」，用途登记记「有哪些 AI 用途、谁批的」，一条用途对应多条 AI-B">按用途登记，不按模型登记<span class="xm">AI-Governance</span></a><a href="../fine-tuning/index.html" title="微调数据泄露、模型投毒与来源验证,是这两个模块的安全侧">Fine-tuning</a><a href="../llm-training/index.html" title="微调数据泄露、模型投毒与来源验证,是这两个模块的安全侧">LLM-Training</a></div>
 </section>
 
 <!-- ============ 5 ============ -->
@@ -354,7 +354,7 @@
   </div>
   <p class="ev">CaMeL 77% 核实 2026-07-09，来源 <a href="#src-camel">arXiv 2503.18813</a>；六类模式来源 <a href="#src-patterns">arXiv 2506.08837</a>。<b>不可外推边界</b>：77% 是论文基准环境下、对已知攻击集合的防护成功率，不是生产承诺，对未见手法没有保证——所以它在本册被放在纵深防御的一层，不是终点。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../evaluation/index.html#eval-scenarios" title="红队产出的攻破率/有害内容率/注入抵抗率汇入 Evaluation 安全维度验收,兑现其 `eval-scenarios → security(候选)` 边">场景验收:RAG / Agent / 微调<span class="xm">Evaluation</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-governance/index.html#gov-evidence" title="反向回指（2026-08-02 新模块建立）：红队报告是高风险用途证据包的必备件；怎么打、打什么在 Security 第 6 章，本册管这件证据在不在包里、有">证据包怎么组装<span class="xm">AI-Governance</span></a><a href="../evaluation/index.html#eval-scenarios" title="红队产出的攻破率/有害内容率/注入抵抗率汇入 Evaluation 安全维度验收,兑现其 `eval-scenarios → security(候选)` 边">场景验收:RAG / Agent / 微调<span class="xm">Evaluation</span></a></div>
 </section>
 
 <!-- ============ 7 ============ -->
@@ -403,6 +403,8 @@
     <b>定策略设门禁</b>（模型准入/数据分级/上线红队/高危审批做成 CI 门禁）→ <b>AI-SPM
     持续监控</b>（Defender for Cloud / Security Command Center / GuardDuty 组合）。治理是持续过程不是一纸报告——文档是结果，不是目的。</p>
   <p class="ev">EU AI Act 时间线核实 2026-08-01（Digital Omnibus 修正案 Regulation (EU) 2026/1744，2026-07-24 刊《官方公报》、07-27 生效），来源 <a href="#src-euact">欧盟官方</a>。<b>不可外推边界</b>：时间线是官方节点，适用与否取决于业务是否触达欧盟以及风险分级；日期本身不构成对某个具体产品的合规判断，以法务核定为准。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-governance/index.html#gov-frameworks" title="反向回指（2026-08-02 新模块建立）：Security 第 7 章把 NIST／ISO／欧盟法案摆在威胁防护的收尾位置，给的是方位与时间线；本章接着讲">各框架分别能证明什么、不能证明什么<span class="xm">AI-Governance</span></a></div>
 </section>
 
 <!-- ============ 8 ============ -->
@@ -451,6 +453,8 @@
   <p>风向（2026-08 口径，易过期）：AI 综合性立法已列入国务院 2026 立法计划；《人工智能拟人化互动服务管理暂行办法》2026-04-10 五部门公布、2026-07-15 施行——拟人化情感互动服务首次有了专门规矩；同日网信办公布首批 7 款手机端侧生成式 AI 服务备案（Apple 智能、小艺、蓝心等）——端侧作为新品类首次单开清单。</p>
   <p><b>数据出境</b>先查豁免再谈通道：《促进和规范数据跨境流动规定》六类豁免 + 自贸区负面清单；豁免不了走三通道——安全评估（重要数据/大规模个信必走）、标准合同（中等规模常用）、保护认证（集团内跨境）。客户问「数据能不能出境」先问三件事：是不是重要数据、多少人的个信、在不在自贸区清单内。云平台（火山引擎备案材料支持、阿里云百炼护栏默认挂载与备案指引）帮到材料与护栏，<b>法定「服务提供者」义务不转移</b>——审核、标识、投诉、备案主体一样不能少。</p>
   <p class="ev">备案量/标识执法/国标/出境口径核实 2026-07-17；立法风向（拟人化办法施行、首批端侧备案）核实 2026-08-01，来源<a href="#src-china">网信办公告与官方文本</a>。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../predictive-ai-mlops/index.html#pam-governance" title="反向回指（2026-08-02 新模块建立）：备案范围与合规数字在 Security 第 8 章，本册不复制；只讲预测式独有的落点——拒绝理由要说得出、模型卡">可解释、公平与模型风险管理<span class="xm">Predictive-AI-MLOps</span></a><a href="../ai-governance/index.html#gov-china-interface" title="反向回指（2026-08-02 新模块建立）：备案、登记、标识、国标、数据出境的条目与时点全在 Security 第 8 章；本章只讲分诊结论怎么变成用途登记">用途登记与中国备案要求怎么对接<span class="xm">AI-Governance</span></a></div>
 </section>
 
 <!-- ============ 9 ============ -->
@@ -768,7 +772,7 @@
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
   <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
-   <a href="../fine-tuning/index.html"><span class="k">上一册 · 工程保障层</span><b>Fine-tuning</b></a>
+   <a href="../predictive-ai-mlops/index.html"><span class="k">上一册 · 工程保障层</span><b>Predictive-AI-MLOps</b></a>
    <a class="nx" href="../llm/index.html"><span class="k">下一册 · 基础层</span><b>LLM</b></a>
   </nav>
   <!-- UPDATED:END -->

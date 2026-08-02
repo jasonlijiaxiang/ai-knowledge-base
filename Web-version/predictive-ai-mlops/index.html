@@ -1,0 +1,1667 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>预测式 AI 与 MLOps · AI 知识库网页版</title>
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723m">
+</head>
+<body>
+
+<nav class="topbar"><div class="tb">
+ <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
+ <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
+ <span class="ver">v0723m</span>
+</div></nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="crumb">工程保障层 · 网页版</p>
+    <h1><span class="en">Predictive AI &amp; MLOps</span>预测式 AI 与 MLOps</h1>
+    <p class="lede">客户风控组的评分卡跑了十年，你们这套跟它到底什么关系？这一页把预测式模型的一生连成一条线：切题 → 特征的时间语义 → 发布门 → 上线之后的七类信号，每一步都落到「这句话会让你在客户面前做出什么不同的动作」。讲义 PPT 见页脚链接。</p>
+    <div class="hr"></div>
+    <p class="lede" style="margin-top:0">
+      <span class="badge ok">核实窗口 2026-08-02</span>
+      <span class="badge recheck">平台与服务形态月级变动 · 方法与时间语义长青</span>
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="cols">
+
+<nav class="toc" aria-label="本页目录">
+  <h4>本页目录</h4>
+  <ol>
+    <li><a href="#pam-what-why">1 · 「我们已经有一堆模型了」：两种 AI 各管什么</a></li>
+    <li><a href="#pam-model-choice">2 · 算法取舍地图：表格、时序、排序、异常</a></li>
+    <li><a href="#pam-problem-framing">3 · 把业务问题切成可学的题：预测时点、标签窗口、样本单元</a></li>
+    <li><a href="#pam-features-time">4 · 特征的时间语义：穿越与训练服务偏差</a></li>
+    <li><a href="#pam-feature-store">5 · 特征平台：什么时候才真需要</a></li>
+    <li><a href="#pam-lifecycle">6 · 从实验到生产：实验记录、注册表与发布门</a></li>
+    <li><a href="#pam-monitoring">7 · 上线之后：七类信号、七种动作与再训练触发</a></li>
+    <li><a href="#pam-governance">8 · 可解释、公平与模型风险管理</a></li>
+    <li><a href="#pam-platform">9 · 一套平台装得下生成式和预测式吗</a></li>
+    <li><a href="#pam-cheatsheet">10 · 售前速查</a></li>
+    <li><a href="#cloud">11 · 上云怎么落地</a></li>
+    <li><a href="#qa">12 · 现场高频追问</a></li>
+    <li><a href="#related">13 · 相关模块</a></li>
+    <li><a href="#sources">14 · 来源与核实</a></li>
+  </ol>
+</nav>
+
+<article>
+
+<!-- ============ 1 ============ -->
+<section class="sec" id="pam-what-why">
+  <h2><span class="num">01</span>「我们已经有一堆模型了」：两种 AI 各管什么<a class="anchor" href="#pam-what-why">#pam-what-why</a></h2>
+
+  <div class="lead">
+    <p>客户风控组的评分卡跑了十年——这句话不是异议，是一份资产清单。接住它的办法是<b>按输出物分，别按新旧分</b>：一个像体温计，读出一个数；一个像写手，交出一段内容。分诊只有一问：<b>这个输出要不要拿去排序、卡阈值、结算？</b>要，归预测式；不要，多半归生成式；两边都要，那就是接力，下面那笔刷卡走一遍就清楚。</p>
+    <div class="keypoints">
+      <div><b>读出一个数</b><span>输入自家结构化记录，输出概率、金额或类别；权重在你的数据上从头训，是客户自己的资产</span></div>
+      <div><b>交出一段内容</b><span>输入提示词，输出文本、图像或一次工具调用；能力来自别人预训练好的权重，租着用</span></div>
+      <div><b>那句话怎么答</b><span>存量模型不用换，要补的是它周边——时间语义、上线后的信号、什么时候该重训</span></div>
+    </div>
+  </div>
+
+  <h3>六格摆开，「你们跟它什么关系」当场有答案</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>这一格</th><th>预测式 AI</th><th>生成式 AI</th></tr></thead>
+    <tbody>
+     <tr><td><b>能力从哪来</b></td><td>在客户自己的历史数据上训出来</td><td>别人预训练好，你提示或微调</td></tr>
+     <tr><td><b>好坏怎么量</b></td><td>命中率、召回这类硬指标，<b>有真值</b></td><td>靠判官或人审，真值常常没有</td></tr>
+     <tr><td><b>出错长什么样</b></td><td>分数慢慢偏，没人喊，静静地烂</td><td>答得离谱，一眼看得出</td></tr>
+     <tr><td><b>单次调用成本</b></td><td>自家机器上一次运算，可忽略</td><td>按 token 计费，量一大就贵</td></tr>
+     <tr><td><b>最大的风险</b></td><td>特征穿越，离线好看上线崩</td><td>幻觉、注入与内容合规</td></tr>
+     <tr><td><b>换供应商</b></td><td><b>换不了</b>，模型是客户自己的</td><td>换模型是常态，选型另有一册</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>这张表最值钱的是「换供应商」那行：预测式那一侧客户换不掉，因为权重是他自己数据训出来的资产——这既是他不肯换的理由，也是你不该去碰它的理由。生成式那一侧的选型与价格不在本页，见下面的串联。</p>
+
+  <h3>同一笔可疑交易，两种 AI 各站一棒</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 124" role="img" aria-label="一笔可疑交易的五棒接力：预测式出分、按阈值卡线进人工队列、拉出贡献大的特征做解释、生成式写核实短信、持卡人回复回收成新标签">
+     <g font-family="var(--sans)">
+      <rect x="6" y="26" width="124" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="68" y="46" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">1 出分</text>
+      <text x="68" y="63" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">打一个欺诈概率</text>
+      <text x="68" y="78" text-anchor="middle" font-size="10" fill="var(--ink-400)">毫秒级，预测式</text>
+      <rect x="152" y="26" width="124" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="214" y="46" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">2 卡线</text>
+      <text x="214" y="63" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">超阈值才进人工</text>
+      <text x="214" y="78" text-anchor="middle" font-size="10" fill="var(--ink-400)">阈值按容量定</text>
+      <rect x="298" y="26" width="124" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="360" y="46" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">3 解释</text>
+      <text x="360" y="63" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">拉出贡献大的特征</text>
+      <text x="360" y="78" text-anchor="middle" font-size="10" fill="var(--ink-400)">给审核员看</text>
+      <rect x="444" y="26" width="124" height="62" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="506" y="46" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">4 说话</text>
+      <text x="506" y="63" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">写核实短信给持卡人</text>
+      <text x="506" y="78" text-anchor="middle" font-size="10" fill="var(--blue-d)">这一棒归生成式</text>
+      <rect x="590" y="26" width="124" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="652" y="46" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">5 回收</text>
+      <text x="652" y="63" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">回复变成新标签</text>
+      <text x="652" y="78" text-anchor="middle" font-size="10" fill="var(--ink-400)">喂回下一轮</text>
+      <path d="M132 57 H144 M278 57 H290 M424 57 H436 M570 57 H582" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M148 57 l-6 -3.5 v7 z M294 57 l-6 -3.5 v7 z M440 57 l-6 -3.5 v7 z M586 57 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="110" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">出分那一棒仍归预测式，生成式站在下游做「说人话」</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>五棒里只有第 4 棒是新东西，其余四棒客户多半已经有了。<b>卖点不在替换第 1 棒，在把第 5 棒接回第 1 棒</b>——持卡人的回复变成新标签，这条回路才是后面所有重训的燃料。</figcaption>
+  </figure>
+
+  <h3>大模型接不了预测式的活，卡在三处</h3>
+  <p>这三件事它在结构上做不到，跟能力强弱无关——客户提「为什么不直接让大模型预测」时，答这三条比答「效果不好」有力得多。</p>
+  <div class="grid">
+   <div class="box"><h4>概率不是估的</h4><p>它给的「85%」是生成出来的字，不是在你数据上估的。<b>没有校准过，就没法按阈值排队、算期望损失</b>——上一张图的第 2 棒直接失效。</p></div>
+   <div class="box"><h4>没学过你的数</h4><p>客户的申请表字段、内部风控规则，预训练里没有。塞进提示词只是<b>这一次可见</b>，学不进权重。</p></div>
+   <div class="box"><h4>量一大就贵</h4><p>每天几百万次打分，按 token 计费的形态撑不住；一次本机运算换成一次远程调用，延迟也不是一个量级。</p></div>
+   <div class="box"><h4>反过来也一样</h4><p>预测式读不懂合同正文，也说不出人话的理由。<b>非结构化材料进来，先让生成式转成字段</b>——这才是两边真正的分工线。</p></div>
+  </div>
+
+  <h3>答不上这四句，模型就先别立项</h3>
+  <p>这四句是立项会上最省时间的四句。答不上来比答错更值钱：它当场把「要不要做模型」变成「先做哪件事」。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>先问这句</th><th>答不上来意味着</th><th>那就先做这个</th></tr></thead>
+    <tbody>
+     <tr><td>这个分数给谁看，他会改做什么</td><td>模型再准也不会改变任何动作</td><td>先把那个动作和责任人找出来</td></tr>
+     <tr><td>有没有「后来真的发生了」的记录</td><td>没有标签，这题学不了</td><td>先把业务结果回收成记录</td></tr>
+     <tr><td>一条规则能顶多少</td><td>没有基线，说不清模型值多少</td><td>先上规则版，把它当标尺</td></tr>
+     <tr><td>跑起来之后谁来养</td><td>持续维护的成本会被严重低估</td><td>先算人和值班，别只算训练</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">「先上规则版」不是保守，是有出处的做法：Google《Rules of Machine Learning》第 1 条写的是别怕先发一个没有机器学习的版本，并写明若你认为机器学习能带来 100% 的提升，启发式规则能带你走完其中一半。核实 2026-08-02，来源 <a href="#src-rules-of-ml">Google 官方工程指南</a>。<b>不可外推边界</b>：这是经验法则，那「一半」不是任何具体项目的实测值，别拿去当承诺给客户。</p>
+  <p class="ev">第四句「谁来养」有一篇经典论文撑着：Sculley 等《Hidden Technical Debt in Machine Learning Systems》（NeurIPS 2015）论断真实世界的机器学习系统普遍会背上巨大的持续维护成本，风险因子包括边界侵蚀、纠缠、隐藏反馈回路、未申报的消费方、数据依赖与外部世界变化。核实 2026-08-02，来源 <a href="#src-rules-of-ml">工程实践文献</a>。<b>不可外推边界</b>：这是 2015 年的定性论述，不含任何成本比例或金额——报价时别说「论文说维护占几成」。</p>
+
+  <div class="box">
+   <h4>「是不是要建两个平台、招两拨人」</h4>
+   <p>这是第一章现场必被追问的一句。答法：<b>数据管线、权限审计、上线流程和值班可以合；训练算力形态和评估方式合不了。</b>哪一层合得起来有一张分界表，见<a href="#pam-platform">一套平台装得下生成式和预测式吗</a>。人先合在一起，别开局就拆两支。</p>
+  </div>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../solution-patterns/index.html#sp-method" title="「我们已经有 X 了」的通用答法（增量价值三问）在 SP 与实战包已成型，本册补预测式这一格的具体内容：存量模型是资产不是竞品，切入点在运维、生成式能力、数据与特征底座三条（双…">方案共性方法<span class="xm">Solution-Patterns</span></a></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="sec" id="pam-model-choice">
+  <h2><span class="num">02</span>算法取舍地图：表格、时序、排序、异常<a class="anchor" href="#pam-model-choice">#pam-model-choice</a></h2>
+
+  <div class="lead">
+    <p>客户问「你们用什么算法」，最不该做的是报一串模型名。正确答法是<b>先把需求落进四种数据形状</b>——落对了，算法就没什么可争的；落不进去，多半是题还没切开，那是<a href="#pam-problem-framing">下一节</a>的事。这一节顺带给你三条公开基准结论，用来接住客户那三句最常见的话。</p>
+  </div>
+
+  <h3>四种数据形状，各有一个不用解释的默认解</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>数据长什么样</th><th>先上什么</th><th>什么时候再往上走</th><th>怎么验收</th></tr></thead>
+    <tbody>
+     <tr><td>一行一个样本的表格</td><td><b>梯度提升树</b>（GBDT，Gradient Boosting Decision Tree）</td><td>样本很少或特征极多时试基础模型</td><td><b>按时间切，别随机切</b></td></tr>
+     <tr><td>按时间排的销量、话务量</td><td>先做季节性朴素基线</td><td>多条相关序列一起学时上树模型</td><td>滚动时间窗回测</td></tr>
+     <tr><td>要挑出前 N 个去处理</td><td>还是树，但换指标</td><td>候选量极大时才上双塔召回</td><td>看前 N 名的命中率</td></tr>
+     <tr><td>几乎没有正样本的异常</td><td><b>先去找那 1% 的标签</b></td><td>确实一个标签都没有才上无监督</td><td>人工复核带宽定 N</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>两处口径要记准：GBDT 的常见实现是 XGBoost、LightGBM、CatBoost，客户报哪个名字都落在同一格里；排序那行的指标写作 precision@k，<b>k 就是客户每天处理得了的条数</b>，不是一个可调的超参。</p>
+
+  <h3>想上更新的算法，先过这三道门槛</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 146" role="img" aria-label="换算法的三道门槛依次为样本量、时间预算、上线门槛，三道全过才谈换掉默认解；任何一道过不了，默认解仍是梯度提升树">
+     <g font-family="var(--sans)">
+      <rect x="6" y="26" width="162" height="58" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="87" y="48" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">1 样本量</text>
+      <text x="87" y="64" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">很少时基础模型能打</text>
+      <text x="87" y="77" text-anchor="middle" font-size="10" fill="var(--ink-400)">上了量，树更省心</text>
+      <rect x="188" y="26" width="162" height="58" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="269" y="48" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">2 时间预算</text>
+      <text x="269" y="64" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">深度模型要更长的调参</text>
+      <text x="269" y="77" text-anchor="middle" font-size="10" fill="var(--ink-400)">与集成才追平树</text>
+      <rect x="370" y="26" width="162" height="58" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="451" y="48" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">3 上线门槛</text>
+      <text x="451" y="64" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">得说得出拒绝理由</text>
+      <text x="451" y="77" text-anchor="middle" font-size="10" fill="var(--ink-400)">特征管线要重做一遍</text>
+      <rect x="552" y="26" width="162" height="58" rx="8" fill="var(--card)" stroke="var(--ok)" stroke-width="1.5"/>
+      <text x="633" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">三道全过</text>
+      <text x="633" y="68" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">才谈换掉默认解</text>
+      <path d="M170 55 H182 M352 55 H364 M534 55 H546" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M186 55 l-6 -3.5 v7 z M368 55 l-6 -3.5 v7 z M550 55 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <path d="M87 84 V104 M269 84 V104 M451 84 V104" stroke="var(--warn)" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <rect x="6" y="104" width="526" height="34" rx="8" fill="var(--card)" stroke="var(--warn)" stroke-width="1.5"/>
+      <text x="269" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">任何一道过不了 → 默认解就是梯度提升树</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>三道门是<b>依次</b>过的，不是打分投票。POC 排期里通常没有第 2 道那笔预算，所以现场大多数「上最新算法」的诉求，会停在第 2 道门前——把省下的预算挪去切题，回报高得多。</figcaption>
+  </figure>
+
+  <h3>客户那三句话，公开基准早就正面回答过</h3>
+  <div class="grid">
+   <div class="box">
+    <h4>「深度模型赢了」</h4>
+    <p>TabArena 活体基准的结论：梯度提升树在实用表格数据上<b>仍是强对手</b>；深度学习方法要在更大时间预算下配合集成才追上；基础模型在小数据集上表现突出；<b>跨模型集成才是当前表格机器学习的最好成绩</b>。</p>
+   </div>
+   <div class="box">
+    <h4>「时序还是统计稳」</h4>
+    <p>M5 零售销量预测竞赛是第一次所有顶尖方法都是纯机器学习方法、且显著优于全部统计基准及其组合；<b>前 50 名几乎全部采用按门店或品类训练的 LightGBM 且全部跨序列共学</b>；获奖方案在 WRMSSE 上平均比 24 个基准好 20% 以上，冠军本身是 6 个模型的等权平均。</p>
+   </div>
+   <div class="box">
+    <h4>「没标签只能无监督」</h4>
+    <p>ADBench 跑了 30 个算法 × 57 个数据集：被测<b>无监督算法之间统计上谁也不比谁强</b>；只要 1% 的标注异常，多数半监督方法就能超过最好的无监督方法；受控环境下针对特定异常类型的最佳无监督方法可反超半监督与全监督。</p>
+   </div>
+  </div>
+  <p>这三条改变的动作很具体：客户说「先上深度模型」，你把预算谈成「先用树立基线，省下的时间做切题」；客户说「一个标签都没有」，你把第一期做成<b>凑那 1% 标签</b>的工程，而不是直接交一个没法验收的无监督方案。</p>
+  <p class="ev">TabArena 为 NeurIPS 2025 数据集与基准赛道 Spotlight（arXiv:2506.16791 v4，2025-11-03）；表格基础模型的规模上限按 Prior Labs 官方文档：TabPFNv2 为 1 万样本 / 500 特征 / 10 类，TabPFN-2.6 为 10 万样本 / 2000 特征，TabPFN-3 与 TabPFN-3-Plus 为 100 万行 × 200 特征（可换成 10 万 × 2000 或 1000 × 2 万）、160 类。核实 2026-08-02，来源 <a href="#src-tabular">表格模型基准与官方文档</a>。<b>不可外推边界</b>：TabArena 是公开精选数据集上的排名，不代表客户数据上的名次；那几个规模上限只说跑得动多大，<b>不代表在该规模上压得过树</b>，也不含耗时与显存。</p>
+  <p class="ev">M5 结论出自竞赛组织方的官方总结论文 Key findings 一节；ADBench 为 NeurIPS 2022 数据集与基准赛道论文。核实 2026-08-02，来源 <a href="#src-m5-adbench">竞赛总结与异常检测基准</a>。<b>不可外推边界</b>：M5 是零售销量单场竞赛的结论，不能外推到所有时序场景；ADBench 那个 1% 是公开数据集上的平均结论，不是保证——客户拿不出这 1%，方案就得改口径。</p>
+
+  <div class="box">
+   <h4>「我们的需求落不进这四格」</h4>
+   <p>多半是题还没切开。先说清一行代表谁、站在哪一刻判断、往后看多久算发生，切完通常就落进某一格。真落不进，先做规则版，别硬凑模型。</p>
+  </div>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../model-landscape/index.html#ml-selection" title="边界声明：客户问「用什么模型」要先分清问的是哪一类——大模型选型（榜单、价格带、许可证）在 Model-Landscape，表格与时序模型的算法取舍在本册">选型方法论<span class="xm">Model-Landscape</span></a></div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="sec" id="pam-problem-framing">
+  <h2><span class="num">03</span>把业务问题切成可学的题：预测时点、标签窗口、样本单元<a class="anchor" href="#pam-problem-framing">#pam-problem-framing</a></h2>
+
+  <div class="lead">
+    <p>「预测客户会不会流失」不是一道题，是十几道。这句话里缺四样东西，补齐了才有得学——而且这四样一变，样本量、正样本比例、上线方式全跟着变。<b>算法选对照样会崩，题切错了后面全白做。</b></p>
+    <div class="keypoints">
+      <div><b>样本单元</b><span>一行代表谁：一个客户，还是一个客户一个月</span></div>
+      <div><b>预测时点</b><span>站在哪一刻做判断，那一刻能看到什么</span></div>
+      <div><b>标签窗口</b><span>往后看多久算发生，看不到就算没发生</span></div>
+      <div><b>判定口径</b><span>什么动作算流失：退订、零消费还是销户</span></div>
+    </div>
+  </div>
+
+  <h3>三段时间轴，画错一段模型就在偷看未来</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 190" role="img" aria-label="切题的三段时间轴：预测时点左侧是观察窗，特征只能从这里取；右侧是标签窗，答案在这里揭晓；标签窗走完才算答案成熟，取特征跨过预测时点即为穿越">
+     <g font-family="var(--sans)">
+      <text x="340" y="20" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">上线后模型真正被调用的那一刻</text>
+      <text x="340" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="var(--red)">预测时点 · 每月 1 日零点</text>
+      <rect x="56" y="78" width="284" height="40" rx="6" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="198" y="96" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">观察窗 · 过去 90 天</text>
+      <text x="198" y="112" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">特征只能从这里取</text>
+      <rect x="340" y="78" width="232" height="40" rx="6" fill="var(--line-2)" stroke="var(--warn)"/>
+      <text x="456" y="96" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">标签窗 · 往后 60 天</text>
+      <text x="456" y="112" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">答案在这里揭晓</text>
+      <path d="M24 124 H698" stroke="var(--line)" stroke-width="1.5"/>
+      <path d="M700 124 l-8 -4 v8 z" fill="var(--line)"/>
+      <text x="698" y="142" text-anchor="end" font-size="10.5" fill="var(--ink-400)">时间</text>
+      <path d="M340 46 V158" stroke="var(--red)" stroke-width="2" stroke-dasharray="5 4"/>
+      <circle cx="340" cy="124" r="4" fill="var(--red)"/>
+      <path d="M572 66 V132" stroke="var(--ok)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="572" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ok)">答案揭晓</text>
+      <text x="572" y="146" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">POC 要等这么久</text>
+      <text x="360" y="176" text-anchor="middle" font-size="11.5" fill="var(--red)">取特征跨过这条红线，就是在偷看未来——离线亮眼、上线掉一截的头号成因</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>观察窗太短学不到行为，太长把老黄历也算进来；标签窗一改，正样本比例和模型一起变。<b>训练样本必须严格模拟预测时点那一刻能看到什么。</b>图上的 90 天、60 天、每月 1 日都是举例，换成客户自己的业务节奏。</figcaption>
+  </figure>
+
+  <h3>同一句「预测流失」，四种切法切出四道题</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>切法</th><th>样本单元</th><th>预测时点</th><th>这道题回答什么</th></tr></thead>
+    <tbody>
+     <tr><td>每月一评</td><td>客户 × 月</td><td>每月 1 日零点</td><td>这个月该给谁发挽留券</td></tr>
+     <tr><td>合同到期前</td><td>一份合同</td><td>到期前 30 天</td><td>续约谈判该先谈谁</td></tr>
+     <tr><td>行为触发</td><td>一次投诉</td><td>投诉发生后 1 小时</td><td>这通投诉要不要升级</td></tr>
+     <tr><td>新客早期</td><td>客户 × 首月</td><td>注册后第 7 天</td><td>新客引导该盯哪些人</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>四道题的样本量、正样本比例、上线方式全不同，报价也不同。<b>现场先问一句「这个分数谁在什么时候看」</b>，客户答完，四行里落哪一行当场就定了——这比讨论算法快十倍。上表的时点与天数同样是举例。</p>
+
+  <h3>标签是等出来的，等多久直接写进 POC 排期</h3>
+  <p>这是预测式项目最容易被低估的一项成本，也最容易在排期会上翻车。它和数据标注不是一回事：标注的成本在人力，标签成熟的成本在<b>时间</b>，加人加不快。</p>
+  <div class="grid">
+   <div class="box"><h4>成熟期定周期</h4><p>标签窗定 60 天，就得等 60 天才知道答案。POC 两周要出结论，只能改用更早的历史切片，让窗口在过去已经走完——代价是那段时间的业务环境和现在不一样，这句话要提前说，不要等验收时才说。</p></div>
+   <div class="box"><h4>半熟的会骗人</h4><p>窗口没走完就统计，正样本比例天然偏低，<b>看着模型很准，其实只是答案还没揭晓</b>。表现是越近的月份看着越「好转」——见下面症状表第三行。</p></div>
+   <div class="box"><h4>有些永远等不到</h4><p>被拒贷的人到底会不会违约，你不会知道。这叫拒绝推断（reject inference），常见做法是留一小撮随机放行做对照来估被拒人群的真实表现，<b>代价是这一小撮要认下真实损失</b>。没有这块对照，模型只会越来越像现有规则。</p></div>
+  </div>
+
+  <h3>离线亮眼、上线掉一截，症状全在这四行</h3>
+  <p>这四种在训练集上一个都不报错，只有上线那天才显形——所以它们不是「调参没调好」，是题切错了。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>症状</th><th>真正的病因</th><th>上线后表现</th></tr></thead>
+    <tbody>
+     <tr><td>某个特征强得离谱</td><td>它是结果不是原因，预测时点之后才有</td><td>线上根本取不到这个字段</td></tr>
+     <tr><td>离线分数高得不像真的</td><td>同一个客户同时进了训练集和测试集</td><td>上线掉一截，阈值全部要重定</td></tr>
+     <tr><td>正样本比例逐月跳</td><td>标签窗还没走完就统计</td><td>越近的月份看着越「好转」</td></tr>
+     <tr><td>模型只认老客户</td><td>只用现存客户建样本，走掉的没进来</td><td>对流失边缘完全无感</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>前两行从源头堵住的办法是时间点正确的取数，那是<a href="#pam-features-time">特征的时间语义</a>整节在讲的事，也是本页公认的头号事故源。现场遇到「离线测出来很漂亮，为什么上线掉一大截」，先按这四行对号，别先去动模型。</p>
+
+  <h3>指标不是挑出来的，是被容量和成本逼出来的</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>客户的约束</th><th>指标该定成什么</th><th>先问他这句</th></tr></thead>
+    <tbody>
+     <tr><td><b>容量上限</b>：每天只能打 500 通电话</td><td>看前 500 名的命中率——AUC，Area Under the Curve 排得再好，第 501 名也轮不上</td><td>这个 500 是硬上限还是能加人</td></tr>
+     <tr><td><b>成本不对称</b>：漏放一笔欺诈比误报一笔贵得多</td><td>写成「误报率不超过 X 时的召回」</td><td>误报一笔的处理成本是多少</td></tr>
+     <tr><td><b>极端不平衡</b>：正样本千分之一</td><td>改看 PR 曲线，Precision-Recall，或按分位数看提升——<b>全判成负也有 99.9% 准确率</b></td><td>这个千分之一是全量还是筛后</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>上表的 500 和千分之一都是举例。这三行合起来是一句对客的话：<b>验收线由客户的处理容量和错判成本定，不由我们挑指标定</b>——先把这两个数问出来，验收争议在立项那天就消掉一半。</p>
+  <p class="ev">Google《Rules of Machine Learning》第 4 条：先把第一个模型做简单，把基础设施做对（Keep the first model simple and get the infrastructure right）。核实 2026-08-02，来源 <a href="#src-rules-of-ml">Google 官方工程指南</a>。<b>不可外推边界</b>：这是工程经验法则，一个阈值都不含——标签窗该多长、前 N 名的 N 该多大，它一个数都给不了，只能由业务动作和客户当天的处理容量定。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../evaluation/index.html#eval-build" title="对照关系：Evaluation 讲没有客观真值时怎么建集、怎么判分，本册讲有客观真值时指标怎么挑、离线指标涨了业务没涨怎么办；两边共用「签字的验收线」这套交付语言">自建评估:数据集与指标设计<span class="xm">Evaluation</span></a></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="sec" id="pam-features-time">
+  <h2><span class="num">04</span>特征的时间语义：穿越与训练服务偏差<a class="anchor" href="#pam-features-time">#pam-features-time</a></h2>
+
+  <div class="lead">
+    <p>「离线 0.95、上线 0.7」这句话，十有八九不是模型的问题，是取数的问题：训练时看见了预测那一刻看不见的数据。这是本册的头号事故源，也是唯一一类<b>只让分数变好、不报错、不抛异常</b>的错——交叉验证也查不出来，它切的是行，不是时间。</p>
+    <div class="keypoints">
+      <div><b>症状</b><span>离线分高出团队历史水平，灰度一周就明显回落</span></div>
+      <div><b>共因</b><span>训练表里混进了预测时点之后才有的信息</span></div>
+      <div><b>为什么难发现</b><span>穿越只往好了偏，重训、换算法、加数据都不管用</span></div>
+    </div>
+  </div>
+
+  <h3>取数纪律：把自己放回预测发生的那一秒</h3>
+  <p>规矩只有一条——<b>那一刻取不到的数据，训练时也不许取</b>。展开是五步：</p>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 114" role="img" aria-label="点时取数五步：先定预测时点、只取已落库的、各取各的时点、标签也要卡、留下取数快照">
+     <g font-family="var(--sans)">
+      <rect x="3" y="18" width="133" height="62" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="13" y="36" font-size="10.5" fill="var(--blue-d)">1</text>
+      <text x="69" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">先定预测时点</text>
+      <text x="69" y="71" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">决策发生在哪一秒</text>
+      <rect x="148" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="158" y="36" font-size="10.5" fill="var(--ink-400)">2</text>
+      <text x="214" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">只取已落库的</text>
+      <text x="214" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">筛选卡的是到库时间</text>
+      <rect x="293" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="303" y="36" font-size="10.5" fill="var(--ink-400)">3</text>
+      <text x="359" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">各取各的时点</text>
+      <text x="359" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">一样本一条截止线</text>
+      <rect x="438" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="448" y="36" font-size="10.5" fill="var(--ink-400)">4</text>
+      <text x="504" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">标签也要卡</text>
+      <text x="504" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">窗口终点晚于时点</text>
+      <rect x="583" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="593" y="36" font-size="10.5" fill="var(--ink-400)">5</text>
+      <text x="649" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">留下取数快照</text>
+      <text x="649" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">记按哪天的库存生成</text>
+      <path d="M136 49 H146 M281 49 H291 M426 49 H436 M571 49 H581" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M146 49 l-6 -3.5 v7 z M291 49 l-6 -3.5 v7 z M436 49 l-6 -3.5 v7 z M581 49 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="102" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">第 3 步最容易省：一万个样本一万条截止线，不能全表统一切一刀</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>这套取数叫<b>时点正确连接</b>（point-in-time join），特征平台主卖的就是它——见<a href="#pam-feature-store">特征平台</a>那一节的判断表。</figcaption>
+  </figure>
+
+  <h3>事情发生的时间，不等于你知道它的时间</h3>
+  <p>同一条记录挂着两个时间，训练时用错哪个都会翻车。</p>
+  <div class="keypoints">
+    <div><b>事件时间</b><span>这件事业务上什么时候发生。对齐样本靠它，只按它筛就穿越</span></div>
+    <div><b>落库时间</b><span>数据什么时候真进了库。筛选必须卡它：那一刻没进库＝拿不到</span></div>
+    <div><b>两者的差</b><span>回流延迟，几分钟到几天。逾期 T 日发生，征信 T+5 才回来</span></div>
+    <div><b>怎么验证</b><span>问数据方一句：这张表有没有落库时间列</span></div>
+  </div>
+  <p class="ev">AWS 的托管特征库把这层语义做成了默认字段：离线库自动给每条记录附加 <code>api_invocation_time</code>（服务收到写入调用的时间）、<code>write_time</code>（真正落到离线库的时间，官方注明可用于构造时间旅行类查询）与 <code>is_deleted</code>，事件时间则由用户自建的时间列提供。核实 2026-08-02，来源 <a href="#src-feature-store">AWS 官方文档 · 离线库数据格式</a>。<b>不可外推边界</b>：这是 AWS 一家的字段设计，别家命名与语义不同，看到「有时间列」不等于看到同一件事。</p>
+
+  <h3>同一个样本，两种取数口径差多少（举例）</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>特征</th><th>落库延迟</th><th>按事件时间取（穿越）</th><th>按落库时间取（可用）</th></tr></thead>
+    <tbody>
+     <tr><td>近 7 日交易额</td><td>T+0 实时流</td><td>6/10 09:00 前全部到手</td><td>同左，这行不穿越</td></tr>
+     <tr><td>征信查询次数</td><td>T+5 天</td><td>用了 6/10 当天的值</td><td>只能取 6/5 之前那版</td></tr>
+     <tr><td>客户分层标签</td><td>月度覆盖更新</td><td>读到 7 月改后的口径</td><td>要取 6 月那版快照</td></tr>
+     <tr><td>近 30 日逾期</td><td>T+1 日</td><td>含 6/10 当天记录</td><td>截到 6/9，少一天</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>预测时点举例定在 6/10 09:00，表内日期与延迟都是举例数字。逐行算一遍就有了一句能拿去客户会上说的话：<b>离线拿 4 行喂模型，上线那一刻真到手的只有 1 行，虚增的就是这 3 行</b>。真实系统的写入窗口按官方口径查——<a href="#pam-feature-store">特征平台</a>一节登记了一个具体数字。</p>
+
+  <h3>穿越有五种长相，只有一种叫「用了未来数据」</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>长相</th><th>典型现场</th><th>一招查法</th></tr></thead>
+    <tbody>
+     <tr><td><b>目标泄漏</b></td><td>特征里混进了标签的代理量</td><td>单独拿这一个特征训一版，分数也高得离谱</td></tr>
+     <tr><td><b>时间穿越</b></td><td>取了预测时点之后才有的数据</td><td>改按时间切分，分数立刻掉</td></tr>
+     <tr><td><b>口径回填</b></td><td>维表被覆盖更新，历史被改写</td><td>查这张表有没有历史版本</td></tr>
+     <tr><td><b>分组泄漏</b></td><td>同一用户同时在训练集和测试集</td><td>改按用户切分再评一次</td></tr>
+     <tr><td><b>预处理泄漏</b></td><td>在全量上算均值再切分</td><td>把标准化挪进交叉验证里面</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>五种里只有第二种是「时间」问题，其余四种在没有时间维度的数据上照样犯——<b>别把泄漏排查简化成「加个时间过滤」</b>。这张表说的是取数与切分层面的泄漏；微调实验里那一族（近重复没扫、冻结切分哈希、多 seed 报区间）在 Fine-tuning 一册，不重讲。</p>
+
+  <h3>分数好得反常，就按这五步查</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 114" role="img" aria-label="泄漏排查五步：先怀疑分数、看重要度榜、改按时间切、列可用时刻表、用当天真值重放">
+     <g font-family="var(--sans)">
+      <rect x="3" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="13" y="36" font-size="10.5" fill="var(--ink-400)">1</text>
+      <text x="69" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">先怀疑分数</text>
+      <text x="69" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">没人做到过的准确率</text>
+      <rect x="148" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="158" y="36" font-size="10.5" fill="var(--ink-400)">2</text>
+      <text x="214" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">看重要度榜</text>
+      <text x="214" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">霸榜又解释不通就摘掉</text>
+      <rect x="293" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="303" y="36" font-size="10.5" fill="var(--ink-400)">3</text>
+      <text x="359" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">改按时间切</text>
+      <text x="359" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">旧月份训练、新月份测试</text>
+      <rect x="438" y="18" width="133" height="62" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="448" y="36" font-size="10.5" fill="var(--blue-d)">4</text>
+      <text x="504" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">列可用时刻表</text>
+      <text x="504" y="71" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">逐行标到手没、延迟多久</text>
+      <rect x="583" y="18" width="133" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="593" y="36" font-size="10.5" fill="var(--ink-400)">5</text>
+      <text x="649" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">当天真值重放</text>
+      <text x="649" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">取上线那天的特征跑</text>
+      <path d="M136 49 H146 M281 49 H291 M426 49 H436 M571 49 H581" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M146 49 l-6 -3.5 v7 z M291 49 l-6 -3.5 v7 z M436 49 l-6 -3.5 v7 z M581 49 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="102" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">泄漏不报错，只能拿「可疑的好成绩」当第一信号</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>第 4 步那张<b>特征可用时刻表</b>最省事——它把「我觉得没穿越」的争论变成逐行核对。第 5 步最硬：重放分与离线分之差，就是泄漏量。</figcaption>
+  </figure>
+
+  <h3>同一套特征走两条路径，必然会漂</h3>
+  <p>训练服务偏差（training-serving skew）是穿越之外的第二个坑：训练时算出的特征值，和线上算出的对不上。为什么必然——<b>训练是数仓里一条 SQL 跑全量，线上是一段代码在请求里现算</b>，两套代码、两种空值处理、两个时区。像两个厨子照同一张菜谱：一个用秤，一个凭手感，菜名一样，端上来不是一道菜。对齐只有三招半，代价各不相同：</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>做法</th><th>怎么保证一致</th><th>代价</th></tr></thead>
+    <tbody>
+     <tr><td>共用一份转换代码</td><td>训练与线上引用同一个库</td><td>要能在两种引擎里跑</td></tr>
+     <tr><td><b>拿线上日志训练</b></td><td>线上真实算过的值就是训练集</td><td>新特征得等日志攒够</td></tr>
+     <tr><td>交给特征平台</td><td>离线在线同源，物化保证一致</td><td>多一套系统要运维</td></tr>
+     <tr><td>只监控不统一</td><td>每天比对两侧同一批样本</td><td>查得出，止不住</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">第二招出自谷歌《Rules of Machine Learning》第 29 条：把服务时用过的那组特征打进日志、再拿去训练，是保证「训得像服务」最稳的办法；同文把训练服务偏差的成因分成三类——训练与服务管线处理数据的方式不同、训练与服务之间数据变了、模型与算法之间存在反馈回路。核实 2026-08-02，来源 <a href="#src-rules-of-ml">Google for Developers · Rules of Machine Learning</a>。<b>不可外推边界</b>：这是工程原则，不含任何阈值，也不代表日志回流适合所有新特征——新特征上线前根本没有历史日志可训。</p>
+
+  <h3>这一章保证的是分数可信，不是模型可用</h3>
+  <div class="grid">
+    <div class="box"><h4>不保证效果</h4><p>时点正确只是让离线分数不虚高。修对之后掉下来的那个分，才是真实水平——这句话要提前跟客户说，否则修完就成了「你们把模型搞坏了」。</p></div>
+    <div class="box"><h4>平台不等于一致</h4><p>特征平台保证两边读同一份存储，转换代码不同照样能算出两个值。哪个字段是标签的代理量，它更是一概不知。</p></div>
+    <div class="box"><h4>日志回流有冷启动</h4><p>新特征上线前没有历史日志可训。要么先影子跑一段攒日志，要么先回补历史。</p></div>
+    <div class="box"><h4>漂移归下一环</h4><p>这里管的是「训练那天对不对」。上线之后数据变没变、要不要重训，是<a href="#pam-monitoring">上线之后</a>那一节的账。</p></div>
+  </div>
+  <p>对客的收口话术只有三句：训练集是否按时间切分、每个特征有无落库延迟记录、有没有用上线当天真实拿到的特征重放过。第三件最硬，答不出就别谈离线分数。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../data-engineering/index.html#de-pipeline" title="上下游：数据怎么进来、怎么增量同步归 DE，本册接手的是同一份数据被当成特征时的时间语义与点时取数">连接器与增量同步<span class="xm">Data-Engineering</span></a></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="sec" id="pam-feature-store">
+  <h2><span class="num">05</span>特征平台：什么时候才真需要<a class="anchor" href="#pam-feature-store">#pam-feature-store</a></h2>
+
+  <div class="lead">
+    <p>客户问「要不要上特征平台」，答案不在功能表里，在他有几个团队。它管四件事：登记口径、复用成品、离线在线一致、把<a href="#pam-features-time">上一节</a>那套手写取数做成现成功能。像公司食堂——一个团队一个灶时没必要，几个团队各买各的菜、各有各的盐罐，才轮到它。</p>
+    <div class="keypoints">
+      <div><b>最值钱的一格</b><span>时点正确取数是现成的，省掉手写连接的出错概率</span></div>
+      <div><b>它不是什么</b><span>数仓下游一层薄壳，不是数仓的替代品</span></div>
+      <div><b>什么时候轮到它</b><span>多个团队在重复造同一个特征时</span></div>
+    </div>
+  </div>
+
+  <h3>一份特征，两个库，中间靠物化连着</h3>
+  <p>训练要读全历史，推理要几毫秒出结果——一套存储做不到，所以是两个库一张账。</p>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 114" role="img" aria-label="特征平台四步：定义写一次、落到离线库存全历史、物化进在线库只留最新值、推理时按主键点名取">
+     <g font-family="var(--sans)">
+      <rect x="3" y="18" width="168" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="13" y="36" font-size="10.5" fill="var(--ink-400)">1</text>
+      <text x="87" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">定义写一次</text>
+      <text x="87" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">特征怎么算只声明一处</text>
+      <rect x="185" y="18" width="168" height="62" rx="8" fill="var(--line-2)" stroke="var(--line)"/>
+      <text x="195" y="36" font-size="10.5" fill="var(--ink-400)">2</text>
+      <text x="269" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">落到离线库</text>
+      <text x="269" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">存全历史，供时点回溯</text>
+      <rect x="367" y="18" width="168" height="62" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="377" y="36" font-size="10.5" fill="var(--blue-d)">3</text>
+      <text x="451" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">物化进在线库</text>
+      <text x="451" y="71" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">只留每个主键的最新值</text>
+      <rect x="549" y="18" width="168" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="559" y="36" font-size="10.5" fill="var(--ink-400)">4</text>
+      <text x="633" y="55" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">推理时点名取</text>
+      <text x="633" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">按主键毫秒读，须同源</text>
+      <path d="M171 49 H183 M353 49 H365 M535 49 H547" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M183 49 l-6 -3.5 v7 z M365 49 l-6 -3.5 v7 z M547 49 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="102" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">在线库不留历史，要回溯就得回离线库——这是两个库分工的直接后果</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>训练集从离线库按每个样本的时点截出来，线上按主键毫秒级点查在线库；<b>物化那一跳的延迟，是这条链上最常被当成实时的一段</b>。</figcaption>
+  </figure>
+  <p class="ev">AWS 的托管特征库写入后先缓冲、批量，<b>在 15 分钟内</b>写入对象存储上的离线库；离线库只支持 Parquet 文件格式，表格式可选 AWS Glue（默认）或 Apache Iceberg。国内侧，阿里云 PAI 的特征库自动完成在线表与离线表的构建并保证两侧一致：离线对接 MaxCompute，在线可经 Flink 处理后写入 Hologres、Tablestore 或自研的 FeatureDB。核实 2026-08-02，来源 <a href="#src-feature-store">AWS 与阿里云官方文档</a>。<b>不可外推边界</b>：15 分钟是<b>离线库的写入窗口，不是在线库的读延迟</b>——这一条最容易被读反，客户会上说错方向就成了「你们的特征库要等一刻钟」；国内那条是平台形态描述，不含延迟与配额，选型仍需实测。</p>
+
+  <h3>先数这五个数，再决定要不要买</h3>
+  <p>特征平台是拿运维负担换复用收益，数不够就是净亏。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>看什么</th><th>该上的信号</th><th>先别上的替代做法</th></tr></thead>
+    <tbody>
+     <tr><td><b>模型数</b></td><td>多个模型共用同一批特征</td><td>一两个模型，一张宽表够了</td></tr>
+     <tr><td><b>团队数</b></td><td>多个团队重复造同一个特征</td><td>一个团队，共享代码库即可</td></tr>
+     <tr><td><b>实时性</b></td><td>线上要毫秒级读实时特征</td><td>全批式打分，直接查数仓</td></tr>
+     <tr><td><b>一致性事故</b></td><td>已经吃过训练服务偏差的亏</td><td>没吃过，先做特征日志比对</td></tr>
+     <tr><td><b>合规追溯</b></td><td>要复现三个月前的训练集</td><td>先把取数脚本和快照存好</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>五行里<b>三行以上落在中间那列，才谈得上买</b>；只落一两行，先用「共享转换库 + 特征可用时刻表」顶着——省下的运维人力，多半比平台省下的算力值钱。这张表的用法是当着客户逐行打分，不是发一份材料让他自己看。</p>
+
+  <h3>它不替你做的事，比它做的更该讲清楚</h3>
+  <div class="grid">
+    <div class="box"><h4>不是数据管线</h4><p>不做通用的清洗加工，也不编排任务依赖。上游还得靠数仓和调度器把值算出来。</p></div>
+    <div class="box"><h4>不是数仓</h4><p>它是数仓下游的一层轻量服务壳，不是组织里那份权威加工数据的存放地。</p></div>
+    <div class="box"><h4>不保证特征有用</h4><p>它管口径一致，不管这个特征有没有预测力。特征做得对不对，还是<a href="#pam-features-time">上一节</a>那套判断。</p></div>
+    <div class="box"><h4>不管标签</h4><p>标签什么时候成熟、要等多久，它一概不知。这条直接决定试点周期，见<a href="#pam-problem-framing">切题</a>那一节。</p></div>
+  </div>
+  <p class="ev">这四条不是评述，是 Feast 官方文档里专门列的一节「Feast 不是什么」：不是通用数据管线系统、不管理或编排复杂工作流、不是数据仓库也不是组织内加工数据的权威存放地、不是数据库；它把自己定位成数仓下游的一层轻量服务层，核心卖点之一正是生成时点正确的特征集以避免数据泄漏。核实 2026-08-02，来源 <a href="#src-feature-store">Feast 官方文档</a>。<b>不可外推边界</b>：这是 Feast 一家的定位声明，不代表所有特征平台的边界都划在同一处。</p>
+
+  <h3>买托管之前，先查两件事</h3>
+  <p>一件是产品还能活多久，一件是「时点连接」这项能力到底是内建的还是要自己搭——这两件都决定了三年后谁在为口径迁移买单。</p>
+  <p class="ev">谷歌云的 Vertex AI Feature Store（Legacy）已弃用：官方通告写明自 2026-05-17 起不再新增功能、只提供关键补丁，<b>2027-02-17 完全退役且接口下线</b>，去处是 2023-11-17 推出的 V2 版本或按官方指南迁到 Bigtable。能力侧，Azure 机器学习的托管特征库支持时点连接（官方也称 time travel）来避免数据泄漏；Databricks 侧的对应能力靠在特征表上声明时间列，且时序特征表须恰有一个时间键、不能带分区列。核实 2026-08-02，来源 <a href="#src-feature-store">Google Cloud、Microsoft Learn 与 Databricks 官方文档</a>。<b>不可外推边界</b>：退役表只针对 Legacy 版，V2 的能力与配额另算，别家产品也不同期；「支持时点连接」只证明能力存在，不代表默认开启或性能达标——它按你给的那个时间列算，列给错了照样穿越。</p>
+  <p>特征这一层定了，接下来是模型本身：从一次实验走到线上，中间隔着哪几道门。</p>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="sec" id="pam-lifecycle">
+  <h2><span class="num">06</span>从实验到生产：实验记录、注册表与发布门<a class="anchor" href="#pam-lifecycle">#pam-lifecycle</a></h2>
+
+  <div class="lead">
+    <p>客户问「模型在哪」，其实是在问四样东西：<b>代码提交号、训练集快照、特征定义版本、运行环境</b>。缺任何一样，「重跑一遍」都做不到——那这个模型就是一个来路不明的二进制文件。复核、定责、换人接手，问的全是这四样。</p>
+    <div class="keypoints">
+      <div><b>可复现锁四样</b><span>代码、数据、特征、环境，少记一样就对不上</span></div>
+      <div><b>注册表是指针</b><span>发版对象成了一个可改指的别名，回滚是改指针</span></div>
+      <div><b>三道门</b><span>对现网冠军、分群不退化、先说清怎么算赢</span></div>
+    </div>
+  </div>
+
+  <h3>实验记录是写给三个月后的自己看的</h3>
+  <p>手抄表格撑不过第二十次实验，自动记录才撑得住。判断一套实验记录合不合格只问一句：<b>三个月后能不能只凭它把结果跑出来</b>。</p>
+  <div class="keypoints">
+    <div><b>自动开一次跑</b><span>训练脚本一启动就建一条记录，不靠人记得写</span></div>
+    <div><b>记入参与指纹</b><span>参数、代码提交号、训练集指纹，一次都别漏</span></div>
+    <div><b>记指标与产物</b><span>指标按人群分开记，模型文件挂在同一条上</span></div>
+    <div><b>记不下的写清</b><span>随机种子、驱动版本，要么记，要么承认记不住</span></div>
+  </div>
+
+  <h3>从「阶段」改成「别名」，改的其实是回滚方式</h3>
+  <p>注册表最常见的一次语义改动，正好当例子讲——它改的不是界面，是回滚这个动作本身。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>用法</th><th>语义</th><th>回滚怎么做</th></tr></thead>
+    <tbody>
+     <tr><td>阶段（stage）</td><td>一个版本同时只能处在一个状态</td><td>把上一版拖回 Production</td></tr>
+     <tr><td><b>别名（alias）</b></td><td>一个别名指一个版本，可随时改指</td><td>把 champion 指回旧版本</td></tr>
+     <tr><td>为什么要改</td><td>一版多用途时，状态机不够用</td><td>改指针，不用重训重发</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>别名的好处是能让 <b>champion 和 challenger 两个指针同时指向不同版本</b>，灰度与对照不用再造第二套状态。对客那句话是：出了问题回滚是分钟级——前提两条，旧实例拉得起来、依赖的特征定义没被改过；两条不成立，回滚就成了重新发布，按小时算。</p>
+  <p class="ev">MLflow 自 2.9.0 起把模型注册表的四阶段（None / Staging / Production / Archived）标为弃用、将在未来某个大版本移除，官方替代是模型版本别名与标签，理由是这套状态机对流程「过于死板」，而别名允许同一版本挂多个、可随时改指。另一侧，AWS 的模型注册表用的是三态批准字段——PendingManualApproval / Approved / Rejected，可由接口、控制台或流水线中的条件步骤更新。核实 2026-08-02，来源 <a href="#src-registry">MLflow 与 AWS 官方文档</a>。<b>不可外推边界</b>：弃用不等于已移除，旧接口在当前版本仍可用，别拿它去劝客户马上改造；批准状态字段只记录流程走到哪一步，<b>不代表模型质量已被验证</b>。</p>
+
+  <h3>上线前的三道门，是预测式自己要过的</h3>
+  <p>「离线指标过线就发」是这条路上最贵的一条捷径。</p>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 118" role="img" aria-label="上线前三道门：对现网冠军、分群不退化、先说清怎么算赢">
+     <g font-family="var(--sans)">
+      <rect x="29" y="20" width="210" height="62" rx="8" fill="var(--card)" stroke="var(--warn)" stroke-width="1.5"/>
+      <text x="41" y="38" font-size="10.5" fill="var(--warn)">门 1</text>
+      <text x="134" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">对现网冠军</text>
+      <text x="134" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">和正在跑的那版比，不是自己上一版</text>
+      <rect x="255" y="20" width="210" height="62" rx="8" fill="var(--card)" stroke="var(--warn)" stroke-width="1.5"/>
+      <text x="267" y="38" font-size="10.5" fill="var(--warn)">门 2</text>
+      <text x="360" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">分群不退化</text>
+      <text x="360" y="73" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">总分涨了但某个人群掉了就没过</text>
+      <rect x="481" y="20" width="210" height="62" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)" stroke-width="1.5"/>
+      <text x="493" y="38" font-size="10.5" fill="var(--blue-d)">门 3</text>
+      <text x="586" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">先说清怎么算赢</text>
+      <text x="586" y="73" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">标签没熟判不出胜负，发版先定判定日</text>
+      <path d="M239 51 H253 M465 51 H479" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M253 51 l-6 -3.5 v7 z M479 51 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="106" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">影子、金丝雀、回滚、发布记录与生成式共用，这三道是预测式独有的那一截</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>门的道数跟风险挂钩，不是一刀切：决定人的模型（风控、授信）三道一道不少，内部预测销量的，离线指标加一次影子就够。<b>拖时间的往往不是审批，是等标签成熟</b>。</figcaption>
+  </figure>
+  <p>客户常问「新模型明明更好，为什么还要跑影子期」——离线比的是历史数据，影子比的是今天真实进来的请求，差最多的一处就是特征取数：线上有超时、空值、降级，离线表里都没有。</p>
+  <p class="ev">影子测试的具体规格以 AWS 为例：影子变体接收从生产变体复制来的一定比例请求但<b>不返回任何响应</b>，一个端点最多挂一个影子变体、且此时最多一个生产变体；时长默认 7 天、最短 1 小时、最长 30 天，测试结束端点自动恢复原状；Serverless 推理、异步推理、多模型端点、多容器端点、Marketplace 容器与 Inf1 实例的端点不支持。核实 2026-08-02，来源 <a href="#src-registry">AWS 官方文档 · 创建影子测试</a>。<b>不可外推边界</b>：7 天与 30 天是 AWS 一家的默认值与配额上限，别家做流量镜像的规格与限制不同，报方案前逐项复核；影子只比得出预测值的差异，比不了业务结果。</p>
+
+  <h3>流程挡得住草率，挡不住这四件事</h3>
+  <p>发布门是过滤器，不是保险。四个洞得当着客户说清，否则第一次出事就是「你们不是说走了流程吗」。</p>
+  <div class="grid">
+    <div class="box"><h4>不保证可复现</h4><p>库版本、显卡算子、归约顺序都会让结果有微差。记录只能定位差异来源，消不掉它——严格复现要锁死镜像和种子，代价是升级变慢。</p></div>
+    <div class="box"><h4>对答案要等真值</h4><p>双跑和影子只比得出预测值的差异。谁更准要等标签成熟，那是<a href="#pam-problem-framing">切题</a>那一节的账。</p></div>
+    <div class="box"><h4>门禁不管标签</h4><p>标签打错了，三道门全绿也是错的。标注这件事的成本账在 Data-Engineering 一册。</p></div>
+    <div class="box"><h4>不覆盖生成式</h4><p>两条流水线可共用同一套注册表，但门禁读的不是一回事：预测式看分群不退化，生成式看评估集通过率与判官打分。别把两套门槛混进同一份验收。</p></div>
+  </div>
+  <p class="ev">国内落点上，阿里云 PAI 在同一工作空间内提供两件对应能力：「AI 资产管理 &gt; 模型」支持把训练好的模型注册进来、按版本持续更新并直接部署，部署配置自动透传；Model Gallery 创建微调训练任务时可关联新建或已有实验，任务的超参等元数据、指标与输出模型统一落在实验输出路径下。核实 2026-08-02，来源 <a href="#src-registry">阿里云帮助中心</a>。<b>不可外推边界</b>：这只说明「注册」与「实验关联」两件事存在，不等于一套完整的实验跟踪与发布门禁，其余环节要逐项自查。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-ops/index.html#ops-release" title="发布门的骨架（门禁在前、影子、金丝雀、回滚是切指针）两边共用，不重讲；本册只补预测式独有的两点——可以双跑逐条对账，以及标签没成熟前判不出胜负">发布管理<span class="xm">AI-Ops</span></a><a href="../fine-tuning/index.html#ft-eval-deploy" title="「训练」这个词两边指的不是一回事：那边是拿自己数据改 LLM 权重、产物是 adapter，本册是从头拟合一个预测式模型、产物多数走批量打分；售前要能当场分清客户说的是哪一种">评估与部署<span class="xm">Fine-tuning</span></a></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="sec" id="pam-monitoring">
+  <h2><span class="num">07</span>上线之后：七类信号、七种动作与再训练触发<a class="anchor" href="#pam-monitoring">#pam-monitoring</a></h2>
+
+  <div class="lead">
+    <p>客户的抱怨永远只有一句「模型不行了」。这一句话底下是七件事，动作各不相同：有的该修管线，有的该对口径，有的连「变差了」都还没有证据。<b>先把这句话分成四组，动作才有着落</b>——分不出来，最常见的结局是花钱重训一个其实没坏的模型。</p>
+  </div>
+
+  <h3>七类信号按「要不要等真值」分两层</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 262" role="img" aria-label="七类信号分两层：上层四类不用等真值，含数据质量故障、训练服务偏差、输入漂移、预测漂移；下层三类必须等真值，含成熟真值上的性能下降、概念漂移、反馈与选择偏差">
+     <g font-family="var(--sans)">
+      <rect x="6" y="6" width="708" height="112" rx="10" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="20" y="27" font-size="12.5" font-weight="700" fill="var(--blue-d)">不用等真值 · 四类，当天就查得完</text>
+      <rect x="18" y="40" width="159" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="97" y="58" text-anchor="middle" font-size="10" fill="var(--ink-400)">数据侧</text>
+      <text x="97" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">数据质量故障</text>
+      <text x="97" y="93" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">修管线，别重训</text>
+      <rect x="189" y="40" width="159" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="268" y="58" text-anchor="middle" font-size="10" fill="var(--ink-400)">数据侧</text>
+      <text x="268" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">训练服务偏差</text>
+      <text x="268" y="93" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">对齐口径</text>
+      <rect x="360" y="40" width="159" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="439" y="58" text-anchor="middle" font-size="10" fill="var(--ink-400)">分布侧</text>
+      <text x="439" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">输入漂移</text>
+      <text x="439" y="93" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">先看活动或季节</text>
+      <rect x="531" y="40" width="159" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="610" y="58" text-anchor="middle" font-size="10" fill="var(--ink-400)">分布侧</text>
+      <text x="610" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">预测漂移</text>
+      <text x="610" y="93" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">顺藤查输入</text>
+      <text x="360" y="133" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">上面四类都解释不掉，才轮到下面三类</text>
+      <rect x="6" y="140" width="708" height="112" rx="10" fill="var(--line-2)" stroke="var(--line)"/>
+      <text x="20" y="161" font-size="12.5" font-weight="700" fill="var(--warn)">必须等真值 · 三类，代价是时间</text>
+      <rect x="18" y="174" width="214" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="125" y="192" text-anchor="middle" font-size="10" fill="var(--ink-400)">真值侧</text>
+      <text x="125" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">成熟真值上的性能下降</text>
+      <text x="125" y="227" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">按成熟期分批算，别抢跑</text>
+      <rect x="247" y="174" width="214" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="354" y="192" text-anchor="middle" font-size="10" fill="var(--ink-400)">真值侧</text>
+      <text x="354" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">概念漂移</text>
+      <text x="354" y="227" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">确认后重训，换新窗口</text>
+      <rect x="476" y="174" width="214" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="583" y="192" text-anchor="middle" font-size="10" fill="var(--ink-400)">回路侧</text>
+      <text x="583" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">反馈与选择偏差</text>
+      <text x="583" y="227" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">先补样本，再谈重训</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>分层的意义在报价与排期上：上层四类当天出结论，下层三类的时间线由标签什么时候成熟决定，不由你决定。</figcaption>
+  </figure>
+
+  <h3>不用等标签的四类，先把它们排除掉</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>信号</th><th>它说明什么</th><th>看什么证据</th><th>第一动作</th></tr></thead>
+    <tbody>
+     <tr><td><b>数据质量故障</b></td><td>上游断了、字段变空、类型变了</td><td>空值率、越界率、类型错误率</td><td>修管线，别重训</td></tr>
+     <tr><td><b>训练服务偏差</b></td><td>同一特征两条路径算出两个值</td><td>线上特征回放对训练值</td><td>对齐口径，见<a href="#pam-features-time">特征的时间语义</a></td></tr>
+     <tr><td><b>输入漂移</b></td><td>进来的人群变了</td><td>分布距离超过阈值</td><td>先看是不是活动或季节</td></tr>
+     <tr><td><b>预测漂移</b></td><td>模型给的分整体挪了</td><td>打分分布对验证集</td><td>顺藤查输入，不急动模型</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>多数告警查到这一步就解释完了。<b>四类都不必等真值</b>，也都不必碰模型。</p>
+
+  <h3>剩下三类必须等标签，等不起就别承诺</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>信号</th><th>为什么必须等真值</th><th>标签从哪来</th><th>第一动作</th></tr></thead>
+    <tbody>
+     <tr><td><b>性能下降</b></td><td>没有真值就只是猜</td><td>业务结果自然回流</td><td>按成熟期分批算，别抢跑</td></tr>
+     <tr><td><b>概念漂移</b></td><td>变的是 X 与 Y 的关系</td><td>同批样本新旧对照</td><td>确认后重训，换新窗口</td></tr>
+     <tr><td><b>反馈与选择偏差</b></td><td>被拦下的样本没有结果</td><td>留一小片随机放行</td><td>先补样本，再谈重训</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>真值来得慢，是预测式和生成式最不一样的一处。<b>标签成熟期直接决定 POC 周期</b>——客户说「三个月才知道结果」，那就是排期，不是借口。这里说的标签是等出来的，成本在时间；人去打的标注是另一件事，成本在人力。越准的模型盲区越大：被它拦下的样本永远不会产生结果，随机放行那一小片是唯一的补救。</p>
+
+  <h3>分清两个记号，才知道哪一种漂移真的伤人</h3>
+  <div class="grid">
+   <div class="box"><h4>输入变了</h4><p>记号 P(X)：进来的人群变了，X 与 Y 的关系没变。<b>模型可能照样准</b>，这叫协变量漂移。</p></div>
+   <div class="box"><h4>关系变了</h4><p>记号 P(Y|X)：同样的人，结果不一样了。这是概念漂移，<b>模型一定失准，且只有真值能证实</b>。</p></div>
+   <div class="box"><h4>输出变了</h4><p>打分分布整体挪了，是果不是因。顺着它往上游查，别直接归因到模型。</p></div>
+  </div>
+  <p>客户会上最值钱的一句就是这个区分：<b>变的是「谁进来」还是「同样的人结果不同」——只有后者必然让模型变差</b>。</p>
+
+  <h3>标签没到的那几个月，性能可以估，但估不了概念漂移</h3>
+  <div class="grid">
+   <div class="box"><h4>它能做什么</h4><p>用模型自己的置信度反推混淆矩阵，估出这段时间的准确率、召回率。开源代表实现是 NannyML，方法叫 CBPE，Confidence-Based Performance Estimation。</p></div>
+   <div class="box"><h4>靠什么成立</h4><p>概率要校准得住，样本量要够大。本质是「输入变了、关系没变」时的补偿。</p></div>
+   <div class="box"><h4>什么时候骗你</h4><p>官方原话是概念漂移下这套估计不成立。<b>越是你最想知道答案的时候，它越不能用</b>。</p></div>
+  </div>
+
+  <h3>阈值不是查出来的，是定出来的</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>常见口径</th><th>默认怎么定</th><th>它假设了什么</th><th>你该怎么改</th></tr></thead>
+    <tbody>
+     <tr><td><b>PSI 0.1 / 0.25</b></td><td>低于 0.1 算稳，0.25 以上算大变</td><td>与样本量无关的经验常数</td><td>按自家历史波动定带宽</td></tr>
+     <tr><td>参考集 ≤1000 行</td><td>KS 检验、卡方检验，p≤0.05</td><td>样本少，靠假设检验</td><td>别在小样本上追单个特征</td></tr>
+     <tr><td>参考集 &gt;1000 行</td><td>Wasserstein 或 JS 距离 ≥0.1</td><td>样本多了检验会必然显著</td><td>改用距离，阈值自校</td></tr>
+     <tr><td>托管监控的信号</td><td>多种度量可选，阈值自填</td><td>平台默认不替你下结论</td><td>按特征重要性挑前 N 个</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>PSI，Population Stability Index（群体稳定性指数）的 0.1／0.25 出自 1994 年信用评分实务，不随样本量调整：<b>样本大了到处报警，样本小了该报不报</b>。客户要「行业标准阈值」时，能给的答案是拿自家历史数据跑出正常波动带，再往外放一档。</p>
+  <p class="ev">Evidently 默认切换规则与 PSI 阈值来历核实 2026-08-02，来源
+    <a href="#src-drift">Evidently 官方文档与 PSI 阈值统计评述</a>。<b>不可外推边界</b>：表里第二、三行是 Evidently 这一个工具的默认值，不是业界统一标准；PSI 的两档是对来历与统计缺陷的评述，不是替代阈值的推荐值——照抄任何一档之前先看它假设了什么。</p>
+
+  <h3>重训排在最后一位：告警到动作的五步分诊</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 116" role="img" aria-label="五步分诊流程：查管线、对特征、看分布、等真值，最后才是重训；前四步不花钱，第五步花钱且可能变差">
+     <g font-family="var(--sans)">
+      <rect x="6" y="24" width="126" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="69" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">1 查管线</text>
+      <text x="69" y="63" text-anchor="middle" font-size="10" fill="var(--ink-500)">空值、越界、类型</text>
+      <rect x="150" y="24" width="126" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="213" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">2 对特征</text>
+      <text x="213" y="63" text-anchor="middle" font-size="10" fill="var(--ink-500)">同值同时点吗</text>
+      <rect x="294" y="24" width="126" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="357" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">3 看分布</text>
+      <text x="357" y="63" text-anchor="middle" font-size="10" fill="var(--ink-500)">先归因业务活动</text>
+      <rect x="438" y="24" width="126" height="52" rx="8" fill="var(--card)" stroke="var(--warn)" stroke-width="1.5"/>
+      <text x="501" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">4 等真值</text>
+      <text x="501" y="63" text-anchor="middle" font-size="10" fill="var(--warn)">成熟一批算一批</text>
+      <rect x="582" y="24" width="132" height="52" rx="8" fill="var(--card)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="648" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">5 才重训</text>
+      <text x="648" y="63" text-anchor="middle" font-size="10" fill="var(--red)">并留旧版可回滚</text>
+      <path d="M132 50 H146 M276 50 H290 M420 50 H434 M564 50 H578" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M146 50 l-6 -3.5 v7 z M290 50 l-6 -3.5 v7 z M434 50 l-6 -3.5 v7 z M578 50 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="104" text-anchor="middle" font-size="11.5" fill="var(--red)">前四步不花钱，第五步花钱还可能变得更差——顺序本身就是风控</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>按代价从低到高走，<b>走到哪一步能解释就停在哪一步</b>。这张图可以直接当值班手册的第一页。</figcaption>
+  </figure>
+
+  <div class="tool" id="triage">
+  <h4>「告警响了，先别急着重训」分诊器</h4>
+  <p class="note">勾上你观察到的现象，得到四样：它属于七类信号里的哪一类、第一动作是什么、五步分诊该停在第几步、以及重训之前还有哪几步没排除。判据全部取自本节的两张信号表与五步分诊图，不新增事实。</p>
+  <div class="controls">
+    <label class="ctl chk"><input type="checkbox" id="triage-dq">空值率、越界率或类型错误率跳了（上游断了、字段变空、类型变了）</label>
+    <label class="ctl chk"><input type="checkbox" id="triage-skew">线上特征回放对不上训练值（同一特征两条路径算出两个值）</label>
+    <label class="ctl chk"><input type="checkbox" id="triage-input">输入的分布距离超过阈值（进来的人群变了）</label>
+    <label class="ctl chk"><input type="checkbox" id="triage-pred">打分分布对验证集整体挪了</label>
+    <label class="ctl chk"><input type="checkbox" id="triage-perf">成熟真值上的性能确实跌了</label>
+    <label class="ctl chk"><input type="checkbox" id="triage-concept">同批样本新旧对照：同样的人，结果不一样了</label>
+    <label class="ctl chk"><input type="checkbox" id="triage-bias">被拦下的样本没有结果（只看得见放行的那部分）</label>
+    <label class="ctl">真值回来了吗
+      <select id="triage-label">
+        <option value="unripe">还没成熟（标签在路上）</option>
+        <option value="ripe">已成熟一批（可以按批算）</option>
+        <option value="never">这个场景真值不回灌</option>
+      </select>
+    </label>
+    <label class="ctl">这段时间有促销、渠道或季节变化吗
+      <select id="triage-biz">
+        <option value="unknown">还没查</option>
+        <option value="yes">有，能对上时间</option>
+        <option value="no">查过，没有</option>
+      </select>
+    </label>
+  </div>
+  <div class="kpis" id="triage-out"></div>
+  <p class="note" id="triage-note"></p>
+</div>
+  <h3>「监测到漂移就自动重训」，是这一章最贵的一种错</h3>
+  <div class="grid">
+   <div class="box"><h4>追噪声</h4><p>漂移不等于变差，分布挪了模型照样准的情况很常见。<b>重训的代价是真的，收益是假设的</b>。</p></div>
+   <div class="box"><h4>抢标签</h4><p>标签没成熟就重训，等于拿噪声去追噪声。新模型看着好，只是因为它拟合了半熟的那批。</p></div>
+   <div class="box"><h4>学故障</h4><p>上游数据坏掉的时候重训，会把故障学进模型。<b>这时候正确的动作是冻结，不是更新</b>。</p></div>
+  </div>
+  <p>客户问「多久重训一次算正常」，按日历重训是最贵的默认答案。该定的是评估节奏：<b>标签成熟一批评一批，指标越线且归因到关系变了才动模型</b>。这句话要写成一份触发条款，让不写模型的人也能照着执行。</p>
+
+  <h3>云替你盯得住哪几类</h3>
+  <p>不用等标签的那四类，云上开箱就有——前提是推理的输入和输出真的落了库；真值那几类云盯不了，它不替你等标签，也不负责回灌。托管件本身还会退场：AWS 官方文档已写明 SageMaker Model Monitor 不再向新客户开放、改荐开源方案自建，Azure 侧的模型性能与特征归因漂移两个信号当日仍标 preview。<b>监控管线别绑死在一个托管件上</b>，迁移计划一直在你这边。</p>
+  <p class="ev">监控服务形态与无真值期估计前提核实 2026-08-02，来源
+    <a href="#src-drift">Azure 与 AWS 监控文档、NannyML 官方文档</a>。<b>不可外推边界</b>：服务名是当日快照、按 30 天一查的节奏保鲜，不代表三家云能力对等，也不代表形态不变；CBPE 这类无真值期估计在概念漂移下不成立，只能当预警，不能当验收依据或替代真值。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-ops/index.html#ops-drift" title="同名不同物，最需要互指的一条：那边的漂移发生在没有客观真值的生成式应用上（供应商静默换权重、输出漂移），本册的漂移有真值但有标签延迟，七类信号对七种动作；两章各自声明「这里说的…">漂移与静默退化监测<span class="xm">AI-Ops</span></a><a href="../data-engineering/index.html#de-quality" title="七类信号里第一类「数据质量故障」的检查项与责任面在 DE 第 5 章，本册只讲怎么把它和漂移信号分开——分不开就会去重训一个其实没坏的模型（双向）">数据质量与覆盖率<span class="xm">Data-Engineering</span></a></div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="sec" id="pam-governance">
+  <h2><span class="num">08</span>可解释、公平与模型风险管理<a class="anchor" href="#pam-governance">#pam-governance</a></h2>
+
+  <div class="lead">
+    <p>「模型太复杂，说不清」在评审席上不是解释，是自认没管住。<b>卡住上线的常常不是精度，是解释和留痕</b>——进不了独立验证，出了事复盘不了，项目就停在这一关。</p>
+    <div class="keypoints">
+      <div><b>谁在问</b><span>被拒的人问「为什么是我」，风控部门问「这模型凭什么」</span></div>
+      <div><b>先问一句</b><span>这个模型的输出会不会直接对个人产生不利决定</span></div>
+      <div><b>会就先谈解释</b><span>不会，门槛低得多，别把重活儿报进不需要的场景</span></div>
+    </div>
+  </div>
+
+  <h3>全局解释和局部解释，回答的是两个问题</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问题</th><th>谁在问</th><th>常用做法</th><th>它答不了什么</th></tr></thead>
+    <tbody>
+     <tr><td>模型总体看什么</td><td>风控与业务</td><td>全局特征重要性</td><td>单笔为什么被拒</td></tr>
+     <tr><td>这一单为什么被拒</td><td>被拒的人、客服</td><td>局部归因（SHAP，SHapley Additive exPlanations）</td><td>改什么就一定能过</td></tr>
+     <tr><td>改哪一项才能过</td><td>客户运营</td><td>反事实解释</td><td>这一改是不是真因</td></tr>
+     <tr><td>模型学到因果没有</td><td>没人该这么问</td><td>三种都答不了</td><td>因果要靠实验设计</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>客户把这三种混着说，你得先分开：问法不同，做法也不同。第四行是防守用的——有人拿归因图当因果证据讲，当场要拦住。</p>
+
+  <h3>归因值是分账，不是原因</h3>
+  <div class="grid">
+   <div class="box"><h4>它算的是什么</h4><p>把预测值与基线的差额，按各个特征分摊成一份账，<b>加起来正好等于那个差额</b>。仅此而已。</p></div>
+   <div class="box"><h4>它的两处失真</h4><p>特征相关时，同一份贡献在几个特征之间怎么分是任意的；采样还会造出现实中不存在的特征组合。</p></div>
+   <div class="box"><h4>能写进理由吗</h4><p>能写「主要影响项是这三个」；<b>不能写「改了它就能过」</b>——后半句是因果承诺，这类方法给不了。</p></div>
+  </div>
+  <p>对客的分寸就在这一句里：归因结果作为主要影响项可以发给被拒的人，作为整改建议不行。据此承诺整改效果，翻车的是你。</p>
+
+  <h3>三个公平定义，数学上不可能同时满足</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>公平定义</th><th>它保证什么</th><th>谁最在意</th><th>选它要付什么</th></tr></thead>
+    <tbody>
+     <tr><td><b>校准性</b></td><td>同一个分对应同一个真实概率</td><td>建模方与业务</td><td>两群的错判率会不等</td></tr>
+     <tr><td><b>假阳性率均等</b></td><td>不该被拦的，各群被拦得一样少</td><td>被误伤的一方</td><td>分数不再可直接横比</td></tr>
+     <tr><td><b>假阴性率均等</b></td><td>该被抓的，各群漏得一样少</td><td>风险与合规</td><td>要牺牲另外两项</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>客户说「公平性我们全都要」，答案是数学上不行，不是工程做不到。能做的是把三个定义摆出来，跟业务一起<b>先选一个主口径</b>，再把另外两项的代价写进方案。</p>
+  <p class="ev">公平不可兼得与归因局限核实 2026-08-02，来源
+    <a href="#src-governance">Kleinberg 等 2016 与 Shapley 值因果分析等论文</a>。<b>不可外推边界</b>：不可兼得是数学结论——除非各群基础率相同或预测完美，三者不能同时成立——它不指示哪个定义在具体业务里更合适；归因失真是这类方法的固有局限，不代表所有实现都同等失真。</p>
+
+  <h3>模型风险管理这套老规矩，2026 年 4 月刚换了一版</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 116" role="img" aria-label="模型风险管理四步：进清单、三件验证、有效挑战、超线处置">
+     <g font-family="var(--sans)">
+      <rect x="6" y="24" width="160" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="86" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">1 进清单</text>
+      <text x="86" y="63" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">在用、在建都要登</text>
+      <rect x="186" y="24" width="160" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="266" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">2 三件验证</text>
+      <text x="266" y="63" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">概念 · 持续监测 · 对照</text>
+      <rect x="366" y="24" width="160" height="52" rx="8" fill="var(--card)" stroke="var(--blue-ln)" stroke-width="1.5"/>
+      <text x="446" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">3 有效挑战</text>
+      <text x="446" y="63" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">专业 · 独立 · 说得动话</text>
+      <rect x="546" y="24" width="160" height="52" rx="8" fill="var(--card)" stroke="var(--warn)" stroke-width="1.5"/>
+      <text x="626" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">4 超线处置</text>
+      <text x="626" y="63" text-anchor="middle" font-size="10.5" fill="var(--warn)">按政策处置，不是记录</text>
+      <path d="M166 50 H180 M346 50 H360 M526 50 H540" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M180 50 l-6 -3.5 v7 z M360 50 l-6 -3.5 v7 z M540 50 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+      <text x="360" y="104" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">新版全文没有出现「AI」「机器学习」——它按是不是模型管，不按用没用 AI 管</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>跑了十五年的 SR 11-7 换版，2026-04-17 起看 SR 26-2。这四步值钱的是方法，不是它的适用名单。</figcaption>
+  </figure>
+  <p>客户说「我们不是银行，这套要不要做」，答案是这套动作可以裁剪：<b>模型清单、三件验证、独立挑战</b>三样带过去，评审会好过得多。至于「我们那套规则引擎算不算模型」，现行口径把模型定成用统计、经济或金融理论把输入变成定量估计的方法，纯算术和确定性规则不算——规则引擎多半在外，树模型一定在内。</p>
+  <p class="ev">SR 26-2 换版与适用范围核实 2026-08-02，来源
+    <a href="#src-governance">美联储 SR 26-2 通知页与指引全文</a>。<b>不可外推边界</b>：这是主要适用于总资产超 300 亿美元美国银行的监管口径，不是通用企业合规要求；对非金融客户，它是可借鉴的方法而不是必须遵守的条文。</p>
+
+  <h3>客户风控部门会要的三张纸，提前备好</h3>
+  <div class="grid">
+   <div class="box"><h4>模型卡</h4><p>用途、不适用场景、评估口径、按人群分组与交叉分组的表现——2019 年那篇论文定下的格式。<b>「不适用场景」那一栏写不出具体条目，这张纸就是白纸</b>。</p></div>
+   <div class="box"><h4>独立验证报告</h4><p>做验证的人不能是建模的人，这一条是硬要求。它签的是「这个模型能用」，不是「这个模型准」；补起来比想象中慢。</p></div>
+   <div class="box"><h4>再训练记录</h4><p>每次重训因为什么触发、换了什么数据、验了什么。<b>没有这本记录，前两张纸过一次就作废</b>。</p></div>
+  </div>
+  <p>这三样是工作量，报价时要算进去，别当赠品送。合规条目、法条时点与备案范围不在这一章——那些各有主场，现场别现编。</p>
+  <p class="ev">模型卡格式核实 2026-08-02，来源
+    <a href="#src-governance">Mitchell 等 2019 年模型卡论文</a>。<b>不可外推边界</b>：模型卡是一种文档格式建议，不是任何监管强制模板；照它写不等于满足某地某行业的报送要求。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-china" title="备案范围与合规数字在 Security 第 8 章，本册不复制；只讲预测式独有的落点——拒绝理由要说得出、模型卡、独立验证与持续监控记录">中国监管合规<span class="xm">Security</span></a></div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="sec" id="pam-platform">
+  <h2><span class="num">09</span>一套平台装得下生成式和预测式吗<a class="anchor" href="#pam-platform">#pam-platform</a></h2>
+
+  <div class="lead">
+    <p>客户已经买了一套 AI 平台，问预测式这摊能不能塞进去。<b>答「能」和答「不能」都不对，要分层答</b>——三家云自己也没合完。把交付拆成六层，一层一层问「这是不是同一件事」，结论就摆得出来了。</p>
+  </div>
+
+  <h3>六层分界：能整层共用的只有两层</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>环节</th><th>预测式</th><th>生成式</th><th>能不能共用</th></tr></thead>
+    <tbody>
+     <tr><td>数据准备</td><td>特征表、时间语义</td><td>文档切分、向量库</td><td>不能，两条管线</td></tr>
+     <tr><td>构建</td><td>训练出一份权重</td><td>写提示词、搭检索</td><td>不能，产物不同</td></tr>
+     <tr><td><b>登记与版本</b></td><td>权重加特征口径</td><td>提示词加检索配置</td><td><b>能，同一个注册表</b></td></tr>
+     <tr><td><b>发布门禁</b></td><td>离线指标过线</td><td>评估集过线</td><td><b>能，同一套流程</b></td></tr>
+     <tr><td>在线服务</td><td>CPU 可跑，天然可批量</td><td>GPU、按 token 计费</td><td>不能，成本结构不同</td></tr>
+     <tr><td>监测</td><td>有真值，但要等</td><td>无真值，看输出</td><td>只共用采集层</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>这张表是本册对客频率最高的一张，能当着客户的面从上往下讲完，每个「不能共用」都说得出是因为什么不同。向量库与文档管线、集群与 GPU 各有主场，这一节只讲两边的接缝。</p>
+
+  <h3>共用得最好的是登记这一层</h3>
+  <div class="grid">
+   <div class="box"><h4>登记的是什么</h4><p>不是权重文件，是<b>「这一版到底由哪些东西组成」</b>。预测式登权重加特征口径，生成式登提示词加检索配置——要登记的其实是同一件事。</p></div>
+   <div class="box"><h4>现成的证据</h4><p>MLflow 这类工具已经把两类放进同一套追踪与注册表：同一套工具既管 transformer 训练管线，也管多智能体 RAG 系统。</p></div>
+   <div class="box"><h4>共用的好处</h4><p>审计问「上个月给客户的那一版是什么」，一处能答。权限、留痕、回滚都只做一遍。</p></div>
+  </div>
+
+  <h3>合不了的是算力和服务形态</h3>
+  <div class="grid">
+   <div class="box"><h4>预测式怎么跑</h4><p>CPU 就能跑，天然可以批量，延迟量级看实测。容量按每秒请求数规划，弹性好做。</p></div>
+   <div class="box"><h4>生成式怎么跑</h4><p>要 GPU，按 token 计费，显存占用随上下文涨。容量按并发与上下文长度规划。</p></div>
+   <div class="box"><h4>混着调度的后果</h4><p>预测式作业排在大模型队列后面，GPU 又被小作业切碎。<b>共用集群省下的钱，常被排队和碎片吃回去</b>。</p></div>
+  </div>
+  <p>客户最容易在这一层以为能省钱，其实是两套容量模型。先做分区和配额，把两边跑稳，再谈合池。</p>
+
+  <h3>两边都说「漂移」，指的不是一件事</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问的问题</th><th>预测式（本册）</th><th>生成式</th></tr></thead>
+    <tbody>
+     <tr><td>有客观真值吗</td><td>有，只是要等</td><td>多半没有，靠判官打分</td></tr>
+     <tr><td>什么在变</td><td>输入分布、X 与 Y 的关系</td><td>供应商权重、输出风格</td></tr>
+     <tr><td>靠什么发现</td><td>分布距离、成熟真值上的指标</td><td>嵌入距离、判官持续打分</td></tr>
+     <tr><td>动作是什么</td><td>补数据、对齐口径、必要时重训</td><td>换版本、改提示词、加护栏</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>这是最容易在客户会上谈岔的一处，<b>先声明口径再往下说</b>：<a href="../ai-ops/index.html#ops-drift">AI-Ops 那一节</a>讲的是无真值的那一种，<a href="#pam-monitoring">上线之后那一节</a>讲有真值的那一种。采集层可以共用，判断方法不共用。</p>
+
+  <h3>客户问「能不能一套搞定」，先答治理面</h3>
+  <div class="grid">
+   <div class="box"><h4>先合治理面</h4><p>登记、发布门禁、权限、审计留痕四项。<b>越早合越省，这四项合起来几乎没有额外代价</b>。</p></div>
+   <div class="box"><h4>别急着合算力</h4><p>先分区、分配额，跑稳了再谈合池——省下的钱要跟排队和碎片的损耗对账。</p></div>
+   <div class="box"><h4>厂商自己也在挪</h4><p>Azure 侧预测式主场是 Azure Machine Learning、生成式主场是 Microsoft Foundry，微软官方还得专门出一篇「该用哪个工作室」的指引。<b>方案别写死在产品名上</b>。</p></div>
+  </div>
+  <p>客户问该先做哪件事：把两种模型登进同一个注册表，把发布门禁和审计留痕统一。这一步几乎没有额外代价，也是后面谈合算力时唯一站得住的基础。选云也别按产品名选，按<b>你们的登记与审计能不能一处满足</b>来选。</p>
+  <p class="ev">注册表可共用与微软两个门面的分工核实 2026-08-02，来源
+    <a href="#src-platform">MLflow 官方文档与 Microsoft Learn 平台说明</a>。<b>不可外推边界</b>：只说登记与追踪层可共用，算力与服务层另算；微软那条分工只反映其当前产品划分，服务名是当日快照、产品名与形态月级变动，不代表另两家云同样切分。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-infra-platform/index.html#aip-overview" title="共用得了的那半截（K8s+GPU、队列与配额、存储、容错）全在 AIP，本册不重讲，只讲上层为什么合并不了">平台全景：从「一堆卡」到「一个平台」<span class="xm">AI-Infra-Platform</span></a></div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="sec" id="pam-cheatsheet">
+  <h2><span class="num">10</span>售前速查<a class="anchor" href="#pam-cheatsheet">#pam-cheatsheet</a></h2>
+
+  <div class="lead">
+    <p>客户抛出一句话，你要在三十秒内拿到那张卡。这一节是前九章压出来的现场用件：<b>去哪一节找弹药、两种 AI 怎么当场对照、哪四句挡得住多数误判、验收该演什么</b>。</p>
+  </div>
+
+  <h3>客户一句话，往哪一节找弹药</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>客户会说</th><th>真正在问什么</th><th>去哪一节</th></tr></thead>
+    <tbody>
+     <tr><td>我们已经有一堆模型了</td><td>你们跟它什么关系</td><td><a href="#pam-what-why">两种 AI 各管什么</a></td></tr>
+     <tr><td>离线 0.95 上线只有 0.7</td><td>是不是用了未来的信息</td><td><a href="#pam-features-time">特征的时间语义</a></td></tr>
+     <tr><td>要不要上特征平台</td><td>现在到那个门槛了吗</td><td><a href="#pam-feature-store">特征平台</a></td></tr>
+     <tr><td>监测到漂移就重训吧</td><td>漂移等不等于变差</td><td><a href="#pam-monitoring">七类信号</a></td></tr>
+     <tr><td>说不清为什么拒绝</td><td>会不会卡住上线</td><td><a href="#pam-governance">解释与治理</a></td></tr>
+     <tr><td>能不能跟大模型共用一套</td><td>哪几层能合</td><td><a href="#pam-platform">平台分界</a></td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>预测式和生成式，一分钟对照</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问的角度</th><th>预测式</th><th>生成式</th></tr></thead>
+    <tbody>
+     <tr><td>产物是什么</td><td>一份权重加一套特征口径</td><td>一套提示词加检索配置</td></tr>
+     <tr><td>对不对谁说了算</td><td>业务真值，但要等</td><td>判官打分与人审</td></tr>
+     <tr><td>最大事故源</td><td>特征的时间语义</td><td>提示注入与幻觉</td></tr>
+     <tr><td>单次成本</td><td>CPU 上按请求算，量级看实测</td><td>GPU 上按 token 计费</td></tr>
+     <tr><td>改进的动作</td><td>换特征、重训</td><td>改提示词、换模型</td></tr>
+     <tr><td>验收签什么</td><td>指标带阈值与容量上限</td><td>质量分与发现时延</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>客户会拿生成式的经验套预测式，这张表用来当场拉回来。生成式那一列的展开各有主场，本册不重讲。</p>
+
+  <h3>四句话，挡得住现场多数误判</h3>
+  <div class="grid">
+   <div class="box"><h4>漂移不等于变差</h4><p>分布挪了模型照样准，很常见。重训的代价是真的，收益是假设的。</p></div>
+   <div class="box"><h4>标签是等出来的</h4><p>不是人打出来的——那是另一件事，成本在人力。<b>标签成熟期直接决定 POC 周期</b>。</p></div>
+   <div class="box"><h4>掉点先查时间</h4><p>离线好、上线差，十有八九是特征用了未来的信息。先查时点，再怀疑模型。</p></div>
+   <div class="box"><h4>说不出理由卡上线</h4><p>卡住上线的常常不是精度，是解释和留痕。<b>这部分工作量要在报价里就写进去</b>。</p></div>
+  </div>
+
+  <h3>串联地图：撞到别册的六处，各自怎么划</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>撞哪儿</th><th>那边讲什么</th><th>本册讲什么</th></tr></thead>
+    <tbody>
+     <tr><td><a href="../ai-ops/index.html#ops-drift">AI-Ops · 漂移</a></td><td>无真值的漂移与静默退化</td><td>有真值但要等标签的漂移</td></tr>
+     <tr><td><a href="../evaluation/index.html#eval-build">Evaluation · 自建评估</a></td><td>LLM 输出怎么判分</td><td>业务约束下的指标与阈值</td></tr>
+     <tr><td><a href="../data-engineering/index.html#de-labeling">Data-Engineering · 标注</a></td><td>人去打的标注，成本在人力</td><td>等出来的标签，成本在时间</td></tr>
+     <tr><td><a href="../security/index.html#sec-governance">Security · 治理框架</a></td><td>框架组合与法条时点</td><td>落到交付物上的那几张纸</td></tr>
+     <tr><td><a href="../ai-infra-platform/index.html#aip-overview">AI-Infra-Platform · 总览</a></td><td>集群、调度与 GPU</td><td>两种负载为什么合不了池</td></tr>
+     <tr><td><a href="../model-landscape/index.html#ml-price">Model-Landscape · 价格</a></td><td>大模型价格与选型</td><td>预测式那一侧的成本结构</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>这六处最容易重讲，被客户追问时也最容易露怯。跨模块引用一律说清「那边讲什么、本册讲什么」，别两边都讲一半。</p>
+
+  <h3>生产验收清单：这几样得当场演得出来</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>验收面</th><th>现场要演什么</th><th>什么不算数</th></tr></thead>
+    <tbody>
+     <tr><td>监控</td><td>注入一次故障，当场报出来</td><td>只给监控大盘截图</td></tr>
+     <tr><td>再训练</td><td>一份写死的触发条款</td><td>「见漂移就重训」</td></tr>
+     <tr><td>真值回灌</td><td>演一次从业务结果到指标</td><td>说「以后会接上」</td></tr>
+     <tr><td>解释</td><td>单笔的主要影响项当场调出</td><td>只给全局特征重要性</td></tr>
+     <tr><td>治理文档</td><td>模型卡加独立验证报告</td><td>建模的人自己签验证</td></tr>
+     <tr><td>回滚</td><td>上一版拉起来还能打分</td><td>只留一个权重文件</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>六条的出处都在<a href="#pam-monitoring">七类信号</a>与<a href="#pam-governance">解释与治理</a>两节。<b>报价时把它们当工作量算，别当赠品送</b>。</p>
+
+  <h3>方案评审对照：每一面要能出示什么</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>验收面</th><th>必须能出示的证据</th></tr></thead>
+    <tbody>
+     <tr><td>题切对了</td><td>预测时点、观察窗、标签窗、样本单元四样写在一页上，业务方签过字</td></tr>
+     <tr><td>没有穿越</td><td>按时间切分的回测记录；特征取数用的是预测时点当时可见的值</td></tr>
+     <tr><td>两边一致</td><td>同一实体同一时点，线上打分与离线重算逐字段比对的结果</td></tr>
+     <tr><td>有基线</td><td>不用模型的规则版成绩，与模型版同口径同切分</td></tr>
+     <tr><td>可复现</td><td>从一次生产打分能追到模型、数据快照、代码提交与审批</td></tr>
+     <tr><td>会响也知道怎么办</td><td>七类信号各自的检测方式、责任人，以及什么门槛才动模型</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>上一张表验「演不演得出来」，这一张验「出不出示得了」。答不出证据，就还没到生产。</p>
+
+  <h3>一句话记住每一节</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>节</th><th>一句话记住</th></tr></thead>
+    <tbody>
+     <tr><td><a href="#pam-what-why">两种 AI</a></td><td>存量模型是资产不是竞品，先答分工</td></tr>
+     <tr><td><a href="#pam-model-choice">算法取舍</a></td><td>先看数据长什么样，再谈用哪类算法</td></tr>
+     <tr><td><a href="#pam-problem-framing">问题切法</a></td><td>预测时点、标签窗口、样本单元先定死</td></tr>
+     <tr><td><a href="#pam-features-time">时间语义</a></td><td>掉点先查时间，特征别用上未来的信息</td></tr>
+     <tr><td><a href="#pam-feature-store">特征平台</a></td><td>它是门槛问题，没到门槛先别上</td></tr>
+     <tr><td><a href="#pam-lifecycle">实验到生产</a></td><td>实验记录、注册表、发布门，缺一条就追不回</td></tr>
+     <tr><td><a href="#pam-monitoring">七类信号</a></td><td>漂移不等于变差，重训排在最后一位</td></tr>
+     <tr><td><a href="#pam-governance">解释与治理</a></td><td>说不出拒绝理由，卡的是上线不是精度</td></tr>
+     <tr><td><a href="#pam-platform">平台分界</a></td><td>治理面先合，算力和服务形态别硬合</td></tr>
+     <tr><td><b>售前速查</b></td><td>客户一句话，三十秒内翻到那一节</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <p class="ev">速查各卡不新增事实，出处都在正文各节；治理文档那一行的口径核实 2026-08-02，来源
+    <a href="#src-governance">Mitchell 等 2019 年模型卡论文</a>。<b>不可外推边界</b>：这两张验收表是本册口径的对照清单，不是任何行业标准模板；表里的服务与工具名随各节正文的保鲜节奏变动，引用其中任何数字前先回到对应小节核日期。</p>
+</section>
+
+<!-- ============ 11 上云怎么落地 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">11</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面十节讲的是这条生命周期上每一环该怎么想。这一节换个视角：<b>每一环在云上对应哪个现成件、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了</b>。按落地阶段排，不按章节排——现场画的是一条从取数走到重训的时间线，不是一份目录。</p>
+    <div class="keypoints">
+      <div><b>多厂商</b><span>同一环节给几家的代表选项，不推单一供应商</span></div>
+      <div><b>只列真有的</b><span>没有真实云关联的环节不硬凑</span></div>
+      <div><b>不是选型结论</b><span>回答「哪一环有现成件」，不回答「买谁」</span></div>
+    </div>
+  </div>
+
+  <h3>阶段一 · 取数与特征：训练集是怎么来的</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>托管特征库</td><td>SageMaker Feature Store / Azure ML 托管特征库 / 阿里云 PAI-FeatureStore</td><td>两个库和中间那道物化，平台替你建好</td></tr>
+      <tr><td>时点取数</td><td>Azure ML 与 Databricks 内置时点连接；SageMaker 侧靠离线库自带的写入时间列自建</td><td>训练集按每个样本各自的时点截断，不是全表切一刀</td></tr>
+      <tr><td>在线存储</td><td>DynamoDB / Redis / Hologres</td><td>只留每个主键的最新值，按主键毫秒点查</td></tr>
+      <tr><td>产品寿命</td><td>Vertex AI Feature Store（Legacy）已弃用，去处是 V2 或 Bigtable</td><td>2027-02-17 退役，选型先查产品状态</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：线上读要几毫秒、并发多少？<b>每个特征的落库延迟有没有记录</b>——这张表拿不出来，时点取数就没有输入（见<a href="#pam-features-time">特征的时间语义</a>）。特征更新是分钟级还是天级？这套特征库的退役公告你们查过吗？再补上判断该不该买的那五行：几个模型共用同一批特征、几个团队在重复造、要不要毫秒级读、吃过一致性事故没有、要不要复现三个月前的训练集（见<a href="#pam-feature-store">特征平台</a>）。</p>
+  <p><b>云替你做不了什么</b>：托管特征库保证两边<b>读的是同一份存储</b>，保不了两边<b>算出同一个值</b>——转换代码不同照样对不上，哪个字段是标签的代理量它更是一概不知（见<a href="#pam-features-time">特征的时间语义</a>）。时点取数按你给的那一列时间算，<b>列给错了照样穿越</b>。在线库不留历史，要回溯还得回离线库；离线库有写入窗口，AWS 官方口径是写入调用之后 15 分钟内落进离线库——<b>那是写入窗口，不是在线库的读延迟</b>，这条最容易被读反（见<a href="#pam-feature-store">特征平台</a>）。云也替你迁不了口径：迁完要重跑。</p>
+  <p class="ev">Vertex AI Feature Store（Legacy）2027-02-17 完全退役、SageMaker 离线库 15 分钟写入窗口，核实 2026-08-02，来源 <a href="#src-feature-store">特征平台信源</a>。<b>不可外推边界</b>：退役表只针对 Legacy 版，V2 的能力与配额另算，别家产品也不同期；15 分钟是离线库的写入窗口，拿它当实时通道就会把方案写反。</p>
+
+  <h3>阶段二 · 从实验到发布：一个模型凭什么上线</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>实验记录</td><td>托管 MLflow（SageMaker、Databricks 两家的托管版）/ Azure ML 与 Vertex AI 跟踪</td><td>训练一跑就自动留痕，不靠人记得写</td></tr>
+      <tr><td>模型注册表</td><td>SageMaker Model Registry / Azure ML Registries / Vertex AI Model Registry</td><td>模型带着来路入库，批准动作可审计</td></tr>
+      <tr><td>发布门</td><td>SageMaker Pipelines 条件步骤；Azure ML 与 Vertex 的流水线有同类步骤</td><td>指标不过线，流水线停在批准前</td></tr>
+      <tr><td>影子发布</td><td>SageMaker 影子测试 / 各云端点的流量切分</td><td>真流量复制给新版，只算不返回</td></tr>
+      <tr><td>国内落点</td><td>阿里云 PAI：模型注册 + 实验管理</td><td>模型按版本入库，训练任务挂着实验</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：训练现在跑在哪、留没留记录？谁有权批准上线、记录留在哪？<b>门槛值现在是谁定的、写在哪一份文件里</b>？影子期打算跑多久（AWS 那家最长 30 天）？模型和实验记录落在哪个工作空间？还有最容易漏的一句：<b>判定日定在哪一天</b>——标签没成熟前，影子期比不出胜负（见<a href="#pam-lifecycle">从实验到生产</a>）。</p>
+  <p><b>云替你做不了什么</b>：注册表的状态字段<b>只记流程，不判断模型好坏</b>——从待批改成已批，只说明有人点了同意。门槛值要你给，云不知道业务底线。影子只比得出两版预测值的差异，<b>比不了业务结果</b>，谁更准要等标签成熟（见<a href="#pam-problem-framing">把业务问题切成可学的题</a>）。记录记得住入参和指标，抹不平库版本、算子、归约顺序带来的非确定性差异——<b>别承诺同一份代码跑出同一份权重</b>，能承诺的是差异查得到出处（见<a href="#pam-lifecycle">从实验到生产</a>）。</p>
+  <p class="ev">影子测试默认 7 天、最长 30 天、一个端点只挂一个影子；MLflow 自 2.9.0 起把注册表四阶段标为弃用、改推别名与标签。核实 2026-08-02，来源 <a href="#src-registry">注册表与发布信源</a>。<b>不可外推边界</b>：时长与端点限制是 AWS 一家的配额，别家做流量镜像的规格不同；弃用不等于已移除，旧接口在当前版本仍可用。</p>
+
+  <h3>阶段三 · 上线之后：云替你盯得住哪几类信号</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务 / 工具（多厂商）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>分布类信号</td><td>Azure ML 漂移信号 / Vertex AI 模型监控 / Evidently（开源）</td><td>不用等标签的那四类，云上开箱就有</td></tr>
+      <tr><td>真值类信号</td><td>Azure ML 模型性能信号（当日仍标 preview，需回灌真值）</td><td>真值不回灌，性能就无从谈起</td></tr>
+      <tr><td>无真值期估计</td><td>NannyML（开源）的 CBPE，Confidence-Based Performance Estimation；各家自建回流表</td><td>空窗期有近似解，但有前提</td></tr>
+      <tr><td>特征归因漂移</td><td>Azure ML 特征归因漂移信号（当日仍标 preview，需训练数据）</td><td>没标签也有一个早期预警</td></tr>
+      <tr><td>托管件的寿命</td><td>AWS SageMaker Model Monitor 已不再向新客户开放，官方改荐开源自建</td><td>托管件也会退场，管线别绑死</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：<b>推理的输入和输出落库了吗</b>——没落库，四类不等标签的信号一条都跑不起来。标签多久成熟、谁负责回灌？这个场景的概念漂移风险有多大（它决定空窗期那套估计能不能当预警用）？训练数据还留着吗？这个托管件现在还收不收新客户？阈值谁来定——<b>算子云给，阈值你定</b>（见<a href="#pam-monitoring">上线之后</a>）。</p>
+  <p><b>云替你做不了什么</b>：<b>云不替你等标签</b>，性能下降与概念漂移这两类必须有真值。无真值期估计在概念漂移下不成立，只能当预警、不能当验收依据；特征归因漂移同理，是预警不是结论。托管件退场时，迁移计划在你这边。最要紧的一条：告警响了不等于模型坏了——五步分诊里重训排在最后一位，云给的是查管线和看分布这两步的算子，<b>对特征、等真值这两步都在你这边</b>（见<a href="#pam-monitoring">上线之后</a>）。</p>
+  <p class="ev">Evidently 按参考集大小切换检验方式与阈值；Azure 的模型性能与特征归因漂移两个信号当日仍标 preview；AWS 同日文档改荐开源方案自建。核实 2026-08-02，来源 <a href="#src-drift">监控与阈值信源</a>。<b>不可外推边界</b>：Evidently 的那组阈值是<b>该工具的默认值，不是业界统一标准</b>，照抄前先看假设；preview 状态与信号清单会变，也不代表三家云在监控这一面能力对等。</p>
+
+  <h3>阶段四 · 两种 AI 摆在一起：哪一层合得起来</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>实验与注册</td><td>SageMaker 托管 MLflow / Vertex AI 与 Azure ML 注册表</td><td>两种模型可以进同一个注册表</td></tr>
+      <tr><td>生成式那一侧</td><td>Bedrock / Vertex AI Studio / Microsoft Foundry</td><td>生成式常在另一个控制台</td></tr>
+      <tr><td>在线服务</td><td>SageMaker 端点 / Vertex 端点 / Azure ML 在线端点</td><td>预测式 CPU 就能跑，成本结构和生成式不同</td></tr>
+      <tr><td>治理与留痕</td><td>各云模型注册表 + 自建证据库</td><td>要合就先合这一层</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：版本谁在管、审计要看到什么？两边的权限和账单打通了吗？延迟、并发、批量各要多少？<b>出事之后多久拿得出当时那一版</b>？还有现场最省时间的一句：你们的预测式和生成式现在分别在哪个控制台里——三家云自己的合并程度都不一样（见<a href="#pam-platform">一套平台装得下生成式和预测式吗</a>）。</p>
+  <p><b>云替你做不了什么</b>：云管存放，<b>晋级规则你定</b>；跨控制台的审计要自己拼。容量规划不归云——共用一个 GPU 集群省下的钱，常被排队和碎片吃回去，先分区分配额再谈合池。证据齐不齐也在你这边：模型卡、独立验证报告、再训练记录，<b>云一张都不会替你写</b>（见<a href="#pam-governance">可解释、公平与模型风险管理</a>）。</p>
+  <p class="ev">本节的服务清单与「给客户一句话」和讲义各章的「上云怎么落地」页同源，未另立新数；两处服务名快照按 30 天一查的节奏保鲜。核实 2026-08-02，来源 <a href="#src-platform">平台与门面信源</a>。<b>不可外推边界</b>：这是「哪一环有云件可用」的地图，不是选型结论——地域可用性、配额、计价单位与产品生命周期状态会月级变动，也不代表三家云在同一环节上能力对等，出方案前按当期官方文档逐项复核。</p>
+</section>
+
+<!-- ============ 12 现场高频追问 ============ -->
+<section class="sec" id="qa">
+  <h2><span class="num">12</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。答不上来的不立题。</p>
+  <p class="baseline">全部来自讲义对练页与本次网页化补题，日期 <b>2026-08-02</b>。</p>
+  <div class="qa">
+
+    <details id="q-predictive-ai-mlops-1">
+      <summary>我们风控跑了十年评分卡，你们这套是要把它换掉吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>不换。出分那一棒它干得好，要补的是它周边：特征的时间语义、上线之后的信号监测、什么时候才该重训。真要动出分模型，先拿现有评分卡当基线比一场——没有基线，说不清新模型值多少。</p>
+        <p class="qa-why">存量模型是资产不是竞品。客户听到「换掉」立刻变成防守方，听到「接住」才会把周边那几格的缺口讲给你听——那几格才是这一册真正在卖的东西。</p>
+        <p class="qa-next"><b>下一步</b>　把切入点当场摆成三条：运维（信号与重训）、生成式能力（把非结构化材料转成字段）、数据与特征底座，请对方指出哪一条现在最疼。</p>
+        <p class="qa-src">依据　<a href="#pam-what-why">两种 AI 各管什么</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-2">
+      <summary>大模型这么强，为什么不直接让它预测谁会流失？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>三处卡死，都跟能力强弱无关。它给的那个百分比是生成出来的字，不是在你数据上估的概率，<b>没校准就没法卡阈值排队、算期望损失</b>；客户的申请表字段与内部风控规则预训练里没有，塞进提示词只是这一次可见，学不进权重；每天几百万次打分，按 token 计费的形态也撑不住。</p>
+        <p class="qa-why">讲成「能力还不够、等下一代」，下一代来了你还得再解释一遍。讲成结构性分工，这句话才一次管三年。</p>
+        <p class="qa-next"><b>下一步</b>　反过来给它派活：让生成式读合同、工单这类非结构化材料，转成字段再交给预测式出分——同一笔业务两种 AI 各站一棒。</p>
+        <p class="qa-src">依据　<a href="#pam-what-why">两种 AI 各管什么</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-3">
+      <summary>你们用什么算法？我们想上最新的深度学习模型，行不行？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>先看数据长什么样：一行一个样本的表格默认梯度提升树，时序先立季节性朴素基线再上树，排序看前 N 名的命中率，异常先去找那 1% 的标签。要往上走先过三道门槛——样本量、时间预算、上线门槛（说得出拒绝理由、特征管线还要重做一遍）；<b>三道里过不了任何一道，默认解就是树</b>。活体基准 TabArena 的结论是深度方法要靠更长的时间预算配合集成才追上，跨模型集成才是当前最好成绩。</p>
+        <p class="qa-why">算法名不是卖点。POC 排期里通常没有「更长的时间预算」这笔钱，先用树立基线、把省下的时间花在切题上，赢面大得多。</p>
+        <p class="qa-next"><b>下一步</b>　把客户的需求先归进表格、时序、排序、异常四格中的一格，当场给出默认解，再给一版不用模型的规则基线当标尺。</p>
+        <p class="qa-src">依据　<a href="#pam-model-choice">算法取舍地图</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-4">
+      <summary>我们一个标签都没有，是不是只能做无监督异常检测？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>先别认。ADBench 在 30 个算法、57 个数据集上跑出来两条：被测无监督算法之间<b>统计上谁也不比谁强</b>；只要有 1% 的标注异常，多数半监督方法就能超过最好的无监督方法。</p>
+        <p class="qa-why">这句话把讨论从「挑哪个无监督算法」拉回「去哪凑那 1%」——前者没有赢家，后者有明确动作，而且通常凑得出来。</p>
+        <p class="qa-next"><b>下一步</b>　去翻人工复核已经处理过的历史工单当种子标签，先估这 1% 够不够；够了，方案就从无监督改成半监督。</p>
+        <p class="qa-src">依据　<a href="#pam-model-choice">算法取舍地图</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-5">
+      <summary>我们就是想预测哪些客户会流失，这还不够清楚吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>还差四样：一行代表谁（样本单元）、站在哪一刻判断（预测时点）、往后看多久算发生（标签窗口）、什么动作才算流失（判定口径）。四样任意一样变了就是另一道题，样本量、正样本比例、上线方式全不同——同一句业务话能切出十几道完全不同的题。</p>
+        <p class="qa-why">题没切开就学不了，也没法验收。这四行写不出来的项目，后面所有算法讨论都是空转。</p>
+        <p class="qa-next"><b>下一步</b>　先问一句「<b>这个分数谁在什么时候看</b>」——答案会直接把预测时点和样本单元定下来，剩下两样也就好谈了。</p>
+        <p class="qa-src">依据　<a href="#pam-problem-framing">把业务问题切成可学的题</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-6">
+      <summary>为什么 POC 要等两个月才能给结论？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>标签是等出来的。标签窗定 60 天，就得等 60 天才知道答案。POC 里通常改用更早的历史切片，让窗口在过去已经走完，代价是那段时间的业务环境和现在不一样。窗口没走完就统计，正样本比例天然偏低，<b>模型看着很准，只是答案还没揭晓</b>。</p>
+        <p class="qa-why">「等标签」和「等标注」是两件事：人去打的标注成本在人力，加人能加快；这里的标签成本在时间，加人加不快。排期表上这一条最容易被砍，砍掉换来的是一个半熟的结论。</p>
+        <p class="qa-next"><b>下一步</b>　把标签成熟期直接写进 POC 排期，并同时定下判定日——哪一天才算比出胜负，发版当天就要写死。</p>
+        <p class="qa-src">依据　<a href="#pam-problem-framing">把业务问题切成可学的题</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-7">
+      <summary>离线 0.95，上线只有 0.7，问题出在哪？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>十有八九是训练时看见了预测那一刻看不到的信息。它<b>只让分数变好，不报错、不抛异常</b>，交叉验证也查不出——它切的是行，不是时间。按五步查：先怀疑那个好得反常的分数；看重要度榜有没有哪个特征霸榜又解释不通，摘掉重训一次；改按时间切分重评；给每个特征列一张可用时刻表；最后拿上线当天真实拿到的特征重放一遍。<b>重放分与离线分之差，就是虚高的那一截。</b></p>
+        <p class="qa-why">这是全册头号事故源，也是客户会上最常听到的一句抱怨。先查取数、再怀疑模型，能省掉重训、换算法、加数据这三轮全无效的动作。</p>
+        <p class="qa-next"><b>下一步</b>　第 4 步那张「特征可用时刻表」最省事——它把争论变成逐行核对：业务发生时间、落库延迟、预测那刻取不取得到。</p>
+        <p class="qa-src">依据　<a href="#pam-features-time">特征的时间语义</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-8">
+      <summary>你们说的数据泄漏，和我们数据部门说的数据泄露是一回事吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>不是。他们说的是数据外泄，属安全问题；这里说的是训练时看见了预测那刻拿不到的信息，模型学会了抄答案，离线漂亮、上线现原形。两个词中文都叫泄漏，<b>开会前先问清指的是哪一个</b>。</p>
+        <p class="qa-why">这个词一岔，整场会就在两条轨道上跑：安全部门以为你在讲合规，建模团队以为你在讲穿越，最后谁也没接住谁的话。</p>
+        <p class="qa-next"><b>下一步</b>　当着客户把简称换成长句：「训练用了预测时点之后才有的信息」，一次多花五个字，省掉后面十分钟。</p>
+        <p class="qa-src">依据　<a href="#pam-features-time">特征的时间语义</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-9">
+      <summary>我们的数据回流要等好几天，这套还能做吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>能做，前提是把延迟写进方案：<b>按最慢那条链定预测时点</b>。某个特征 T+5 才到手，就只能用 T+5 之前那一版，或者干脆不用。最贵的一种错是训练按事件时间取、上线那一刻等不到——离线拿了四行喂模型，真到手的只有一行。</p>
+        <p class="qa-why">事情发生的时间不等于你知道它的时间。筛选条件必须卡落库时间，只按事件时间筛就已经在穿越了。</p>
+        <p class="qa-next"><b>下一步</b>　问数据方一句：这张表有没有落库时间列。没有就先补这一列，比调任何模型参数都值。</p>
+        <p class="qa-src">依据　<a href="#pam-features-time">特征的时间语义</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-10">
+      <summary>别家都在推特征平台，我们是不是也该上一套？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>先数五行：几个模型共用同一批特征、几个团队在重复造同一个特征、线上要不要毫秒级读、吃过训练服务偏差的亏没有、要不要复现三个月前的训练集。<b>三行以上落在「该上」那一列，才谈得上买</b>；只落一两行，先用共享转换库加一张特征可用时刻表顶着——省下的运维人力，多半比平台省下的算力值钱。</p>
+        <p class="qa-why">特征平台是拿运维负担换复用收益，数不够就是净亏。把它讲成门槛问题而不是先进性问题，客户反而更信你后面说的话。</p>
+        <p class="qa-next"><b>下一步</b>　拿这五行给对方当场打一次分，结论和理由都写在纸上——这张分数表本身就是下一次会的议题。</p>
+        <p class="qa-src">依据　<a href="#pam-feature-store">特征平台</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-11">
+      <summary>上了特征平台，训练和线上就一定一致了吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>一致的是<b>读到的那份数据</b>，不是<b>算出来的那个值</b>。平台保证两边取自同一份定义和存储；实时特征若还在应用代码里现算，值照样对不上。哪个字段是标签的代理量它也不知道，目标泄漏拦不住。它还不管标签什么时候成熟——那条直接决定 POC 周期。</p>
+        <p class="qa-why">「上了平台就没这个问题了」是客户最想听、也最容易翻车的一句。边界当场说清，比上线后返工便宜得多。</p>
+        <p class="qa-next"><b>下一步</b>　让转换代码也归平台管才算真一致；短期做不到就退一步：每天比对一批线上与离线同一时点的特征值，超线报警——查得出止不住，也比不知道强。</p>
+        <p class="qa-src">依据　<a href="#pam-feature-store">特征平台</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-12">
+      <summary>我们有 Git 就够了吧，为什么还要一个模型注册表？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>Git 管代码，管不了几百兆的模型文件，也管不了它用了哪版数据、哪版特征口径。可复现要锁四样：<b>代码提交号、训练集快照、特征定义版本、运行环境</b>，缺一样「重跑一遍」都做不到。注册表把这四样绑在一起，再挂上谁批准上线的状态；回滚是改一个指针，不用翻提交历史。</p>
+        <p class="qa-why">客户问「模型在哪」，其实问的是这四样。答不上来，模型就是个来路不明的二进制文件，复核、定责、换人接手全卡在这儿。</p>
+        <p class="qa-next"><b>下一步</b>　判断一套记录合不合格只问一句：三个月后能不能只凭它把结果跑出来。拿一个已上线的模型试一次，卡在哪一步、缺的是四样中的哪一样，当场就有答案。</p>
+        <p class="qa-src">依据　<a href="#pam-lifecycle">从实验到生产</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-13">
+      <summary>新模型明明更好，为什么还要跑影子期？出了事多久能退回上一版？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>离线比的是历史数据，影子比的是今天真实进来的请求——差最多的一处是特征取数：线上有超时、空值、降级，离线表里一个都没有。影子让这些差异先暴露，且不影响客户。回滚这一侧，用别名的注册表是把 champion 指回旧版本，<b>分钟级</b>；前提两条：旧实例拉得起来、依赖的特征定义没被改过。两条不成立，回滚就成了重新发布，按小时算。</p>
+        <p class="qa-why">注册表从阶段改成别名，改的其实是回滚方式——发版对象成了一个指针，灰度与对照不用再造第二套状态。这一点直接决定你敢在合同里签多长的处置时限。</p>
+        <p class="qa-next"><b>下一步</b>　演练一次改指针回滚并报出实际耗时；同时把影子期时长和判定日一起写进发布计划，别只写「跑一段」。</p>
+        <p class="qa-src">依据　<a href="#pam-lifecycle">从实验到生产</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-14">
+      <summary>你们能不能保证同一份代码跑出同样的模型？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>不能，也没人能。库版本、显卡算子、归约顺序都会让结果有微小差异。<b>能保证的是差异可解释</b>：记录里查得到是哪一样变了。要严格复现就得锁死镜像和随机种子，代价是升级变慢——这笔账要跟客户当面算，别默默替他选。</p>
+        <p class="qa-why">把「可复现」讲成「一模一样」，第一次小数点后第三位对不上就成了信任事故；讲成「差异查得到出处」，签得下来也守得住。</p>
+        <p class="qa-next"><b>下一步</b>　在方案里把可复现写成两档：常规档记全四样、可定位差异；严格档锁镜像与种子、写明升级节奏变慢的代价。</p>
+        <p class="qa-src">依据　<a href="#pam-lifecycle">从实验到生产</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-15">
+      <summary>看到漂移告警，直接自动重训不就完了？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>这条自动化听着成熟，实际把三种事故写进了流程：<b>漂移不等于变差</b>，分布挪了模型照样准很常见，重训的代价是真的、收益是假设的；<b>标签没成熟就重训</b>，等于拿噪声追噪声，新模型看着好只是因为它拟合了半熟的那一批；<b>上游坏掉时重训</b>会把故障学进模型，那时候正确的动作是冻结。按五步分诊走：查管线、对特征、看分布、等真值，确认关系真的变了才动模型，并留旧版可回滚。</p>
+        <p class="qa-why">前四步不花钱，第五步花钱还可能变得更差——<b>顺序本身就是风控</b>。这也是「模型多久重训一次」没有标准答案的原因：该定的是评估节奏，不是日历。</p>
+        <p class="qa-next"><b>下一步</b>　写一份再训练触发条款：什么信号、连续几个窗口、标签成熟到什么程度才允许重训，写到不做模型的人也能照着执行。</p>
+        <p class="qa-src">依据　<a href="#pam-monitoring">上线之后</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-16">
+      <summary>阈值定多少合适？给个行业标准。<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>没有能直接抄的标准。PSI，Population Stability Index（群体稳定性指数）那组 0.1 / 0.25 出自 1994 年信用评分实务，是<b>与样本量无关的经验常数</b>：样本大了到处报警，样本小了该报不报。工具的默认值也各带假设——参考集小的时候靠假设检验，大了改用分布距离，这个切换规则是工具自己定的。做法是拿自家历史数据跑出正常波动带，再往外放一档。</p>
+        <p class="qa-why">照抄一个默认值，等于把「什么算异常」外包给一个不知道你业务的常数。第一次误报潮之后，客户就再也不看这块看板了——阈值定错的代价是整套监控失去信任。</p>
+        <p class="qa-next"><b>下一步</b>　先跑一段历史数据出波动带，再按特征重要性挑前几个特征盯住，别在小样本上追单个特征。</p>
+        <p class="qa-src">依据　<a href="#pam-monitoring">上线之后</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-17">
+      <summary>标签要等三个月，这三个月是不是什么都看不见？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>看得见四类不用真值的信号：数据质量故障、训练服务偏差、输入漂移、预测漂移——当天就能查，多数告警到这一步就解释完了。还能用模型自己的置信度反推混淆矩阵，估这段时间的准确率与召回。但要说清楚：这套估计以概率校准得住、样本量够大为前提，官方原话是<b>概念漂移下它不成立</b>——越是你最想知道答案的时候，它越不能用。</p>
+        <p class="qa-why">空窗期不是只能干等，但把估计值当验收依据，就是拿预警冒充结论。这句边界写不写进方案，决定三个月后是交付还是扯皮。</p>
+        <p class="qa-next"><b>下一步</b>　空窗期签「发现时延与处置时限」，别签分数；同时把真值回灌的责任人和节奏一并定下来。</p>
+        <p class="qa-src">依据　<a href="#pam-monitoring">上线之后</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-18">
+      <summary>我们上了监控，能不能承诺模型不掉点？验收又拿什么签？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>承诺不了。监控保证的是掉点<b>被发现得早、止得住</b>，不是不掉——能签的是发现时延和处置时限，至于多快发现得了，还要看真值多久回灌。验收也别签截图：注入一次故障能不能当场报出来、一份写死的再训练触发条款、一次真值回灌演练，<b>现场演一遍才算</b>。</p>
+        <p class="qa-why">承诺一个百分比，等于替一个还在变的数据分布背书。把验收从「有没有装」改成「异常报不报得出来、止不止得住」，既签得下来，也顺手把后续运营的价值挂上了钩。</p>
+        <p class="qa-next"><b>下一步</b>　报价时把这几样当工作量算，别当赠品送：故障注入演练、触发条款、真值回灌、单笔解释、模型卡与独立验证报告、回滚演练。</p>
+        <p class="qa-src">依据　<a href="#pam-monitoring">上线之后</a>　·　<a href="#pam-cheatsheet">售前速查</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-19">
+      <summary>归因结果能直接发给被拒的客户吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>作为主要影响项可以，作为整改建议不行。归因是把「这一单的分和基线差在哪」按特征摊开的一份账，加起来正好等于那个差额，仅此而已；特征相关时同一份贡献在几个特征之间怎么分本身就是任意的，采样还会造出现实中不存在的特征组合。所以能写「主要影响项是这三个」，<b>不能写「改了它就能过」</b>——后半句是因果承诺，这类方法给不了。</p>
+        <p class="qa-why">这一句写进对外话术，能挡住后面所有「我照你说的改了怎么还是被拒」的投诉。归因是分账，不是原因。</p>
+        <p class="qa-next"><b>下一步</b>　拿一个真实被拒样本写出三条主要影响项，再写一句你不敢承诺的话，两份一起给风控部门过目。</p>
+        <p class="qa-src">依据　<a href="#pam-governance">可解释、公平与模型风险管理</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-20">
+      <summary>公平性我们全都要，行不行？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>数学上不行。校准性、假阳性率均等、假阴性率均等三者，除非各群基础率相同或预测完美，否则不可能同时满足——这是 2016 年就被证明的结论，不是工程做不到。先跟业务选一个主口径：选校准性，两群的错判率就会不等；选假阳性率均等，分数不再能直接横比。</p>
+        <p class="qa-why">这不是技术选型，是业务表态。售前把它讲成「先选一个」，评审会就从「你们做不到」变成「我们该选哪个」——后者才有下文。</p>
+        <p class="qa-next"><b>下一步</b>　拿同一个模型按两个群体分别算准确率、假阳性率、假阴性率，看差距落在哪一项，再带着这张表去跟业务选主口径。</p>
+        <p class="qa-src">依据　<a href="#pam-governance">可解释、公平与模型风险管理</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-21">
+      <summary>我们不是银行，模型风险管理那套要不要做？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>那份指引自己写明主要适用于总资产超 300 亿美元的美国银行，2026-04-17 起换成了新版。但那套动作值钱的是方法：模型清单（在用、在建都要登）、三件验证（概念站不站得住、上线后持续监测、结果与真实对照）、由既有专业又有独立性的人做有效挑战、超线按政策处置而不是记录了事。非金融客户照着裁剪，评审会好过得多。顺带一句：<b>新版全文没出现「AI」「机器学习」字样</b>——它按是不是模型管，不按用没用 AI 管。</p>
+        <p class="qa-why">客户一听「银行监管」就想跳过，跳过之后独立验证报告补起来比想象中慢，直接卡住上线——卡上线的常常不是精度，是解释和留痕。</p>
+        <p class="qa-next"><b>下一步</b>　先确认一句：<b>这个模型的输出会不会直接对个人产生不利决定</b>？会，就先谈解释与留痕；不会，门槛低得多。</p>
+        <p class="qa-src">依据　<a href="#pam-governance">可解释、公平与模型风险管理</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-22">
+      <summary>我们已经买了一套大模型平台，预测式能不能直接塞进去？该先做哪件事？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>分层答。<b>登记、发布门禁、权限、审计留痕这治理面四项能合</b>，越早合越省，几乎没有额外代价——两种东西能进同一个注册表，是因为要登记的本来就不是文件，而是「这一版由什么组成」。数据管线、构建产物、算力与服务形态合不了：一个 CPU 就能跑、天然可批量，一个吃 GPU、按 token 计费。监测只共用采集层。先做的那件事就是把两种模型登进同一个注册表，把发布门禁和审计留痕统一起来。</p>
+        <p class="qa-why">答「能」和答「不能」都不对。三家云自己也没合完，微软还得专门出一篇「该用哪个工作室」的指引——<b>方案别写死在产品名上</b>。</p>
+        <p class="qa-next"><b>下一步</b>　把手上一个预测式项目和一个生成式项目按六层各写一行，标出哪几层真的共用了；每个「不能共用」都要说得出是因为什么不同。</p>
+        <p class="qa-src">依据　<a href="#pam-platform">一套平台装得下生成式和预测式吗</a></p>
+      </div>
+    </details>
+
+    <details id="q-predictive-ai-mlops-23">
+      <summary>你们说的漂移，和我们大模型团队说的漂移是同一个指标吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>同名不同物。他们那边多半没有客观真值，看的是输出风格和供应商静默换版，靠嵌入距离与判官持续打分发现，动作是换版本、改提示词、加护栏；这边有真值，只是要等，看的是输入分布和 X 与 Y 的关系，动作是补数据、对齐口径、必要时重训。<b>采集层可以共用，判断方法不共用。</b></p>
+        <p class="qa-why">这是客户会上最容易谈岔的一处：两个团队各说各的漂移，争到最后才发现争的是同一个词的两种含义。先声明口径再往下说，能省半场会。</p>
+        <p class="qa-next"><b>下一步</b>　在方案里给「漂移」加一句限定语——有真值的那一种还是没真值的那一种；跨团队评审时先把这句念出来。</p>
+        <p class="qa-src">依据　<a href="#pam-platform">一套平台装得下生成式和预测式吗</a>　·　<a href="#pam-monitoring">上线之后</a></p>
+      </div>
+    </details>
+
+  </div>
+  <p class="ev">本节的数字与服务名都取自本页其他小节已登记的事实，未另立新数；核实 2026-08-02，来源 <a href="#src-drift">监控与阈值信源</a>、<a href="#src-governance">解释与治理信源</a>。<b>不可外推边界</b>：这些答法给的是判断口径与下一步动作，不是任何客户现场的实测值——阈值、窗口长度、命中率一律要在对方的数据上重算。</p>
+</section>
+
+<!-- ============ 13 相关模块 ============ -->
+<section class="sec" id="related">
+  <h2><span class="num">13</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
+  <div class="rel">
+    <a href="../ai-ops/index.html#ops-drift">
+      <div class="nm">AI-Ops · 网页版</div>
+      <div class="why">最该互指的一条：那页的漂移发生在没有客观真值的生成式应用上（供应商静默换版、输出漂移），本页的漂移有真值、只是要等标签。发布动作的骨架也在那页，本页只补预测式独有的两点。</div>
+    </a>
+    <a href="../data-engineering/index.html#de-pipeline">
+      <div class="nm">Data-Engineering · 网页版</div>
+      <div class="why">上游：数据怎么进来、怎么增量同步归那页；本页接手的是同一份数据被当成特征时的时间语义。七类信号里第一类「数据质量故障」的检查项与责任面也在那边。</div>
+    </a>
+    <a href="../evaluation/index.html#eval-build">
+      <div class="nm">Evaluation · 网页版</div>
+      <div class="why">对照关系：那页讲没有客观真值时怎么建集、怎么判分，本页讲有真值时指标怎么挑、离线涨了业务没涨怎么办——两边共用「签字的验收线」这套交付语言。</div>
+    </a>
+    <a href="../ai-governance/index.html#gov-evidence">
+      <div class="nm">AI-Governance · 网页版</div>
+      <div class="why">哪一档用途要附哪些证据在那页；本页只讲预测式这一格落到交付物上的三张纸——模型卡、独立验证报告、再训练记录。</div>
+    </a>
+    <a href="../security/index.html#sec-governance">
+      <div class="nm">Security · 网页版</div>
+      <div class="why">备案范围、法条时点与框架组合在那页，本页不复制；现场被问到合规条目直接翻过去，别现编。</div>
+    </a>
+    <a href="../model-landscape/index.html#ml-selection">
+      <div class="nm">Model-Landscape · 网页版</div>
+      <div class="why">客户问「用什么模型」要先分清问的是哪一类：大模型的榜单、价格带与许可证在那页，表格与时序的算法取舍在本页。</div>
+    </a>
+    <a href="../fine-tuning/index.html#ft-eval-deploy">
+      <div class="nm">Fine-tuning · 网页版</div>
+      <div class="why">「训练」这个词两边指的不是一回事：那页是拿自己数据改大模型权重、产物是 adapter，本页是从头拟合一个预测式模型、产物多数走批量打分。</div>
+    </a>
+    <a href="../ai-infra-platform/index.html#aip-overview">
+      <div class="nm">AI-Infra-Platform · 网页版</div>
+      <div class="why">共用得了的那半截——集群与 GPU、队列与配额、存储、容错——全在那页，本页不重讲，只讲上层为什么合并不了。</div>
+    </a>
+    <a href="../solution-patterns/index.html#sp-method">
+      <div class="nm">Solution-Patterns · 网页版</div>
+      <div class="why">「我们已经有 X 了」的通用答法在那页；本页补预测式这一格的具体内容：存量模型是资产不是竞品，切入点是运维、生成式能力、数据与特征底座三条。</div>
+    </a>
+    <a href="../llm-training/index.html#llmtrain-eval">
+      <div class="nm">LLM-Training · 网页版</div>
+      <div class="why">怎么读别人给的模型卡在那页；本页只说这张卡在预测式这一格自己该写什么——用途、不适用场景、评估口径、分群表现。</div>
+    </a>
+  </div>
+  <p class="ev">这几条指向都在本模块清单里登记过，标的是同一个词在两册各归哪一边，核实 2026-08-02，来源 <a href="#src-platform">平台与门面信源</a>。<b>不可外推边界</b>：这是分工声明，不是能力对照——两页都叫漂移，判断方法并不通用，别把那边的做法直接搬到这边来用。</p>
+</section>
+
+<!-- ============ 14 来源与核实 ============ -->
+<section class="sec" id="sources">
+  <h2><span class="num">14</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源 × 等级 × 节奏 × 不能外推）见<a href="../../PPT-version/Predictive-AI-MLOps/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-08-02。<b>引用任何数字前先核日期。</b></p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
+    <tbody>
+      <tr id="src-rules-of-ml">
+        <td><code>src-rules-of-ml</code></td>
+        <td>Google for Developers《Rules of Machine Learning》第 1、4、29 条与 Training-Serving Skew 节；NeurIPS 2015《Hidden Technical Debt in Machine Learning Systems》</td>
+        <td>先发一版没有模型的规则基线、第一个模型先简单把基础设施做对；把服务时用过的特征打进日志再拿去训练是「训得像服务」最稳的办法；训练服务偏差的三类成因；机器学习系统的持续维护成本被普遍低估</td>
+        <td>都是经验法则与定性论述，不含比例、金额或阈值——「规则能拿走一半收益」不是任何具体项目的实测值</td>
+      </tr>
+      <tr id="src-tabular">
+        <td><code>src-tabular</code></td>
+        <td>arXiv:2506.16791《TabArena》活体基准；Prior Labs 官方文档 Models 页</td>
+        <td>表格数据上树仍是强对手、深度方法要更长预算配合集成才追上、跨模型集成是当前最好成绩；表格基础模型的样本数、特征数与类别数上限</td>
+        <td>公开精选数据集上的排名，不代表客户数据上的名次；规模上限也不代表在该规模上压得过树，且不含耗时与显存</td>
+      </tr>
+      <tr id="src-m5-adbench">
+        <td><code>src-m5-adbench</code></td>
+        <td>Makridakis 等《The M5 Accuracy competition: Results, findings and conclusions》；arXiv:2206.09426《ADBench》</td>
+        <td>时序侧：前 50 名几乎全用按门店／品类训练的 LightGBM、全部跨序列共学、冠军是 6 个模型等权平均；异常侧：无监督算法之间统计上谁也不比谁强、1% 标注异常就足以让多数半监督方法反超</td>
+        <td>零售销量单场竞赛的结论不能外推到所有时序场景；1% 是公开数据集上的平均结论，不是保证</td>
+      </tr>
+      <tr id="src-feature-store">
+        <td><code>src-feature-store</code></td>
+        <td>AWS《SageMaker Feature Store offline store data format》；Feast 官方文档 Introduction 与 FAQ；Google Cloud Vertex AI Feature Store 弃用通告与迁移指南；阿里云 PAI-FeatureStore 概述；Microsoft Learn 特征取回文档与 Databricks 时点连接文档</td>
+        <td>离线库自带的三列时间字段与 15 分钟写入窗口；Feast 自己列的「不是什么」；Vertex Legacy 2027-02-17 完全退役、去处是 V2 或 Bigtable；PAI 的离线在线两侧形态；Azure 与 Databricks 的时点连接能力与时间键约束</td>
+        <td>15 分钟是离线库写入窗口，不是在线库读延迟；退役表只针对 Legacy 版，V2 配额另算；能力存在不代表默认开启或性能达标</td>
+      </tr>
+      <tr id="src-registry">
+        <td><code>src-registry</code></td>
+        <td>MLflow《Model Registry Workflows》弃用说明；AWS《Update the Approval Status of a Model》与《Create a shadow test》；阿里云 PAI 模型注册与实验管理文档</td>
+        <td>四阶段被标弃用、改推别名与标签及其理由；注册表三态批准与合法迁移；影子测试默认 7 天、最短 1 小时、最长 30 天、一个端点只挂一个影子；PAI 的模型注册与实验关联两件</td>
+        <td>弃用不等于已移除，旧接口在当前版本仍可用；状态字段只记流程，不代表模型质量已被验证；影子的时长与端点限制是 AWS 一家配额，别家流量镜像规格不同</td>
+      </tr>
+      <tr id="src-drift">
+        <td><code>src-drift</code></td>
+        <td>Evidently 官方文档 Data drift；arXiv 2303.01227 与 Yurdakul &amp; Naranjo 2020（PSI 阈值评述）；NannyML 官方文档 performance_estimation；Microsoft Learn《Model monitoring in production》；AWS Model Monitor 可用性变更文档</td>
+        <td>参考集大小决定检验方式与阈值的切换规则；PSI 0.1／0.25 的来历与统计缺陷；CBPE 的成立前提与失效条件；Azure 表格数据五类内建监控信号及其前提；SageMaker Model Monitor 不再向新客户开放、官方改荐开源自建</td>
+        <td>Evidently 那组阈值是该工具的默认值，不是业界统一标准；PSI 评述只说缺陷，不给替代阈值；CBPE 只能当预警，不能当验收依据或替代真值；preview 状态与信号清单会变，也不代表三家云能力对等</td>
+      </tr>
+      <tr id="src-governance">
+        <td><code>src-governance</code></td>
+        <td>美联储 SR 26-2 通知页与所附指引全文；arXiv 1609.05807（公平不可兼得）；arXiv 1810.03993（模型卡）；Molnar《Interpretable Machine Learning》Shapley 章与 arXiv 2409.06157</td>
+        <td>2026-04-17 起取代旧版、适用口径、三件验证与有效挑战、把模型定义成把输入变成定量估计的方法；三个公平定义不可同时满足；模型卡要写明的用途、不适用场景与分群表现；归因在特征相关时的两处失真</td>
+        <td>美国大型银行的监管口径，不是通用企业合规要求；不可能性结论不指示哪个公平定义在你的业务里更合适；模型卡是文档格式建议，不是监管强制模板；归因的局限是方法固有，不代表所有实现同等失真</td>
+      </tr>
+      <tr id="src-platform">
+        <td><code>src-platform</code></td>
+        <td>MLflow 官方博客与文档；Microsoft Learn《What is Azure Machine Learning?》；AWS SageMaker 与 Bedrock、Google Cloud Vertex AI 产品文档</td>
+        <td>同一套实验追踪与模型注册表可以同时装两类；Azure 侧两个门面的分工与官方「该用哪个工作室」指引；注册与实验、生成式侧、在线服务、监控落点几组服务名快照</td>
+        <td>只说登记与追踪层可共用，算力与服务层另算；只反映微软当前的产品划分；服务名快照按 30 天节奏保鲜，不代表三家云能力对等，也不代表切分方式相同</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="ev">保鲜节奏按等级分档：云服务名单 30 天一查，工具默认值与监管口径 90 天，论文类结论 180 天。核实 2026-08-02，来源 <a href="#src-platform">平台与门面信源</a>。<b>不可外推边界</b>：复查日之前的数字也只是核实当日的快照——产品名、配额、生命周期状态与监管口径都会在两次复查之间变，出方案前按当期官方文档逐项复核。</p>
+</section>
+</article>
+</div>
+</main>
+
+<footer class="wrap">
+  <p>
+    本册 PPT 讲义：<a href="../../PPT-version/Predictive-AI-MLOps/Predictive-AI-MLOps-讲义.pptx">Predictive-AI-MLOps-讲义.pptx</a> ·电子书书单：<a href="../../PPT-version/Predictive-AI-MLOps/电子书书单.md">电子书书单.md</a> ·模块清单：<a href="../../PPT-version/Predictive-AI-MLOps/MANIFEST.md">MANIFEST.md</a>
+  </p>
+  <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
+  <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <nav class="prevnext" aria-label="书架前后册">
+   <a href="../fine-tuning/index.html"><span class="k">上一册 · 工程保障层</span><b>Fine-tuning</b></a>
+   <a class="nx" href="../security/index.html"><span class="k">下一册 · 工程保障层</span><b>Security</b></a>
+  </nav>
+  <!-- UPDATED:END -->
+</footer>
+
+<script src="../data.js?v=20260723m"></script>
+<script src="../assets/site.js?v=20260723m"></script>
+<script>
+/* 「告警响了，先别急着重训」分诊器：现象 → 七类信号之一 → 第一动作 → 五步分诊落点 → 重训判断。
+   分类与动作全部来自本节两张信号表，落点与顺序来自五步分诊图，禁忌来自「自动重训」那三条。
+   无 JS 时 .tool 隐藏，静态兜底是正文的两张表与五步图。 */
+(function () {
+  "use strict";
+  var kpi = window.KBUI.kpi;   /* 公共渲染件，见 assets/site.js */
+  var $ = function (id) { return document.getElementById(id); };
+  var out = $("triage-out"), note = $("triage-note");
+  if (!out) return;
+
+  /* 数组顺序 = 代价从低到高，勾中的第一个就是该先解释的那一步。
+     概念漂移排在性能下降之前：两个都勾时，落点是「关系真的变了」这份确认，不是「跌了」这个现象。 */
+  var SIGNALS = [
+    { id: "triage-dq",      step: 1, group: "数据侧", name: "数据质量故障",   act: "修管线，别重训" },
+    { id: "triage-skew",    step: 2, group: "数据侧", name: "训练服务偏差",   act: "对齐口径，见第 4 章" },
+    { id: "triage-input",   step: 3, group: "分布侧", name: "输入漂移",       act: "先看是不是活动或季节" },
+    { id: "triage-pred",    step: 3, group: "分布侧", name: "预测漂移",       act: "顺藤查输入，不急动模型" },
+    { id: "triage-bias",    step: 4, group: "回路侧", name: "反馈与选择偏差", act: "先补样本，再谈重训" },
+    { id: "triage-concept", step: 5, group: "真值侧", name: "概念漂移",       act: "确认后重训，换新窗口" },
+    { id: "triage-perf",    step: 4, group: "真值侧", name: "性能下降",       act: "按成熟期分批算，别抢跑" }
+  ];
+  var STEPS = ["", "查管线", "对特征", "看分布", "等真值", "才重训"];
+  var CLEAR = ["",
+    "第 1 步查管线：空值、越界、字段类型",
+    "第 2 步对特征：线上算的和训练算的是不是同一个值、同一个时点",
+    "第 3 步看分布：促销、渠道、季节这些业务归因",
+    "第 4 步等真值：标签成熟一批算一批，别拿半熟的标签下结论"];
+
+  function run() {
+    var label = $("triage-label").value, biz = $("triage-biz").value;
+    var hits = [], i;
+    SIGNALS.forEach(function (s) { if ($(s.id).checked) hits.push(s); });
+
+    if (!hits.length) {
+      out.innerHTML = kpi("信号归类", "先勾一条现象", false) +
+                      kpi("该不该重训", "先分类，再谈动作", false);
+      note.textContent = "「模型不行了」是七件事的统称，动作各不相同：数据侧两类是模型没变、" +
+        "喂进去的东西变了；分布侧两类是线索，不是结论；真值侧两类才能说「确实变差」，代价是要等标签；" +
+        "回路侧那一类是你看不见的那部分样本。不用等标签的四类当天就能查，多数告警到那一步就解释完了。";
+      return;
+    }
+
+    var p = hits[0];
+    var rest = [];
+    hits.forEach(function (s) { if (s !== p) rest.push(s.name); });
+
+    var v, warn = false, why;
+    if (p.id === "triage-dq") {
+      v = "先冻结，别更新"; warn = true;
+      why = "上游数据坏掉的时候重训，会把故障学进模型——这时候正确的动作是冻结，不是更新。";
+    } else if (p.id === "triage-skew") {
+      v = "不重训 · 先对齐口径"; warn = true;
+      why = "同一特征两条路径算出两个值，重训只会把错的口径学得更牢；对齐口径是第 4 章的活。";
+    } else if (p.id === "triage-input" || p.id === "triage-pred") {
+      if (biz === "yes") {
+        v = "不重训 · 已归因业务";
+        why = "分布变了先归因业务：促销、渠道、季节，都不是模型的错。";
+      } else if (biz === "unknown") {
+        v = "不重训 · 先做业务归因";
+        why = "分布确实变了，但没人能说它变差了——这是线索，不是结论，先看是不是活动或季节。";
+      } else {
+        v = "还不能重训 · 等真值";
+        why = "业务归因排除掉了，也只说明分布真的变了；漂移不等于变差，动不动模型等成熟真值说话。";
+      }
+    } else if (p.id === "triage-bias") {
+      v = "不重训 · 盲区先补上"; warn = true;
+      why = "被拦下的样本没有结果，你只看得见模型放行的那部分，越准的模型盲区越大；" +
+            "留一小片随机放行把样本补回来，再谈重训。";
+    } else if (label === "never") {
+      v = "无从谈起 · 真值不回灌"; warn = true;
+      why = "真值不回灌，性能就无从谈起：这两类信号必须等真值，没有真值就只是猜。";
+    } else if (label === "unripe") {
+      v = "别抢跑 · 等标签成熟"; warn = true;
+      why = "标签没成熟就重训，等于拿噪声去追噪声——新模型看着好，只是因为它拟合了半熟的那批。";
+    } else if (p.id === "triage-perf") {
+      v = "还差一步 · 先确认关系变了";
+      why = "成熟真值上确实跌了，但要拿同批样本新旧对照、确认 X 与 Y 的关系变了，才轮到第 5 步。";
+    } else {
+      v = "可以重训 · 换新窗口";
+      why = "关系真的变了才动模型：换新窗口重训，并且留旧版可回滚。";
+    }
+
+    var must = [];
+    for (i = 1; i < p.step; i++) {
+      if (i === 3 && biz === "no") continue;        /* 业务归因已经查过 */
+      if (i === 4 && label === "ripe") continue;    /* 标签已成熟一批 */
+      must.push(CLEAR[i]);
+    }
+
+    var hint = "";
+    if (label === "unripe" && (p.id === "triage-input" || p.id === "triage-pred")) {
+      hint = "空窗期不是只能干等：用模型自己的置信度反推，能估出这段时间的准确率、召回率" +
+             "（开源代表实现是 NannyML）；但概念漂移下这套估计不成立，只能当预警，不能当验收。";
+    } else if (p.id === "triage-input" || p.id === "triage-pred") {
+      hint = "阈值不是查出来的，是定出来的：PSI 的 0.1 / 0.25 出自 1994 年信用评分实务，" +
+             "与样本量无关，照抄前先跑一遍自家历史波动带。";
+    } else if (v.indexOf("可以重训") === 0) {
+      hint = "顺手把再训练触发条款写死：什么信号、连续几个窗口、标签成熟到什么程度才允许重训——" +
+             "让不写模型的人也照着执行得了。";
+    }
+
+    out.innerHTML =
+      kpi("信号归类", p.group + " · " + p.name, false) +
+      kpi("第一动作", p.act, false) +
+      kpi("分诊停在", "第 " + p.step + " 步 · " + STEPS[p.step], false) +
+      kpi("该不该重训", v, warn);
+
+    var txt = why;
+    if (rest.length) {
+      txt += "同时勾了" + rest.join("、") + "——按代价从低到高走，走到哪一步能解释就停在哪一步。";
+    }
+    txt += must.length ? "重训之前必须先排除：" + must.join("；") + "。"
+                       : "这已经是最便宜的一步，修完再看告警还在不在。";
+    note.textContent = hint ? txt + hint : txt;
+  }
+
+  ["triage-dq", "triage-skew", "triage-input", "triage-pred", "triage-perf",
+   "triage-concept", "triage-bias", "triage-label", "triage-biz"].forEach(function (id) {
+    $(id).addEventListener("input", run);
+    $(id).addEventListener("change", run);
+  });
+  run();
+})();
+</script>
+</body>
+</html>

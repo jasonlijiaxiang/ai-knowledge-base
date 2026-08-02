@@ -16,8 +16,27 @@ NEWRELS = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n'
 import tempfile
 _TMP = tempfile.mkstemp(prefix="_kbins_", suffix=".pptx")[1]
 
-def _gen_slide_xmls(draw_fns):
-    prs = Presentation(); prs.slide_width = Inches(13.333); prs.slide_height = Inches(7.5)
+EMU_PER_INCH = 914400
+
+def _src_canvas(src):
+    """从目标讲义的 presentation.xml 读画布尺寸（英寸）。
+
+    库内是两种规格并存：9 册 10×5.625、10 册 13.333×7.5。此前本模块把 13.333 写死，
+    往小画布册插页 = 右侧与下方各被裁掉 25%——2026-07-17 一次插页批次把 9 册 78 页
+    画成这样，audit 当时只查负坐标、不查右下超界，两层防线同时失守。
+    现在默认按目标册的实际画布画，不再由调用方记得传。
+    """
+    with zipfile.ZipFile(src) as z:
+        xml = z.read('ppt/presentation.xml').decode('utf-8')
+    m = re.search(r'<p:sldSz[^>]*\bcx="(\d+)"[^>]*\bcy="(\d+)"', xml)
+    if not m:
+        raise ValueError("%s：presentation.xml 里读不到 sldSz，拒绝按默认尺寸乱画" % src)
+    return int(m.group(1)) / EMU_PER_INCH, int(m.group(2)) / EMU_PER_INCH
+
+
+def _gen_slide_xmls(draw_fns, size=(13.333, 7.5)):
+    prs = Presentation()
+    prs.slide_width, prs.slide_height = Inches(size[0]), Inches(size[1])
     B = prs.slide_layouts[6]
     for fn in draw_fns:
         fn(prs.slides.add_slide(B))
@@ -31,13 +50,15 @@ def _gen_slide_xmls(draw_fns):
     os.remove(_TMP)
     return out
 
-def insert_figures(src, dst, specs):
+def insert_figures(src, dst, specs, size=None):
+    """size=None（默认）＝按 src 的实际画布画，这是唯一不会裁页的用法；
+    只有在明知要另一种尺寸时才显式传 (宽英寸, 高英寸)。"""
     # src 与 dst 必须是不同路径：本函数边读源 zip 边写目标 zip，同名会把源文件当场截断
     # （2026-07-30 实测：讲义写坏、只剩 22 字节，靠 git 才捞回来）。宁可失败也不静默毁文件。
     if os.path.abspath(src) == os.path.abspath(dst):
         raise ValueError("insert_figures: src 与 dst 不能是同一个文件（会把源截断）——"
                          "写到临时路径再 move 回去")
-    new_xmls = _gen_slide_xmls([fn for _, fn, _ in specs])
+    new_xmls = _gen_slide_xmls([fn for _, fn, _ in specs], size or _src_canvas(src))
     with zipfile.ZipFile(src) as z:
         names = z.namelist()
         parts = {n: z.read(n) for n in names}

@@ -1,0 +1,1894 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 治理 · AI 知识库网页版</title>
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723m">
+</head>
+<body>
+
+<nav class="topbar"><div class="tb">
+ <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
+ <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
+ <span class="ver">v0723m</span>
+</div></nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="crumb">工程保障层 · 网页版</p>
+    <h1><span class="en">AI Governance</span>AI 治理，谁凭什么证据批准</h1>
+    <p class="lede">治理不是一份文档，是一套一直在跑的决定系统：某个 AI 用途由谁、依据什么证据作出批准、限制、暂停或退役，以及什么变化必须触发重新决定。这一页按这条决定链走一遍——登记、分层、影响评估、五种决定、证据包、失效触发。讲义 PPT 见页脚链接。</p>
+    <div class="hr"></div>
+    <p class="lede" style="margin-top:0">
+      <span class="badge ok">核实窗口 2026-08-02</span>
+      <span class="badge recheck">立法与执法动态仍在变 · 决定系统的骨架长青</span>
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="cols">
+
+<nav class="toc" aria-label="本页目录">
+  <h4>本页目录</h4>
+  <ol>
+    <li><a href="#gov-what-why">1 · 治理是一套决定系统，不是一份文档</a></li>
+    <li><a href="#gov-registry">2 · 按用途登记，不按模型登记</a></li>
+    <li><a href="#gov-risk-tiering">3 · 组织风险分层与法律分类是两把尺子</a></li>
+    <li><a href="#gov-impact">4 · 影响评估在架构冻结前做</a></li>
+    <li><a href="#gov-decision">5 · 五种决定：批准、条件批准、例外、暂停、退役</a></li>
+    <li><a href="#gov-evidence">6 · 证据包怎么组装</a></li>
+    <li><a href="#gov-change-triggers">7 · 什么变化让原来的批准失效</a></li>
+    <li><a href="#gov-frameworks">8 · 各框架分别能证明什么、不能证明什么</a></li>
+    <li><a href="#gov-china-interface">9 · 用途登记与中国备案要求怎么对接</a></li>
+    <li><a href="#gov-operating">10 · 跑起来需要的角色、节奏与工具</a></li>
+    <li><a href="#gov-cheatsheet">11 · 售前速查</a></li>
+    <li><a href="#cloud">12 · 上云怎么落地</a></li>
+    <li><a href="#qa">13 · 现场高频追问</a></li>
+    <li><a href="#related">14 · 相关模块</a></li>
+    <li><a href="#sources">15 · 来源与核实</a></li>
+  </ol>
+</nav>
+
+<article>
+
+<!-- ============ 1 ============ -->
+<section class="sec" id="gov-what-why">
+  <h2><span class="num">01</span>治理是一套决定系统，不是一份文档<a class="anchor" href="#gov-what-why">#gov-what-why</a></h2>
+
+  <div class="lead">
+    <p>客户桌上那本《AI 管理办法》证明不了他有治理。治理像塔台放行，不像飞行手册——手册常年不变，放行每架次都要给一次。判断水位只看三样东西当场填不填得出来：</p>
+    <div class="keypoints">
+      <div><b>决定</b><span>每条用途都有明确结论：批、有条件批、暂停、退役。没有结论的评审等于没评审</span></div>
+      <div><b>依据</b><span>作结论那天看了哪些证据、谁签的字，半年后有人问起翻得出来</span></div>
+      <div><b>失效条件</b><span>什么变化会让它作废：换模型、扩人群、加权限。不写，批准就是终身有效</span></div>
+    </div>
+    <p>三格里哪一格填不出来，哪一格就是这家公司治理的实际水位——这是开场十分钟就能问出结果的一组问题。</p>
+  </div>
+
+  <h3>一条用途从提出到退役，只有五个地方需要拍板</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 300" role="img" aria-label="用途生命周期闭环：发现登记、定档、影响评估、作出决定、触发复审五个拍板点首尾相接，第五步经蓝色回边重新打开第一步">
+     <g font-family="var(--sans)">
+      <ellipse cx="360" cy="155" rx="245" ry="110" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+      <path d="M127 121 A 245 110 0 0 1 360 45" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+
+      <path d="M-6,-4.5 L6,0 L-6,4.5 Z" fill="var(--ink-400)" transform="translate(504,66) rotate(18.1)"/>
+      <path d="M-6,-4.5 L6,0 L-6,4.5 Z" fill="var(--ink-400)" transform="translate(593,189) rotate(125.9)"/>
+      <path d="M-6,-4.5 L6,0 L-6,4.5 Z" fill="var(--ink-400)" transform="translate(360,265) rotate(180)"/>
+      <path d="M-6,-4.5 L6,0 L-6,4.5 Z" fill="var(--ink-400)" transform="translate(127,189) rotate(234.1)"/>
+      <path d="M-7,-5 L7,0 L-7,5 Z" fill="var(--blue)" transform="translate(216,66) rotate(-18.1)"/>
+      <text x="196" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="var(--blue-d)">批准回炉</text>
+
+      <text x="360" y="141" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink-900)">一条闭环</text>
+      <text x="360" y="164" text-anchor="middle" font-size="11" fill="var(--ink-400)">五步里只有第 3 步产出文档</text>
+      <text x="360" y="182" text-anchor="middle" font-size="11" fill="var(--ink-400)">其余四步产出的都是决定</text>
+
+      <rect x="285" y="21" width="150" height="48" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="360" y="41" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">1　发现登记</text>
+      <text x="360" y="58" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">谁用、给谁做什么决定</text>
+
+      <rect x="518" y="97" width="150" height="48" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="593" y="117" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">2　定档</text>
+      <text x="593" y="134" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">按四个变量定内部档</text>
+
+      <rect x="429" y="220" width="150" height="48" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="504" y="240" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">3　影响评估</text>
+      <text x="504" y="257" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">架构冻结前，出约束</text>
+
+      <rect x="141" y="220" width="150" height="48" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="216" y="240" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">4　作出决定</text>
+      <text x="216" y="257" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">写明失效条件与落款人</text>
+
+      <rect x="52" y="97" width="150" height="48" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="127" y="117" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">5　触发复审</text>
+      <text x="127" y="134" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">换模型、扩人群、加权限</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>以「用大模型给 500 份简历打分排序」为例，拍板点就落在这五处。第 5 步不是终点，它把第 1 步重新打开——<b>回边断掉，前四步的决定就变成终身有效</b>。文档是决定的副产品，不是产物。</figcaption>
+  </figure>
+
+  <h3>治理、安全、评估、运营是四条线</h3>
+  <p>客户问「你们这套 AI 靠不靠谱」，把四件事塞进了一个问题里。先拆再答，是不答偏的起点。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>这条线</th><th>管什么</th><th>产出</th></tr></thead>
+    <tbody>
+     <tr><td><b>治理（本页）</b></td><td>某条用途准不准用、由谁批、何时失效</td><td>带日期的决定与它的依据</td></tr>
+     <tr><td><a href="../security/index.html">Security</a></td><td>攻击面与防护手段、监管条目</td><td>威胁模型与四道闸</td></tr>
+     <tr><td><a href="../evaluation/index.html">Evaluation</a></td><td>这条用途做得对不对、达没达标</td><td>评估集与分数</td></tr>
+     <tr><td><a href="../ai-ops/index.html">AI-Ops</a></td><td>上线后跑得怎么样、坏了怎么办</td><td>trace、告警、回滚</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>四条线互为输入：治理要的证据来自评估与运营，治理给出的边界又约束安全与运营的动作。</p>
+
+  <div class="box">
+   <h4>「制度都写了，为什么还出事」</h4>
+   <p>治理不保证不出事——不出事是防护和评估的活。它保证出事那天说得出<b>谁批的、凭什么、当时接受了哪些残余风险</b>，处置因此快得多。同样的道理反过来用：治理牵头的是法务还是技术不要紧，要紧的是他<b>有权叫停</b>。美国联邦那套把这份权力放在首席 AI 官（CAIO，Chief AI Officer）手里——高影响用途做不到最低要求就必须安全停用，个别要求的豁免由他书面批、每年重新确认、可随时撤销，批准或撤销后 30 天内报美国管理和预算办公室（OMB），且这份职责不得下放。</p>
+  </div>
+
+  <p class="ev">欧盟《人工智能法》第 26 条第 6 款：高风险系统的部署方保存系统自动生成日志的期限须与预期用途相称，<b>且至少 6 个月</b>——「半年后有人问起翻得出来」不是修辞，是条文。核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》条文</a>。<b>不可外推边界</b>：只覆盖高风险系统的部署方，只讲留存下限、不含日志内容与调取方式；该法各项义务的适用起点已经延后，具体时点只在 Security 那一册登记一次，本页不复制。</p>
+  <p class="ev">OMB M-25-21 的停用与豁免机制核实 2026-08-02，来源 <a href="#src-omb">OMB M-25-21 备忘录原文</a>。<b>不可外推边界</b>：这是美国联邦机构管自己用 AI 的规则，不适用于企业；企业能借的是「谁有权叫停、豁免多久重新确认一次」这个骨架，条款照抄前须按自身法域裁剪。</p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="sec" id="gov-registry">
+  <h2><span class="num">02</span>按用途登记，不按模型登记<a class="anchor" href="#gov-registry">#gov-registry</a></h2>
+
+  <div class="lead">
+    <p>清单建完就死，多半死在登记单元选错了。登记的是<b>「谁在什么场景下用它做什么决定」</b>，像药盒上的适应症，不是分子式。同一套权重、同一个 API key、同一条网关路由，只要落到两个决定上，就得是两条记录。</p>
+  </div>
+
+  <div class="grid">
+   <div class="box"><h4>用途 A</h4><p>给 HR 起草职位描述初稿，人来定稿。错了改一版，影响到此为止。</p></div>
+   <div class="box"><h4>用途 B</h4><p>给 500 份简历打分排序，低分不进面试。错了有人丢掉机会，且本人不知道。</p></div>
+   <div class="box"><h4>按模型登记会怎样</h4><p>两条并成一行，风险档只能取一个——要么把 A 管死，要么把 B 放过去。</p></div>
+   <div class="box"><h4>法律也这么切</h4><p>欧盟法案按<b>预期用途</b>分类，筛简历落在附件三第 4 类；同一批文案拿去定向投放职位广告，又落回名单。</p></div>
+  </div>
+
+  <h3>六格填不满，这条记录就不能拿来拍板</h3>
+  <p>字段不是越多越好，标准只有一条：少了这格，批的人没法拍板。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>字段</th><th>填什么</th><th>空着会怎样</th></tr></thead>
+    <tbody>
+     <tr><td>用途一句话</td><td>谁用它、给谁做什么决定</td><td>并成「用了大模型」，分不了档</td></tr>
+     <tr><td>业务负责人</td><td>出事时接电话、签风险的那个人</td><td>没人接，决定就悬着</td></tr>
+     <tr><td><b>影响对象</b></td><td>决定落在谁身上：候选人、客户、员工</td><td>填不出，说明还没想清楚</td></tr>
+     <tr><td>人在不在环</td><td>人是能推翻它，还是只点确认</td><td>这一格直接决定风险档</td></tr>
+     <tr><td>模型与数据</td><td>模型版本、供应商、喂了哪些数据</td><td>换模型时不知道该重审谁</td></tr>
+     <tr><td><b>失效条件</b></td><td>什么变化会让这次批准作废</td><td>批准变成终身有效</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>「模型版本」只是六格里的一格——它是这条记录的属性，不是记录本身。客户拿模型注册表来充 AI 清单，问一句就露底：<b>这里每个模型，业务上对应哪几条用途？</b></p>
+  <p class="ev">欧盟法案给「影响对象」这一格加了硬约束：第 26 条第 7 款要求雇主在职场投用高风险系统<b>前</b>告知工会代表与受影响员工。核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》条文</a>。<b>不可外推边界</b>：讲的是义务落到谁头上，不含生效时点；时点见 Security 那一册。</p>
+  <p class="ev">NIST AI RMF（AI Risk Management Framework，AI 风险管理框架）把「有没有一套清单机制」单列为 GOVERN 1.6，配套 Playbook 建议：以政策定义清单的建立与维护流程、指定专人负责、范围至少覆盖全部模型或高风险场景中的系统，清单属性含文档、源码链接、事故响应计划、数据字典与责任人联系方式。核实 2026-08-02，来源 <a href="#src-nist">NIST AI RMF Playbook</a>。<b>不可外推边界</b>：自愿性方法论建议，不是强制的清单字段要求，客户拿它当「合规清单模板」是误用。</p>
+
+  <h3>影子 AI 靠挖不靠问</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 250" role="img" aria-label="影子 AI 的五处来源——网关日志、云账单、身份授权、SaaS 开关、员工凭据——并列汇入同一张用途登记表">
+     <g font-family="var(--sans)">
+      <path d="M188,29 C 320,29 340,105 458,105" fill="none" stroke="var(--ink-400)" stroke-width="1.4"/>
+      <path d="M188,74 C 320,74 340,115 458,115" fill="none" stroke="var(--ink-400)" stroke-width="1.4"/>
+      <path d="M188,119 C 320,119 340,125 458,125" fill="none" stroke="var(--ink-400)" stroke-width="1.4"/>
+      <path d="M188,164 C 320,164 340,135 458,135" fill="none" stroke="var(--ink-400)" stroke-width="1.4"/>
+      <path d="M188,209 C 320,209 340,145 458,145" fill="none" stroke="var(--ink-400)" stroke-width="1.4"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(464,105)"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(464,115)"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(464,125)"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(464,135)"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(464,145)"/>
+
+      <rect x="6" y="10" width="182" height="38" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="97" y="27" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-900)">网关日志</text>
+      <text x="97" y="41" text-anchor="middle" font-size="10" fill="var(--ink-400)">谁在调哪个模型、量多大</text>
+
+      <rect x="6" y="55" width="182" height="38" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="97" y="72" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-900)">云账单</text>
+      <text x="97" y="86" text-anchor="middle" font-size="10" fill="var(--ink-400)">模型与推理条目会露出来</text>
+
+      <rect x="6" y="100" width="182" height="38" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="97" y="117" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-900)">身份授权</text>
+      <text x="97" y="131" text-anchor="middle" font-size="10" fill="var(--ink-400)">授权过的第三方 AI 应用</text>
+
+      <rect x="6" y="145" width="182" height="38" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="97" y="162" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-900)">SaaS 开关</text>
+      <text x="97" y="176" text-anchor="middle" font-size="10" fill="var(--ink-400)">办公套件、CRM 里开出来的</text>
+
+      <rect x="6" y="190" width="182" height="38" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="97" y="207" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-900)">员工凭据</text>
+      <text x="97" y="221" text-anchor="middle" font-size="10" fill="var(--ink-400)">个人账号下的脚本与 Agent</text>
+
+      <rect x="468" y="84" width="210" height="82" rx="10" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="573" y="118" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink-900)">用途登记表</text>
+      <text x="573" y="140" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">一条用途一条记录</text>
+      <text x="573" y="196" text-anchor="middle" font-size="11" fill="var(--ink-400)">先挖再问：拿这份清单去对业务</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>五处是<b>并列的入口</b>，谁先谁后无所谓——少挖一处就漏一类用途，不是「这一处查完再查下一处」。问卷只收得到愿意填的人，这五处收的是已经发生的事实。<a href="../security/index.html#sec-supply-chain">Security 的供应链一章</a>盘的是有哪些模型，这里盘的是有哪些用途。</figcaption>
+  </figure>
+
+  <h3>换模型是变更，改用途是新记录</h3>
+  <p>判据只有一个：<b>给谁做什么决定，变了没有。</b></p>
+  <div class="grid">
+   <div class="box"><h4>新开一条记录</h4><p>同一个助手从「内部问答」扩到「对外答客户」——影响对象变了，重走一遍分档与评估。</p></div>
+   <div class="box"><h4>记成变更</h4><p>模型从某版换到下一版，用途一字未改——挂在原记录下，触发复审但不新建。</p></div>
+   <div class="box"><h4>责任也会跟着变</h4><p>欧盟法案第 25 条：改了预期用途让系统变成高风险、贴上自己的名称或商标、对已上市系统作实质性修改，使用方就被视为提供方。</p></div>
+  </div>
+
+  <h3>内部登记是母账，对外那几张表都从它取数</h3>
+  <p>先把内部这本记全，对外的表才填得出来。反过来做，永远在补材料。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>哪一本</th><th>谁要求的</th><th>登什么</th><th>对不上会怎样</th></tr></thead>
+    <tbody>
+     <tr><td><b>内部用途登记</b></td><td>你自己</td><td>全部 AI 用途，含挖出来的影子 AI</td><td>后面三本都没有底稿</td></tr>
+     <tr><td>欧盟数据库登记</td><td>欧盟法案第 49 条</td><td>附件三高风险系统；自认不高风险的也要登</td><td>登记与实际用途不符</td></tr>
+     <tr><td>中国备案与登记</td><td>网信办</td><td>对公众提供服务的模型与应用</td><td>路线判错，周期差几个月</td></tr>
+     <tr><td>美国联邦用途清单</td><td>OMB M-25-21</td><td>各机构按用途公开清单，每年更新</td><td>（拿来看别人怎么登）</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>中国这条的路线分诊与周期见 <a href="#gov-china-interface">用途登记与中国备案要求怎么对接</a>，条目与时点在 <a href="../security/index.html">Security</a> 那一册，这里只强调一件事：三本对外的表都从同一本内部账取数，<b>两头各记一份必然漂移</b>。</p>
+  <p class="ev">OMB M-25-21（2025-04-03 发布，取代 M-24-10）要求各机构维护并每年公开更新 AI 用途清单，登记与报送单位是<b>用途</b>而非模型；国防部与情报体系另有安排。核实 2026-08-02，来源 <a href="#src-omb">OMB M-25-21 备忘录原文</a>。<b>不可外推边界</b>：美国联邦机构自用规则，不适用于企业——它的价值是给你一份别人已经公开的登记样例，不是一份可照搬的义务。</p>
+
+  <h3>登记表活不下去，是因为它没长在取用通道上</h3>
+  <div class="grid">
+   <div class="box"><h4>挂在钥匙上</h4><p>没有登记记录，就不发 API key、网关不给路由。这是唯一真正管用的一招。</p></div>
+   <div class="box"><h4>每月自动对账</h4><p>拿网关日志和登记表对一次差集，有调用没记录的先挂起再补登。</p></div>
+   <div class="box"><h4>字段能少则少</h4><p>六格填得完，三十格没人填。每多一格，这张表就早过期一个月。</p></div>
+  </div>
+  <p>建在哪个系统里其实不重要，别新开一个没人登录的系统——挂在已有的工单或资产系统上最省事，让申请 API key 的流程顺手把六格填了。用途少到一只手数得过来时，一张表格就够，不必上平台；但只要有一条用途落到外部个人身上，这张表就得有，哪怕只有三行。</p>
+
+  <h3>云替你收资产，替不了「谁批的」</h3>
+  <p>云上能自动收的是<b>有哪些资产</b>；<b>这条用途谁批的、什么时候失效</b>，没有一个云服务替得了。三家的资产发现能力也不对等，别在方案里写成一句「云原生自动合规」。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>能自动收的</th><th>收不到的那部分</th></tr></thead>
+    <tbody>
+     <tr><td>云内在跑的模型、端点、Agent 与 MCP 服务器（Google Cloud Security Command Center，即 SCC 的 AI Protection，需 Premium 或 Enterprise 层级，MCP 服务器发现另需按项目启用 App Hub API）</td><td>官方文档写明<b>影子 AI 资源在控制台的 SCC 中不受支持</b>——浏览器里那部分得靠别的路子</td></tr>
+     <tr><td>第三方 AI 站点的使用面（Microsoft Purview DSPM for AI，Data Security Posture Management，数据安全态势管理）</td><td>需开按量计费，多数能力依赖浏览器扩展与设备接入，影子 AI 发现通常还要与 Defender for Cloud Apps 的云发现组合使用</td></tr>
+     <tr><td>模型版本与端点（SageMaker、Vertex AI Model Registry）</td><td>注册表不知道用途、负责人、影响对象与失效条件——那几格你自己建</td></tr>
+     <tr><td>控制项与技术证据的自动归集</td><td>「谁批的、凭什么」得人写；调用日志证明「谁调了」，证不了「这条用途被批过」</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">三云资产发现能力现状与 AWS Audit Manager 状态核实 2026-08-02，来源 <a href="#src-cloud-tools">各云官方文档</a>。选型提醒：Audit Manager 官方文档页顶已公告<b>不再向新客户开放</b>（存量账号可继续用），别写进新方案；它的生成式 AI 最佳实践框架 v2 共 110 项控制（72 项自动 + 38 项手动、8 个控制集），覆盖 Bedrock 与 SageMaker AI，文档同时声明这些控制<b>不用于验证系统是否合规、也不保证通过审计</b>。<b>不可外推边界</b>：这是各云当期能力，不代表三家覆盖面对等或可互换；这一类事实按 30 天节奏复查，出方案前逐项对当期官方文档。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-supply-chain" title="AI-BOM 记「系统里有哪些模型与组件」，用途登记记「有哪些 AI 用途、谁批的」，一条用途对应多条 AI-BOM 项，两张表用同一个用途 ID 串；准入门禁的技术检查项归 …">供应链与模型来源<span class="xm">Security</span></a></div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="sec" id="gov-risk-tiering">
+  <h2><span class="num">03</span>组织风险分层与法律分类是两把尺子<a class="anchor" href="#gov-risk-tiering">#gov-risk-tiering</a></h2>
+
+  <div class="lead">
+    <p>「我们这个算不算高风险」是<b>两个问题</b>，分开答才答得准。一把量法定义务，一把量内部流程——像海关申报与自家安检，过了一个不免另一个。</p>
+    <div class="keypoints">
+      <div><b>法律分类</b><span>按预期用途对号入座，名单是别人定的；判错了是违法，不是效率问题</span></div>
+      <div><b>组织分档</b><span>按影响谁、可不可逆、人在不在环、爆炸半径自己定；判错了是流程轻重不当</span></div>
+      <div><b>两把都要量</b><span>法律不管的用途，组织可以定成最高档；法律管的，不能因为「觉得还好」就降档</span></div>
+    </div>
+  </div>
+
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 200" role="img" aria-label="法律分类与组织分档两把尺子并行量同一条用途，结果送进取严闸门，内部只留最高的那一档">
+     <g font-family="var(--sans)">
+      <rect x="8" y="26" width="252" height="62" rx="9" fill="var(--card)" stroke="var(--line)"/>
+      <text x="134" y="52" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">法律分类</text>
+      <text x="134" y="72" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">按预期用途对号入座，名单别人定</text>
+
+      <rect x="8" y="112" width="252" height="62" rx="9" fill="var(--card)" stroke="var(--line)"/>
+      <text x="134" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">组织分档</text>
+      <text x="134" y="158" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">影响谁 · 可不可逆 · 人在环 · 半径</text>
+
+      <path d="M260,57 C 296,57 296,88 322,88" fill="none" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M260,143 C 296,143 296,112 322,112" fill="none" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(328,88)"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(328,112)"/>
+
+      <rect x="330" y="62" width="104" height="76" rx="9" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="382" y="94" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink-900)">取严</text>
+      <text x="382" y="115" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">两者中最高</text>
+
+      <path d="M434,100 H 476" fill="none" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(482,100)"/>
+
+      <rect x="486" y="62" width="228" height="76" rx="9" fill="var(--card)" stroke="var(--line)"/>
+      <text x="600" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">内部只留一个档</text>
+      <text x="600" y="110" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">法律那把是底，只能往上加</text>
+      <text x="600" y="127" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">不能往下减</text>
+
+      <text x="360" y="188" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">同一条用途在欧盟和美国判出两个档是常态：判据不同，答案不同——两边都听，取严的那把</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>两把尺子<b>同时量、各出一个结果</b>，闸门取严之后内部只留一个档。客户最爱把两个答案互相抵消——「法律没管，所以内部也可以松」「我们内部觉得还好，所以法律那条可以缓」，两句都是错的。</figcaption>
+  </figure>
+
+  <h3>欧盟四档里，只有一档真的会改你的架构</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>档位</th><th>是什么</th><th>对企业意味着</th></tr></thead>
+    <tbody>
+     <tr><td>禁止</td><td>社会评分、职场与学校的情绪推断等</td><td>不能做，没有合规方案</td></tr>
+     <tr><td><b>高风险</b></td><td>附件三 8 个领域，按预期用途对号</td><td><b>一整套义务，会改架构</b></td></tr>
+     <tr><td>透明度</td><td>聊天机器人、合成内容标记</td><td>要告知、要打标，多是产品侧的事</td></tr>
+     <tr><td>最小风险</td><td>其余绝大多数用途</td><td>按自家规矩走</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>禁止清单出自第 5 条，职场与教育机构的情绪推断有医疗或安全用途的例外；透明度义务出自第 50 条。附件三 8 个领域依次是：生物识别、关键基础设施、教育与职业培训、就业与劳动者管理、基本公私服务与福利的可及性、执法、移民庇护与边控、司法与民主程序。跟企业最相关的四类：<b>就业</b>（招聘筛选、评估候选人、绩效与晋升）、<b>信用评估与信用评分</b>（欺诈检测除外）、<b>人寿与健康保险的风险评估与定价</b>、<b>教育</b>（入学录取与学习成果评估）。</p>
+
+  <h3>落在名单里还有四个出口，但用了要自证</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 200" role="img" aria-label="高风险判定流程：是否落在附件三，四个出口是否成立，再看是否对自然人做画像；画像成立则一票否决回到高风险">
+     <g font-family="var(--sans)">
+      <rect x="330" y="16" width="384" height="44" rx="9" fill="var(--card)" stroke="var(--warn)" stroke-width="1.6"/>
+      <text x="522" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">画像一票否决</text>
+      <text x="522" y="51" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">只要对自然人做画像，上面四条一概不算数，仍是高风险</text>
+
+      <rect x="6" y="88" width="156" height="58" rx="9" fill="var(--card)" stroke="var(--line)"/>
+      <text x="84" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">落在附件三</text>
+      <text x="84" y="130" text-anchor="middle" font-size="11" fill="var(--ink-400)">8 个领域里吗</text>
+
+      <rect x="196" y="88" width="160" height="58" rx="9" fill="var(--card)" stroke="var(--line)"/>
+      <text x="276" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">四个出口</text>
+      <text x="276" y="125" text-anchor="middle" font-size="9.5" fill="var(--ink-400)">窄程序任务 · 改进人工结果</text>
+      <text x="276" y="138" text-anchor="middle" font-size="9.5" fill="var(--ink-400)">只找模式 · 准备性工作</text>
+
+      <rect x="390" y="88" width="160" height="58" rx="9" fill="var(--blue-bg)" stroke="var(--blue-ln)" stroke-width="1.6"/>
+      <text x="470" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">对自然人</text>
+      <text x="470" y="130" text-anchor="middle" font-size="11" fill="var(--blue-d)">做画像吗</text>
+
+      <rect x="584" y="88" width="130" height="58" rx="9" fill="var(--card)" stroke="var(--line)"/>
+      <text x="649" y="110" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-900)">可判不高风险</text>
+      <text x="649" y="128" text-anchor="middle" font-size="10" fill="var(--ink-400)">但要留判定依据</text>
+
+      <path d="M162,117 H 186" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(192,117)"/>
+      <text x="174" y="108" text-anchor="middle" font-size="10" fill="var(--ink-400)">是</text>
+      <path d="M356,117 H 380" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(386,117)"/>
+      <text x="368" y="108" text-anchor="middle" font-size="10" fill="var(--ink-400)">是</text>
+      <path d="M550,117 H 574" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-6,-4 L4,0 L-6,4 Z" fill="var(--ink-400)" transform="translate(580,117)"/>
+      <text x="562" y="108" text-anchor="middle" font-size="10" fill="var(--ink-400)">否</text>
+
+      <path d="M470,88 V 68" stroke="var(--warn)" stroke-width="2"/>
+      <path d="M-5,4 L0,-4 L5,4 Z" fill="var(--warn)" transform="translate(470,62)"/>
+      <text x="484" y="80" font-size="10" fill="var(--ink-400)">是</text>
+
+      <path d="M84,146 V 162" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-4,-5 L0,4 L4,-5 Z" fill="var(--ink-400)" transform="translate(84,166)"/>
+      <text x="84" y="184" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">否：法律不管，组织照分档</text>
+      <path d="M276,146 V 162" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M-4,-5 L0,4 L4,-5 Z" fill="var(--ink-400)" transform="translate(276,166)"/>
+      <text x="276" y="184" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">否：按高风险走全套义务</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>画像那一格<b>不是第五个出口</b>，是推翻前四条的条件——排成并列的第五格，客户就会以为它也能拿来出线。用了出口也不免检：提供方要在上市前写下判定依据，并按第 49 条第 2 款在欧盟数据库登记，监管来问拿得出来。客户那句「我们只是辅助人做判断」，法条里确实有这道门，但要看人是真能推翻还是走过场。</figcaption>
+  </figure>
+  <p class="ev">欧盟法案第 6 条第 2 款与第 3 款、附件三、第 5 条、第 50 条核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》条文</a>。<b>不可外推边界</b>：这是分类规则，不等于某个产品的合规结论；这里读的是原始刊登文本，修正版次、义务生效时点与执法节奏只在 Security 那一册登记一次，本页不复制。</p>
+
+  <h3>内部定档看四个变量，不看用没用大模型</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>变量</th><th>怎么打这一档</th></tr></thead>
+    <tbody>
+     <tr><td><b>影响谁</b></td><td>决定落在外部个人身上，比落在内部流程上高一档；本人不知情、没处申诉，再加一档</td></tr>
+     <tr><td><b>可不可逆</b></td><td>发出去的钱、删掉的数据、发出的邮件收不回来；可逆的错误便宜得多</td></tr>
+     <tr><td><b>人在不在环</b></td><td>人是能推翻它，还是只点个确认？走过场的复核，按「没有人在环」算</td></tr>
+     <tr><td><b>爆炸半径</b></td><td>它能碰到多少系统、多少数据，自主度越高越大</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>四项各打一档取最高。这样吵架就吵在变量取值上，不是吵「我觉得还好」。美国联邦那套的判据值得抄一句：<b>输出是不是这次决定的主要依据</b>。</p>
+  <p class="ev">OMB M-25-21 对「高影响 AI」的判据是：其输出成为对权利或安全具有法律、实质、约束或重大影响的决定或行动的<b>主要依据</b>，有没有人工监督不改变这一判定；备忘录另列 15 类推定为高影响的用途，机构若认定其中某个用途实际不属高影响，须书面报首席 AI 官备案。核实 2026-08-02，来源 <a href="#src-omb">OMB M-25-21 备忘录原文</a>。<b>不可外推边界</b>：这是美国联邦口径，不能直接套到企业或他国分档——能借的是判据的写法，不是那份 15 类清单。</p>
+
+  <h3>两把尺子错配的三种情形</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>情形</th><th>例子</th><th>该怎么办</th></tr></thead>
+    <tbody>
+     <tr><td>法律不管，组织高危</td><td>内部裁员名单预筛，不对外</td><td>法律没名单，风险照样在，按最高档走</td></tr>
+     <tr><td>法律管，业务觉得低危</td><td>「不就是个招聘助手」</td><td>名单上有名字就按名单来，感觉不作数</td></tr>
+     <tr><td><b>法定义务被删了</b></td><td>科罗拉多改法删掉了影响评估义务</td><td><b>义务没了风险没变，别顺势撤内部流程</b></td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>第三种最容易让人松劲，也最该在客户面前说清楚：法律是底线不是目标。错误的简历筛选照样让人丢掉机会，删掉的是别人写在纸上的义务，不是这件事本身的风险。</p>
+  <p class="ev">科罗拉多州 SB26-189 于 2026-05-14 签署、2027-01-01 生效，取代 2024 年的 SB24-205：框架从「高风险 AI 系统」换成面向自动化决策技术的告知、解释与人工复核要求，部署方的影响评估与风险管理程序义务被删除。反向的例子是纽约市第 144 号地方法（Local Law 144）：自动化雇佣决策工具要每年做独立偏见审计并公开摘要，使用前至少提前 10 个工作日告知候选人，一直没松。核实 2026-08-02，来源 <a href="#src-us-states">州与市两级立法原文与实务解读</a>。<b>不可外推边界</b>：SB26-189 只管科罗拉多一州，第 144 号地方法只覆盖纽约市的用工场景，两条都不是通用口径；美国单州立法还在变，别当终局。</p>
+
+  <div class="tool" id="triage">
+    <h4>用途分诊器：这个用途该走哪一档</h4>
+    <p class="note">把两把尺子连着走一遍：勾完这条用途的属性，得到组织风险档、法律分类结论、必走的那几步（影响评估／独立复核／登记／告知）和证据包该含哪几件。判据全部来自本页正文，不新增事实。<b>这是分诊，不是合规意见</b>——法定结论以当期法条与你的法务口径为准。</p>
+    <div class="controls">
+      <label class="ctl">欧盟法案名单对号
+        <select id="triage-annex">
+          <option value="none">不落在任何名单</option>
+          <option value="employment">附件三 · 就业（招聘筛选、评估候选人、绩效与晋升）</option>
+          <option value="credit">附件三 · 信用评估与信用评分</option>
+          <option value="insurance">附件三 · 人寿与健康保险的风险评估与定价</option>
+          <option value="education">附件三 · 教育（入学录取、学习成果评估）</option>
+          <option value="other">附件三 · 其余领域（生物识别、关键基础设施、公私服务可及性、执法、移民、司法）</option>
+          <option value="banned">第 5 条禁止清单（社会评分、职场与学校的情绪推断）</option>
+        </select>
+      </label>
+      <label class="ctl">主张第 6 条第 3 款的出口
+        <select id="triage-exit">
+          <option value="none">不主张</option>
+          <option value="narrow">窄程序任务（如把简历格式化）</option>
+          <option value="improve">改进已完成的人工结果</option>
+          <option value="pattern">只找模式，不替代也不影响人的判断</option>
+          <option value="prep">为后面那次评估做准备性工作</option>
+        </select>
+      </label>
+      <label class="ctl">人在不在环
+        <select id="triage-human">
+          <option value="override">人能推翻结论</option>
+          <option value="confirm">人只点确认（走过场）</option>
+          <option value="auto">没有人复核，自动执行</option>
+        </select>
+      </label>
+      <label class="ctl">决定落在谁身上
+        <select id="triage-subject">
+          <option value="internal">内部流程</option>
+          <option value="external">外部个人（本人知情、有申诉路径）</option>
+          <option value="externalblind">外部个人（本人不知情或没处申诉）</option>
+        </select>
+      </label>
+      <label class="ctl">爆炸半径
+        <select id="triage-blast">
+          <option value="read1">只读一个系统</option>
+          <option value="write1">能写一个系统</option>
+          <option value="multi">能改动多个系统的数据</option>
+        </select>
+      </label>
+      <label class="ctl chk"><input type="checkbox" id="triage-profile">对自然人做画像</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-principal">输出是这次决定的主要依据</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-irrev">错了收不回来（钱已发、数据已删、邮件已发）</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-gen">直接与自然人交互，或对外发布生成内容</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-eu">业务触达欧盟</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-cn">向境内公众提供服务</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-nyc">纽约市用工场景</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-co">适用科罗拉多州（2027-01-01 起）</label>
+      <label class="ctl chk"><input type="checkbox" id="triage-public">我方是公共机构或提供公共服务的私营主体</label>
+    </div>
+    <div class="kpis" id="triage-out"></div>
+    <div class="hitcards" id="triage-cards"></div>
+    <p class="note" id="triage-note"></p>
+  </div>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../agent/index.html#agent-eval-guardrails" title="自主度是组织风险分层的一根轴；自主度的技术形态与控权手段在 Agent 与 Security，本册只规定从「给建议」升到「自动执行」跨档必须重新过决定门">评估与护栏<span class="xm">Agent</span></a></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="sec" id="gov-impact">
+  <h2><span class="num">04</span>影响评估在架构冻结前做<a class="anchor" href="#gov-impact">#gov-impact</a></h2>
+
+  <div class="lead">
+    <p>影响评估交出来的不是一份存档文件，是<b>几条会改架构的约束</b>——人在环插在哪一步、留什么日志、给不给申诉入口、数据能不能按人删。这四件在架构冻结前提出来是设计输入，冻结之后再提就是拆墙。它的结论也不是「安全」，是<b>谁接受了哪些残余风险</b>，并且签了字。</p>
+    <div class="keypoints">
+      <div><b>产出</b><span>四条架构约束，不是一份归档</span></div>
+      <div><b>结论</b><span>残余风险由谁签字接受</span></div>
+      <div><b>边界</b><span>补足数据保护影响评估，替不了评测</span></div>
+      <div><b>节奏</b><span>换模型、扩人群、加权限都要重评</span></div>
+    </div>
+  </div>
+
+  <h3>晚一步为什么就白做</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 184" role="img" aria-label="影响评估的时点：落在方案定稿到架构冻结之间，产出是四条架构约束；落在架构冻结之后，四件都已冻住，只能重做一遍流程">
+     <rect x="12" y="22" width="356" height="54" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+     <text x="190" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">评估落在这一段</text>
+     <text x="190" y="63" text-anchor="middle" font-size="11" fill="var(--blue-d)">出的是约束：人在环／日志／申诉入口／可删除</text>
+     <rect x="384" y="22" width="324" height="54" rx="8" fill="var(--line-2)" stroke="var(--red)" stroke-dasharray="5 3"/>
+     <text x="546" y="45" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">评估落在这一段</text>
+     <text x="546" y="63" text-anchor="middle" font-size="11" fill="var(--ink-500)">四件都冻住了，改一件等于重做一遍流程</text>
+     <path d="M190 76 V104" stroke="var(--blue-ln)" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <path d="M190 112 l-4 -8 h8 z" fill="var(--blue-ln)"/>
+     <path d="M546 76 V104" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <path d="M546 112 l-4 -8 h8 z" fill="var(--red)"/>
+     <path d="M12 112 H698" stroke="var(--line)" stroke-width="1.5"/>
+     <path d="M708 112 l-9 -4.5 v9 z" fill="var(--line)"/>
+     <circle cx="110" cy="112" r="5.5" fill="var(--card)" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <circle cx="384" cy="112" r="6.5" fill="var(--warn)"/>
+     <circle cx="620" cy="112" r="5.5" fill="var(--card)" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <text x="110" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">方案定稿</text>
+     <text x="110" y="153" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">接口还能改</text>
+     <text x="384" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">架构冻结</text>
+     <text x="384" y="153" text-anchor="middle" font-size="10.5" fill="var(--ink-500)">过了这条线，改一件动全身</text>
+     <text x="620" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">上线</text>
+     <text x="620" y="153" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">只剩事后补救</text>
+     <text x="360" y="176" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">像消防评审在图纸阶段做——楼盖完了再看疏散通道，只能拆墙</text>
+    </svg>
+   </div>
+   <figcaption>这一章唯一要记住的判断就在这根轴上：<b>影响评估是方案定稿前的设计输入，不是上线评审的一道签字</b>。客户问「上线前一周做来得及吗」，答案是来不及——不是流程上来不及，是它要改的那四件已经焊死了。</figcaption>
+  </figure>
+
+  <h3>产出的四条约束</h3>
+  <div class="grid">
+   <div class="box"><h4>人在环放哪</h4><p>复核插在推荐之后还是执行之前，是两套接口。<b>上线后再插，等于重做一遍流程。</b></p></div>
+   <div class="box"><h4>留什么日志</h4><p>要能复盘一次决定，就得留下当时的输入与依据。<b>事后补日志，补不出历史。</b></p></div>
+   <div class="box"><h4>申诉入口</h4><p>被拒的人怎么找到人工复核。没预留入口，只能靠人工救火。</p></div>
+   <div class="box"><h4>能不能删</h4><p>数据要能按人删除，会反过来约束怎么存、怎么训。<b>冻结后再谈删除，代价最大。</b></p></div>
+  </div>
+
+  <h3>六格写不全，这份评估就签不出字</h3>
+  <p>欧盟法案第 27 条和美国那份联邦备忘录列的清单高度重合，取交集就够用。六格不是模板，是六个必须有人回答的问题。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>要写的</th><th>具体是什么</th><th>漏了会怎样</th></tr></thead>
+    <tbody>
+     <tr><td><b>用在哪、用多久</b></td><td>这条用途嵌在什么流程里，多久用一次</td><td>评的是想象中的系统</td></tr>
+     <tr><td><b>影响谁</b></td><td>会被这个决定落到身上的人群</td><td>风险大小算不出来</td></tr>
+     <tr><td><b>什么伤害</b></td><td>写具体：被误拒、被多收费、被泄露</td><td>没法设控制措施</td></tr>
+     <tr><td><b>人怎么盯</b></td><td>复核插在哪一步，能不能推翻结论</td><td>人在环变成走过场</td></tr>
+     <tr><td><b>出事怎么办</b></td><td>伤害真发生时的补救与申诉路径</td><td>事后临时想办法</td></tr>
+     <tr><td><b>谁签字接受</b></td><td>独立于开发的人复核，风险接受人签名</td><td>没人担，等于没结论</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>美国那份还多要两格：<b>与现有流程相比的收益与成本</b>、<b>重评的时间表与触发条件</b>。拿哪一份当模板都行——这六格与 ISO/IEC 42005:2025（AI 系统影响评估指南，ISO/IEC 42001 的配套件）的评估文档要求同源。</p>
+  <p class="ev">欧盟法案第 27 条基本权利影响评估（FRIA，Fundamental Rights Impact Assessment）的内容清单与适用主体、第 3 款报送与第 4 款「补足数据保护影响评估（DPIA，Data Protection Impact Assessment）而非替代」，以及 ISO/IEC 42005:2025（2025-05-28 发布，第 1 版）核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》条文</a>、<a href="#src-iso">ISO/IEC 标准条目</a>。<b>不可外推边界</b>：第 27 条只压在受公法管辖的机构、提供公共服务的私营主体，以及信用评分与人寿健康保险的部署方身上，其余部署方法律不强制自己做；起算时点在 Security 一处登记，本页不复制一份。ISO/IEC 42005 是指南性标准，不产生合规资格，也不能当认证依据。</p>
+
+  <h3>结论不是「安全」，是「谁接受了哪些残余风险」</h3>
+  <p>把「有没有风险」这种没法证伪的问法，换成五步能对答案的动作。</p>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 152" role="img" aria-label="影响评估五步：谁被影响、什么伤害、有多大、现在挡住多少、剩下的谁接；第五步是唯一不能外包的一步">
+     <rect x="11" y="10" width="126" height="90" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="29" cy="28" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="29" y="32" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">1</text>
+     <text x="74" y="58" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">谁被影响</text>
+     <text x="74" y="76" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">列出人群，含最容易</text>
+     <text x="74" y="91" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">被误伤的那一小撮</text>
+     <path d="M139 55 H150" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M152 55 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="154" y="10" width="126" height="90" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="172" cy="28" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="172" y="32" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">2</text>
+     <text x="217" y="58" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">什么伤害</text>
+     <text x="217" y="76" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">写到具体：被误拒、</text>
+     <text x="217" y="91" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">被多收费、被泄露</text>
+     <path d="M282 55 H293" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M295 55 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="297" y="10" width="126" height="90" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="315" cy="28" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="315" y="32" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">3</text>
+     <text x="360" y="58" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">有多大</text>
+     <text x="360" y="76" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">多少人、多久能发现、</text>
+     <text x="360" y="91" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">还能不能挽回</text>
+     <path d="M425 55 H436" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M438 55 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="440" y="10" width="126" height="90" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="458" cy="28" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="458" y="32" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">4</text>
+     <text x="503" y="58" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">现在挡住多少</text>
+     <text x="503" y="76" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">已有的控制措施</text>
+     <text x="503" y="91" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">各挡住了哪一段</text>
+     <path d="M568 55 H579" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M581 55 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="583" y="10" width="126" height="90" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+     <circle cx="601" cy="28" r="10" fill="var(--blue)"/>
+     <text x="601" y="32" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--card)">5</text>
+     <text x="646" y="58" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">剩下的谁接</text>
+     <text x="646" y="76" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">残余风险写清楚</text>
+     <text x="646" y="91" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">由能担的人签字</text>
+     <path d="M646 100 V114" stroke="var(--blue-ln)" stroke-width="1.5" stroke-dasharray="3 3"/>
+     <text x="646" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="var(--blue-d)">唯一不能外包的一步</text>
+     <text x="330" y="145" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">签字的人必须有权叫停这条用途</text>
+    </svg>
+   </div>
+   <figcaption>前四步谁做都行，第五步换不了人。验收这份评估只看三件：六格写满、伤害写到具体人群与具体损失、<b>独立复核意见原样保留</b>——复核的人提的疑问不许改掉。</figcaption>
+  </figure>
+  <div class="box">
+   <h4>「独立复核」不是走个流程</h4>
+   <p>美国那份联邦备忘录把这件事写得最死：影响评估须在部署前完成、并在生命周期内定期更新，文档里要有<b>未参与开发的独立复核人出具的意见，意见原样留档并交给风险接受人</b>，末尾是风险接受人签名。牵头的可以是业务负责人，复核的人必须没参与开发——这一条兼不了。</p>
+  </div>
+  <p class="ev">美国管理和预算办公室 2025-04-03 发布的 M-25-21 备忘录对高影响 AI 的七条最低风险管理实践、影响评估文档要求与独立复核条款，核实 2026-08-02，来源 <a href="#src-omb">OMB M-25-21 原文</a>。<b>不可外推边界</b>：这是美国联邦机构自用的义务，不适用于企业；企业照抄前须按自身法域裁剪，也不因此产生对客户的合同责任。</p>
+
+  <h3>它不解决什么：三个最常见的误用</h3>
+  <p>这一段比前面几段更值钱——它决定你在客户面前不会把话说满。</p>
+  <div class="grid">
+   <div class="box"><h4>它不是评测</h4><p>它答「会伤到谁、怎么兜」，不答「准不准」。准不准是评估集的活。<b>分数很高，照样可能有严重的影响问题。</b></p></div>
+   <div class="box"><h4>它替不了数据保护影响评估</h4><p>法条写的是补足，不是取代。两份盯的对象不同：<b>一个盯数据怎么收怎么存，一个盯这个决定落到人身上会怎样。</b></p></div>
+   <div class="box"><h4>它不是一次性的</h4><p>换模型、扩人群、加权限都要重评。归档之后再没人看，是最常见的死法——什么变化必须触发重评，见<a href="#gov-change-triggers">变化触发</a>。</p></div>
+  </div>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../data-engineering/index.html#de-governance" title="影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行；执行点、权限与越权测试在 DE 第 7 章，本册只出约束与验收点">治理与权限衔接<span class="xm">Data-Engineering</span></a></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="sec" id="gov-decision">
+  <h2><span class="num">05</span>五种决定：批准、条件批准、例外、暂停、退役<a class="anchor" href="#gov-decision">#gov-decision</a></h2>
+
+  <div class="lead">
+    <p>同一句「先别上」，背后可能是五种完全不同的处置。只给「能」和「不能」两个答案，等于把中间那三种<b>藏进沉默里</b>——藏起来的不是决定，是风险。「不批准」是缺省答案，它不需要设计，也不占一格；需要设计的是这五种，以及它们之间怎么迁移。</p>
+    <div class="keypoints">
+      <div><b>条件批准</b><span>验收句、到期日、守门人姓名，缺一样就是空话</span></div>
+      <div><b>例外</b><span>为零通常不是做得好，是流程被绕开了</span></div>
+      <div><b>暂停</b><span>按钮要先接好线，出事那天才按得下去</span></div>
+      <div><b>退役</b><span>停用之后，义务可能还挂着</span></div>
+    </div>
+  </div>
+
+  <h3>五种决定之间怎么迁移</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 336" role="img" aria-label="五种决定的状态迁移：批准与条件批准之间双向；条件到期没做到自动降回暂停；出现新证据从批准转暂停；暂停复评只有恢复、改条件批准、退役三条去路；恢复回到批准；例外是并行的第三种「可以上」">
+     <rect x="20" y="20" width="150" height="52" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+     <text x="95" y="42" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">批准</text>
+     <text x="95" y="60" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">有效期到下次复核日</text>
+     <rect x="280" y="20" width="150" height="52" rx="8" fill="var(--card)" stroke="var(--blue-ln)"/>
+     <text x="355" y="42" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">条件批准</text>
+     <text x="355" y="60" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">条件·验收句·日期·名字</text>
+     <rect x="550" y="20" width="150" height="52" rx="8" fill="var(--card)" stroke="var(--warn)" stroke-dasharray="5 3"/>
+     <text x="625" y="42" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">例外</text>
+     <text x="625" y="60" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">偏离哪一条＋补偿措施</text>
+     <text x="625" y="90" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">并行的第三种「可以上」</text>
+     <text x="625" y="105" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">到期通常按季，不给长期例外</text>
+     <path d="M170 38 H270" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M278 38 l-7 -4 v8 z" fill="var(--ink-400)"/>
+     <text x="220" y="30" text-anchor="middle" font-size="10" fill="var(--ink-400)">还差几件没做完</text>
+     <path d="M280 58 H180" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M172 58 l7 -4 v8 z" fill="var(--ink-400)"/>
+     <text x="222" y="70" text-anchor="middle" font-size="10" fill="var(--ink-400)">条件按期验收通过</text>
+     <path d="M355 72 V136" stroke="var(--red)" stroke-width="1.8"/>
+     <path d="M355 144 l-4 -8 h8 z" fill="var(--red)"/>
+     <text x="365" y="100" font-size="10.5" font-weight="700" fill="var(--ink-900)">条件到期没做到</text>
+     <text x="365" y="116" font-size="10.5" fill="var(--red)">自动降回，不用再开会</text>
+     <path d="M120 72 V167 H272" stroke="var(--ink-400)" stroke-width="1.5" fill="none"/>
+     <path d="M280 167 l-7 -4 v8 z" fill="var(--ink-400)"/>
+     <text x="128" y="100" font-size="10.5" fill="var(--ink-500)">出现新证据</text>
+     <text x="128" y="116" font-size="10.5" fill="var(--ink-500)">先停下再说</text>
+     <rect x="280" y="144" width="150" height="52" rx="8" fill="var(--card)" stroke="var(--red)"/>
+     <text x="355" y="166" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">暂停</text>
+     <text x="355" y="184" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">停哪些流量、谁能恢复</text>
+     <path d="M355 196 V226 M95 226 H625 M95 226 V248 M355 226 V248 M625 226 V248" stroke="var(--ink-400)" stroke-width="1.5" fill="none"/>
+     <path d="M95 256 l-4 -8 h8 z M355 256 l-4 -8 h8 z M625 256 l-4 -8 h8 z" fill="var(--ink-400)"/>
+     <text x="365" y="218" font-size="10.5" fill="var(--ink-500)">默认 5 个工作日内出复评结论，否则往上升级</text>
+     <rect x="20" y="256" width="150" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <text x="95" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">恢复</text>
+     <text x="95" y="296" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">回到批准</text>
+     <rect x="280" y="256" width="150" height="52" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <text x="355" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">改条件批准</text>
+     <text x="355" y="296" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">带着条件重新上</text>
+     <rect x="550" y="256" width="150" height="52" rx="8" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="625" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">退役</text>
+     <text x="625" y="296" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">停用日·封证据·通知谁</text>
+     <text x="625" y="326" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--warn)">义务可能还在跑</text>
+     <path d="M70 256 V80" stroke="var(--ok)" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+     <path d="M70 72 l-4 8 h8 z" fill="var(--ok)"/>
+    </svg>
+   </div>
+   <figcaption>表列得出五种决定各是什么，列不出这张图上最值钱的两条边：<b>条件到期没做到，自动降回暂停，不用再开会</b>；<b>暂停之后只有三条去路，没有「一直停着」这一档</b>。把这两条写进制度，治理才是一套跑着的系统，而不是一次评审。</figcaption>
+  </figure>
+
+  <div class="tw">
+   <table>
+    <thead><tr><th>决定</th><th>什么时候给</th><th>必须同时写下</th><th>有效期</th></tr></thead>
+    <tbody>
+     <tr><td><b>批准</b></td><td>风险已知，现有控制够用</td><td>批的是哪个用途、哪个版本</td><td>到下次复核日</td></tr>
+     <tr><td><b>条件批准</b></td><td>可以上，但有几件事没做完</td><td>条件、验收句、日期、负责人</td><td>条件到期即失效</td></tr>
+     <tr><td><b>例外</b></td><td>不满足某条要求，业务仍决定做</td><td>偏离了哪一条、补偿措施</td><td>最短，通常按季</td></tr>
+     <tr><td><b>暂停</b></td><td>出现新证据，先停下再说</td><td>停哪些流量、谁能恢复</td><td>到复评结论出来</td></tr>
+     <tr><td><b>退役</b></td><td>不再使用，或被别的方案替换</td><td>停用日、证据封存、通知谁</td><td>义务可能还在跑</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>条件批准最常用，也最容易写成一句空话</h3>
+  <p>「加强监控后上线」这种条件，三个月后没人能判定它做到没有。区别条件批准和「先上线再优化」的，是三样写死的东西。</p>
+  <div class="grid">
+   <div class="box"><h4>验收句</h4><p>条件要写成一句<b>能判真假</b>的话，别用「加强」「优化」。反例：加强人工抽检。正例：每周抽检 200 条，误拒率低于 2%。</p></div>
+   <div class="box"><h4>到期日</h4><p>条件必须带日期，<b>到期没做到就自动降回暂停</b>。没有日期的条件，六个月后会变成「一直在推进」。</p></div>
+   <div class="box"><h4>守门人</h4><p>写名字，不写部门——部门不会在周五下午点头。判定的人最好不是提条件的人，也不是交付的人。</p></div>
+   <div class="box"><h4>一个例子</h4><p>筛简历模型的条件是：头两个月所有被拒简历人工复核。两个月到期复核率不达标，用途自动降回暂停，<b>不用再开会</b>。</p></div>
+  </div>
+
+  <h3>例外的价值在于把风险从暗处搬到桌面上</h3>
+  <div class="grid">
+   <div class="box"><h4>例外是什么</h4><p>明知不满足某条要求，业务上仍决定先做，并把这件事记下来。<b>它承认的是一次取舍，不是承认那条要求不重要。</b></p></div>
+   <div class="box"><h4>三样必备</h4><p>偏离了哪一条、为什么、谁批的。补偿措施：这条控制不做，改用什么顶上。到期日通常按季，不给「长期例外」。</p></div>
+   <div class="box"><h4>怎么看健康</h4><p>该盯的是<b>过期未清的例外条数</b>，不是例外总数。总数为零而事故照出，说明例外都躲在暗处。</p></div>
+   <div class="box"><h4>边界</h4><p>例外挡不住法定义务——法律要求的那几条给不了例外。例外也不能用来绕开「谁有权批」，只能绕开技术要求。</p></div>
+  </div>
+
+  <h3>暂停按钮要先接好线</h3>
+  <p>临时找人、临时想办法，就是事故被拖长的那几个小时。</p>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 112" role="img" aria-label="暂停按钮的五步接线：先建机制、指定人、定范围、限时长、定去向">
+     <rect x="11" y="8" width="126" height="76" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="28" cy="26" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="28" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">1</text>
+     <text x="74" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">先建机制</text>
+     <text x="74" y="72" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">事先建好、责任到人</text>
+     <path d="M139 46 H150" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M152 46 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="154" y="8" width="126" height="76" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="171" cy="26" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="171" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">2</text>
+     <text x="217" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">指定人</text>
+     <text x="217" y="72" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">写名字，不写部门</text>
+     <path d="M282 46 H293" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M295 46 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="297" y="8" width="126" height="76" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="314" cy="26" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="314" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">3</text>
+     <text x="360" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">定范围</text>
+     <text x="360" y="72" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">全停·停写·转人工</text>
+     <path d="M425 46 H436" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M438 46 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="440" y="8" width="126" height="76" rx="8" fill="var(--card)" stroke="var(--line)"/>
+     <circle cx="457" cy="26" r="10" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="457" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink-500)">4</text>
+     <text x="503" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">限时长</text>
+     <text x="503" y="72" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">默认 5 个工作日</text>
+     <path d="M568 46 H579" stroke="var(--ink-400)" stroke-width="1.5"/>
+     <path d="M581 46 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
+     <rect x="583" y="8" width="126" height="76" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+     <circle cx="600" cy="26" r="10" fill="var(--blue)"/>
+     <text x="600" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--card)">5</text>
+     <text x="646" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">定去向</text>
+     <text x="646" y="72" text-anchor="middle" font-size="10.5" fill="var(--blue-d)">恢复·改条件·退役</text>
+     <text x="360" y="104" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">五步都在出事之前接好，按下去才不是一场临时会议</text>
+    </svg>
+   </div>
+   <figcaption>「谁能按」写名字不写部门，「按下去停什么」要提前定成全停、停写操作或转人工三选一。复评有默认时限，是因为<b>没有时限的暂停会变成事实上的退役</b>——服务停着，义务却没人办。</figcaption>
+  </figure>
+  <p class="ev">停用机制要事先建好并指定责任人，出自 NIST AI 风险管理框架 MANAGE 2.4；高风险系统的部署方发现使用可能带来风险时须立即通知提供方、分销方与市场监管机构并暂停使用，出自欧盟人工智能法案第 26 条第 5 款。核实 2026-08-02，来源 <a href="#src-nist">NIST AI RMF Playbook</a>、<a href="#src-eu-aiact">欧盟《人工智能法》条文</a>。<b>不可外推边界</b>：NIST 那条是自愿性框架条目，不等于法定停用义务；欧盟那条只约束高风险系统的部署方，不覆盖全部 AI 应用，适用时点在 Security 一处登记。</p>
+
+  <h3>退役最少被设计，义务却常常在停用之后还挂着</h3>
+  <p>「不用了」不是一个动作，是四件必须做完的事。</p>
+  <div class="grid">
+   <div class="box"><h4>停流量</h4><p>先断入口，再下线服务；留一段只读期用来回溯。</p></div>
+   <div class="box"><h4>封证据</h4><p>模型版本、评测报告、日志按法定年限封存，<b>不随服务一起删</b>。欧盟法案要求高风险系统的技术文档，投放市场后保存十年。</p></div>
+   <div class="box"><h4>通知人</h4><p>受过这个系统影响的人、监管，以及依赖它的下游。纽约市 Local Law 144：招聘工具停用后，摘要还要挂满六个月。</p></div>
+   <div class="box"><h4>处置资产</h4><p>模型权重、微调数据、向量索引各自的去向要写明。别让「退役」变成「没人再看，但服务还在跑」。</p></div>
+  </div>
+  <p class="ev">欧盟人工智能法案第 18 条技术文档保存 10 年、纽约市 Local Law 144 实施细则 §5-303(c) 要求偏见审计摘要在该工具最后一次用于雇佣决定之后继续公示至少 6 个月，核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》条文</a>、<a href="#src-us-states">美国各州与地方法规</a>。<b>不可外推边界</b>：10 年只覆盖高风险系统的文档，不是全部证据的年限，且欧盟这套的适用起点已延后，当期时点在 Security 一处登记、本页不复制；LL144 只管纽约市的自动化雇佣决策工具，不是通用年限。各类证据分别留多久，见<a href="#gov-evidence">证据包</a>那张留存期轴。</p>
+
+  <h3>谁能拍板看的是用途的暴露面，不是模型大小</h3>
+  <p>同一个模型，写职位描述和筛简历，走的是两条授权线。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>用途档位</th><th>典型例子</th><th>谁作决定</th><th>独立复核</th></tr></thead>
+    <tbody>
+     <tr><td><b>低</b></td><td>内部写作助手、会议纪要</td><td>业务负责人自批</td><td>不要求，抽查</td></tr>
+     <tr><td><b>中</b></td><td>对外客服问答、检索问答</td><td>业务与风险两签</td><td>上线前一次</td></tr>
+     <tr><td><b>高</b></td><td>筛简历、授信、医疗建议</td><td>治理委员会</td><td>独立方，逐版本</td></tr>
+     <tr><td><b>法定高风险</b></td><td>落进法规清单里的用途</td><td>委员会加法务</td><td>按法规要求走</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>客户常问「我们已经有上线审批流程了，为什么还要单开一套」。上线审批问的是「做完没有」，治理决定问的是「这个用途能不能用、条件是什么」——<b>同一个模型换个用途，代码一行不改，风险却换一档</b>。可以共用工单系统，不能共用一张表。发布门禁、金丝雀这些技术动作在别处，这张表只管谁有权说话。</p>
+  <p class="ev">「重要性由模型用途与暴露共同决定」出自美联储 2026-04-17 发布的 SR 26-2，该文取代 SR 11-7 与 SR 21-8；核实 2026-08-02，来源 <a href="#src-fed-sr">美联储 SR 26-2</a>。<b>不可外推边界</b>：这是美国银行监管口径，不适用于非受监管企业；SR 26-2 脚注明确写明<b>生成式与代理式 AI 模型不在本指引范围内</b>，能借的只有它的分层思路，不能拿它当生成式用途的合规依据。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-ops/index.html#ops-incident" title="暂停一个用途的技术动作（急停、回滚指针）在 AI-Ops 第 6 章；本册管谁有权按下、按下之后走什么复核路径、多久必须给出结论">事故响应<span class="xm">AI-Ops</span></a><a href="../solution-patterns/index.html#sp-method" title="SP 第 2 章讲对客交付里的责任落点与合同话术（乙方视角），本册讲客户内部的决定权归属与证据链（甲方视角），两边在「谁签字」这一点接上（双向）">方案共性方法<span class="xm">Solution-Patterns</span></a></div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="sec" id="gov-evidence">
+  <h2><span class="num">06</span>证据包怎么组装<a class="anchor" href="#gov-evidence">#gov-evidence</a></h2>
+
+  <div class="lead">
+    <p>证据包的标准只有一条：<b>让不在场的人能重做这次判断</b>。它更像一本实验记录本，不像交上去的作业。判断一份材料算证据还是算背景，用三个判据就够。</p>
+    <div class="keypoints">
+      <div><b>会不会改主意</b><span>这份材料能推翻某个结论吗？不能就不是证据</span></div>
+      <div><b>追不追得到源</b><span>数据、版本、评测集都要能点回去</span></div>
+      <div><b>会不会自己报警</b><span>过期了要有人被通知，不是靠人想起来</span></div>
+    </div>
+  </div>
+
+  <div class="grid">
+   <div class="box"><h4>常见的假证据</h4><p>截图、汇报 PPT、供应商白皮书——它们说明有人做过事，答不了「换个人来看，会不会得出同样的结论」。厂商的模型卡证明的是模型在<b>厂商测试条件下</b>的表现。</p></div>
+   <div class="box"><h4>顺序反了最伤</h4><p>证据是决定的<b>输入</b>，不是决定之后补的材料。补出来的证据包，最容易在第一次真出事时全线垮掉。</p></div>
+  </div>
+
+  <h3>一个用途的证据包，少于这六件就没法拍板</h3>
+  <p>六件不是模板，是六个必须有人回答的问题。深浅按用途档位缩放——档位低的可以写得短，但不能少件。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>证据件</th><th>它回答哪个问题</th><th>谁出</th><th>缺了会怎样</th></tr></thead>
+    <tbody>
+     <tr><td><b>用途说明与边界</b></td><td>用在哪、明确不用在哪</td><td>业务方</td><td>下次扩用途时无从判定</td></tr>
+     <tr><td><b>影响评估</b></td><td>会影响谁、最坏是什么</td><td>业务与风险</td><td>风险只剩技术那一半</td></tr>
+     <tr><td><b>评测报告</b></td><td>在我们自己的数据上多少分</td><td>交付方</td><td>只剩厂商宣传口径</td></tr>
+     <tr><td><b>数据来源与权限</b></td><td>数据哪来的、谁有权看</td><td>数据方</td><td>越权检索没人负责</td></tr>
+     <tr><td><b>人在环上的设计</b></td><td>哪一步人能改、能拒</td><td>业务方</td><td>出错时没人能兜</td></tr>
+     <tr><td><b>监控与日志接线</b></td><td>上线之后靠什么看得见</td><td>平台方</td><td>事后什么都复核不了</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>「模型很强」不是证据，「在你这份集上多少分」才是</h3>
+  <p>同一个模型换一份评测集，分数可以差出两档。</p>
+  <div class="grid">
+   <div class="box"><h4>哪一档要附什么</h4><p>低档：抽检记录加一句结论就够。中档：自有评测集跑一轮，谁做的评测要标明。<b>高档：评测由独立方做，再加一份红队报告。</b></p></div>
+   <div class="box"><h4>证据绑版本</h4><p>评测报告上要写死模型版本和提示版本。任一换版，这份报告对新版就不作数——<b>换版没重测，用途按原条件降回暂停</b>。</p></div>
+   <div class="box"><h4>多久重测一次</h4><p>报告要写有效到哪天，到期没重测就当没有。高档用途通常按季重测，低档跟着换版走。</p></div>
+   <div class="box"><h4>这里只管一件</h4><p>评测集怎么建、判官怎么校准是另一册的活。本册只问：<b>这份结果够不够支撑这一次决定。</b></p></div>
+  </div>
+
+  <h3>证据留多久，法规已经替你写死了几个数</h3>
+  <p>先查这条用途落在哪几部法上，<b>按最长那条设</b>，再往下减；反过来做，补不回已经被删掉的那一段。第二件事是去对云上的默认值——默认保留期常常比法定要求短一个数量级。</p>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 296" role="img" aria-label="证据留存期对数刻度轴：云上默认日志桶 30 天、可配区间 1 到 3650 天、固定桶 400 天、欧盟自动日志下限 6 个月、纽约市 LL144 停用后摘要 6 个月、Audit Manager 停用后证据 2 年、欧盟高风险技术文档 10 年">
+     <path d="M203.9 14 V246 M399.9 14 V246 M595.8 14 V246" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+     <text x="8" y="25" font-size="11.5" fill="var(--ink-900)">云上默认日志桶（Cloud Logging <tspan font-weight="700">_Default</tspan>）　30 天</text>
+     <rect x="8" y="29" width="289.4" height="10" rx="3" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="8" y="57" font-size="11.5" fill="var(--ink-900)"><tspan font-weight="700">_Default</tspan> 与自定义桶可配区间　1 至 3650 天</text>
+     <rect x="8" y="61" width="698" height="10" rx="3" fill="none" stroke="var(--ink-400)" stroke-dasharray="5 3"/>
+     <text x="8" y="89" font-size="11.5" fill="var(--ink-900)">固定桶（Cloud Logging <tspan font-weight="700">_Required</tspan>）　400 天，不可配置</text>
+     <rect x="8" y="93" width="509.8" height="10" rx="3" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="8" y="121" font-size="11.5" fill="var(--ink-900)">欧盟：自动生成日志　至少 6 个月（下限，上不封顶）</text>
+     <rect x="449.9" y="125" width="256.1" height="10" rx="3" fill="var(--blue-bg)" stroke="var(--blue-ln)" stroke-dasharray="5 3"/>
+     <path d="M449.9 122 V138" stroke="var(--blue)" stroke-width="2"/>
+     <path d="M712 130 l-8 -4.5 v9 z" fill="var(--blue-ln)"/>
+     <text x="8" y="153" font-size="11.5" fill="var(--ink-900)">纽约市 LL144：停用后摘要继续公示　6 个月</text>
+     <rect x="8" y="157" width="441.9" height="10" rx="3" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+     <text x="8" y="185" font-size="11.5" fill="var(--ink-900)">AWS Audit Manager：停用服务后已收集证据　保留 2 年</text>
+     <rect x="8" y="189" width="561" height="10" rx="3" fill="var(--line-2)" stroke="var(--line)"/>
+     <text x="8" y="217" font-size="11.5" fill="var(--ink-900)">欧盟：高风险系统技术文档　10 年</text>
+     <rect x="8" y="221" width="698" height="10" rx="3" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+     <path d="M8 246 H706" stroke="var(--line)" stroke-width="1.5"/>
+     <path d="M8 246 V252 M203.9 246 V252 M399.9 246 V252 M595.8 246 V252 M706 246 V252" stroke="var(--line)" stroke-width="1.5"/>
+     <text x="8" y="266" font-size="10.5" fill="var(--ink-400)">1</text>
+     <text x="203.9" y="266" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">10</text>
+     <text x="399.9" y="266" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">100</text>
+     <text x="595.8" y="266" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">1000</text>
+     <text x="706" y="266" text-anchor="end" font-size="10.5" fill="var(--ink-400)">3650</text>
+     <text x="8" y="288" font-size="11" fill="var(--ink-400)">横轴刻度单位是天，对数刻度、每一格十倍——30 天到 10 年跨了三个数量级；虚线框是区间与下限，不是柱子</text>
+    </svg>
+   </div>
+   <figcaption>蓝色是法规写死的年限，灰色是云上的默认值与服务状态。<b>差额就是你要补的那一段</b>：云默认三十天，法定下限半年，两者之间那五个月的日志，没设过就是真的没有。</figcaption>
+  </figure>
+  <div class="grid">
+   <div class="box"><h4>补差额</h4><p>把法定年限减去云上默认值，差出来的天数写进方案，不是写「需要进一步梳理」。<b>差额是一个具体天数。</b></p></div>
+   <div class="box"><h4>锁不可改</h4><p>对象存储的保留锁，让日志到期前删不掉。锁保证删不掉，<b>保证不了内容是对的</b>。</p></div>
+   <div class="box"><h4>记退役后</h4><p>有几条年限从「停用那天」起算，不是从上线那天起算——退役清单里那件「封证据」就是接这条的。</p></div>
+  </div>
+  <p class="ev">欧盟人工智能法案第 18 条（技术文档自投放市场或投入使用起保存 10 年）、第 19 条与第 26 条第 6 款（自动生成日志按与预期用途相称的期限保存，<b>至少 6 个月</b>）、纽约市 Local Law 144 实施细则 §5-303(c)（摘要在最后一次用于雇佣决定之后继续公示至少 6 个月），核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》条文</a>、<a href="#src-us-states">美国各州与地方法规</a>。<b>不可外推边界</b>：10 年与 6 个月只覆盖高风险系统那条线，不是全部证据的年限；6 个月是下限不是上限，个人数据保护法可能要求更长；欧盟这套的适用起点已延后，当期时点只在 Security 一处登记，本页引用不复制。LL144 只覆盖纽约市的自动化雇佣决策工具。</p>
+  <p class="ev">Google Cloud Logging 的 <code>_Required</code> 桶固定保存 400 天且不可配置，<code>_Default</code> 桶默认保存 30 天，<code>_Default</code> 与自定义桶可配置为 1 至 3650 天；Amazon Bedrock 的模型调用日志默认关闭，需手动开启并指定 CloudWatch Logs 或 S3 目的地；Google Cloud 的数据访问审计日志默认关闭（BigQuery 除外），管理活动审计日志始终开启且不可关闭；AWS Audit Manager 自 2026-04-30 起不再支持在新账号中启用，停用服务后已收集的证据保留 2 年。核实 2026-08-02，来源 <a href="#src-cloud-tools">各云官方文档</a>。<b>不可外推边界</b>：这些是各云当期的默认开关与该服务的生命周期状态，30 天一查；不代表你这个项目现在的实际设置，也别外推到其他云的合规工具。</p>
+
+  <h3>一份证据最值钱的一句，是它证明不了什么</h3>
+  <p>写不出这句话，说明还没弄清它的适用范围。格式固定：<b>这条结论支持 ___ 的判断，不支持 ___ 的判断</b>——写不出来，这份材料就还不能进包。</p>
+  <div class="grid">
+   <div class="box"><h4>评测报告</h4><p>支持「这份集上的表现」的判断，<b>不支持「生产分布上的表现」的判断</b>。不能外推到没测过的语种、渠道和客群。</p></div>
+   <div class="box"><h4>红队报告</h4><p>支持「这些攻法当时没打穿」的判断，<b>不支持「换个攻法也打不穿」的判断</b>。模型或提示一换版，这份结论就要重做。</p></div>
+   <div class="box"><h4>影响评估</h4><p>支持「那一刻想清楚了谁会受影响、最坏是什么」的判断，<b>不支持「控制真的建起来了」的判断</b>——那要看监控与抽检记录。</p></div>
+   <div class="box"><h4>合规平台的自动取证</h4><p>技术类控制能自动取证，流程类还得人工。AWS 文档写明：这套控制项<b>不用于验证系统是否合规，也不保证通过审计</b>。</p></div>
+  </div>
+  <p>这条纪律对着客户也照用。客户要证据包时，能给的是结论与边界——评测口径、有效期、它证明不了什么；原始日志和评测集样本涉及数据权限，按数据分级和合同走，给之前先问清他要拿给谁看。</p>
+
+  <h3>上云怎么落地</h3>
+  <p>证据包特有的三格，同一环节给多厂商代表选项，<b>不绑死单一供应商</b>。用途注册表与调用日志那两格在<a href="#gov-registry">按用途登记</a>一节，这里不重列。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th><th>该追问什么</th><th>责任边界</th></tr></thead>
+    <tbody>
+     <tr><td>证据归档与检索</td><td>S3、Azure Blob、GCS 归档层加标签</td><td>证据要能按用途和版本翻出来</td><td>三年后审计来问，谁去翻、怎么翻？</td><td>云存得下，索引字段得你自己定</td></tr>
+     <tr><td>保留期与不可删改</td><td>S3、Azure、GCS 三家都有对象锁</td><td>默认保留期普遍短于法定年限，差额自己补</td><td>你们受哪条年限约束？现在设了多少天？</td><td>锁保证删不掉，保证不了内容是对的</td></tr>
+     <tr><td>评测结果绑版本</td><td>Model Cards、Azure ML 实验记录</td><td>评测报告要挂在一个版本号上</td><td>换版本时，旧报告会被标失效吗？</td><td>平台记得下指标，绑用途要自己接</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">三家对象锁的产品名分别是 S3 Object Lock、Azure 不可变 Blob（时间保留加法务保留）、Cloud Storage Bucket Lock；Model Cards 在 SageMaker 与 Vertex AI 都有。核实 2026-08-02，来源 <a href="#src-cloud-tools">各云官方文档</a>。<b>不可外推边界</b>：这是当期的产品名对照，不代表几家能力对等或可一一互换；服务能力、默认值与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../evaluation/index.html#eval-build" title="证据包里「测过什么、结果多少」由 Evaluation 产出；本册只规定哪一档用途必须附哪几类测量证据、证据绑到哪个版本、失效期多长，不重讲任何指标定义">自建评估:数据集与指标设计<span class="xm">Evaluation</span></a><a href="../security/index.html#sec-defense" title="红队报告是高风险用途证据包的必备件；怎么打、打什么在 Security 第 6 章，本册管这件证据在不在包里、有没有过期、结论有没有转成上线条件">防护工程:护栏·模式·红队<span class="xm">Security</span></a></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="sec" id="gov-change-triggers">
+  <h2><span class="num">07</span>什么变化让原来的批准失效<a class="anchor" href="#gov-change-triggers">#gov-change-triggers</a></h2>
+
+  <div class="lead">
+    <p>批准批的不是一个模型，是一组前提——这辆车、这条路、这个司机，换掉一样就不是原来那件事了。前提有四条腿：</p>
+    <div class="keypoints">
+      <div><b>用途</b><span>给谁用、替谁决定什么、影响哪些人</span></div>
+      <div><b>系统</b><span>哪个模型、哪个版本、哪套提示与护栏</span></div>
+      <div><b>数据</b><span>数据从哪来、权限范围到哪为止</span></div>
+      <div><b>人的位置</b><span>人在哪一步能改、能拒</span></div>
+    </div>
+    <p>失效分两种：<b>主动失效</b>是有人改了东西，触发重新决定；<b>被动失效</b>是什么都没改，批准到期了也得再看一次。最危险的那类变化不带代码改动——版本升级看得见，用途扩展看不见，后者出的事更多。</p>
+  </div>
+
+  <h3>六类变化会让批条失效，各自该做的事不一样</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>变化</th><th>典型信号</th><th>该做什么</th><th>谁发起</th></tr></thead>
+    <tbody>
+     <tr><td><b>用途扩展</b></td><td>同一模型被接到新场景</td><td>重新分档，可能重做评估</td><td>业务方</td></tr>
+     <tr><td><b>模型或版本换</b></td><td>换厂商、换版本、改提示</td><td>按档位复评，重跑评测</td><td>交付方</td></tr>
+     <tr><td><b>数据变了</b></td><td>新数据源、权限范围变</td><td>查权限与来源合法性</td><td>数据方</td></tr>
+     <tr><td><b>人退出环</b></td><td>人工复核从必选改可选</td><td>按高一档重新判定</td><td>业务方</td></tr>
+     <tr><td><b>供应商变更</b></td><td>退役公告、默认参数改动</td><td>确认影响面，排迁移</td><td>平台方</td></tr>
+     <tr><td><b>法规变了</b></td><td>分类、义务或时点调整</td><td>重对法律分类</td><td>法务</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>「重新评估」不是一个档位，是三个：<b>只登记、局部复核、重新完整评估</b>。把复评做成一件小事，它才会真的被做。</p>
+
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 262" role="img" aria-label="六类变化加一条到期日兜底，全部汇入判档，判档只有三个出口：只登记、局部复核、重新完整评估；三个出口都落到换批条，换批条再设下一次到期日，回到起点">
+     <g font-family="var(--sans)">
+      <rect x="6" y="10" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="80" y="28.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-900)">用途扩展</text>
+      <rect x="6" y="44" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="80" y="62.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-900)">模型或版本换</text>
+      <rect x="6" y="78" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="80" y="96.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-900)">数据变了</text>
+      <rect x="6" y="112" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="80" y="130.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-900)">人退出环</text>
+      <rect x="6" y="146" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="80" y="164.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-900)">供应商变更</text>
+      <rect x="6" y="180" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="80" y="198.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-900)">法规变了</text>
+      <rect x="6" y="214" width="148" height="28" rx="7" fill="var(--card)" stroke="var(--line)" stroke-dasharray="4 3"/>
+      <text x="80" y="232.5" text-anchor="middle" font-size="11" fill="var(--ink-400)">到期日到了（没人改）</text>
+      <path d="M154 24 L192 122 M154 58 L192 118 M154 92 L192 122 M154 126 L192 126 M154 160 L192 130 M154 194 L192 134" stroke="var(--ink-400)" stroke-width="1" fill="none"/>
+      <path d="M154 228 L192 138" stroke="var(--ink-400)" stroke-width="1" fill="none" stroke-dasharray="4 3"/>
+      <rect x="196" y="87" width="112" height="78" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="252" y="114" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-900)">判档</text>
+      <text x="252" y="132" text-anchor="middle" font-size="10" fill="var(--blue-d)">看能力边界动没动</text>
+      <text x="252" y="147" text-anchor="middle" font-size="10" fill="var(--blue-d)">不看版本号变没变</text>
+      <path d="M308 126 L344 90 M308 126 L344 126 M308 126 L344 162" stroke="var(--ink-400)" stroke-width="1.2" fill="none"/>
+      <path d="M350 88 l-7 -3.5 v7 z M350 126 l-7 -3.5 v7 z M350 164 l-7 -3.5 v7 z" fill="var(--ink-400)"/>
+      <rect x="350" y="70" width="172" height="36" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="436" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">只登记</text>
+      <text x="436" y="100" text-anchor="middle" font-size="9.5" fill="var(--ink-400)">分数上下波动，记一笔就够</text>
+      <rect x="350" y="108" width="172" height="36" rx="7" fill="var(--card)" stroke="var(--line)"/>
+      <text x="436" y="125" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">局部复核</text>
+      <text x="436" y="138" text-anchor="middle" font-size="9.5" fill="var(--ink-400)">只重跑被这次变化碰到的证据</text>
+      <rect x="350" y="146" width="172" height="36" rx="7" fill="var(--card)" stroke="var(--warn)" stroke-width="1.5"/>
+      <text x="436" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink-900)">重新完整评估</text>
+      <text x="436" y="176" text-anchor="middle" font-size="9.5" fill="var(--warn)">能力边界变了才走这一档</text>
+      <path d="M522 88 L552 124 M522 126 L552 126 M522 164 L552 128" stroke="var(--ink-400)" stroke-width="1.2" fill="none"/>
+      <path d="M558 126 l-7 -3.5 v7 z" fill="var(--ink-400)"/>
+      <rect x="558" y="87" width="156" height="78" rx="8" fill="var(--card)" stroke="var(--ok)"/>
+      <text x="636" y="112" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">换批条</text>
+      <text x="636" y="129" text-anchor="middle" font-size="9.5" fill="var(--ink-400)">结论落成新的决定</text>
+      <text x="636" y="143" text-anchor="middle" font-size="9.5" fill="var(--ink-400)">旧批条标注失效日</text>
+      <path d="M636 165 V252 H80 V250" stroke="var(--ink-400)" stroke-width="1" fill="none" stroke-dasharray="5 4"/>
+      <path d="M80 242 l-4 8 h8 z" fill="var(--ink-400)"/>
+      <text x="390" y="246" text-anchor="middle" font-size="11" fill="var(--ink-400)">设下次到期日 · 没触发也要有到期日，到期就再看一次</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>判档只有三个出口，不是每次变化都从头再来；虚线那条是<b>被动失效</b>的兜底——没人改动的用途也要有到期日，否则批准会一路默认有效到出事那天。</figcaption>
+  </figure>
+
+  <h3>最隐蔽的一种：代码一行没改，风险换了一档</h3>
+  <div class="grid">
+   <div class="box"><h4>从调用侧看</h4><p>同一把密钥出现<b>没登记过的调用来源</b>——技术上最早的那个信号，通常比业务方主动报备早几周。</p></div>
+   <div class="box"><h4>从合同侧看</h4><p>新场景<b>先进需求单，不进变更单</b>：业务当它是新功能，治理这边一个字都没收到。</p></div>
+   <div class="box"><h4>监管也这么看</h4><p>SR 26-2 写得直白：把模型用到预期用途之外会带来额外的不确定与风险。它给的动作是<b>补做分析、复核现有控制</b>，不是默认放行。</p></div>
+   <div class="box"><h4>发现之后改哪一格</h4><p>新用途<b>另开一条登记</b>，重走分档与评估。旧批条不作废，但它盖不住新用途——那条流量先停到批下来。</p></div>
+  </div>
+  <p>还有一层要提前跟客户说清：改变用途使系统变成高风险，你的身份会从部署者翻成提供者，义务跟着换一套（怎么换见<a href="#gov-frameworks">下一节</a>）。这件事由「改用途」触发，不由合同措辞决定。</p>
+  <p class="ev">「把模型用到预期用途之外」的表述核实 2026-08-02，来源 <a href="#src-fed-sr">美联储 SR 26-2（Model Use 一节）</a>。<b>不可外推边界</b>：这是美国银行业监管里的稳妥做法表述，不是强制条款，也不适用于非受监管企业；生成式与代理式 AI 明确不在这份指引范围内。</p>
+
+  <h3>「实质性修改」有法律定义，不是你说了算</h3>
+  <div class="grid">
+   <div class="box"><h4>定义三要件（同时成立）</h4><p>投放市场或投入使用<b>之后</b>发生的更改；初次符合性评估里<b>未预见、未计划</b>；影响了合规性，或改变了已评估的预期用途。</p></div>
+   <div class="box"><h4>关键豁免</h4><p>初次评估时<b>已预先声明并写进技术文档</b>的变化，不算实质性修改。持续学习与定期重训想不触发重评，就得在第一次评估时把变化范围写清楚。</p></div>
+  </div>
+  <p>这条定义会直接改两个决定：<b>架构上</b>，「模型会怎么变」要提前写成可声明的范围，而不是事后解释；<b>商务上</b>，重评估的成本与周期要提前算进合同，别等触发了再谈变更单。</p>
+  <p class="ev">第 3(23) 条定义与第 43(4) 条豁免核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》第 3、25、43 条</a>。<b>不可外推边界</b>：这套定义只在高风险系统那条线上成立，别拿去套所有 AI 应用；中国口径要另看备案与登记规则，见<a href="#gov-china-interface">本页第 9 节</a>与 <a href="../security/index.html#sec-china">Security 第 8 章</a>。</p>
+
+  <h3>接口没变、行为变了：治理接的是告警之后那一步</h3>
+  <p>漂移怎么被发现是运维侧的事，这里从告警响了开始——先分清是哪一种，再判档。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>收到的信号</th><th>按哪条走</th><th>复评期间怎么处置</th></tr></thead>
+    <tbody>
+     <tr><td>同名模型换了权重</td><td>按「模型换了」走</td><td rowspan="3">没出结论前：<b>高档用途限流，低档照常跑</b>。退役公告给的是迁移窗口，复评要在窗口内跑完</td></tr>
+     <tr><td>旧版本要退役</td><td>按「模型换了」走</td></tr>
+     <tr><td>平台改了默认参数</td><td>先看能力边界动没动：只是分数上下波动，登记一笔就够；<b>边界变了才按重新评估走</b></td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>结论落地只动两处：批条上的模型版本改掉、旧批条标失效日；证据包里<b>重开的是评测报告和监控接线，用途说明沿用</b>——这也是局部复核能便宜下来的原因。</p>
+
+  <div class="box">
+   <h4>法律基础本身也会变</h4>
+   <p>科罗拉多那部 AI 法就是现成的例子：原法（SB 24-205）延期后于 2026-06-30 生效，被起诉后州总检察长同意暂缓执法；替代法 SB 26-189 已于 2026-05-14 签署，自 2027-01-01 起取代它，框架从算法歧视与注意义务转成披露与权利型。<b>批条里要写清依据的是哪一版</b>，否则法条一换，没人说得出哪些用途需要回炉。</p>
+  </div>
+  <p class="ev">科罗拉多的立法变动核实 2026-08-02，来源 <a href="#src-us-states">科罗拉多州议会法案页与法律分析</a>。<b>不可外推边界</b>：只管科罗拉多一州，而且还在变，别当终局；新法删掉的是部署方的法定义务，不是风险本身。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../ai-ops/index.html#ops-drift" title="供应商静默换 checkpoint 与三类漂移由 AI-Ops 监测；本册把这些告警接成「重新决定」的触发口，规定哪类漂移触发重审哪一步">漂移与静默退化监测<span class="xm">AI-Ops</span></a></div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="sec" id="gov-frameworks">
+  <h2><span class="num">08</span>各框架分别能证明什么、不能证明什么<a class="anchor" href="#gov-frameworks">#gov-frameworks</a></h2>
+
+  <div class="lead">
+    <p>客户把一摞证书和框架名摆到桌上，问的其实只有一句：这些能不能兑现「我们合规了」。<b>把这些纸当体检单看——血常规正常，不代表这个人没病</b>。没有一张纸能证明「这个用途现在是安全的」，每张纸只答它自己那一格。</p>
+  </div>
+
+  <h3>五张纸，各答一格</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>这张纸</th><th>谁出的</th><th>能证明什么</th><th>不能证明什么</th></tr></thead>
+    <tbody>
+     <tr><td><b>ISO/IEC 42001 证书</b></td><td>第三方认证机构</td><td>组织有一套 AI 管理体系在运转</td><td>不给任何单个用途做背书</td></tr>
+     <tr><td><b>NIST AI RMF 自评</b></td><td>自己填，无认证</td><td>按统一骨架把风险盘过一遍</td><td>谁都能自称做过，无人核验</td></tr>
+     <tr><td><b>欧盟符合性声明</b></td><td>提供者自己签署</td><td>该高风险系统满足法定要求</td><td>只覆盖法律点名的那张清单</td></tr>
+     <tr><td><b>SR 26-2（原 SR 11-7）</b></td><td>美国银行监管三家</td><td>模型有独立验证与有效挑战</td><td>生成式与代理式明确不在范围</td></tr>
+     <tr><td><b>年度偏见审计</b></td><td>独立审计方</td><td>某工具某时点的选择率比值</td><td>换版本即失效，不等于公平</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>对客话术差在一个词上：客户说「我们过了 42001」，你要接的是<b>「那这个用途的记录是谁批的、凭什么证据、什么时候复核」</b>——体系证书答不了这三问，而这三问恰恰是采购真正要的东西。</p>
+  <p class="ev">SR 11-7 与 SR 21-8 已于 2026-04-17 被 SR 26-2 与 OCC Bulletin 2026-13 取代，核实 2026-08-02，来源 <a href="#src-fed-sr">美联储 SR 26-2 官方页</a>、<a href="#src-nist">NIST AI RMF 与 Playbook</a>。<b>不可外推边界</b>：SR 26-2 是美国银行业监管口径，只对受监管机构，不是通用治理标准；修订版把生成式与代理式 AI 以「新颖且快速演进」为由排除在适用范围外，那一块得用自己的治理接住，别指望它兜底。</p>
+
+  <h3>42005 教你怎么做评估，42006 管的是审你的那个人</h3>
+  <div class="grid">
+   <div class="box"><h4>42005 给你用</h4><p>2025-05-28 发布，讲 AI 系统影响评估怎么做——什么时候做、在生命周期哪些阶段做、留什么文档。<b>不认证、不需要外部审核</b>。</p></div>
+   <div class="box"><h4>42006 管审核方</h4><p>2025-07-07 发布，规定认证机构的审核员能力与审核工时怎么算。<b>它约束的是发证那一方</b>，不直接落到你身上。</p></div>
+   <div class="box"><h4>拿到证书先看两行</h4><p>证书上的<b>适用范围是企业自己划的</b>，看它圈没圈你要买的那个系统；再看发证机构有没有对应的认可资质。</p></div>
+  </div>
+  <p class="ev">两份标准的发布日期与定位核实 2026-08-02，来源 <a href="#src-iso">ISO/IEC 42005 与 42006 出版物页</a>。<b>不可外推边界</b>：42005 是指导文件，不产生合规资格、不能当认证依据；42006 约束的是发证机构，用户组织拿它证明不了自己什么。</p>
+
+  <h3>义务不看合同怎么写，看你实际做了什么</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>身份</th><th>主要义务</th><th>要留多久</th><th>一句话陷阱</th></tr></thead>
+    <tbody>
+     <tr><td><b>提供者</b>（provider）</td><td>技术文档、日志能力、符合性声明</td><td>文档 10 年，日志至少 6 个月</td><td>把系统卖出去不等于责任卖出去</td></tr>
+     <tr><td><b>部署者</b>（deployer）</td><td>按说明书用、指定有能力的人做人工监督</td><td>日志至少 6 个月</td><td>告知劳动者与被影响的人也是义务</td></tr>
+     <tr><td><b>变身</b>（第 25 条）</td><td>贴自己牌子、做实质性修改、把非高风险改成高风险</td><td>按提供者算</td><td>合同写「我们只是用户」不管用</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>同一套系统，身份不同，要留的东西完全不同。所以对客第一件事不是讲框架，是<b>先把双方身份定下来</b>，再列出改成什么样会触发身份互换——那张互换清单就是变更触发清单的法律那一半。</p>
+  <p class="ev">身份认定与留存期核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》第 18、19、25、26 条</a>。<b>不可外推边界</b>：10 年与至少 6 个月只覆盖高风险系统那条线，不是所有证据的通用年限，日志那条是下限不是上限；这批高风险义务的<b>适用起点已经延后</b>，具体时点在 <a href="../security/index.html#sec-governance">Security 第 7 章</a>登记一次，本册只引用、不复制。</p>
+
+  <h3>同一个模型，写招聘文案和筛简历要分成两条记录</h3>
+  <p>贯穿本册的那个例子，摆到四张纸上就散开了——这也是「按用途登记」最容易讲通的一次演示。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>这一步</th><th>写职位文案</th><th>筛简历与排序</th><th>为什么不一样</th></tr></thead>
+    <tbody>
+     <tr><td><b>欧盟风险分类</b></td><td>只做文案生成落透明度义务</td><td>附件三 4(a) 点名，高风险</td><td>定向投放招聘广告也算在内</td></tr>
+     <tr><td><b>要不要 FRIA</b></td><td>不要</td><td>公共部门或公共服务部署者要做</td><td>第 27 条按主体加用途双条件</td></tr>
+     <tr><td><b>偏见审计</b></td><td>不适用</td><td>纽约市用工场景要年度审计</td><td>落在「就业决定」这一步</td></tr>
+     <tr><td><b>42001 证书</b></td><td>覆盖不到这一格</td><td>覆盖不到这一格</td><td>体系认证不给单个用途背书</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>基本权利影响评估（Fundamental Rights Impact Assessment，FRIA）的适用主体是：受公法管辖的机构、提供公共服务的私营主体，以及附件三 5(b) 信贷评估、5(c) 人寿与健康保险风险评估定价的全部部署者。不在这三类里，不等于其他部署者的义务就没了——只是不走 FRIA 这一件。</p>
+  <p class="ev">附件三 4(a)、第 27 条适用主体与纽约市偏见审计核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》附件三与第 27 条</a>、<a href="#src-us-states">纽约市 Local Law 144</a>。<b>不可外推边界</b>：LL144 只覆盖纽约市岗位的用工场景，不是通用的公平性证明；一次审计报的是某工具某时点的选择率比值，换版本、换人群就不成立，交代公平性得说清多久重测、超阈值时谁有权停。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-governance" title="Security 第 7 章把 NIST／ISO／欧盟法案摆在威胁防护的收尾位置，给的是方位与时间线；本章接着讲每张纸能证明什么、不能证明什么，以及义务落到提供者还是部署者。时…">治理与合规框架<span class="xm">Security</span></a></div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="sec" id="gov-china-interface">
+  <h2><span class="num">09</span>用途登记与中国备案要求怎么对接<a class="anchor" href="#gov-china-interface">#gov-china-interface</a></h2>
+
+  <div class="lead">
+    <p>内部按用途登记的那张表，怎么跟按服务走的备案对上？<b>备案数的是盒子，你的表数的是盒子里的每件东西</b>——两把尺子，量的不是同一个东西，所以必须靠一列编号把它们钉在一起。</p>
+    <div class="keypoints">
+      <div><b>备案按服务</b><span>一条服务一条备案，编号是对外的那一个</span></div>
+      <div><b>登记按用途</b><span>同一个模型，写职位文案和筛简历是两条独立记录</span></div>
+      <div><b>对不上的行</b><span>就是没人认领的合规缺口</span></div>
+    </div>
+  </div>
+
+  <h3>两把尺子分别量什么</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th></th><th>算法备案</th><th>用途登记</th></tr></thead>
+    <tbody>
+     <tr><td><b>一条记录是什么</b></td><td>一条服务一条备案</td><td>一个用途一条记录，同一个模型可以拆出好几条</td></tr>
+     <tr><td><b>编号给谁看</b></td><td>对外的那一个</td><td>对内的那本账，登记表加一列填对应的备案或登记编号</td></tr>
+     <tr><td><b>什么挂在它上面</b></td><td>只回答上线那道门过没过；适用范围与分诊三问见 <a href="../security/index.html#sec-china">Security 第 8 章</a></td><td>风险档、影响评估、复核节奏都挂在用途上，<b>不挂在模型上</b></td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>那一列编号是这节最实的一件事：填不上的行，要么补进某条备案，要么写明它不对公众提供、只走内部登记。<b>这一列也是查变更的入口</b>——用途一变，顺着编号就知道备案里第几项跟着要改。内部员工自己用的那些用途同样进<a href="#gov-registry">登记表</a>，不备案不等于不用管，不进表就是影子 AI。</p>
+
+  <h3>算法备案的钟按工作日走，别等下次季度评审</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 210" role="img" aria-label="算法备案四个法定时限的工作日长度对比：上线后填报 10 个工作日、备案信息变更 10 个工作日、终止服务注销 20 个工作日、主管部门受理后发编号 30 个工作日">
+     <g font-family="var(--sans)">
+      <path d="M310 20 V166 M470 20 V166 M630 20 V166" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="142" y="41" text-anchor="end" font-size="11" fill="var(--ink-900)">上线后填报</text>
+      <rect x="150" y="26" width="160" height="22" rx="4" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="318" y="41" font-size="11" fill="var(--blue-d)">10 个工作日</text>
+      <text x="142" y="75" text-anchor="end" font-size="11" fill="var(--ink-900)">备案信息变更</text>
+      <rect x="150" y="60" width="160" height="22" rx="4" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="318" y="75" font-size="11" fill="var(--blue-d)">10 个工作日</text>
+      <text x="142" y="109" text-anchor="end" font-size="11" fill="var(--ink-900)">终止服务注销</text>
+      <rect x="150" y="94" width="320" height="22" rx="4" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="478" y="109" font-size="11" fill="var(--blue-d)">20 个工作日</text>
+      <text x="142" y="143" text-anchor="end" font-size="11" fill="var(--ink-400)">受理并发编号</text>
+      <rect x="150" y="128" width="480" height="22" rx="4" fill="var(--line-2)" stroke="var(--line)"/>
+      <text x="638" y="143" font-size="11" fill="var(--ink-400)">30 个工作日</text>
+      <path d="M150 166 H636" stroke="var(--ink-400)" stroke-width="1"/>
+      <path d="M150 166 V171 M310 166 V171 M470 166 V171 M630 166 V171" stroke="var(--ink-400)" stroke-width="1"/>
+      <text x="150" y="183" text-anchor="middle" font-size="10" fill="var(--ink-400)">0</text>
+      <text x="310" y="183" text-anchor="middle" font-size="10" fill="var(--ink-400)">10</text>
+      <text x="470" y="183" text-anchor="middle" font-size="10" fill="var(--ink-400)">20</text>
+      <text x="630" y="183" text-anchor="middle" font-size="10" fill="var(--ink-400)">30</text>
+      <text x="642" y="183" font-size="10" fill="var(--ink-400)">工作日</text>
+      <text x="380" y="201" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">前三条是提供服务这一方要办的，第四条是主管部门材料齐全后的时限</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>治理记录跑季度钟，备案跑工作日钟——<b>两个钟得记在同一张表上</b>。变更那 10 个工作日不会等你的下次季度评审开会。</figcaption>
+  </figure>
+  <p class="ev">四个法定时限核实 2026-08-02，来源 <a href="#src-china">《互联网信息服务算法推荐管理规定》第 24、25 条（中央网信办原文）</a>。<b>不可外推边界</b>：这四个时限只管算法备案这条线，大模型备案另有一套材料与周期，别混着报给客户；备不备案的分诊三问在 <a href="../security/index.html#sec-china">Security 第 8 章</a>，本节不重讲。</p>
+
+  <h3>过了备案，不等于每个用途现在还在批准状态</h3>
+  <div class="grid">
+   <div class="box"><h4>备案证明什么</h4><p>这个服务<b>上线前</b>，安全评估与算法备案手续走完了。《生成式人工智能服务管理暂行办法》第 17 条只落在有舆论属性或社会动员能力的服务上。</p></div>
+   <div class="box"><h4>它不证明什么</h4><p>不证明服务里<b>每个用途都还在批准状态</b>，也不证明换了模型版本之后那些评估还成立。这两件只能靠自己的登记与复核记录回答。</p></div>
+   <div class="box"><h4>框架 2.0 怎么用</h4><p>《人工智能安全治理框架》2.0（2025-09-15 发布）是技术文件、非强制。<b>拿它当登记表的风险项来源可以，当备案评分表不行。</b></p></div>
+  </div>
+  <p>服务下线也别只在内部把用途标成停用：<b>终止之日起 20 个工作日内要办注销</b>，外面那条备案还挂着，就等于对外还宣称在提供这个服务。</p>
+  <p class="ev">《暂行办法》第 2、17 条与《人工智能安全治理框架》2.0 核实 2026-08-02，来源 <a href="#src-china">中央网信办官网原文</a>。<b>不可外推边界</b>：未向境内公众提供服务的研发应用不适用《暂行办法》，但这不等于免除数据安全与个人信息义务；框架 2.0 是自愿采纳的技术文件，不是备案审核的评分依据。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-china" title="备案、登记、标识、国标、数据出境的条目与时点全在 Security 第 8 章；本章只讲分诊结论怎么变成用途登记表的字段、备案材料从证据包取哪几件、周期怎么倒排评审启动时间">中国监管合规<span class="xm">Security</span></a></div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="sec" id="gov-operating">
+  <h2><span class="num">10</span>跑起来需要的角色、节奏与工具<a class="anchor" href="#gov-operating">#gov-operating</a></h2>
+
+  <div class="lead">
+    <p>前九节讲的是这条环怎么转：按用途登记 → 两把尺子定档 → 影响评估出架构约束 → 作出五种决定之一 → 证据包 → 变化触发回炉。这一节回答客户最后那三个问题：<b>要几个人、多久跑一次、先买平台还是先做一张表</b>。三个答案都很朴素——三顶帽子、三个钟、先做表。</p>
+    <div class="keypoints">
+      <div><b>三顶帽子</b><span>用途负责人、独立复核人、决定人，两个人戴得下</span></div>
+      <div><b>三个钟</b><span>事件、周期、法定同时跑，只跑季度评审那个必出事</span></div>
+      <div><b>先表后平台</b><span>字段固定比工具重要，跨部门之后再接平台</span></div>
+      <div><b>四个数字</b><span>客户问「怎么知道它在跑」，报数字比给流程图管用</span></div>
+    </div>
+  </div>
+
+  <h3>最小配置是三顶帽子，只有一条不能兼</h3>
+  <div class="grid">
+    <div class="box"><h4>用途负责人</h4><p>说得清这个用途要替谁做什么决定、影响哪些人。<b>答不上来的用途，说明还没到该批的时候</b>。</p></div>
+    <div class="box"><h4>独立复核人</h4><p>做有效挑战——找证据的漏洞，不是走个流程。关键是不参与建设：<b>建的人不能自己批</b>。</p></div>
+    <div class="box"><h4>决定人</h4><p>有权说不，也有权给条件与期限。决定要落款、要有到期日，<b>不能只是「会上说了」</b>。</p></div>
+  </div>
+  <div class="box">
+    <h4>能兼与不能兼</h4>
+    <p>三顶帽子两个人戴得下，小公司一个人戴两顶也成立；「建的人不能自己批」这条兼不了，它一破，独立复核就只剩签字动作。客户说「我们没有这号人」时，答案不是新招人：找一个没参与这个用途建设的人就行，安全、风控、另一条线的技术都算——要紧的是他有权说「证据不够」，且这话算数。</p>
+  </div>
+
+  <p class="ev">人员能力是欧盟《人工智能法》第 4 条的法定义务，自 2025-02-02 适用，由成员国市场监管机构自 2026-08-02 起监督执行；欧盟委员会明确未规定「足够」的具体水平，也不要求任何证书。核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》</a>。<b>不可外推边界</b>：没有法定合格线，培训记录能证明「训过」，不能当合规证明。</p>
+
+  <h3>三个钟同时跑，只跑季度评审那个必出事</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 246" role="img" aria-label="三个钟并行时间轴：事件钟随告警与变更不定时触发，周期钟按风险档等距评审，法定钟按工作日与留存下限走，三条轨同时跑">
+     <g font-family="var(--sans)">
+      <text x="8" y="50" font-size="12" font-weight="700" fill="var(--ink-900)">事件钟</text>
+      <text x="8" y="66" font-size="11" fill="var(--ink-400)">触发即办</text>
+      <path d="M118 56 H694" stroke="var(--line)" stroke-width="1.5"/>
+      <path d="M702 56 l-9 -5 v10 z" fill="var(--ink-400)"/>
+      <circle cx="168" cy="56" r="5" fill="var(--blue)"/>
+      <circle cx="240" cy="56" r="5" fill="var(--blue)"/>
+      <circle cx="372" cy="56" r="5" fill="var(--blue)"/>
+      <circle cx="404" cy="56" r="5" fill="var(--blue)"/>
+      <circle cx="560" cy="56" r="5" fill="var(--blue)"/>
+      <circle cx="656" cy="56" r="5" fill="var(--blue)"/>
+      <text x="168" y="34" text-anchor="middle" font-size="11" fill="var(--ink-500)">漂移告警</text>
+      <text x="388" y="34" text-anchor="middle" font-size="11" fill="var(--ink-500)">供应商换版本</text>
+      <text x="560" y="34" text-anchor="middle" font-size="11" fill="var(--ink-500)">用途悄悄扩了</text>
+
+      <text x="8" y="120" font-size="12" font-weight="700" fill="var(--ink-900)">周期钟</text>
+      <text x="8" y="136" font-size="11" fill="var(--ink-400)">高档季度</text>
+      <text x="8" y="150" font-size="11" fill="var(--ink-400)">中低档半年到一年</text>
+      <path d="M118 126 H694" stroke="var(--line)" stroke-width="1.5"/>
+      <path d="M702 126 l-9 -5 v10 z" fill="var(--ink-400)"/>
+      <rect x="176" y="119" width="4" height="14" fill="var(--blue-d)"/>
+      <rect x="300" y="119" width="4" height="14" fill="var(--blue-d)"/>
+      <rect x="424" y="119" width="4" height="14" fill="var(--blue-d)"/>
+      <rect x="548" y="119" width="4" height="14" fill="var(--blue-d)"/>
+      <rect x="672" y="119" width="4" height="14" fill="var(--blue-d)"/>
+      <text x="178" y="110" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">评审</text>
+      <text x="302" y="110" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">评审</text>
+      <text x="426" y="110" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">评审</text>
+      <text x="550" y="110" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">评审</text>
+      <text x="674" y="110" text-anchor="middle" font-size="10.5" fill="var(--ink-400)">评审</text>
+      <path d="M302 144 H426" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="364" y="160" text-anchor="middle" font-size="10.5" fill="var(--warn)">事故常落在这一段</text>
+
+      <text x="8" y="190" font-size="12" font-weight="700" fill="var(--ink-900)">法定钟</text>
+      <text x="8" y="206" font-size="11" fill="var(--ink-400)">按工作日走</text>
+      <path d="M118 196 H694" stroke="var(--line)" stroke-width="1.5"/>
+      <path d="M702 196 l-9 -5 v10 z" fill="var(--ink-400)"/>
+      <rect x="198" y="189" width="4" height="14" fill="var(--ink-900)"/>
+      <rect x="428" y="189" width="4" height="14" fill="var(--ink-900)"/>
+      <rect x="638" y="189" width="4" height="14" fill="var(--ink-900)"/>
+      <text x="200" y="180" text-anchor="middle" font-size="11" fill="var(--ink-500)">备案变更 10 个工作日</text>
+      <text x="430" y="180" text-anchor="middle" font-size="11" fill="var(--ink-500)">注销 20 个工作日</text>
+      <text x="640" y="180" text-anchor="middle" font-size="11" fill="var(--ink-500)">日志至少 6 个月</text>
+
+      <text x="360" y="232" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">三条轨同时跑；只有周期钟的治理，事故总是发生在两次评审之间</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>三个钟的来源不同：事件钟接告警与变更，周期钟按风险档定间隔，法定钟由备案与留存期决定。谁盯着这三个钟？是那张登记表——<b>每行都带下次复核日和触发口</b>，到点由它提醒用途负责人。表没人管，三个钟就一起停在纸面上。</figcaption>
+  </figure>
+  <p>事件钟接进来的告警长什么样、哪类漂移该触发哪一步，在<a href="#gov-change-triggers">什么变化让原来的批准失效</a>；法定钟那两个工作日数字的适用范围，在<a href="#gov-china-interface">用途登记与中国备案要求怎么对接</a>。</p>
+
+  <h3>先有一张字段固定的表，再谈买平台</h3>
+  <figure>
+   <div class="fig-wrap">
+    <svg viewBox="0 0 720 152" role="img" aria-label="上工具的三个阶段：二十个用途以内用共享表加评审纪要，跨部门之后接进已有平台，要出审计证据再上云侧自动采集">
+     <g font-family="var(--sans)">
+      <rect x="6" y="18" width="214" height="88" rx="8" fill="var(--blue-bg)" stroke="var(--blue-ln)"/>
+      <text x="113" y="44" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">二十个用途以内</text>
+      <text x="113" y="66" text-anchor="middle" font-size="11.5" fill="var(--blue-d)">共享表加评审纪要就够</text>
+      <text x="113" y="86" text-anchor="middle" font-size="11.5" fill="var(--blue-d)">字段固定比工具重要</text>
+      <rect x="253" y="18" width="214" height="88" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="360" y="44" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">跨部门之后</text>
+      <text x="360" y="66" text-anchor="middle" font-size="11.5" fill="var(--ink-500)">接进已有的服务管理平台</text>
+      <text x="360" y="86" text-anchor="middle" font-size="11.5" fill="var(--ink-500)">别另起一套</text>
+      <rect x="500" y="18" width="214" height="88" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="607" y="44" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink-900)">要出审计证据</text>
+      <text x="607" y="66" text-anchor="middle" font-size="11.5" fill="var(--ink-500)">再上云侧的自动采集</text>
+      <text x="607" y="86" text-anchor="middle" font-size="11.5" fill="var(--ink-500)">人工判断仍要人上传</text>
+      <path d="M222 62 H245 M469 62 H492" stroke="var(--ink-400)" stroke-width="1.5"/>
+      <path d="M245 62 l-7 -4 v8 z M492 62 l-7 -4 v8 z" fill="var(--ink-400)"/>
+      <text x="360" y="136" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">工具解决找得到、追得上；解决不了谁敢签字</text>
+     </g>
+    </svg>
+   </div>
+   <figcaption>顺序反过来最常见：先买平台，再发现没人定得下字段，于是平台里躺着一张谁也不填的空表。字段先固定下来（用途、影响对象、决定、失效条件这几格），工具换哪家都搬得走。</figcaption>
+  </figure>
+
+  <p class="ev">证据链别绑死在一个云产品上：AWS Audit Manager 已转入维护模式，2026-04-30 起不再支持在新账号中启用，存量账号可继续使用，停用后已收集的证据保留 2 年；官方指向 AWS Config Conformance Packs 作为替代，但 SOC2、GDPR 没有对应模板。可比的治理与证据类产品名另有 Microsoft Purview DSPM for AI（DSPM，Data Security Posture Management）与 Microsoft Foundry（原 Azure AI Foundry，2025-11-18 更名）、Google Cloud Dataplex、Vertex AI Model Registry、SageMaker Model Registry 与 Model Cards、ServiceNow AI Control Tower。核实 2026-08-02，来源 <a href="#src-cloud-tools">各云与厂商官方文档</a>。<b>不可外推边界</b>：维护模式不是下线；这批只是产品名对照，不代表几家能力对等或可一一互换，形态按 30 天节奏复查。各环节的云落点见<a href="#cloud">上云怎么落地</a>。</p>
+
+  <h3>四个数字能看出治理是真在跑还是纸面上的</h3>
+  <div class="grid">
+    <div class="box"><h4>登记覆盖率</h4><p>随机问三个团队在用什么，能不能在表里找到。<b>找不到的那些，就是影子 AI 的规模</b>。</p></div>
+    <div class="box"><h4>决定中位天数</h4><p>从提交到有决定。业务等得起才不会绕过你——<b>超过两周，绕行就开始了</b>。</p></div>
+    <div class="box"><h4>过期例外存量</h4><p>有多少例外过了期还没复核，最诚实的一个数。<b>例外没有到期日，等于永久批准</b>。</p></div>
+    <div class="box"><h4>触发响应比例</h4><p>上次模型换版本，多少条登记跟着动了。<b>一条没动，说明触发清单是摆设</b>。</p></div>
+  </div>
+  <p>这四个数字也是「治理会不会拖慢我们」那句质疑的正面回应：拖不拖慢不看流程图有几个框，看决定中位天数。<b>四个数字里至少两个填得出来，且能说清填不出的那两个卡在哪</b>——做到这一步，才算这套东西真在跑。</p>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="sec" id="gov-cheatsheet">
+  <h2><span class="num">11</span>售前速查<a class="anchor" href="#gov-cheatsheet">#gov-cheatsheet</a></h2>
+
+  <div class="lead">
+    <p>进客户会议室之前，这一册要能默出来的就四张：五句最常被问的话、四问定流程、六个数字、一张交付清单。速查的价值不在「答得出」——答不上来的往往不是知识，是<b>没备好那半句「接着说什么」</b>，那一列才是把对话往下推的东西。</p>
+  </div>
+
+  <h3>客户最爱问的五句，先给一句话再往下接</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>客户问的</th><th>一句话答</th><th>接着说什么</th></tr></thead>
+    <tbody>
+     <tr><td>你们有 ISO 42001 吗</td><td>证书证明有体系在跑，不背书单个用途</td><td>看这个用途自己的记录</td></tr>
+     <tr><td>出了事谁负责</td><td>先定提供者还是部署者</td><td>改了用途身份会互换</td></tr>
+     <tr><td>数据会不会拿去训练</td><td>合同条款加平台开关，两处都给证据</td><td>截图能给，能写进合同</td></tr>
+     <tr><td>备案要多久</td><td>服务备案 5–8 个月，应用登记周级</td><td>先分诊你属哪一种</td></tr>
+     <tr><td>治理会不会拖慢我们</td><td>分档：低风险自助登记</td><td>盯从提交到有决定的天数</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>前两句的展开在<a href="#gov-frameworks">各框架分别能证明什么</a>（证书能兑现什么、身份怎么互换）；「备案要多久」的时长与分诊口径在 <a href="../security/index.html#sec-china">Security · 中国合规</a> 登记，本册不复制一份，只讲两张表怎么对上，见<a href="#gov-china-interface">用途登记与中国备案要求怎么对接</a>；最后一句的答法是报数字，见<a href="#gov-operating">四个数字</a>。</p>
+
+  <h3>四问定这个用途要走多重的流程</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问一句</th><th>答「是」怎么走</th><th>为什么这么切</th></tr></thead>
+    <tbody>
+     <tr><td>输出直接作用于个人？</td><td>高档：影响评估加独立复核</td><td>录用、授信、定价、诊疗</td></tr>
+     <tr><td>对境内公众提供服务？</td><td>进备案与登记分诊</td><td>《暂行办法》的适用门槛</td></tr>
+     <tr><td>会对外发布生成内容？</td><td>落内容标识义务</td><td>标识办法已进执法期</td></tr>
+     <tr><td>业务触达欧盟？</td><td>查附件三清单与你的身份</td><td>高风险是法律点名的</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>从上往下问，遇到第一个「是」就按那一档走。四问都否：自助登记加年度复核。<b>任何一问后来变成「是」，按变更触发重走一遍</b>（见<a href="#gov-change-triggers">什么变化让原来的批准失效</a>）。第一问的定档细则在<a href="#gov-risk-tiering">两把尺子</a>与<a href="#gov-impact">影响评估在架构冻结前做</a>，第四问要查的附件三清单与提供者／部署者身份同在两把尺子那一节。</p>
+
+  <h3>记得住的数字只有这六个</h3>
+  <p>每个都要连着那句「不能外推」一起说——说错了比不说贵。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>数字</th><th>是什么</th><th>售前怎么用</th><th>不能外推</th></tr></thead>
+    <tbody>
+     <tr><td>10／20／30 工作日</td><td>算法备案的变更／注销／受理时限</td><td>变更别等季度评审</td><td>只管算法备案，大模型备案是另一套</td></tr>
+     <tr><td>至少 6 个月</td><td>高风险系统的日志留存下限</td><td>提留存方案的底线</td><td>只对高风险那条线；适用起点已延后</td></tr>
+     <tr><td>10 年</td><td>技术文档留存期</td><td>解释为什么要归档</td><td>从投放市场或投入使用起算，同样只对高风险</td></tr>
+     <tr><td>2025-05-28／2025-07-07</td><td>ISO/IEC 42005 与 42006 的发布日</td><td>客户问「还有什么标准」</td><td>42005 不用来认证；42006 约束的是发证机构</td></tr>
+     <tr><td>2026-04-17</td><td>SR 26-2 取代 SR 11-7</td><td>金融客户话术要换</td><td>生成式与代理式不在范围</td></tr>
+     <tr><td>2026-04-30</td><td>AWS Audit Manager 关新账号</td><td>别把证据链绑死一家</td><td>存量账号仍可继续用</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">10 年（技术文档）与至少 6 个月（自动生成日志）出自欧盟《人工智能法》第 18、19、26 条，核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》</a>。<b>不可外推边界</b>：只覆盖高风险系统那条线，不是全部证据的年限；6 个月是下限不是上限，个人数据保护法可能要求更长；这批高风险义务的适用起点已经延后，当期时点只在 <a href="../security/index.html#sec-governance">Security</a> 登记一次，本册引用不复制。</p>
+  <p class="ev">10／20／30 工作日出自《互联网信息服务算法推荐管理规定》第 24、25 条，核实 2026-08-02，来源 <a href="#src-china">中央网信办官网原文</a>。<b>不可外推边界</b>：管的是算法备案信息，不覆盖大模型备案那一套材料与周期。</p>
+  <p class="ev">2025-05-28／2025-07-07 为 ISO/IEC 42005 与 42006 的发布日，来源 <a href="#src-iso">IEC Webstore 出版物页</a>；2026-04-17 为 SR 26-2 取代 SR 11-7 与 SR 21-8 的日期，来源 <a href="#src-fed-sr">美联储 SR 26-2</a>；2026-04-30 为 AWS Audit Manager 不再对新账号开放的日期，来源 <a href="#src-cloud-tools">AWS 官方文档</a>。均核实 2026-08-02。<b>不可外推边界</b>：42005 是指导文件、不产生认证资格，42006 约束的是发证机构而不是用户组织；SR 26-2 是美国银行监管口径，其脚注写明生成式与代理式 AI 模型不在范围内，非受监管企业不适用；Audit Manager 是维护模式不是下线，存量账号仍可用，云产品形态按 30 天节奏复查。</p>
+
+  <h3>治理跑起来，交付的其实就是这几件</h3>
+  <p>客户要的不是一份治理白皮书，是这几件能不能当场拿出来。左边是交付件，右边是验收那天要能出示的东西——同一件事的两个视角，别做成两张各填一遍的表。</p>
+  <div class="tw">
+   <table>
+    <thead><tr><th>交付件</th><th>验收时要能出示什么</th><th>展开在</th></tr></thead>
+    <tbody>
+     <tr><td>用途登记表，带「对应备案或登记编号」那一列</td><td>同一模型的不同用途分条登记，每条带人群、决定、数据、地区、供应商</td><td><a href="#gov-registry">按用途登记</a></td></tr>
+     <tr><td>风险分档规则：谁进高档、谁自助登记</td><td>组织风险层级的判定依据，以及它与法律分类分开写的说明</td><td><a href="#gov-risk-tiering">两把尺子</a></td></tr>
+     <tr><td>影响评估记录</td><td>架构与数据冻结之前完成的评估，含不可接受结果清单</td><td><a href="#gov-impact">影响评估</a></td></tr>
+     <tr><td>决定记录：五种决定、落款人、到期日</td><td>谁批准、范围与条件、失效日期、到期怎么自动撤销</td><td><a href="#gov-decision">五种决定</a></td></tr>
+     <tr><td>证据包目录：每条结论指得到哪份材料</td><td>从政策追到当前生产配置的一条完整链路，抽三项验证</td><td><a href="#gov-evidence">证据包怎么组装</a></td></tr>
+     <tr><td>变更触发清单：哪些变化让批准失效</td><td>哪些变更自动暂停该用途，以及恢复要补哪些证据</td><td><a href="#gov-change-triggers">变化让批准失效</a></td></tr>
+     <tr><td>复核排期：事件、周期、法定三个钟</td><td>每行登记都有下次复核日与触发口，到点有人被提醒</td><td><a href="#gov-operating">三个钟</a></td></tr>
+     <tr><td>三顶帽子的分工一页纸</td><td>现在谁在戴哪顶、哪一顶空着；建的人没有自己批</td><td><a href="#gov-operating">三顶帽子</a></td></tr>
+     <tr><td>人员能力记录：谁受过训、训的什么</td><td>训练记录本身；没有法定合格线，别拿它当合规证明</td><td><a href="#gov-operating">人员能力</a></td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>最易过期的三处</h3>
+  <div class="keypoints">
+    <div><b>欧盟时点与延期口径</b><span>适用起点与执法节奏在 Security 登记，取数去那边</span></div>
+    <div><b>备案量与时限的实务口径</b><span>条文时限稳，实际排队时长按当期实务复核</span></div>
+    <div><b>云治理产品名与形态</b><span>更名、转维护模式、关新账号都在发生，三个月不看就该重查</span></div>
+  </div>
+  <p>撞了别人的地盘就深链过去，别在这儿重讲一遍——威胁与防护手段、中国备案条目、怎么测、发布门禁与急停、权限执行点与血缘、模型许可证条款，各归各家，去处见本页各节的串联条与页尾的相关模块。</p>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">12</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面各节讲的是这套决定系统该怎么转。这一节换个视角：<b>治理的苦力活在云上有哪些现成件、这句话对客户意味着什么、该顺着追问他什么、以及哪一格云替你做不了</b>。按落地阶段排，不按章节排——现场是从「先看清有什么」一路推到「存住」的。</p>
+    <p>一句话立在前面：<b>云上能自动收的是「有哪些资产」；「这条用途谁批的、什么时候失效」云替不了</b>。同一环节给多厂商代表选项，不绑死单一供应商；只列有真实关联的环节。</p>
+  </div>
+
+  <h3>第一步 · 先看清有什么</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+     <tr><td>AI 资产发现</td><td>Google Cloud SCC（SCC，Security Command Center）AI Protection、Defender AI-SPM（AI-SPM，AI Security Posture Management）</td><td>先把云里在跑的模型、端点、Agent 扫出来</td></tr>
+     <tr><td>用途清单与影子 AI 发现</td><td>Microsoft Purview DSPM for AI；同类可选 Google Cloud Dataplex、ServiceNow AI Control Tower</td><td>让「公司里有多少 AI 在跑」变成一张查得到的表</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p><b>顺着追问什么</b>：扫得到云内资源，扫得到浏览器里的用法吗？扫哪些账号与资产，SaaS 里内嵌的那些 AI 功能算不算？这两问的答案直接决定客户报给你的那份场景清单是不是真数——差额就是<a href="#gov-registry">影子 AI</a> 的规模，也是登记覆盖率这个数字第一次能落地的地方。</p>
+  <p><b>云替你做不了什么</b>：扫出来的是资产，不是用途——一条用途要替谁做什么决定、谁批的、什么时候失效，那几格得人建（见<a href="#gov-registry">按用途登记</a>）。谷歌官方文档写明影子 AI 资源不在 Security Command Center 控制台的发现范围；Microsoft 侧覆盖第三方 AI 站点的 Purview DSPM for AI 需要启用按量计费，多数能力依赖浏览器扩展与设备接入，影子 AI 发现通常还要与 Defender for Cloud Apps 的云发现组合使用。员工在外部工具里的用法，平台自己发现不了。</p>
+
+  <h3>第二步 · 记下来、追得上</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+     <tr><td>模型与版本的系统记录</td><td>SageMaker Model Registry 与 Model Cards、Vertex AI Model Registry、Microsoft Foundry</td><td>注册表管模型版本与端点，换了版本能追到哪天换的</td></tr>
+     <tr><td>调用可追溯</td><td>网关调用日志、CloudTrail / Cloud Audit Logs</td><td>登记表和实际调用每月对一次差集</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p><b>顺着追问什么</b>：注册表里每个模型，业务上对应哪几条用途（一个模型两个用途就是两条记录）？版本变更推不推到审批流，还是只留在控制台？所有模型调用都过网关吗，直连的有多少——直连那部分就是差集对不上的来源。</p>
+  <p><b>云替你做不了什么</b>：注册表记的是模型资产，不回答「这个用途现在还批不批准」（见<a href="#gov-registry">按用途登记</a>）；日志证明的是「谁调了」，证不了「这条用途被批过」（见<a href="#gov-decision">五种决定</a>）。版本换了要不要让批准回炉，是<a href="#gov-change-triggers">变更触发</a>那一节的事，控制台不会替你判。</p>
+
+  <h3>第三步 · 收证据</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+     <tr><td>证据与合规映射</td><td>Purview 合规管理器、AWS Audit Manager（已不对新账号开放）</td><td>控制项映射到条款，技术证据能自动收一部分</td></tr>
+     <tr><td>证据自动采集</td><td>AWS Config Conformance Packs；同类可选 Azure Policy 加 Purview、Google Cloud SCC</td><td>审计时不用临时四处翻截图</td></tr>
+     <tr><td>评测结果绑版本</td><td>Model Cards（SageMaker 与 Vertex AI 都有）、Azure ML 实验记录</td><td>评测报告要挂在一个版本号上</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p><b>顺着追问什么</b>：这批证据要证给谁看——内审、客户还是监管？三方口径不同，收的东西也不同。哪些控制项自动采、哪些必须人工上传（这个比例决定运营人力）？换版本时，旧的评测报告会被标失效吗，还是留在那儿继续被人引用？</p>
+  <p><b>云替你做不了什么</b>：自动收的是配置状态与技术证据，「谁批的、凭什么批」得人写、人签（见<a href="#gov-evidence">证据包怎么组装</a>）；平台记得下指标，把指标绑到某条用途上要自己接。AWS 官方文档同时声明，其生成式 AI 最佳实践框架的控制项不用于验证系统是否合规、也不保证通过审计——控制项只收证据，不产出结论。选型上还有一条：Audit Manager 已不对新账号开放，<b>证据链别绑死在一家</b>（见<a href="#gov-operating">先表后平台</a>）。</p>
+
+  <h3>第四步 · 存住，且删不掉</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+     <tr><td>证据归档与检索</td><td>S3、Azure Blob、GCS 归档层加标签</td><td>证据要能按用途和版本翻出来</td></tr>
+     <tr><td>保留期与不可删改</td><td>S3 Object Lock、Azure 不可变 Blob（时间保留加法务保留）、Cloud Storage Bucket Lock</td><td>默认保留期普遍短于法定年限，差额自己补</td></tr>
+     <tr><td>日志与文档留存</td><td>对象存储加生命周期与不可变（WORM，Write Once Read Many）</td><td>法定留存期有地方落，且删不掉</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p><b>顺着追问什么</b>：三年后审计来问某条用途当初凭什么批的，谁去翻、怎么翻（问的是索引字段，不是存储容量）？你们受哪条年限约束，现在设的是多少天？谁有权删，删了留不留痕？还有一句最容易问出缺口的：模型调用日志现在开着吗——Amazon Bedrock 的模型调用日志默认关闭，Google Cloud 的数据访问审计日志默认关闭（BigQuery 除外），而管理活动审计日志始终开启且关不掉。</p>
+  <p><b>云替你做不了什么</b>：对象锁保证的是删不掉，保证不了内容是对的；云存得下，索引字段得你自己定；云替你存，不替你决定该存多久（见<a href="#gov-evidence">留存期</a>）。默认值与法定年限之间的差额要当场摆出来——日志保留的默认值以 Google Cloud Logging 的 <code>_Default</code> 桶 30 天为例（其余各家自查），而高风险系统的日志下限是至少 6 个月、技术文档是 10 年。先按最长那条设，再往下减。</p>
+
+  <p class="ev">云服务名、默认值与生命周期状态核实 2026-08-02，来源 <a href="#src-cloud-tools">各云与厂商官方文档</a>。<b>不可外推边界</b>：这是「哪个环节有云上现成件」的地图，不是选型结论——各家覆盖面不对等、不可一一互换；服务能力、默认值与生命周期状态会月级变动（按 30 天节奏复查），出方案前按当期官方文档逐项复核。</p>
+  <p class="ev">法定留存年限（技术文档 10 年、自动生成日志至少 6 个月）出自欧盟《人工智能法》第 18、19、26 条，核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟《人工智能法》</a>。<b>不可外推边界</b>：只覆盖高风险系统那条线，6 个月是下限不是上限；适用起点已延后，当期时点在 <a href="../security/index.html#sec-governance">Security</a> 登记，本节只引用不复制。本节各产品的安全态势用法归 <a href="../security/index.html#sec-supply-chain">Security</a>，这里只取一件事：把扫出来的资产喂进用途登记表。</p>
+</section>
+
+<!-- ============ 13 现场高频追问 ============ -->
+<section class="sec" id="qa">
+  <h2><span class="num">13</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。答不上来的不立题。</p>
+  <p class="baseline">全部来自讲义对练页与本次网页化补题，日期 <b>2026-08-02</b>。</p>
+  <p class="ev">法条与监管口径核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟人工智能法案条文</a>、<a href="#src-us-states">美国州与市立法</a>、<a href="#src-fed-sr">美联储 SR 26-2</a>。<b>不可外推边界</b>：欧盟那几条只覆盖高风险系统那条线，适用起点已延后，时间线在 <a href="../security/index.html#sec-governance">Security 第 7 章</a>登记、本页不复制；科罗拉多 SB26-189 只管一州，纽约市第 144 号地方法只覆盖该市用工；SR 26-2 是美国银行监管口径，脚注明确生成式与代理式不在范围内。</p>
+  <div class="qa">
+
+    <details id="q-ai-governance-1">
+      <summary>我们已经有一本 AI 管理办法，也有上线审批流程，还要单开一套治理吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>办法是规则，治理是按规则天天在出的决定。追问三件事：现在有几条 AI 用途在跑、每条谁批的、批准在什么条件下失效——这三格填不出来，办法就还没落到地上。上线审批也替不了：它问的是「做完没有」，治理决定问的是「这个用途能不能用、条件是什么」。<b>同一个模型换个用途，代码一行不改，风险却换一档。</b>可以共用工单系统，不能共用一张表。</p>
+        <p class="qa-why">这题决定你在客户那里是「再加一份文档」还是「补一层决定」。前者会被当成纯成本，后者能挂在已有流程上。三格是当场就能问出水位的探针，不用先做评估。</p>
+        <p class="qa-next"><b>下一步</b>　挑一条已上线的用途，当场把三格填一遍，填不出的那格就是缺口。</p>
+        <p class="qa-src">依据　<a href="#gov-what-why">谁批的、凭什么、何时失效</a>　·　<a href="#gov-decision">五种决定</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-2">
+      <summary>上治理会不会把我们上线拖慢？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>拖不拖慢取决于分不分档。低风险用途自助登记、事后抽查，当天放行；重流程只留给影响权利或安全的那几条。<b>不分档才是真的慢——所有事排一个队。</b>真正该盯的数字是从提交到有决定的中位天数：久到业务愿意绕过你，治理就名存实亡了。</p>
+        <p class="qa-why">客户嘴上问速度，心里问的是「是不是每件事都要开会」。把答案落到一个能报的数字上，讨论就从情绪回到设计。</p>
+        <p class="qa-next"><b>下一步</b>　先定分档规则再谈流程：影响谁、可不可逆、人在不在环、爆炸半径四项各打一档取最高。</p>
+        <p class="qa-src">依据　<a href="#gov-risk-tiering">内部定档看四个变量</a>　·　<a href="#gov-operating">四个数字</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-3">
+      <summary>治理该谁牵头，法务还是技术？我们没有「独立复核人」这号人。<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>牵头的是谁不要紧，要紧的是他有权叫停。美国联邦那套把这份权力放在首席 AI 官手里：高影响用途做不到最低要求就停用，豁免由他批、30 天内报管理和预算办公室。独立复核人也不用新招：找一个没参与这个用途建设的人就行，安全、风控、另一条线的技术都算，关键是他有权说「证据不够」，且这话算数。三顶帽子两个人戴得下，<b>只有「建的人不能自己批」这条兼不了</b>。</p>
+        <p class="qa-why">「没人手」是治理被搁置的最常见理由，卡住的其实不是编制，是授权。牵头人手里没有叫停权，评审就只剩走流程。</p>
+        <p class="qa-next"><b>下一步</b>　三顶帽子各写一句职责，标出现在谁在戴、哪一顶空着。</p>
+        <p class="qa-src">依据　<a href="#gov-operating">最小配置是三顶帽子</a>　·　<a href="#gov-what-why">决定与失效条件</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-4">
+      <summary>我们已经有模型注册表了，这不就是 AI 清单吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>注册表登的是模型版本和端点，是资产账。治理要的是用途账——同一个模型给 HR 起草职位描述、给 500 份简历打分排序，是两条记录、两个风险档。<b>资产账是清单里的一格，不是清单本身。</b>法律也这么切：欧盟按预期用途分类，筛简历落在附件三第 4 类，同一批文案拿去定向投放职位广告又落回名单，而写作助手只落到透明度义务上。</p>
+        <p class="qa-why">这题决定客户会不会以为「买了平台就有清单了」。分清资产账与用途账，后面的分档、影响评估、失效条件才有挂靠的对象。</p>
+        <p class="qa-next"><b>下一步</b>　拿注册表里任一模型问一句：业务上它对应哪几条用途、各自谁批的。</p>
+        <p class="qa-src">依据　<a href="#gov-registry">同一个模型，两个用途</a>　·　<a href="#gov-risk-tiering">法律分类怎么切</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-5">
+      <summary>影子 AI 怎么找？发问卷行不行？表建完没人维护怎么办？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>问卷只收得到愿意填的人。先挖事实：网关调用日志、云账单、企业身份系统里授权过的第三方 AI 应用、办公套件与 CRM 里悄悄开出来的 AI 功能、跑在个人账号下的脚本与 Agent——这五处收的都是已经发生的事，挖完再拿这份清单去对业务。维护靠通道不靠自觉：<b>没有登记记录就不发 API key、网关不给路由</b>，每月拿调用日志和登记表对一次差集，有调用没记录的先挂起再补登。字段能少则少，六格填得完，三十格没人填。</p>
+        <p class="qa-why">客户最爱把这件事外包成一次盘点。盘点会过期，长在取用通道上的表不会——这也是同一笔预算里唯一有复利的那部分。</p>
+        <p class="qa-next"><b>下一步</b>　先跑一次差集，挖出一条原来不知道的用途，这张表才会有人信。</p>
+        <p class="qa-src">依据　<a href="#gov-registry">影子 AI 靠挖不靠问</a>　·　<a href="#gov-registry">登记表长在取用通道上</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-6">
+      <summary>我们这个只是辅助，人最后拍板，算高风险吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>法条里确实留了这道门：窄程序任务、只对已完成的人工结果做润色、只找与历史决定的偏差且不替代人的判断、为后面那次评估做准备，四个出口。但有两个前提。一是人要真能推翻，不是走过场点确认——<b>走过场的复核按「没有人在环」算</b>。二是只要对自然人做画像，上面四条一概不算数。用了出口也不免检：要在上市前写下判定依据并在欧盟数据库登记，监管来问拿得出来。</p>
+        <p class="qa-why">「我们只是辅助」是最常见的降档理由，也是验收时最容易被推翻的一句。把它变成一份写得出来的判定依据，方案里的人在环设计才会认真做。</p>
+        <p class="qa-next"><b>下一步</b>　把「人能不能推翻」写成可验收的一句：复核插在推荐之后还是执行之前，被拒的人走什么路径。</p>
+        <p class="qa-src">依据　<a href="#gov-risk-tiering">四个出口与画像一票否决</a>　·　<a href="#gov-impact">人在环放哪</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-7">
+      <summary>美国那边法律松了，我们是不是可以简化流程？同一条用途欧盟和美国判出两个档，听谁的？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>科罗拉多 2026 年改法确实删掉了部署方的影响评估与风险管理程序义务：SB26-189 于 2026-05-14 签署、2027-01-01 起取代 2024 年的 SB24-205，框架从高风险 AI 换成面向自动化决策技术的告知、解释与人工复核。<b>但义务没了风险没变</b>——错误的筛选照样让人丢掉机会。反向的例子是纽约市第 144 号地方法，一直没松：年度独立偏见审计、公开摘要、使用前至少提前 10 个工作日告知。两把尺子判出不同答案时取严的那把，内部只留一个档；内部档不能低于法律档，反过来可以——法律没管的用途，组织照样能定成最高档，内部裁员名单预筛就是这种。</p>
+        <p class="qa-why">客户拿「某地放松了」当降本理由时，真正的风险敞口没变，变的只是谁来发现它。取严是唯一不用每年重判一次的处理方式，也省掉了同一条用途在两个法域来回改流程的开销。</p>
+        <p class="qa-next"><b>下一步</b>　在登记表里把法律分类和组织分档写成两列分别留痕，别合并成一个「风险等级」。</p>
+        <p class="qa-src">依据　<a href="#gov-risk-tiering">两把尺子与三种错配</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-8">
+      <summary>影响评估和我们做的模型评测是一回事吗？上线前一周做来得及吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>不是一回事，也来不及。评测答「准不准」，靠评估集打分；影响评估答「会伤到谁、有多重、谁来兜、怎么申诉」——<b>分数很高，照样可能有严重的影响问题</b>。来不及是因为它的产出是几条架构约束：人在环插在推荐之后还是执行之前、留什么日志、留不留申诉入口、数据能不能按人删。这四件冻结之后再改就是重做，所以它该赶在方案定稿前，不是上线评审时。已经做过数据保护影响评估的不用重做：欧盟法案第 27 条第 4 款写明这是对它的补充，两者盯的对象不同，一个盯数据怎么收怎么存，一个盯这个决定落到人身上会怎样。</p>
+        <p class="qa-why">这题直接决定方案书里评估这一项排在第几周。排晚了，客户拿到的是一份没人能执行的存档——归档之后再没人看，是它最常见的死法。</p>
+        <p class="qa-next"><b>下一步</b>　把四条架构约束写进技术方案的接口设计页，不要放进附录；指标怎么测走 <a href="../evaluation/index.html#eval-build">Evaluation 的建集与指标设计</a>。</p>
+        <p class="qa-src">依据　<a href="#gov-impact">产出是架构约束</a>　·　<a href="#gov-impact">六格与五步</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-9">
+      <summary>条件批准和「先上线再优化」有什么区别？例外太多，是不是说明治理没做好？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>区别是三样写死的东西：一句能判真假的验收、一个日期、一个名字。「加强人工抽检」判不了真假，「每周抽检 200 条、误拒率低于 2%」判得了；到期没做到，用途自动降回暂停，不需要再开会；判定的人最好不是提条件的人，也不是交付的人。<b>例外为零更可疑</b>，通常说明流程被绕开了——健康的样子是例外有数、每条有到期日和补偿措施、有人认领、总量在降，该盯的是过期未清那几条。法定义务给不了例外，例外也绕不开「谁有权批」，只能绕开技术要求。</p>
+        <p class="qa-why">条件批准是售前最常签下的那一种决定，也最容易被写成空话。写不成可验收的句子，交付时这条就是扯皮点：三个月后没人能判定它做到没有。</p>
+        <p class="qa-next"><b>下一步</b>　把你正在推的那条用途的条件改写成一句能判真假的话，配上日期和名字。</p>
+        <p class="qa-src">依据　<a href="#gov-decision">条件批准怎么写</a>　·　<a href="#gov-decision">例外的价值与边界</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-10">
+      <summary>出问题时到底谁能喊停？停用之后是不是就没事了？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>事先指定，别临时找。NIST 的 AI 风险管理框架把停用单列一条：机制先建好、责任落到人。要先写清按下去停什么（全停、停写操作，还是转人工）、默认多久出复评结论（5 个工作日，否则往上升级）、复评只有三条去路（恢复、改条件批准、退役）。欧盟法案对高风险系统的部署方更硬：发现风险要立即通知并暂停使用。<b>停用之后义务常常还挂着</b>：退役是四件事——停流量、封证据、通知受影响的人与下游、处置模型权重与微调数据；纽约市第 144 号地方法要求偏见审计摘要在工具最后一次使用后再挂满 6 个月。</p>
+        <p class="qa-why">急停按钮不接线，事故那天多出来的就是找人的那几个小时。这一格在方案里最容易被跳过，验收时又最容易被追问。</p>
+        <p class="qa-next"><b>下一步</b>　技术动作（急停、回滚指针）在 <a href="../ai-ops/index.html#ops-incident">AI-Ops 的急停与分级</a>；本册要定的是名字与时限：谁能按、谁能替、多久必须给出结论。</p>
+        <p class="qa-src">依据　<a href="#gov-decision">暂停先接线</a>　·　<a href="#gov-decision">退役四件事</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-11">
+      <summary>供应商的模型卡和白皮书算不算证据？客户要我们把证据包交给他，能给吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>算背景，不算这个用途的证据。它证明的是模型在厂商测试条件下的表现，证明不了它在你的数据、你的提示、你的人在环设计下的表现——<b>能进包的是你自己那份评测报告</b>，报告上要写死模型版本和提示版本，任一换版，这份报告对新版就不作数。交给客户的是结论和边界：评测口径、有效期、它证明不了什么；原始日志和评测集样本涉及数据权限，按数据分级和合同走。给之前先问清他要拿给谁看——审计、他的客户还是监管，口径不同。</p>
+        <p class="qa-why">这两问常在同一次会里出现，答法是同一条：证据的标准是让不在场的人能重做这次判断。能重做的才给得出去，不能重做的给了也没用，截图和汇报材料只说明有人做过事。</p>
+        <p class="qa-next"><b>下一步</b>　给手上最硬的那份证据补一句：这条结论支持什么判断，不支持什么判断——写不出来就还不能进包。</p>
+        <p class="qa-src">依据　<a href="#gov-evidence">六件证据</a>　·　<a href="#gov-evidence">它证明不了什么</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-12">
+      <summary>证据要留多久？云平台不是都有日志吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>取你落在的几部法里最长那条，再往下减；反过来做，补不回已经被删掉的那一段。欧盟法案：高风险系统的技术文档 10 年，自动生成日志提供方与部署方各至少 6 个月；纽约市第 144 号地方法的审计摘要在最后一次使用后再挂 6 个月。<b>云上的默认值常常短一个数量级，而且好几处默认是关的</b>：Bedrock 的模型调用日志默认关闭，Cloud Logging 默认日志桶只存 30 天。差额自己补，再用对象存储的保留锁让它到期前删不掉。</p>
+        <p class="qa-why">留存期是方案里少数几个「现在不设、以后补不回」的参数，也是审计来了第一个被翻的。锁保证删不掉，保证不了内容是对的——所以先定该留什么，再定留多久。</p>
+        <p class="qa-next"><b>下一步</b>　查一遍这条链路的日志开没开、默认存多久，和落到你头上的法定年限做个差，把差额写成一个具体天数。</p>
+        <p class="qa-src">依据　<a href="#gov-evidence">证据留多久</a>　·　<a href="#cloud">上云怎么落地</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-13">
+      <summary>买了合规平台自动收证据、云厂商说平台自带合规，够不够？我们该买哪个治理平台？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>云采的是配置状态，人工判断与签字采不了，用途该不该批更采不了。AWS 自己的文档写明：那套控制项不用于验证系统是否合规，也不保证通过审计。工具本身也会退役——Audit Manager 自 2026-04-30 起不对新账号开放，存量账号仍可继续用，官方指向 AWS Config。买不买平台看规模：<b>二十个用途以内先别买</b>，一张字段固定的表加评审纪要就够；跨部门之后优先接进已有的服务管理或治理平台，别另起一套；要出审计证据了，再上云侧自动采集，人工判断仍要人上传。工具让你找得到、追得上，谁敢签字这件事买不来。</p>
+        <p class="qa-why">平台先行是治理项目最常见的死法：系统上线了、字段没定、没人登录。把顺序倒过来——先定字段，工具随时能换，证据链也不至于绑死在一家产品上。</p>
+        <p class="qa-next"><b>下一步</b>　报价前先问客户现在有几条用途在跑；二十条以内的，把预算放在把这张表跑起来上。</p>
+        <p class="qa-src">依据　<a href="#gov-operating">先有一张字段固定的表</a>　·　<a href="#cloud">上云怎么落地</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-14">
+      <summary>我们只是把模型从 v1 升到 v2，也要重新走一遍吗？模型持续学习、定期重训呢？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>看档位，不是每次都从头再来。<b>判断标准是能力边界有没有变，不是版本号变没变</b>：只是分数上下波动，登记一笔就够；低档用途登记即可，高档用途要重跑评测、更新证据包，复评没出结论前先限流。持续重训取决于第一次评估时说了什么——欧盟法案对「实质性修改」的定义有一条关键豁免：初次符合性评估时已预先声明并写进技术文档的变化，不算实质性修改。所以「变化范围怎么写」是个架构决定，要在第一次评估前定，事后补不上。</p>
+        <p class="qa-why">这题的答案会直接写进合同：重评估的成本和周期算给谁。把允许的变化范围提前声明清楚，是唯一能把这笔钱省下来的做法，也决定了持续学习这套架构还能不能上。</p>
+        <p class="qa-next"><b>下一步</b>　在第一次评估里写清模型允许怎么变——重训频率、数据范围、指标下限，别留到事后解释。</p>
+        <p class="qa-src">依据　<a href="#gov-change-triggers">实质性修改的定义</a>　·　<a href="#gov-change-triggers">触发之后走三档</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-15">
+      <summary>业务偷偷把它接到新场景了，怎么办？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>先停新场景那条流量：旧批条盖不住它。再按新用途另开一条登记，重走分档与评估——这一步别省，<b>新场景往往比原来那条高一档</b>。发现靠两侧：调用侧看同一把密钥有没有出现没登记过的调用来源，合同侧看新场景是先进需求单还是变更单。监管也这么看：SR 26-2 说把模型用到预期用途之外会带来额外的不确定与风险，给的动作是补做分析、复核现有控制，不是默认放行。</p>
+        <p class="qa-why">最危险的变化不带代码改动——用途换了，代码一行没动，版本号也没变，所有技术监控都不会响。这是治理相对于运维不可替代的那一格，讲清楚了，客户才明白为什么监控齐全还要这套。</p>
+        <p class="qa-next"><b>下一步</b>　给批准依赖的四个前提（用途、系统、数据、人的位置）各配一个「它变了我怎么知道」的信号来源，配不上的标成缺口；漂移类信号从 <a href="../ai-ops/index.html#ops-drift">AI-Ops 的漂移监测</a>接过来。</p>
+        <p class="qa-src">依据　<a href="#gov-change-triggers">最隐蔽的一种变化</a>　·　<a href="#gov-registry">改用途是新记录</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-16">
+      <summary>客户在我们的模型上贴自己的品牌，责任怎么算？我们只是拿现成大模型做个应用，法规轮得到我们吗？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>先定身份。提供者管技术文档、日志能力与符合性声明；部署者管按说明书用、安排有能力的人做人工监督、日志至少留 6 个月，在工作场所投用还要告知工会代表与受影响员工。但欧盟法案第 25 条列了三种情形会让下游方变成提供者——贴自己的名称或商标、对已上市的高风险系统作实质性修改、改变预期用途使系统变成高风险。<b>身份一变，义务整套跟着变，合同里写「我们只是用户」不管用。</b>这句话要在签合同之前说清。</p>
+        <p class="qa-why">这是售前最贵的一句口误。身份认定看的是实际做了什么，不看合同怎么写；等到贴牌那天再谈，技术文档那套义务已经落到自己头上了。</p>
+        <p class="qa-next"><b>下一步</b>　拿手上一个真实项目写出双方各自是提供者还是部署者，再列出改成什么样会触发身份互换；对客的责任落点与合同话术走 <a href="../solution-patterns/index.html#sp-method">Solution-Patterns 的方案共性方法</a>。</p>
+        <p class="qa-src">依据　<a href="#gov-frameworks">义务不看合同怎么写</a>　·　<a href="#gov-change-triggers">角色也会翻</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-17">
+      <summary>你们有 ISO 42001 认证吗？没有我们不能采购。我们做了 NIST 自评、做了偏见审计，够不够？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>这几张纸各答自己那一格，<b>没有一张说「这个用途现在是安全的」</b>。42001 证书证明组织有一套 AI 管理体系在运转，不给任何单个用途背书，适用范围还是企业自己划的——拿到证书先看两行：范围圈没圈你要买的那个系统，发证机构有没有对应的认可资质。NIST 自评的价值是用同一套骨架把风险盘了一遍，短板也在这儿，没有外部核验，谁都能说自己做过。年度偏见审计报的是某工具在某时点的选择率比值，换版本、换人群就不成立，它证明你那天测过，不证明系统公平。该看的是这个用途自己的记录：谁批的、凭什么证据、什么时候复核。客户若再问「除了 42001 还有什么」，两份最常被漏掉：ISO/IEC 42005（2025-05-28 发布）讲影响评估怎么做，不认证也不需要外部审核；ISO/IEC 42006（2025-07-07 发布）规定的是认证机构的审核员能力与审核工时，约束的是发证那一方。</p>
+        <p class="qa-why">把「我们合规了」拆成每张纸各自能兑现什么，采购那句「没有证书不能买」就有了替代答案：用途级的决定记录，补的正是证书补不了的那一格。</p>
+        <p class="qa-next"><b>下一步</b>　把「我们已经通过 42001」翻译成三句敢在客户面前说的具体话，每句后面挂一份材料。</p>
+        <p class="qa-src">依据　<a href="#gov-frameworks">每张纸能证明什么</a>　·　<a href="#gov-frameworks">42005 与 42006</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-18">
+      <summary>我们是银行，按 SR 11-7 那套模型风险管理走行不行？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>那套已在 2026-04-17 被 SR 26-2 与 OCC Bulletin 2026-13 取代。能借的是它的分层思路：重要性由用途与暴露共同决定，这和内部分档是一个路子。但修订版在脚注里写明<b>生成式与代理式 AI 模型不在本指引范围内</b>——你要卖的那部分正好不覆盖，得用客户自己的治理接住，别指望它兜底。</p>
+        <p class="qa-why">金融客户会拿现成的模型风险管理流程当挡箭牌：「我们这套跑了十几年」。它对传统统计模型仍然管用，缺的恰好是新增的那一块，话术要当场换，否则方案会被塞进一个盖不住的框里。</p>
+        <p class="qa-next"><b>下一步</b>　把这条用途归到「借它的分层、另建它不覆盖那一段」上：五种决定、证据包与变更触发照走。</p>
+        <p class="qa-src">依据　<a href="#gov-frameworks">每张纸能证明什么</a>　·　<a href="#gov-decision">谁能拍板</a></p>
+      </div>
+    </details>
+
+    <details id="q-ai-governance-19">
+      <summary>我们已经拿到备案号了，治理是不是就算做完了？换了底座模型要不要重新备案？<span class="added">2026-08-02</span></summary>
+      <div class="a">
+        <p>备案证明的是这个服务上线前那道门过了。<b>它不回答服务里每个用途现在还批不批准，也不回答换版本之后那些评估还成不成立</b>——这两件只能靠自己的登记与复核记录回答。备案数的是服务，你的表数的是用途：登记表要加一列「对应备案或登记编号」，填不上的行就是没人认领的缺口。换底座模型先看变的是不是备案里填过的项：填过的项变了，法定时限是变更之日起 10 个工作日内办变更手续，不是等下次季度评审；服务终止的是 20 个工作日内办注销——只在内部把用途标成停用，外面那条备案还挂着，就等于对外还宣称在提供这个服务。</p>
+        <p class="qa-why">治理记录跑季度钟，备案跑工作日钟。两个钟不记在同一张表上，逾期是迟早的事，而且逾期这件事不会有人来提醒你。</p>
+        <p class="qa-next"><b>下一步</b>　给登记表补上编号那一列，再写一份不超过八条的「哪些变化要在 10 个工作日内动备案」清单；适用范围与分诊三问走 <a href="../security/index.html#sec-china">Security 的中国监管合规</a>。</p>
+        <p class="qa-src">依据　<a href="#gov-china-interface">两把尺子要对得上</a>　·　<a href="#gov-china-interface">工作日钟</a></p>
+      </div>
+    </details>
+
+  </div>
+  <p class="ev">标准、联邦口径与云上默认值核实 2026-08-02，来源 <a href="#src-iso">ISO/IEC 官方条目</a>、<a href="#src-omb">OMB M-25-21</a>、<a href="#src-nist">NIST AI RMF 与 Playbook</a>、<a href="#src-china">中央网信办规章原文</a>、<a href="#src-cloud-tools">各云与厂商官方文档</a>。<b>不可外推边界</b>：42005 是指导文件、不用于认证，42006 约束的是发证机构而不是用户组织；M-25-21 是美国联邦机构自用规则，企业照抄前要按自身法域裁剪；NIST AI RMF 是自愿性方法论，自评无人核验；备案 10／20／30 个工作日只管算法备案，大模型备案的材料与周期是另一套；云侧能力与默认值是各家当期状态，不代表几家覆盖面对等或可互换。</p>
+</section>
+
+<!-- ============ 14 相关模块 ============ -->
+<section class="sec" id="related">
+  <h2><span class="num">14</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <p>同一个概念在库里只有一个主要归属。这一册只管「谁依据什么作决定」，撞了别人地盘的部分深链过去，不在这儿重讲。</p>
+  <div class="rel">
+    <a href="../security/index.html">
+      <div class="nm">Security · 网页版</div>
+      <div class="why">最该一起读的一册：威胁与防护手段、中国备案与标识的条目和时点全在那边，本页接的是「每张纸能证明什么」和「内部登记怎么跟备案对上」。红队报告也从那边来——本册只管它在不在证据包里、有没有过期。</div>
+    </a>
+    <a href="../evaluation/index.html">
+      <div class="nm">Evaluation · 网页版</div>
+      <div class="why">证据包里「测过什么、结果多少」由那册产出；本册只规定哪一档用途必须附哪几类测量证据、证据绑到哪个版本、多久失效，不重讲任何指标定义。</div>
+    </a>
+    <a href="../ai-ops/index.html">
+      <div class="nm">AI-Ops · 网页版</div>
+      <div class="why">漂移告警、急停开关与回滚是技术动作，那边讲怎么发现、怎么按；本册接的是告警响了之后那一步——谁有权按下、按下之后走什么复核路径、多久必须给出结论。</div>
+    </a>
+    <a href="../data-engineering/index.html">
+      <div class="nm">Data-Engineering · 网页版</div>
+      <div class="why">影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行：执行点、权限与越权测试在那册，本册只出约束与验收点。</div>
+    </a>
+    <a href="../agent/index.html">
+      <div class="nm">Agent · 网页版</div>
+      <div class="why">自主度是内部定档的一根轴。自主度的技术形态与控权手段在那册，本册只规定一件：从「给建议」升到「自动执行」，跨档必须重新过一次决定门。</div>
+    </a>
+    <a href="../solution-patterns/index.html">
+      <div class="nm">Solution-Patterns · 网页版</div>
+      <div class="why">那边讲对客交付里的责任落点与合同话术，本册讲客户内部的决定权归属与证据链，两边在「谁签字」这一点接上——提供者还是部署者，写进合同前先答完。</div>
+    </a>
+    <a href="../model-landscape/index.html">
+      <div class="nm">Model-Landscape · 网页版</div>
+      <div class="why">「这个模型能不能这么用」的许可证条款在那册，本册只管这份材料在不在证据包里、换模型时它跟着换没换。</div>
+    </a>
+    <a href="../predictive-ai-mlops/index.html">
+      <div class="nm">Predictive-AI-MLOps · 网页版</div>
+      <div class="why">SR 26-2 把生成式与代理式排除在外，它仍然管用的正是那一侧的模型：授信、评分这类用途的独立验证与持续监控记录怎么产出，在那册的生命周期一条线上。</div>
+    </a>
+  </div>
+  <p class="ev">跨册引用口径核实 2026-08-02，来源 <a href="#src-eu-aiact">欧盟人工智能法案条文</a>。<b>不可外推边界</b>：欧盟那套义务只压在高风险那条线上，且适用起点已延后；时间线在 <a href="../security/index.html#sec-governance">Security 第 7 章</a>登记一次，本页只引用、不复制一份。</p>
+</section>
+
+<!-- ============ 15 来源与核实 ============ -->
+<section class="sec" id="sources">
+  <h2><span class="num">15</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <p>本页时效性数字均经联网核实后写入，核实日期同为 2026-08-02，完整登记（事实 × 核实日期 × 信源 × 等级 × 节奏 × 不能外推）见<a href="../../PPT-version/AI-Governance/MANIFEST.md">本模块 MANIFEST</a>，共 43 项信源。<b>引用任何数字前先核日期。</b></p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
+    <tbody>
+      <tr id="src-eu-aiact"><td><code>src-eu-aiact</code></td>
+        <td>欧盟《人工智能法》(Regulation (EU) 2024/1689) 条文与附件三，EUR-Lex 官方文本及条文导航副本</td>
+        <td>四档分类与附件三清单、第 6 条第 3 款四个出口与画像例外、提供者与部署者义务、第 25 条身份互换、第 27 条基本权利影响评估、留存期（技术文档 10 年、日志至少 6 个月）、实质性修改的定义与豁免</td>
+        <td>只覆盖高风险那条线，不是全部 AI 应用；适用起点已延后，时点在 Security 登记；条文导航副本转录的是 2024 年原始刊登文本</td></tr>
+      <tr id="src-omb"><td><code>src-omb</code></td>
+        <td>美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）</td>
+        <td>按用途而非按模型登记并每年公开更新、「主要依据」这条高影响判据、七条最低风险管理实践与影响评估内容、做不到即停用、豁免由首席 AI 官批并在 30 天内报送</td>
+        <td>联邦机构自用规则，不适用于企业，照抄前须按自身法域裁剪；国防与情报体系另有安排</td></tr>
+      <tr id="src-nist"><td><code>src-nist</code></td>
+        <td>NIST AI RMF 1.0 与配套 Playbook（GOVERN 与 MANAGE 部分），美国国家标准与技术研究院 AI 资源中心</td>
+        <td>清单机制要成文、有人负责、覆盖到高风险场景；停用与脱离机制要事先建好并指定责任人</td>
+        <td>自愿性方法论，自评没有外部核验，不构成法定停用义务或强制字段要求</td></tr>
+      <tr id="src-us-states"><td><code>src-us-states</code></td>
+        <td>科罗拉多州议会 SB26-189 法案页、纽约市关于自动化雇佣决策工具的最终规则原文与 Local Law 144 实务解读，另经多家律所分析交叉核对</td>
+        <td>SB26-189 于 2026-05-14 签署、2027-01-01 起取代 SB24-205 并删除部署方影响评估义务；纽约市年度独立偏见审计与公开摘要、提前 10 个工作日告知、停用后摘要再挂 6 个月</td>
+        <td>一部只管科罗拉多一州，一部只覆盖纽约市用工场景；美国单州立法还在变，删掉的是法定义务不是风险本身</td></tr>
+      <tr id="src-iso"><td><code>src-iso</code></td>
+        <td>IEC Webstore 官方条目 ISO/IEC 42005:2025 与 ISO/IEC 42006:2025</td>
+        <td>42005 于 2025-05-28 发布，是 AI 系统影响评估指南、42001 的配套件；42006 于 2025-07-07 发布，规定认证机构的审核员能力与审核工时</td>
+        <td>42005 不用于认证、不需要外部审核；42006 约束发证方，不直接落到用户组织；42001 证书不给单个用途背书</td></tr>
+      <tr id="src-fed-sr"><td><code>src-fed-sr</code></td>
+        <td>美联储 SR 26-2 letter 页与 PDF 全文（federalreserve.gov），另有律所客户备忘录转述</td>
+        <td>2026-04-17 起 SR 26-2 与 OCC Bulletin 2026-13 取代 SR 11-7 与 SR 21-8；重要性由用途与暴露共同决定；模型用到预期用途之外要补做分析并复核现有控制</td>
+        <td>美国银行监管口径，不适用于非受监管企业；脚注明确生成式与代理式 AI 不在适用范围内</td></tr>
+      <tr id="src-china"><td><code>src-china</code></td>
+        <td>中央网信办官网原文：《互联网信息服务算法推荐管理规定》、《生成式人工智能服务管理暂行办法》、《人工智能安全治理框架》2.0 发布稿</td>
+        <td>备案填报 10 个工作日、变更 10 个工作日、注销 20 个工作日、受理 30 个工作日；有舆论属性或社会动员能力的服务须做安全评估并履行备案；框架 2.0 于 2025-09-15 发布、为技术文件</td>
+        <td>只管算法备案，大模型备案的材料与周期是另一套；适用范围与分诊三问在 Security 登记；框架 2.0 非强制，不是备案的评分依据</td></tr>
+      <tr id="src-cloud-tools"><td><code>src-cloud-tools</code></td>
+        <td>各云与厂商官方文档：Google Cloud Security Command Center AI Protection 与 Cloud Logging 配额页、Microsoft Learn 的 Purview 相关页、AWS Audit Manager 生成式 AI 最佳实践框架 v2 与可用性变更公告、Bedrock 模型调用日志页</td>
+        <td>AI 资产发现的当期能力与官方写明的盲区（影子 AI 资源不在控制台发现范围）；Cloud Logging 默认日志桶 30 天；Bedrock 模型调用日志默认关闭；Audit Manager 自 2026-04-30 起不对新账号开放，其 110 项控制（72 自动 + 38 手动）不验证系统是否合规、也不保证通过审计</td>
+        <td>各云当期能力与默认值，不代表三家覆盖面对等或可互换；也不代表某个项目的实际设置</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="ev">复查节奏核实 2026-08-02，来源 <a href="#src-cloud-tools">各云与厂商官方文档</a>。<b>不可外推边界</b>：云产品名、形态与默认值按 30 天复查，法条与标准状态按 90 天；表里任何一行都不构成某个具体产品或某条用途当前的合规结论。</p>
+</section>
+</article>
+</div>
+</main>
+
+<footer class="wrap">
+  <p>
+    本册 PPT 讲义：<a href="../../PPT-version/AI-Governance/AI-Governance-讲义.pptx">AI-Governance-讲义.pptx</a> ·电子书书单：<a href="../../PPT-version/AI-Governance/电子书书单.md">电子书书单.md</a> ·模块清单：<a href="../../PPT-version/AI-Governance/MANIFEST.md">MANIFEST.md</a>
+  </p>
+  <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
+  <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <nav class="prevnext" aria-label="书架前后册">
+   <a href="../ai-gateway/index.html"><span class="k">上一册 · 工程保障层</span><b>AI-Gateway</b></a>
+   <a class="nx" href="../ai-ops/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Ops</b></a>
+  </nav>
+  <!-- UPDATED:END -->
+</footer>
+
+<script src="../data.js?v=20260723m"></script>
+<script src="../assets/site.js?v=20260723m"></script>
+<script>
+/* 用途分诊器：法律分类与组织分档两把尺子一起量，落到谁作决定、必走哪几步、证据包含哪几件。
+   判据全部来自本页正文（两把尺子、四个出口、五种决定、六件套），不新增事实。
+   无 JS 时 .tool 隐藏，静态兜底是正文那两张表：两把尺子的四变量、谁作决定与独立复核的档位表。 */
+(function () {
+  "use strict";
+  var kpi = window.KBUI.kpi, card = window.KBUI.card;   /* 公共渲染件，见 assets/site.js */
+  var $ = function (id) { return document.getElementById(id); };
+  var out = $("triage-out"), cards = $("triage-cards"), note = $("triage-note");
+  if (!out) return;
+
+  var ANNEX = {
+    employment: "附件三 · 就业", credit: "附件三 · 信用评分",
+    insurance: "附件三 · 保险定价", education: "附件三 · 教育",
+    other: "附件三 · 其余领域"
+  };
+  var TIER  = ["", "低档", "中档", "高档", "法定高风险"];
+  var OWNER = ["", "业务负责人自批", "业务与风险两签", "治理委员会", "委员会加法务"];
+  var CHECK = ["", "不要求，抽查", "上线前一次", "独立方，逐版本", "按法规要求走"];
+
+  function run() {
+    var annex = $("triage-annex").value,
+        exit = $("triage-exit").value,
+        human = $("triage-human").value,
+        subject = $("triage-subject").value,
+        blast = $("triage-blast").value,
+        profile = $("triage-profile").checked,
+        principal = $("triage-principal").checked,
+        irrev = $("triage-irrev").checked,
+        gen = $("triage-gen").checked,
+        eu = $("triage-eu").checked,
+        cn = $("triage-cn").checked,
+        nyc = $("triage-nyc").checked,
+        co = $("triage-co").checked,
+        pub = $("triage-public").checked;
+
+    /* 一、法律分类：欧盟这把尺子只在业务触达欧盟时量 */
+    var listed = annex !== "none" && annex !== "banned";
+    var banned = eu && annex === "banned";
+    var exitOK = listed && exit !== "none" && !profile;   /* 画像一票否决 */
+    var high = eu && listed && !exitOK;
+
+    if (banned) {
+      out.innerHTML =
+        kpi("欧盟法律分类", "禁止", true) +
+        kpi("该走哪几步", "不走，换方案", true);
+      cards.innerHTML = card("这一条不用分档", "第 5 条禁止清单",
+        "社会评分、职场与学校的情绪推断落在禁止那一档：不能做，没有合规方案。情绪推断有医疗与安全用途的例外，例外之外只能换方案——继续往下分档是白花力气。",
+        "#gov-risk-tiering");
+      note.innerHTML = "禁止档不进流程设计，组织分档这把尺子在这里没有意义。" +
+        "<b>这是分诊，不是合规意见</b>——法定结论以当期法条与你的法务口径为准。";
+      return;
+    }
+
+    /* 二、组织分档：四个变量各打一档，取最高；法律那把是底，内部只能往上加 */
+    var t = 1;
+    if (subject === "external") t = Math.max(t, 2);
+    if (subject === "externalblind") t = Math.max(t, 3);
+    if (irrev) t = Math.max(t, 2);
+    if (human !== "override") t = Math.max(t, 2);        /* 走过场的复核按「没有人在环」算 */
+    if (blast === "write1") t = Math.max(t, 2);
+    if (blast === "multi") t = Math.max(t, 3);
+    if (principal) t = Math.max(t, 3);
+    if (high) t = 4;
+
+    var legal, legalWarn = false;
+    if (!eu) legal = "不适用（未触达欧盟）";
+    else if (high) { legal = "高风险（" + ANNEX[annex] + "）"; legalWarn = true; }
+    else if (exitOK) legal = "用了出口，不按高风险走";
+    else if (gen) legal = "透明度义务（第 50 条）";
+    else legal = "最小风险";
+
+    var pieces = t >= 3 ? 7 : 6;
+    out.innerHTML =
+      kpi("组织风险档", TIER[t], t >= 3) +
+      kpi("欧盟法律分类", legal, legalWarn) +
+      kpi("谁作决定", OWNER[t], t >= 3) +
+      kpi("独立复核", CHECK[t], t >= 3) +
+      kpi("复核间隔（周期钟）", t >= 3 ? "季度" : "半年到一年", false) +
+      kpi("证据包件数", pieces + " 件", t >= 3);
+
+    /* 三、该走哪几步 */
+    var list = [];
+    var fria = high && (pub || annex === "credit" || annex === "insurance");
+    var coTail = co ? "科罗拉多改法 2027-01-01 生效，删掉的是部署方的影响评估与风险管理程序义务——义务没了风险没变，别顺势撤内部流程。" : "";
+
+    if (fria) list.push(card("影响评估", "第 27 条 · 法定",
+      "适用主体点到你了：公法机构、提供公共服务的私营主体，以及信用评分与人寿健康保险的部署方。六格写全才签得出字，做完还要连同模板报市场监管机构。已做过数据保护影响评估的，这份是补足不是重做。" + coTail,
+      "#gov-impact"));
+    else if (t >= 3) list.push(card("影响评估", "内部要求 · 架构冻结前",
+      "产出是几条架构约束：人在环放哪、留什么日志、申诉入口怎么开、数据能不能按人删。上线前一周才做，这四件已经改不动了。结论不是「安全」，是「谁接受了哪些残余风险」。" + coTail,
+      "#gov-impact"));
+    else if (t === 2) list.push(card("影响评估", "可以写得短",
+      "六格照样走一遍：用在哪用多久、影响谁、什么伤害、人怎么盯、出事怎么办、谁签字接受。深浅按档缩放，位置不变——仍在架构冻结前。" + coTail,
+      "#gov-impact"));
+    else list.push(card("影响评估", "法律不强制",
+      "这一档走自助登记加年度复核就够。只要决定落到外部个人身上，自己做一遍划算：法律不管的用途，组织照样能定成最高档。" + coTail,
+      "#gov-impact"));
+
+    list.push(card("独立复核与签字", CHECK[t],
+      "谁作决定：" + OWNER[t] + "。复核的人不能参与建设——建的人不能自己批，这条兼不了。最后一步不能外包：残余风险由能担的人签字，签字的人必须有权叫停这条用途。",
+      "#gov-decision"));
+
+    var reg = "内部用途登记先记全六格：用途一句话、业务负责人、影响对象、人在不在环、模型与数据、失效条件。六格填不满，这条记录就不能拿来拍板。";
+    if (high) reg += "欧盟数据库登记：附件三高风险系统要登（第 49 条）。";
+    if (eu && exitOK) reg += "用了出口不是免检：提供方要在上市前写下判定依据，自认不高风险的同样要在欧盟数据库登记。";
+    if (cn) reg += "对境内公众提供服务的，备案与登记走哪条路线按 Security 册的分诊三问定；登记表加一列「对应备案或登记编号」，对不上的行就是没人认领的缺口。变更 10 个工作日、注销 20 个工作日办完，别等下次季度评审。";
+    list.push(card("登记", high ? "内部 + 欧盟数据库" : (cn ? "内部 + 中国备案对接" : "内部为主"), reg,
+      cn ? "#gov-china-interface" : "#gov-registry"));
+
+    var tell = "";
+    if (high && annex === "employment") tell += "在职场投用高风险系统前，先告知工会与受影响员工。";
+    if (eu && gen) tell += "第 50 条：直接与自然人交互要告知，合成内容要打标。";
+    if (nyc) tell += "纽约市第 144 号地方法：每年做独立偏见审计并公开摘要，使用前至少提前 10 个工作日告知候选人与员工。";
+    if (cn && gen) tell += "对外发布生成内容落内容标识义务，标识办法已进执法期。";
+    if (co) tell += "科罗拉多那套要的是交互点告知、不利决定后给解释、以及有实质意义的人工复核。";
+    var tellTag = tell ? "法定动作" : "自建";
+    if (!tell) tell = "没有哪条法律点名要你告知。但决定落到外部个人身上时，申诉入口仍要在架构冻结前预留——被拒的人怎么找到人工复核，上线后再补只能靠人工救火。";
+    list.push(card("告知与标识", tellTag, tell, "#gov-risk-tiering"));
+
+    var ev = "六件套一件不能少：用途说明与边界、影响评估、评测报告、数据来源与权限、人在环上的设计、监控与日志接线。深浅按档缩放，档位低的可以写得短。";
+    if (t >= 3) ev += "这一档的评测要由独立方做，再加一份红队报告，是第 7 件。";
+    else if (t === 2) ev += "自有评测集跑一轮，谁做的评测要标明。";
+    else ev += "抽检记录加一句结论就够。";
+    ev += "每份证据补一句它证明不了什么；评测报告写死模型版本与提示版本，任一换版对新版就不作数。";
+    if (high) ev += "留存按最长那条设：技术文档 10 年、自动生成日志至少 6 个月，这批高风险义务 2027-12-02 起适用。";
+    if (nyc) ev += "偏见审计摘要在最后一次使用之后还要挂满 6 个月。";
+    list.push(card("证据包", pieces + " 件", ev, "#gov-evidence"));
+
+    var dec = "决定要落成五种里的一种，并写明失效条件。最常用的是条件批准：一句能判真假的验收、一个到期日、一个名字，三样缺一就是空话，到期没做到自动降回暂停。";
+    dec += "六类变化让批条失效：用途扩展、模型或版本换、数据变了、人退出环、供应商变更、法规变了。最隐蔽的是第一种——代码一行没改，风险换了一档。";
+    if (t >= 3) dec += "复评期间这一档限流跑，低档才照常；暂停默认 5 个工作日内出复评结论。";
+    list.push(card("决定与失效条件", "五种决定", dec, "#gov-change-triggers"));
+
+    cards.innerHTML = list.join("");
+
+    /* 四、提醒：只说这次勾选真的踩到的那几条 */
+    var warn = [];
+    if (profile && exit !== "none") warn.push("你主张了出口，但对自然人做画像一票否决——四个出口一概不算数");
+    if (eu && exitOK) warn.push("用了出口要自证：判定依据写在前面，监管来问拿得出来");
+    if (human === "confirm") warn.push("走过场的复核按「没有人在环」算，这一格直接决定风险档");
+    if (principal) warn.push("输出是这次决定的主要依据——按第 3 章的判据直接进高档");
+    if (!eu && listed) warn.push("业务没触达欧盟，附件三这把尺子先不量；但法律不管的用途，组织照样能定成最高档");
+    if (cn) warn.push("两个钟别混：治理记录跑季度，备案跑工作日");
+    note.innerHTML = (warn.length ? warn.join("；") + "。" : "") +
+      "两把尺子给出不同答案时取严的那把：法律那把是底，内部只能往上加，不能往下减。" +
+      "<b>这是分诊，不是合规意见</b>——法定结论以当期法条与你的法务口径为准。";
+  }
+
+  ["triage-annex", "triage-exit", "triage-human", "triage-subject", "triage-blast",
+   "triage-profile", "triage-principal", "triage-irrev", "triage-gen",
+   "triage-eu", "triage-cn", "triage-nyc", "triage-co", "triage-public"
+  ].forEach(function (id) {
+    $(id).addEventListener("input", run);
+    $(id).addEventListener("change", run);
+  });
+  run();
+})();
+</script>
+</body>
+</html>

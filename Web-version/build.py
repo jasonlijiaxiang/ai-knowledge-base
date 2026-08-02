@@ -96,6 +96,8 @@ WEB_DIRS = {
     "data-engineering": "data-engineering",
     "ai-infra-compute": "ai-infra-compute",
     "ai-infra-platform": "ai-infra-platform",
+    "predictive-ai-mlops": "predictive-ai-mlops",
+    "ai-governance": "ai-governance",
 }
 
 # 派生一：站内相对路径。必须指到文件——file:// 下目录链接不会自动打开 index.html。
@@ -1048,7 +1050,7 @@ CHKW = {
 
 
 def render_graph(data):
-    """分层链接图：19 模块按 7 层排布 + 串联出边画成图（替代原来的表格）。
+    """分层链接图：各模块按 7 层排布 + 串联出边画成图（替代原来的表格）。
 
     节点＝模块（按 KB-CONFIG 层级从上到下分带，就是 PPT 总览那套层级），
     边＝各模块 MANIFEST「串联出边」的无向去重关系。默认边极淡、悬停高亮一个模块的邻接。
@@ -1148,8 +1150,11 @@ def render_graph(data):
              for a, b in pairs]
 
     # 三遍分层画，顺序决定层叠——① 层带背景（最底）② 边（中间，连续不被挡）③ 节点（最上，压住出口）
+    # 模块数从数据来，不写死：曾把「19 个模块」刻进生成器，库长到 21 册后
+    # 三个生成区块同时说错数，而 --check 只比对生成器自己的输出，永远自洽（2026-08-02 修）
     o = ['  <svg class="kgraph" viewBox="0 0 %d %d" role="img" '
-         'aria-label="全库 19 个模块按七层排布的关系图，边表示讲一块时该带上的另一块">' % (W, H)]
+         'aria-label="全库 %d 个模块按七层排布的关系图，边表示讲一块时该带上的另一块">'
+         % (W, H, len(mods))]
 
     o.append('   <g class="kbands">')
     for l in layers:                                # ① 层带背景 + 层标签
@@ -1199,8 +1204,8 @@ def render_graph(data):
 
     deg_all = sorted(mods, key=lambda m: -len(adj[m["id"]]))
     hubs = "、".join("%s（%d）" % (m["dir"], len(adj[m["id"]])) for m in deg_all[:3])
-    lead = ('  <p class="net-lead">按 7 层排布的全库 19 个模块。<b>两种学法</b>——'
-            '<b>单点学习</b>：直接点模块进那一册；<b>关联学习</b>：点一个模块，它滑到中间、'
+    lead = ('  <p class="net-lead">按 7 层排布的全库 %d 个模块。<b>两种学法</b>——' % len(mods)
+            + '<b>单点学习</b>：直接点模块进那一册；<b>关联学习</b>：点一个模块，它滑到中间、'
             '散开它的<b>关键技术词</b>；点一个词就跳到讲它的那一章去读，同时散开相关的词，'
             '顺着技术名词一步步深挖。</p>')
     toggle = ('  <div class="kg-modes" role="tablist">'

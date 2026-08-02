@@ -1258,8 +1258,179 @@ window.KB = {
      "resolved": true
     }
    ],
-   "web": "",
-   "questions": []
+   "web": "./ai-governance/index.html",
+   "questions": [
+    {
+     "id": "q-ai-governance-1",
+     "q": "我们已经有一本 AI 管理办法，也有上线审批流程，还要单开一套治理吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-what-why",
+      "gov-decision"
+     ]
+    },
+    {
+     "id": "q-ai-governance-2",
+     "q": "上治理会不会把我们上线拖慢？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-risk-tiering",
+      "gov-operating"
+     ]
+    },
+    {
+     "id": "q-ai-governance-3",
+     "q": "治理该谁牵头，法务还是技术？我们没有「独立复核人」这号人。",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-operating",
+      "gov-what-why"
+     ]
+    },
+    {
+     "id": "q-ai-governance-4",
+     "q": "我们已经有模型注册表了，这不就是 AI 清单吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-registry",
+      "gov-risk-tiering"
+     ]
+    },
+    {
+     "id": "q-ai-governance-5",
+     "q": "影子 AI 怎么找？发问卷行不行？表建完没人维护怎么办？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-registry",
+      "gov-registry"
+     ]
+    },
+    {
+     "id": "q-ai-governance-6",
+     "q": "我们这个只是辅助，人最后拍板，算高风险吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-risk-tiering",
+      "gov-impact"
+     ]
+    },
+    {
+     "id": "q-ai-governance-7",
+     "q": "美国那边法律松了，我们是不是可以简化流程？同一条用途欧盟和美国判出两个档，听谁的？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-risk-tiering"
+     ]
+    },
+    {
+     "id": "q-ai-governance-8",
+     "q": "影响评估和我们做的模型评测是一回事吗？上线前一周做来得及吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-impact",
+      "gov-impact"
+     ]
+    },
+    {
+     "id": "q-ai-governance-9",
+     "q": "条件批准和「先上线再优化」有什么区别？例外太多，是不是说明治理没做好？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-decision",
+      "gov-decision"
+     ]
+    },
+    {
+     "id": "q-ai-governance-10",
+     "q": "出问题时到底谁能喊停？停用之后是不是就没事了？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-decision",
+      "gov-decision"
+     ]
+    },
+    {
+     "id": "q-ai-governance-11",
+     "q": "供应商的模型卡和白皮书算不算证据？客户要我们把证据包交给他，能给吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-evidence",
+      "gov-evidence"
+     ]
+    },
+    {
+     "id": "q-ai-governance-12",
+     "q": "证据要留多久？云平台不是都有日志吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-evidence",
+      "cloud"
+     ]
+    },
+    {
+     "id": "q-ai-governance-13",
+     "q": "买了合规平台自动收证据、云厂商说平台自带合规，够不够？我们该买哪个治理平台？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-operating",
+      "cloud"
+     ]
+    },
+    {
+     "id": "q-ai-governance-14",
+     "q": "我们只是把模型从 v1 升到 v2，也要重新走一遍吗？模型持续学习、定期重训呢？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-change-triggers",
+      "gov-change-triggers"
+     ]
+    },
+    {
+     "id": "q-ai-governance-15",
+     "q": "业务偷偷把它接到新场景了，怎么办？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-change-triggers",
+      "gov-registry"
+     ]
+    },
+    {
+     "id": "q-ai-governance-16",
+     "q": "客户在我们的模型上贴自己的品牌，责任怎么算？我们只是拿现成大模型做个应用，法规轮得到我们吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-frameworks",
+      "gov-change-triggers"
+     ]
+    },
+    {
+     "id": "q-ai-governance-17",
+     "q": "你们有 ISO 42001 认证吗？没有我们不能采购。我们做了 NIST 自评、做了偏见审计，够不够？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-frameworks",
+      "gov-frameworks"
+     ]
+    },
+    {
+     "id": "q-ai-governance-18",
+     "q": "我们是银行，按 SR 11-7 那套模型风险管理走行不行？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-frameworks",
+      "gov-decision"
+     ]
+    },
+    {
+     "id": "q-ai-governance-19",
+     "q": "我们已经拿到备案号了，治理是不是就算做完了？换了底座模型要不要重新备案？",
+     "added": "2026-08-02",
+     "chapters": [
+      "gov-china-interface",
+      "gov-china-interface"
+     ]
+    }
+   ]
   },
   {
    "id": "ai-infra-compute",
@@ -6215,8 +6386,195 @@ window.KB = {
      "resolved": true
     }
    ],
-   "web": "",
-   "questions": []
+   "web": "./predictive-ai-mlops/index.html",
+   "questions": [
+    {
+     "id": "q-predictive-ai-mlops-1",
+     "q": "我们风控跑了十年评分卡，你们这套是要把它换掉吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-what-why"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-2",
+     "q": "大模型这么强，为什么不直接让它预测谁会流失？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-what-why"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-3",
+     "q": "你们用什么算法？我们想上最新的深度学习模型，行不行？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-model-choice"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-4",
+     "q": "我们一个标签都没有，是不是只能做无监督异常检测？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-model-choice"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-5",
+     "q": "我们就是想预测哪些客户会流失，这还不够清楚吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-problem-framing"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-6",
+     "q": "为什么 POC 要等两个月才能给结论？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-problem-framing"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-7",
+     "q": "离线 0.95，上线只有 0.7，问题出在哪？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-features-time"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-8",
+     "q": "你们说的数据泄漏，和我们数据部门说的数据泄露是一回事吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-features-time"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-9",
+     "q": "我们的数据回流要等好几天，这套还能做吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-features-time"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-10",
+     "q": "别家都在推特征平台，我们是不是也该上一套？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-feature-store"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-11",
+     "q": "上了特征平台，训练和线上就一定一致了吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-feature-store"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-12",
+     "q": "我们有 Git 就够了吧，为什么还要一个模型注册表？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-lifecycle"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-13",
+     "q": "新模型明明更好，为什么还要跑影子期？出了事多久能退回上一版？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-lifecycle"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-14",
+     "q": "你们能不能保证同一份代码跑出同样的模型？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-lifecycle"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-15",
+     "q": "看到漂移告警，直接自动重训不就完了？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-monitoring"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-16",
+     "q": "阈值定多少合适？给个行业标准。",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-monitoring"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-17",
+     "q": "标签要等三个月，这三个月是不是什么都看不见？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-monitoring"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-18",
+     "q": "我们上了监控，能不能承诺模型不掉点？验收又拿什么签？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-monitoring",
+      "pam-cheatsheet"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-19",
+     "q": "归因结果能直接发给被拒的客户吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-governance"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-20",
+     "q": "公平性我们全都要，行不行？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-governance"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-21",
+     "q": "我们不是银行，模型风险管理那套要不要做？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-governance"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-22",
+     "q": "我们已经买了一套大模型平台，预测式能不能直接塞进去？该先做哪件事？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-platform"
+     ]
+    },
+    {
+     "id": "q-predictive-ai-mlops-23",
+     "q": "你们说的漂移，和我们大模型团队说的漂移是同一个指标吗？",
+     "added": "2026-08-02",
+     "chapters": [
+      "pam-platform",
+      "pam-monitoring"
+     ]
+    }
+   ]
   },
   {
    "id": "pe",
