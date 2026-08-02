@@ -40,6 +40,7 @@
     <li><a href="#de-quality">5 · 数据质量与覆盖率</a></li>
     <li><a href="#de-labeling">6 · 标注与合成数据运营</a></li>
     <li><a href="#de-governance">7 · 治理与权限衔接</a></li>
+    <li><a href="#cloud">8 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -395,9 +396,109 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../ai-governance/index.html#gov-impact" title="反向回指（2026-08-02 新模块建立）：影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行；执行点、权限与越权测试在">影响评估在架构冻结前做<span class="xm">AI-Governance</span></a><a href="../security/index.html#sec-data-privacy" title="Security 定规则，本章是数据管线上的三个执行点；越权测试集同 SP 第 4 章验收">数据与隐私安全<span class="xm">Security</span></a></div>
 </section>
 
+<!-- ============ 云落点 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">08</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前七章讲的是数据底座该怎么建。这一节换个视角：<b>每个环节在云上对应哪个服务、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了</b>。按管线阶段排，不按章节排——现场画架构图时是从左到右走的。</p>
+    <p>同一环节给多厂商代表，<b>不绑死单一供应商</b>。边界：向量库与嵌入的云落点见<a href="../rag/index.html#cloud">RAG</a>，合规与数据出境见<a href="../security/index.html#sec-china">Security</a>，管线观测见<a href="../ai-ops/index.html#ops-tracing">AI-Ops</a>；本节只管到「数据变成可用语料之前」那一截。</p>
+  </div>
+
+  <h3>接进来：数据从各个系统汇到一处</h3>
+  <p>这一段的目标只有一个：把散在 SharePoint、Confluence、共享盘、业务库里的东西，汇到一个后面能反复重跑的地方。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>落地区：原始件先有个家（对象存储 / 数据湖）</td><td>Amazon S3（表格数据可用 S3 Tables 表桶，原生 Apache Iceberg 格式，S3 自动做 compaction、快照管理与无引用文件清理）/ Azure Data Lake Storage（微软文档已统称此名，不再挂 Gen2；它不是独立服务，是在 Blob 存储上打开分层命名空间得到的一组能力）/ Google Cloud Storage / 阿里云 OSS；表格式自建走 Apache Iceberg、Delta Lake</td><td>原始件先落一个不会被人挪走的地方——后面解析换了工具、切分改了参数，都能从这儿重跑，不用回头求业务部门再导一次。</td></tr>
+      <tr><td>存量搬家：本地 NAS 与文件服务器的第一次上云</td><td>AWS DataSync（本地端支持 NFS、SMB、HDFS、对象存储；也支持从 Google Cloud Storage、Azure Blob、Azure Files、阿里云 OSS 等他云搬入）/ Google Storage Transfer Service（本地文件系统、HDFS、S3 及 S3 兼容存储、Azure Blob 起点，官方定位为 1TiB 以上的大批量传输）/ 各云同类迁移与离线寄盘服务</td><td>第一次搬家是一次性工程，跟以后每天的增量同步是两笔钱、两种人力——报价里要拆开写，不然后面加钱就说不清了。</td></tr>
+      <tr><td>企业系统连接器：SharePoint / Confluence / 网盘这类</td><td>Amazon Bedrock 知识库现分两类：托管知识库（Managed，七个连接器：S3、Confluence、SharePoint、Google Drive、OneDrive、网页爬取、自定义）/ 自管知识库（连接器页仍维护 S3、Confluence、SharePoint、Salesforce、网页爬取、自定义，其中 SharePoint 官方标注 preview 且只支持 OpenSearch Serverless 向量库）——注意 AWS 两处文档口径不一致，托管对照表把自管一类写成只剩 S3 与自定义，落地前以控制台实际可选项为准；Amazon Q Business 已停止接新客户，同类需求官方指向 Amazon Quick。Azure AI Search 索引器（SharePoint in Microsoft 365 索引器仍在 preview）/ Google Gemini Enterprise 连接器（Confluence Cloud、Jira Cloud、SharePoint、OneDrive、Outlook、ServiceNow、Microsoft Entra ID 等）/ 阿里云百炼数据连接（文件、表格、MySQL、PostgreSQL、PolarDB-X 2.0、语雀、OSS）；开源自建走 Airbyte</td><td>常见的那几个系统，托管平台都有现成连接器，接上就能跑。但要一个个验——同一个平台里，有的连接器是正式版，有的还挂着预览标，还有的整条产品线已经不接新客户了。</td></tr>
+      <tr><td>数据库增量：CDC（变更数据捕获）</td><td>AWS DMS（读数据库事务日志，支持「全量 + CDC」与「纯 CDC」两种任务）/ Azure Data Factory 变更数据捕获（原生 CDC 连接器为 SAP CDC、Azure SQL Database、SQL Server、Azure SQL 托管实例、Cosmos DB（SQL API 与分析存储）、Snowflake，其余走自增列自动增量抽取；微软已在该页把 Microsoft Fabric 的 Data Factory 标为下一代，新方案要问清客户走哪条）/ Google Datastream（MySQL、Oracle、PostgreSQL、SQL Server、MongoDB、Spanner 均为正式版，Salesforce 亦正式版；落 BigQuery、Cloud Storage 或 Apache Iceberg 表）/ 阿里云 DTS，数据传输服务 Data Transmission Service（数据同步与数据订阅）；开源自建走 Debezium、Apache Flink CDC</td><td>结构化数据要接的话，走数据库日志，别让人写 SQL 定时全量捞——那是拿客户的生产库当抽数机器使。</td></tr>
+      <tr><td>权限元数据跟不跟着文档一起进来（ACL 同步）</td><td>三家现在都能做，但机制与成熟度不一样：Amazon Bedrock 托管知识库的 ACL 感知检索（正式版，SharePoint、OneDrive、Google Drive、Confluence 支持预过滤 + 每次查询实时回源复核权限，S3 与自定义连接器靠客户提供的 ACL 配置文件做预过滤，网页爬取不支持；以邮箱为唯一用户标识，两边对不上就静默查不到东西）/ Google Gemini Enterprise 身份同步（identity sync，把用户账号与 ACL 组的对应关系单独同步，跟全量、增量分开排期）/ Azure AI Search 的 SharePoint 索引器 ACL 摄取（preview）；托管连接器不覆盖时，退路仍是按访问级别拆成多个知识库分别授权</td><td>文档在源系统里谁能看，这层信息要不要一起接进来——今天就得定。等库灌完再补，等于重灌一遍。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：这些系统里，哪几个是真要接的？每个系统谁是管理员、给不给账号、租户管理员同不同意授权？文档在源系统里的权限要不要跟着一起进来？检索的时候由谁来认证用户身份，各系统里那个人的邮箱是不是同一个？</p>
+  <p><b>云替你做不了什么</b>：云能搬、能跟上变更，但有三件事它自己在文档里就写明了不做。一是不认人：托管知识库的权限过滤是按你传进去的身份筛的，官方明写它不认证最终用户、也无法验证这个身份是真的，认证必须在你自己的应用里做，光靠它不构成访问控制。二是不承诺延迟：数据库增量复制官方明写不是实时复制、延迟没有 SLA（服务等级协议），随源库负载与网络波动。三是账号与取舍：哪些系统接、谁批管理员账号与租户授权、哪份文档算数，还是归客户。</p>
+
+  <h3>看得懂：把 PDF、扫描件、表格变成结构化文本</h3>
+  <p>第 2 章已经把开源侧讲透——MinerU、Docling、LlamaParse、Unstructured 各自的甜区与许可。这里补云侧：客户已有云协议时，这一段多半是买不是搭。四家云都能把版面认出来、给一份结构化文本，但认得了哪些文字、一次能吃几页、出来是不是 Markdown，差距比宣传页上大得多。边界声明：切分怎么切、切完怎么嵌入入库，在 RAG 那一节；本段只管到「解析产物落地成一份能切的文本」为止。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>版面与表格解析（主力服务）</td><td>Azure `prebuilt-layout`（Document Intelligence v4.0，2024-11-30 GA，出文本、表格、选择标记、图窗与章节层级）——品牌已改叫 Azure Document Intelligence in Foundry Tools 并收进 Content Understanding，但官方同时写明「已在生产上跑的，API、终结点、SDK、计费都不变，不需要迁移」/ Google Document AI 版面解析器（Layout Parser，GA，稳定默认版本 pretrained-layout-parser-v1.0-2024-06-03）/ Amazon Textract AnalyzeDocument 的 FeatureTypes：LAYOUT、TABLES、FORMS、QUERIES / 阿里云文档智能「文档解析（大模型版）」；自建走本章开源四强</td><td>这一步决定表格以后查不查得回来——先拿你们最难的二十份跑一遍，再定用谁。</td></tr>
+      <tr><td>认不认得：语言、竖排、手写</td><td>Azure Read/Layout 印刷体覆盖中文简繁（zh-Hans／zh-Hant），手写体 v4.0 覆盖简体中文 / Google Enterprise Document OCR 官方处理器清单写「200 多种语言」，可用 languageHints 给语言提示 / Amazon Textract 官方配额页只列英法德意葡西六种，并明写不支持竖排；Bedrock Data Automation 文档侧同样只列英德西法意葡、同样不支持竖排（中文只出现在它的音频与自定义词表两侧）/ 阿里云文档智能面向中文场景，官方能力页未列语言表</td><td>中文扫描件在几家云上不是同一件事——先确认这家的文档服务认不认中文、认不认竖排。</td></tr>
+      <tr><td>出什么：Markdown 还是一堆坐标</td><td>Azure 加 outputContentFormat=markdown 直接出 Markdown（v4.0 起表格改用 HTML 片段以表达合并单元格与多行表头，选择标记改用 ☒ ☐）/ 阿里云文档解析（大模型版）OutputFormat 可取 markdown，index 给版面阅读顺序、pos 给坐标 / Google 版面解析器直接给带上级标题与表头的 chunk / Textract 给 Block 结构化 JSON，Markdown 要自己拼</td><td>解析完直接是 Markdown，下游少写一层拼装代码，也就少一处出错的地方。</td></tr>
+      <tr><td>抽字段：合同、发票、报关单</td><td>Amazon Bedrock Data Automation（2025-03 GA，蓝图里配字段，异步开分割器可到 3000 页）/ Azure Content Understanding（2025-11-01 API 版本 GA，分析器里配字段；生成部分要自带 Foundry 模型部署，预览期的托管容量已下线）/ Google Document AI Custom Extractor 与 Form Parser（均 GA），但处理器版本各有自己的下线日期，别把版本号写死进方案 / 阿里云文档智能解析的 Key-Value 键值字段抽取</td><td>要的只是表里那几个字段而不是全文，就不用训模型——配一张字段表先跑通，再谈准确率。</td></tr>
+      <tr><td>批量：几十万页怎么灌进去</td><td>Textract 同步 PDF/TIFF 限 1 页、10MB，异步 3000 页、500MB / Bedrock Data Automation 异步开分割器 3000 页、500MB，但控制台入口只到 20 页、200MB，同步档只到 10 页、50MB / Azure prebuilt-layout 单文件 2000 页、S0 档 500MB（F0 免费档 4MB 且只处理前两页）/ Google 版面解析器在线单 PDF 15 页、20MB，批处理 500 页、单文件 1GB / 阿里云文档解析（大模型版）单文件 1.5 万页、150MB（单图 20MB）</td><td>历史存量是一次性批处理任务，按在线接口估时间和预算一定算错。</td></tr>
+      <tr><td>兜底：低置信那几页谁看</td><td>置信度这层有：Textract 每个 Block 带 Confidence（0–100），Azure Content Understanding 文档侧各种抽取方式都给置信度、还能用 estimateSourceAndConfidence 按字段开关以省时省钱 / 但现成的人工复核队列没了：Google 把 Document AI 的 Human-in-the-Loop（人工复核环节）列入官方废弃清单（废弃日 2024-01-16，同批还有 Document AI Warehouse），AWS 在 Amazon A2I（Augmented AI）文档页首写明不再对新客户开放 / 现实做法是拿云上工单系统或标注平台自己拼一条复核队列</td><td>解析不可能百分之百，先把「谁看低置信那几页」写进验收，别等上线才临时找人。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：最难的 20 份长什么样——扫描件、竖排、手写各占多少？历史存量多少页、多久要灌完？解析错了谁复核、每天看得了几页？有没有一批文档根本不能出网？</p>
+  <p><b>云替你做不了什么</b>：两件是真做不到，不是没配好。一、AWS 这条线读不了中文：Textract 官方配额页只列英法德意葡西六种文字，Bedrock Data Automation 文档侧也是这六种，两份限制表还都明写不支持竖排——中文扫描件、竖排件在 AWS 上没有开关可打，只能换云或走开源自建。二、现成的人工复核队列买不到了：Google 的 Human-in-the-Loop 已进 Document AI 官方废弃清单，AWS 的 Amazon A2I 明写不对新客户开放，新项目这条队列必须自己搭，工期里要留出来。</p>
+
+  <h3>加工与编排：清洗、去重、切分、批量向量化</h3>
+  <p>这一段只管「数据变成可用语料之前」的加工与编排：跑批算力、调度骨架、首次全量向量化那一趟。切多大、重叠多少属于切分策略，向量库怎么选、换嵌入模型要付什么代价属于检索侧，见 RAG 册；质量指标体系与运营节奏见本册第 5 章；权限与合规落点见 Security 册——重叠的地方不重讲。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>批量清洗、去重、格式归一（跑批算力）</td><td>Amazon EMR Serverless / AWS Glue；Azure Databricks / Microsoft Fabric 的 Spark；Google「Managed Service for Apache Spark」无服务器模式（前身先叫 Dataproc Serverless、后叫 Google Cloud Serverless for Apache Spark）；阿里云 EMR Serverless Spark；自建 Spark on Kubernetes</td><td>清洗这类活按跑批时间付费，跑完就释放——不必为一年跑几次的全量重建，养一套常年开着的集群。</td></tr>
+      <tr><td>增量与准实时加工（流引擎）</td><td>Amazon Managed Service for Apache Flink（原 Kinesis Data Analytics for Apache Flink）；阿里云实时计算 Flink 版（全托管）；Google Cloud Dataflow；自建 Flink Kubernetes Operator。Azure 要单说：承载一方托管 Flink 的 HDInsight on AKS 已于 2025-01-31 退役、官方指向 Microsoft Fabric，Azure 自家在跑的同类服务是 Azure Stream Analytics（SQL 式，不是 Flink）</td><td>源头改一条、语料几分钟内跟着变，靠的是一直开着的流作业；先问客户能忍多久的滞后，再决定开不开这一路。</td></tr>
+      <tr><td>作业编排与调度（托管 Airflow 等）</td><td>Amazon MWAA；Google Managed Service for Apache Airflow（原 Cloud Composer）——两家 2026 年内都已上 Airflow 3.x；Microsoft Fabric 的 Apache Airflow job（Azure Data Factory 的 Workflow Orchestration Manager 自 2026-01-01 起不能新建实例）；阿里云 DataWorks；自建 Airflow / Dagster / Apache DolphinScheduler</td><td>管线不是一个脚本，是一张有先后、会重跑、失败要叫人的图；编排这层省掉了，出事就只能靠人盯着。</td></tr>
+      <tr><td>加工期的规则校验与去重（挂在每次跑批上）</td><td>AWS Glue Data Quality（DQDL 规则语言，底座是开源 DeeQu）；Google Knowledge Catalog（原 Dataplex Universal Catalog）的数据质量扫描，内置 Uniqueness 唯一性规则，当前覆盖 BigQuery 与 Iceberg REST Catalog 表；Databricks Lakeflow 管线的 expectations（违规可选警告／丢弃／中止整次更新）；自建 GX Core（原 Great Expectations 开源版）／Soda Core（2026-01 起改用 Elastic License 2.0，已不是 OSI 开源许可，商用前先看条款）</td><td>去重、空值、格式这些规则要写成能跑的检查，跟着每次跑批走；不写下来，它就只是上线前人工抽查的那一眼。</td></tr>
+      <tr><td>批量向量化（首次全量灌库）</td><td>Amazon Bedrock 批量推理：官方支持表里确有两款嵌入模型——Titan Text Embeddings V2（多区域）与 Nova Multimodal Embeddings（当日只在 us-east-1）；阿里云百炼批量推理（5 折，含 text-embedding-v1~v4，等待窗口 1–14 天可设）；Google Vertex AI 文本嵌入批量任务（输入输出走 BigQuery 或 Cloud Storage）；Azure OpenAI 全球批量（24 小时目标窗口、比全球标准便宜 50%，但嵌入模型能不能用官方 FAQ 没答上，别按支持报）；自建 GPU 跑开源嵌入模型</td><td>首次全量向量化是一次性的大账，肯等一晚就走批量接口；但折扣按家按模型给——嵌入模型是不是同享对折，得按当期定价页逐条核，别拿大模型的折扣去估。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：全量重建一次多少文档、多久跑一次？增量要天级还是分钟级？源系统删掉一条，下游能不能知道它没了？首次向量化能不能等一晚出结果？</p>
+  <p><b>云替你做不了什么</b>：云给的是跑批的机器、调度的骨架和能跑的规则；判断这些规则跑对了没有，它给不了——清洗把 PDF 里的表格洗没了，管线照样全绿。另一件是云够不着的：源系统硬删一条记录又不留删除日志，任何托管管线都无从知道它消失过——这不是没配好，是上游压根没产生这条信息，只能回去改源系统。</p>
+
+  <h3>存得住、查得清：湖仓、目录与血缘</h3>
+  <p>第 7 章讲的三个执行点和越权测试，落到云上就是这一段：数据存成什么表格式、谁在管这份表的元数据、字段是从哪来的、以及同一张表不同的人能看到哪几行哪几列。这一段的取舍和前面几段不一样——解析工具选错了还能换，表格式和目录选错了，换的是数据本身的家。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>表格式与湖仓底座</td><td>Amazon S3 Tables（Iceberg 原生表桶）/ Microsoft Fabric OneLake（官方写明按 Delta Parquet 或 Iceberg 存表，两种格式经元数据虚拟化互读）/ Google Lakehouse for Apache Iceberg（2026-04-20 前叫 BigLake）/ 阿里云 DLF 数据湖构建 2.0（Paimon Catalog，对齐 Apache Paimon REST Catalog 标准）；自建：Iceberg、Delta Lake、Hudi、Paimon 直接落对象存储</td><td>先把表格式定下来——它决定往后哪些引擎能读你这份数据，比选哪家云更难回头。</td></tr>
+      <tr><td>表维护与快照生命周期（小文件、过期快照）</td><td>Amazon S3 Tables 自动维护（压实与快照管理默认对所有表开启，可按表调参或关掉）/ Databricks 预测式优化（对 Unity Catalog 托管表自动跑 OPTIMIZE、VACUUM、ANALYZE）；自建：Iceberg 自己排 rewrite_data_files 与 expire_snapshots</td><td>托管湖表替你扫小文件、清过期快照——但托管带前提：表上多一个自定义 tag 或分支，S3 Tables 的快照管理就整表停摆，这活儿并没消失。</td></tr>
+      <tr><td>开放目录与多引擎互通（Iceberg REST）</td><td>AWS Glue Iceberg REST 端点（SageMaker Lakehouse；联邦 Iceberg 目录是 Lake Formation 注册资源）/ Google Lakehouse 运行时目录 REST 端点（带凭证下发）/ Databricks Unity Catalog；自建：Apache Polaris（2026-02-19 毕业为 Apache 顶级项目，实现 Iceberg REST Catalog 规范）</td><td>认 Iceberg REST 这一个口子，往后换引擎、换分析团队不用把数据再搬一遍——但「走这个口子还剩多少行列级管控」，各家答案是反的，必须按家查。</td></tr>
+      <tr><td>业务语义目录（这张表是什么、谁负责）</td><td>Microsoft Purview 统一目录（Unified Catalog）/ Google Knowledge Catalog（2026-04-10 起由 Dataplex Universal Catalog 改名）/ 阿里云 DataWorks 数据地图（代码搜索与数据血缘分析需标准版及以上）；自建：OpenMetadata、DataHub</td><td>语料是哪张表来的、谁负责、能不能用——写进目录，别只存在某个老员工脑子里。</td></tr>
+      <tr><td>血缘，尤其是字段级</td><td>Google Knowledge Catalog 数据血缘（BigQuery、Dataflow、Data Fusion、托管 Airflow 与 Spark、Vertex AI Pipelines 与 Feature Store、Lakehouse Iceberg REST 目录表等自动采集，可导入 OpenLineage 事件）/ Microsoft Purview 血缘（官方按实体级与列/属性级两档描述，列级血缘文档目前挂在经典 Data Catalog 下）/ 阿里云 DataWorks 数据地图血缘（表级与字段级都可看，离线数据 T+1 更新）；自建：OpenLineage + Marquez、DataHub、OpenMetadata</td><td>出了事要能一口说清这条数据从哪来、被谁动过——但别把「支持列级」当承诺，先拿你自己的作业跑一遍，看链条断在哪一段。</td></tr>
+      <tr><td>行列级管控与脱敏（权限执行点）</td><td>AWS Lake Formation 数据筛选器（列级/行级/单元格级，只作用于读）/ Databricks Unity Catalog 行过滤器 + 列掩码（SQL 用户定义函数实现；跨多表规模化时官方推荐改用基于治理标签的 ABAC 策略）/ Microsoft Fabric OneLake security 行级 + 列级角色（Lakehouse、Spark 笔记本、SQL 分析端点已正式可用，授权第三方引擎为公共预览）/ BigQuery 行级安全策略 + 列级政策标记（两件事分开配）/ 阿里云 DataWorks 数据保护伞（分类分级 + 静态·动态·引擎层脱敏，脱敏管理需专业版及以上）；自建：Apache Ranger 行过滤 + 列掩码</td><td>同一张表，不同的人看到不同的行、不同的列——这道卡设在数据层，不要让每个应用各写一遍。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：表格式定了吗，Iceberg、Delta 还是 Paimon？血缘现在能查到字段级吗，断在哪一段？行列级权限归谁管、卡在数据层还是每个应用各写一遍？</p>
+  <p><b>云替你做不了什么</b>：云做不了的是三件写死在文档里的事，不是「没配」：一，Google 明写通过 Iceberg REST 目录端点管理的表不支持行级、列级细粒度访问控制——在这条路上「开放互通」和「细粒度管控」不能同时要（AWS 的联邦 Iceberg 目录反而可以按行/列/单元格授权，所以这不是开放目录的通例，是按家的硬边界，别互相套）；二，列级血缘有官方写死的采集断点：BigQuery 加载作业与例程不采、单个作业超过 1500 条列级链接不采、嵌套字段不支持，断掉的那截没人替你补；三，Lake Formation 数据筛选器只作用于读操作、只能配 SELECT，写入侧的越权它不看，血缘也不承担访问控制。反过来提醒一句：别把「分类分级」算进云做不了——Databricks 的数据分类与 DataWorks 数据保护伞都能自动识别并打敏感标签，云给的是带置信度的候选标签，定分级标准、出越权测试题、认领哪一列算敏感，才是留给你的活。</p>
+
+  <h3>质量与标注：让语料一直可用</h3>
+  <p>语料建成不等于建好——第 5、6 章管的是它之后怎么不烂掉：四个质量指标怎么自动跑出来、坏例怎么回流、标注与合成的预算怎么花。这一格的云服务分两类：一类把规则和分数跑起来（质量扫描与异常检测），一类把人组织起来标数据（托管标注与预标注）。边界先说清：在线评估怎么抓坏答案在 AI-Ops，合成数据的配方在 Fine-tuning，脱敏与权限规则在 Security，本节只讲数据侧那半段。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>质量规则定义与打分（把「数据很乱」变成一个数）</td><td>AWS Glue Data Quality（建在开源 DeeQu 上，用 DQDL 规则语言，25+ 内置规则类型，Data Catalog 入口可两步「创建规则 → 推荐规则」，ETL 入口不支持规则推荐）/ Microsoft Purview 统一目录数据质量（完整性、一致性、规范性、准确性、新鲜度、唯一性六个维度的开箱规则 + AI 生成规则 + 自定义规则，2026-03 起 SQL 表达式自定义规则 GA）/ Google Knowledge Catalog 自动数据质量（2026-04-10 前叫 Dataplex Universal Catalog）/ 阿里云 DataWorks 数据质量（内置规则模板库 + 自定义规则，支持单表配置与批量配置）；开源自建 Great Expectations、DeeQu</td><td>先把「数据很乱」跑成一个分数，改进才有靶子——跑分是自动的，定规则不是。</td></tr>
+      <tr><td>异常检测与阈值怎么定（这一格几家差得最远）</td><td>AWS Glue Data Quality 的机器学习异常检测与动态规则（可写 RowCount &gt; avg(last(10)) 这类跟着历史走的阈值，2024-08-07 起正式可用，2026-07-27 起 Data Catalog 入口也能开）/ Microsoft Purview 是人定的固定阈值：规则级与数据资产级可配阈值 2026-05 起正式可用，未达标发邮件别名或通讯组告警，异常状态在「数据质量操作中心」里跟 / Google Knowledge Catalog 走的是先跑数据剖析扫描、由剖析结果推荐规则，分数低于目标分即发通知，不是按历史自动定阈值；开源侧靠自己攒历史统计</td><td>别把这几家当同一档：只有 AWS 这一格能让阈值跟着你们自己的历史走，其余几家阈值还是人拍的一个数——这个差别开工前就要说清楚。</td></tr>
+      <tr><td>脏数据阻断（不让坏数据流到下游）</td><td>阿里云 DataWorks 数据质量：规则与调度任务关联，任务运行成功后自动触发校验，强规则校验失败阻塞下游任务、弱规则只告警 / AWS Glue Data Quality 在 ETL 作业入口跑规则，可定位到没过检的具体记录并隔离（Data Catalog 入口明确不支持定位失败记录）/ 开源自建 Great Expectations 在管线里做校验（Purview 与 Knowledge Catalog 的文档给到的是扫描、评分、告警与操作中心，要卡住下游任务得自己在编排层接）</td><td>坏数据要在进库前拦下来，进了库再回头修，代价高一个数量级。</td></tr>
+      <tr><td>托管标注平台（组织人去标那一段）</td><td>Amazon SageMaker Ground Truth（私有／供应商／Mechanical Turk 三种劳动力；官方文档页顶注记「不再对新客户开放，现有客户照常用，不再引入新功能」，Mechanical Turk 页顶同款注记）/ Azure Machine Learning 数据标注（图像与文本项目，文本支持多分类、多标签、命名实体识别；可从 Azure Marketplace 挂标注供应商，一致性标注为公开预览，单项目上限 50 万文件）/ Google Vertex AI Data Labeling Service 已关停（弃用 2023-06-30、关停 2024-10-03），官方改指 Google Cloud 控制台自助打标或 Marketplace 合作伙伴 / 阿里云 PAI-iTAG（图像、文本、视频、音频与大模型类模板；1.0 自 2026-08-01 起白名单开放并整体进入维护阶段）；开源自建 Label Studio（Apache 2.0）、CVAT、doccano</td><td>这几年托管标注服务一直在收缩，所以标注标准和标好的数据我们留在你们这边——换工具不换资产。</td></tr>
+      <tr><td>机器辅助标注与预标注（让人只看拿不准的那部分）</td><td>SageMaker Ground Truth 自动标注（主动学习，仅支持单标签图像分类、语义分割、边界框目标检测、单标签文本分类四类内置任务，自定义任务与流式作业不支持）/ Azure Machine Learning 机器学习辅助标注（先人工标一批，模型评估出置信度阈值后给出预标签，人工改错；文本 DNN 每例只取前约 128 词）/ 阿里云 iTAG 对部分大模型标注模板（图生文、图文解释等）提供智能标注 / 开源 Label Studio 接 ML 后端做预标注、在线学习与主动学习</td><td>预标注让人从「从零标」变成「改错」，专家的时间只花在拿不准的那几条上。</td></tr>
+      <tr><td>质量结果落库、告警与月报（运营跑得下去）</td><td>AWS Glue Data Quality 结果可写 Amazon S3 或 Data Catalog 的 Apache Iceberg 表（含规则结果、剖析结果、分布结果、逐行结果、观测结果，2026-07-27 起），并接 EventBridge 与 CloudWatch / Microsoft Purview 的质量分数按规则 → 数据资产 → 数据产品 → 治理域逐层汇总，可配邮件别名或通讯组告警 / Google Knowledge Catalog 结果可在 Cloud Logging 里按 data_scan 与 data_quality_scan_rule_result 日志设告警，并出通知报告 / 阿里云 DataWorks 支持质量报告模板与定时发送、多渠道告警订阅</td><td>四个指标每月自动出一张报告，谁看、多久看一次，开工前就定下来。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：四个指标现在谁在看、多久看一次？阈值是打算人定一个数，还是要让它跟着历史走（这决定了云选哪家）？标注是自己招人还是外包，标注员能不能碰生产数据？你们名下有没有已经在用的 Ground Truth——没有的话这条路对新客户是关着的。坏答案有没有人跟到底？</p>
+  <p><b>云替你做不了什么</b>：云真够不着的是这三条。一，新客户现在买不到公有云的托管标注平台：Ground Truth 与 Mechanical Turk 不再对新客户开放，Google 的标注服务 2024 年就关停了，阿里 iTAG 1.0 从 2026-08-01 起只对白名单——这不是配置问题，是没得开通。二，自动标注只覆盖四类内置任务，自定义任务和流式作业根本不支持，连置信度阈值都由服务预设、不给你调；任务形态一超出这四类，云侧那个开关就是灰的。三，覆盖率云看不见——文档里没写的答案，扫描怎么扫都扫不出来，只能你们自己补。（至于定规则、定阈值、写标注标准，云已经做了一半：推荐规则、AI 生成规则、按历史算阈值都有，但拍板还是人——这算「云做了要你配」，别拿它当云的短板讲。）</p>
+
+  <p class="ev">本节服务清单与状态标注均于 2026-08-02 联网核实，逐条落到各厂商官方文档，完整登记见<a href="../../PPT-version/Data-Engineering/MANIFEST.md">本模块 MANIFEST</a>（新增 22 条，多数按 30 天节奏复查）。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——预览状态、配额、计价单位与产品生命周期月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">08</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-11</b> 来自讲义首版对练页，<b>2026-07-23</b> 是按客户交锋场景补的三题（数据这块怎么验收 / 能承诺到多少 / 上线后谁维护）。</p>
   <div class="qa">
@@ -497,7 +598,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>边界纪律：切分在 RAG、微调数据配方在 Fine-tuning、权限规则在 Security——本页讲它们上游的「数据就绪」。</p>
   <div class="rel">
     <a href="../rag/index.html">
@@ -529,7 +630,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Data-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-11；解析一节 2026-08-01 重核。<b>工具口径会漂——选型结论（就地起步、按约束收敛、自测为准）比工具名保值。</b></p>
   <div class="tw">

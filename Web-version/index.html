@@ -357,7 +357,7 @@
   <h2 id="fresh">保鲜看板</h2>
   <p>会过期的事实都登记了核实日期，有的还写了定点复查日。这里只放该管的——已过期与一个月内到期。</p>
   <!-- FRESH:BEGIN 由 build.py 从 MANIFEST 时效性事实生成，请勿手工编辑 -->
-  <p class="net-lead">截至构建日 <b>2026-08-02</b>，<b>56 条</b>已到期或将在一个月内到期。</p>
+  <p class="net-lead">截至构建日 <b>2026-08-03</b>，<b>67 条</b>已到期或将在一个月内到期。</p>
   <div class="tw"><table class="fresh">
    <thead><tr><th>复查日</th><th>档 / 级</th><th>模块</th><th>事实</th></tr></thead><tbody>
     <tr><td><span class="badge recheck">2026-08-07</span></td><td>30 天 / B</td><td><a href="./llm/index.html">LLM</a></td><td>托管商用模型 13 家提供 ≥1M 上下文窗口（Gemini 3.1 Pro 2M；开源 Llama 4 Scout 标称 10M）；RULER/MRCR …</td></tr>
@@ -414,10 +414,21 @@
     <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./ai-governance/index.html">AI-Governance</a></td><td>AWS Audit Manager 已转入维护模式：自 2026-04-30 起不再支持在新账号中启用；其 Generative AI Best Pract…</td></tr>
     <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./ai-governance/index.html">AI-Governance</a></td><td>AWS Audit Manager 转入维护模式：2026-04-30 起新账号无法启用，存量账号可继续使用；停用后证据保留两年；官方指向 AWS Conf…</td></tr>
     <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / B</td><td><a href="./ai-governance/index.html">AI-Governance</a></td><td>治理与证据类云服务名：Microsoft Purview DSPM for AI 与 Microsoft Foundry（原 Azure AI Foundr…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>「接进来」这一段的云服务快照（核实 2026-08-02）：对象存储与数据湖＝Amazon S3（含 S3 Tables 表桶，原生 Apache Iceb…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>「接进来」相关服务的生命周期状态（核实 2026-08-02）：①Amazon Q Business 官方原文「no longer open to new …</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>托管知识库的源端权限接入已从「基本没有」变成「三家都有、但都带条件」（核实 2026-08-02，此条推翻了早前「Bedrock 不做 ACL」的说法）：①…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>云侧文档解析主力服务与形态（2026-08-02 快照）：Amazon Textract 走 AnalyzeDocument 的 FeatureTypes，…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>Amazon Bedrock 批量推理确实覆盖嵌入模型：官方「支持批量推理的区域与模型」表逐行列出 Titan Text Embeddings V2（ama…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>阿里云百炼（Model Studio）批量推理：成功请求的输入与输出 Token 单价均为实时推理的 50%，支持的嵌入模型含 text-embedding…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>服务名与形态是当日快照，且正在动：Google 两处连改——Dataplex Universal Catalog 自 2026-04-10 起改名 Know…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>行列级管控四家的形态与状态（2026-08-02 逐页核）：AWS Lake Formation 用「数据筛选器」做列级/行级/单元格级，官方原句是「Fil…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>「开放目录 = 只换来互通、换不来权限」这句话不成立，两家是反的，必须按家说：Google 官方限制页写明「Tables managed through t…</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>托管标注这一格三家云都在收缩：Amazon SageMaker Ground Truth 官方文档页顶注记「Amazon SageMaker Ground …</td></tr>
+    <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./data-engineering/index.html">Data-Engineering</a></td><td>数据质量服务的服务名与形态快照：AWS Glue Data Quality 建在开源 DeeQu 上、用 DQDL 规则语言、25+ 内置规则类型，规则推荐…</td></tr>
     <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./predictive-ai-mlops/index.html">Predictive-AI-MLOps</a></td><td>预测式监控的云上落点（服务名快照）：Azure ML 表格数据内建监控信号、Vertex AI 模型监控、AWS SageMaker Model Monit…</td></tr>
     <tr><td><span class="badge recheck">2026-09-01</span></td><td>30 天 / A</td><td><a href="./predictive-ai-mlops/index.html">Predictive-AI-MLOps</a></td><td>两种 AI 的云上门面（服务名快照）：注册与实验为 SageMaker 托管 MLflow、Vertex AI 模型注册表、Azure ML 注册表；生成式…</td></tr>
    </tbody></table></div>
-  <p class="net-lead">全库共 297 条时效性事实；另有 241 条排在一个月之后，见 <a href="./fresh.html">完整保鲜看板</a>。</p>
+  <p class="net-lead">全库共 319 条时效性事实；另有 252 条排在一个月之后，见 <a href="./fresh.html">完整保鲜看板</a>。</p>
   <!-- FRESH:END -->
 
   <h2 id="status">做到哪儿了</h2>

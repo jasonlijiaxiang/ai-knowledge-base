@@ -1,0 +1,184 @@
+{
+ "stages": [
+  {
+   "stage": "接进来：数据从各个系统汇到一处",
+   "short": "接进来",
+   "rows": [
+    {
+     "env": "落地区：原始件先有个家",
+     "services": "Amazon S3／Azure Data Lake Storage／Google Cloud Storage／阿里云 OSS；表格式自建 Apache Iceberg、Delta Lake",
+     "line": "原始件先落一个不会被挪走的地方——后面换解析工具、改切分参数都能重跑，不用再麻烦业务部门。"
+    },
+    {
+     "env": "存量搬家：本地 NAS 与文件服务器上云",
+     "services": "AWS DataSync（本地 NFS／SMB／HDFS，含他云搬入）／Google Storage Transfer Service（官方定位 1TiB 以上）／各云离线寄盘",
+     "line": "第一次搬家是一次性工程，跟日常增量同步是两笔钱、两种人力，报价要拆开写。"
+    },
+    {
+     "env": "企业系统连接器：网盘、协作系统",
+     "services": "Amazon Bedrock 知识库／Azure AI Search／Gemini Enterprise／阿里云百炼数据连接；SharePoint 连接器 preview，Amazon Q Business 停接新客户",
+     "line": "常见系统都有现成连接器，但要一个个验：同一家里有正式版、有预览版、有停接新客户的。"
+    },
+    {
+     "env": "数据库增量：CDC 变更数据捕获",
+     "services": "AWS DMS 读事务日志／Azure Data Factory CDC（原生只几类，其余走自增列）／Google Datastream／阿里云 DTS；自建 Debezium",
+     "line": "结构化数据走数据库日志，别让人写 SQL 定时全量捞客户的生产库。"
+    },
+    {
+     "env": "权限元数据一起进来（ACL 同步）",
+     "services": "Amazon Bedrock 托管知识库 ACL 感知检索（正式版）／Gemini Enterprise 身份同步／Azure AI Search 的 ACL 摄取仍 preview",
+     "line": "文档在源系统里谁能看，这层要不要一起接进来，今天就得定——等灌完再补等于重灌。"
+    }
+   ],
+   "ask": "哪几个系统真要接？谁是管理员、给不给账号、租户批不批授权？源端权限跟不跟着进来？检索时谁认证用户，各系统邮箱是不是同一个？",
+   "cant": "三件云自己写明不做：托管知识库不认证最终用户，认证得在你应用里；数据库增量官方明写非实时、延迟无 SLA；接哪些系统、谁批授权仍归客户。"
+  },
+  {
+   "stage": "看得懂：把 PDF、扫描件、表格变成结构化文本",
+   "short": "看得懂",
+   "rows": [
+    {
+     "env": "版面与表格解析（主力）",
+     "services": "Azure prebuilt-layout／Google Document AI 版面解析器／Amazon Textract AnalyzeDocument／阿里云文档解析（大模型版）",
+     "line": "这一步决定表格以后查不查得回来——先拿你们最难的二十份跑一遍，再定用谁。"
+    },
+    {
+     "env": "认不认得：语言、竖排、手写",
+     "services": "Azure 中文简繁／Google Enterprise Document OCR 200 多种语言／Amazon Textract、Bedrock Data Automation 仅六种西文、不认竖排",
+     "line": "中文扫描件在几家云上不是同一件事——AWS 这条线不认中文、不认竖排，先确认。"
+    },
+    {
+     "env": "出什么：Markdown 还是一堆坐标",
+     "services": "Azure 直出 Markdown／阿里云文档解析可取 markdown／Google 版面解析器直接给 chunk／Amazon Textract 出 Block JSON，要自己拼",
+     "line": "解析完直接是 Markdown，下游少写一层拼装代码，少一处出错的地方。"
+    },
+    {
+     "env": "抽字段：合同、发票、报关单",
+     "services": "Amazon Bedrock Data Automation／Azure Content Understanding／Google Custom Extractor／阿里云键值抽取；均 GA，版本号别写死",
+     "line": "只要那几个字段、不要全文，就不用训模型——配一张字段表先跑通，再谈准确率。"
+    },
+    {
+     "env": "批量：异步／批处理单文件上限",
+     "services": "Amazon Textract 异步 3000 页／Bedrock Data Automation 开分割器 3000 页／Azure 2000 页／Google 批 500 页／阿里云 1.5 万页",
+     "line": "历史存量是一次性批处理任务，按在线接口估时间和预算一定算错。"
+    },
+    {
+     "env": "兜底：低置信那几页谁看",
+     "services": "Amazon Textract、Azure Content Understanding 都给置信度；现成复核队列没了：Google Human-in-the-Loop 已废弃、Amazon A2I 不接新客户，只能自拼",
+     "line": "解析不可能百分之百，先把「谁看低置信那几页」写进验收，别等上线临时找人。"
+    }
+   ],
+   "ask": "最难的 20 份里扫描件、竖排、手写各占多少？存量多少页、多久灌完？解析错了谁复核？有没有文档不能出网？",
+   "cant": "两件真做不到：AWS 读不了中文——Amazon Textract 与 Bedrock Data Automation 只六种西文、不认竖排；现成人工复核队列买不到，得自搭。"
+  },
+  {
+   "stage": "加工与编排：清洗、去重、切分、批量向量化",
+   "short": "加工编排",
+   "rows": [
+    {
+     "env": "批量清洗、去重、格式归一",
+     "services": "AWS Glue／Azure Databricks／Google Managed Service for Apache Spark／阿里云 EMR Serverless Spark",
+     "line": "清洗按跑批时间付费、跑完就释放——不必为一年几次的全量重建养一套常开集群。"
+    },
+    {
+     "env": "增量与准实时加工（流引擎）",
+     "services": "Amazon Managed Service for Apache Flink／阿里云实时计算 Flink 版／Google Cloud Dataflow；Azure HDInsight 托管 Flink 已退役",
+     "line": "要源头一改、语料几分钟就跟着变，得养一直开着的流作业——先问能忍多久滞后。"
+    },
+    {
+     "env": "作业编排与调度（托管 Airflow）",
+     "services": "Amazon MWAA／Google Managed Service for Apache Airflow／Fabric Airflow job（Azure Data Factory停新建）／阿里云 DataWorks",
+     "line": "管线不是一个脚本，是一张有先后、会重跑、失败会叫人的图；省掉编排就只能靠人盯。"
+    },
+    {
+     "env": "加工期的规则校验与去重",
+     "services": "AWS Glue Data Quality／Google Knowledge Catalog 质量扫描／Databricks expectations；自建 GX Core，Soda Core 已非开源",
+     "line": "去重、空值、格式写成能跑的检查，跟着每次跑批走——不写下来就只是上线前那一眼。"
+    },
+    {
+     "env": "批量向量化（首次全量灌库）",
+     "services": "Amazon Bedrock 批量推理（Titan Text Embeddings V2）／阿里云百炼批量推理 5 折／Google Vertex AI 嵌入批量／Azure OpenAI 全球批量（嵌入官方未答）",
+     "line": "首次全量是一次性大账，肯等一晚就走批量接口；但嵌入是否同享折扣，按当期定价页逐条核。"
+    }
+   ],
+   "ask": "全量重建一次多少文档、多久跑一次？增量要天级还是分钟级？源端删一条，下游知不知道？首次向量化能等一晚吗？",
+   "cant": "云给机器、骨架和能跑的规则，判断规则跑对没有它给不了——表格被洗没了管线照样全绿；源系统硬删又不留日志，任何托管管线都不知道它没了。"
+  },
+  {
+   "stage": "存得住、查得清：湖仓、目录与血缘",
+   "short": "存得住查得清",
+   "rows": [
+    {
+     "env": "表格式与湖仓底座",
+     "services": "Amazon S3 Tables／Microsoft Fabric OneLake／Google Lakehouse for Apache Iceberg（原 BigLake）／阿里云 DLF 2.0（Paimon）",
+     "line": "先把表格式定下来——它决定往后哪些引擎能读你这份数据，比选哪家云更难回头。"
+    },
+    {
+     "env": "表维护与快照生命周期",
+     "services": "Amazon S3 Tables 自动维护（压实与快照管理默认全开）／Databricks 预测式优化（存量账号灰度中，预计 2026 年 8 月完成）／自建 Iceberg 自排压实与过期",
+     "line": "托管湖表替你清小文件与过期快照——但表上多个 tag 或分支就整表停摆。"
+    },
+    {
+     "env": "开放目录（Iceberg REST）",
+     "services": "AWS Glue Iceberg REST 端点／Google Lakehouse REST 端点／Databricks Unity Catalog；自建 Apache Polaris",
+     "line": "接 Iceberg REST 一个口子就不用再搬数据——但还剩多少行列级管控，各家是反的。"
+    },
+    {
+     "env": "业务语义目录（这张表是什么）",
+     "services": "Microsoft Purview 统一目录／Google Knowledge Catalog（原 Dataplex）／阿里云 DataWorks 数据地图（需标准版及以上）；自建 OpenMetadata",
+     "line": "语料是哪张表来的、谁负责、能不能用——写进目录，别只在某人脑子里。"
+    },
+    {
+     "env": "血缘，尤其是字段级",
+     "services": "Google Knowledge Catalog 数据血缘／Microsoft Purview 血缘（列级仍在经典目录）／阿里云 DataWorks 表级＋字段级（T+1）；自建 OpenLineage",
+     "line": "出了事要能说清数据从哪来、被谁动过——别把「支持列级」当承诺，先拿自己的作业跑一遍。"
+    },
+    {
+     "env": "行列级管控与脱敏（执行点）",
+     "services": "AWS Lake Formation 数据筛选器／OneLake security 行＋列级（三方引擎 preview）／BigQuery 行级＋列级／阿里云 DataWorks 数据保护伞",
+     "line": "同一张表，不同的人看到不同的行、列——这道卡设在数据层，别让每个应用各写一遍。"
+    }
+   ],
+   "ask": "表格式定了吗，Iceberg、Delta 还是 Paimon？血缘能查到字段级吗、断在哪？行列级权限卡在数据层还是各应用各写一遍？",
+   "cant": "三条写在文档里：Google Iceberg REST 端点不支持行列级（AWS 相反，别互套）；列级血缘有采集断点；Lake Formation 只管读。"
+  },
+  {
+   "stage": "质量与标注：让语料一直可用",
+   "short": "质量与标注",
+   "rows": [
+    {
+     "env": "质量规则定义与打分",
+     "services": "AWS Glue Data Quality（DQDL）／Microsoft Purview 数据质量（六维度）／Google Knowledge Catalog 自动数据质量／阿里云 DataWorks 数据质量",
+     "line": "先把「数据很乱」跑成一个分数，改进才有靶子——跑分自动，定规则不是。"
+    },
+    {
+     "env": "异常检测与阈值（差最远）",
+     "services": "AWS Glue 机器学习异常检测＋动态规则（2024-08 GA）／Microsoft Purview 人定固定阈值（2026-05 GA）／Google Knowledge Catalog 靠剖析推荐规则",
+     "line": "别把几家当同一档：只有 AWS 的阈值能跟着历史走，其余几家还是人拍一个数。"
+    },
+    {
+     "env": "脏数据阻断（不让坏数据流下去）",
+     "services": "阿里云 DataWorks 强规则阻塞下游、弱规则告警／AWS Glue Data Quality ETL 里隔离坏记录／Purview、Knowledge Catalog 只到告警，卡下游得自接",
+     "line": "坏数据要在进库前拦下来，进了库再回头修，代价高一个数量级。"
+    },
+    {
+     "env": "托管标注平台（组织人去标）",
+     "services": "SageMaker Ground Truth 不接新客户／Google Vertex AI Data Labeling Service 已关停／PAI-iTAG 1.0 白名单＋维护／Azure ML 数据标注仍在",
+     "line": "这几年托管标注一直在收缩，标注标准和标好的数据留你们这边——换工具不换资产。"
+    },
+    {
+     "env": "机器辅助标注与预标注",
+     "services": "SageMaker Ground Truth 自动标注（只四类内置任务，阈值预设）／Azure ML 机器学习辅助标注／PAI-iTAG 智能标注（部分大模型模板）／Label Studio 接 ML 后端",
+     "line": "预标注让人从「从零标」变成「改错」，专家时间只花在拿不准的那几条上。"
+    },
+    {
+     "env": "结果落库、告警与月报",
+     "services": "AWS Glue Data Quality 结果写 Iceberg 表／Purview 逐层汇总＋邮件告警／Knowledge Catalog 进日志告警／阿里云 DataWorks 定时质量报告",
+     "line": "四个指标每月自动出一张报告，谁看、多久看一次，开工前就定。"
+    }
+   ],
+   "ask": "四个指标谁在看、多久看一次？阈值人定还是跟历史走？标注自招还是外包，能碰生产数据吗？有没有在用的 Ground Truth？",
+   "cant": "新客户买不到托管标注：Ground Truth 停接、Google 已关停、iTAG 只白名单；自动标注只四类内置任务、阈值不给调；覆盖率云看不见。"
+  }
+ ]
+}

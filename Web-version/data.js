@@ -3017,6 +3017,226 @@ window.KB = {
      "grade": "A",
      "cadence": "90",
      "due": "2026-10-30"
+    },
+    {
+     "text": "「接进来」这一段的云服务快照（核实 2026-08-02）：对象存储与数据湖＝Amazon S3（含 S3 Tables 表桶，原生 Apache Iceberg 格式，S3 自动执行 compaction、快照管理与无引用文件清理）／Azure Data Lake Storage（微软文档现已统称此名，不再写 Gen2；官方明确它不是独立服务或账户类型，而是在 Blob 存储上启用分层命名空间后得到的一组能力）／Google Cloud Storage／阿里云 OSS；存量搬迁＝AWS DataSync（本地端 NFS、SMB、HDFS、对象存储，并支持从 Google Cloud Storage、Azure Blob、Azure Files、阿里云 OSS 等他云搬入）／Google Storage Transfer Service（官方原文「optimized for transfers involving more than 1TiB of data」，是 1TiB 不是 1TB）；企业系统连接器＝Bedrock 托管知识库七个连接器（S3、Confluence、SharePoint、Google Drive、OneDrive、网页爬取、自定义）／Azure AI Search 索引器／Google Gemini Enterprise 连接器（Confluence Cloud、Jira Cloud、SharePoint、OneDrive、Outlook、ServiceNow、Microsoft Entra ID 等）／阿里云百炼数据连接（文件、表格、MySQL、PostgreSQL、PolarDB-X 2.0、语雀、OSS）",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "各家官方文档：AWS S3 用户指南 s3-tables 页、AWS DataSync 用户指南 what-is 页、Amazon Bedrock 用户指南 kb-build-managed 与 kb-managed-create 页、Microsoft Learn「Azure Data Lake Storage overview」页（2026-07-02）、Google Cloud Storage Transfer Service 概述页、Gemini Enterprise「Introduction to connectors and data stores」页、阿里云百炼「数据连接」帮助页 https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "「接进来」相关服务的生命周期状态（核实 2026-08-02）：①Amazon Q Business 官方原文「no longer open to new customers」，建议迁往 Amazon Quick，现有客户只保留缺陷与安全修复、不再受理新功能需求；②Amazon Bedrock 自管知识库的 SharePoint 连接器官方标注「preview release and is subject to change」，且只支持 OpenSearch Serverless 向量库；③Azure AI Search 的「SharePoint in Microsoft 365」索引器仍是 preview，官方原文按「as-is」提供、best-effort 支持、且「aren't guaranteed to become generally available」，其 ACL 摄取同样在 preview（文档 2026-07-23 更新）；④微软已于 2026-04-02 停用 SharePoint 的 Azure ACS App-Only 认证，连接器必须改用 Microsoft Entra ID 的 OAuth2 客户端凭据；⑤Azure Data Factory 的 CDC 文档页顶已把 Microsoft Fabric 的 Data Factory 标为「next generation of Azure Data Factory」并引导升级，ADF 本身未停售",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "AWS Amazon Q Business 用户指南「Amazon Q Business availability change」页；Amazon Bedrock 用户指南 sharepoint-data-source-connector 页（同页载明 ACS 停用日期）；Microsoft Learn「SharePoint in Microsoft 365 indexer」页；Microsoft Learn「Change data capture - Azure Data Factory」页 https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/qbusiness-availability-change.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "增量同步的三条能力边界（核实 2026-08-02）：①AWS DMS 官方原文「AWS DMS CDC does not provide real-time replication」「There are no SLAs for CDC latency」，延迟可能到数分钟或更久，随源库负载、网络、复制实例资源与目标写入能力波动；②Azure Data Factory 的原生 CDC 连接器只有 SAP CDC、Azure SQL Database、SQL Server、Azure SQL 托管实例、Cosmos DB（SQL API 与分析存储）、Snowflake 这几类，MySQL 与 PostgreSQL 只能走「自增列自动增量抽取」；③Google Gemini Enterprise 官方原文「An incremental sync ... does not sync identity data or deletions of entity data」，删除与身份变更要靠全量同步兜底，所以全量必须排期，不能只排增量",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "AWS DMS 用户指南「Creating tasks for ongoing replication」页；Microsoft Learn「Change data capture - Azure Data Factory」页；Google Cloud「Introduction to connectors and data stores」（Gemini Enterprise）页 https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "托管知识库的源端权限接入已从「基本没有」变成「三家都有、但都带条件」（核实 2026-08-02，此条推翻了早前「Bedrock 不做 ACL」的说法）：①Amazon Bedrock 托管知识库提供 ACL 感知检索（ACL-aware retrieval），SharePoint、OneDrive、Google Drive、Confluence 既做预过滤又在每次查询时回源实时复核权限，S3 与自定义连接器靠客户提供的 ACL 配置文件做预过滤、无实时复核，网页爬取不支持；以邮箱为唯一用户标识，无别名解析与跨身份源映射，邮箱对不上就静默无结果；出错时一律 fail closed；官方同时明写「ACL awareness is not authorization」「does not authenticate end users」，认证责任在调用方应用；②对照面，Bedrock 自管知识库的 SharePoint 连接器页仍明写同步进来的全部数据对任何拥有 bedrock:Retrieve 权限的人可检索，「包括源端设有权限管控的数据」；③Google Gemini Enterprise 提供独立的身份同步（identity sync），定义为「captures data about user accounts associated with an ACL group」；④Azure AI Search 的 SharePoint 索引器提供基础 ACL 摄取，仍在 preview。托管侧不覆盖时，退路仍是按访问级别把内容拆成多个知识库分别授权",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "Amazon Bedrock 用户指南「Access Control Lists awareness enablement」页与 sharepoint-data-source-connector 页（Incremental syncing 小节 Important 提示）；Google Cloud「Introduction to connectors and data stores」页（identity sync 小节）；Microsoft Learn SharePoint 索引器页（ACL ingestion in preview） https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-acl.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "云侧文档解析主力服务与形态（2026-08-02 快照）：Amazon Textract 走 AnalyzeDocument 的 FeatureTypes，可取 LAYOUT、TABLES、FORMS、QUERIES；Azure 是 prebuilt-layout（Document Intelligence v4.0，2024-11-30 GA，支持 outputContentFormat=markdown，v4.0 起表格改以 HTML 片段表达合并单元格与多行表头），品牌已改成「Azure Document Intelligence in Foundry Tools」并收进 Azure Content Understanding（2025-11-01 API 版本 GA，含面向检索的 prebuilt-documentSearch 分析器），但官方明写「已在生产上跑 Document Intelligence 的，API、终结点、SDK、计费都不变，不需要迁移」；Google 是 Document AI 版面解析器（Layout Parser，GA，稳定默认版本 pretrained-layout-parser-v1.0-2024-06-03，v1.5 与 v1.6 各版本仍标 Release Candidate）；阿里云是文档智能「文档解析（大模型版）」，OutputFormat 可取 markdown。",
+     "chapter": "de-parsing",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn《Document layout analysis》（prebuilt-layout，v4.0 2024-11-30 GA）、《What's new in Content Understanding》（2025-11-01 GA、prebuilt-documentSearch）、《Choose the right Azure AI tool for document processing》（API／终结点／SDK／计费不变、无需迁移）；Google Cloud《Process documents with Gemini layout parser》《Processor list》；AWS《Analyzing Documents》；阿里云帮助中心《如何使用文档解析（大模型版）》 https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout?view=doc-intel-4.0.0",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "AWS 文档侧的语言硬边界：Amazon Textract 官方「Set Quotas」明列只支持英、法、德、意、葡、西六种文字检测，并明示不支持竖排文字（vertical text，中日文常见）；Bedrock Data Automation 的同步与异步两张文档要求表同样只列英、德、西、法、意、葡，也同样明写不支持竖排（中文只出现在它的音频输入与自定义词表两侧）。对照面：Azure prebuilt-read／prebuilt-layout 印刷体覆盖中文简繁（zh-Hans／zh-Hant）、手写体 v4.0 覆盖简体中文；Google Enterprise Document OCR 在官方处理器清单里写「200 多种语言」，并支持 languageHints 语言提示。",
+     "chapter": "de-parsing",
+     "verified": "2026-08-02",
+     "source": "AWS《Set Quotas in Amazon Textract》；AWS《Prerequisites for using Bedrock Data Automation》（bda-limits）；Microsoft Learn《Language and locale support for Read and Layout》；Google Cloud《Processor list》与《Enterprise Document OCR》条目 https://docs.aws.amazon.com/textract/latest/dg/limits-document.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "解析配额（2026-08-02 核实）：Textract 同步 PDF／TIFF 限 1 页、10MB，异步限 3000 页、500MB；Bedrock Data Automation 异步开分割器 3000 页、500MB，控制台入口只到 20 页、200MB，同步档 10 页、50MB；Azure prebuilt-layout 单文件 2000 页，S0 付费档 500MB、F0 免费档 4MB 且只处理前两页；Google 版面解析器在线单 PDF 15 页、20MB，批处理 500 页、单文件 1GB；阿里云文档解析（大模型版）单文件 1.5 万页、150MB，单图 20MB。存量批灌必须按批处理口径估工期与预算。",
+     "chapter": "de-parsing",
+     "verified": "2026-08-02",
+     "source": "AWS《Set Quotas in Amazon Textract》；AWS《Prerequisites for using Bedrock Data Automation》；Microsoft Learn《Document layout analysis》输入要求一节；Google Cloud《Process documents with Gemini layout parser》限制表；阿里云帮助中心《如何使用文档解析（大模型版）》 https://docs.cloud.google.com/document-ai/docs/layout-parse-chunk",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "两家云的现成人工复核已退场：Google 把 Document AI 的 Human-in-the-Loop 列入官方废弃清单，废弃日 2024-01-16（同批还有 Document AI Warehouse，同日废弃）；AWS 在 Amazon A2I 文档页首注明「Amazon SageMaker A2I is no longer open to new customers」，存量客户照常使用、AWS 继续投入安全与可用性，但不再引入新功能。结论：低置信页的复核队列现在基本要自建，不能当成云侧现成件写进方案。",
+     "chapter": "de-parsing",
+     "verified": "2026-08-02",
+     "source": "Google Cloud《Document AI deprecations》（docs.cloud.google.com/document-ai/docs/deprecation）；AWS《Using Amazon Augmented AI for Human Review》页首 Note https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-use-augmented-ai-a2i-human-review-loops.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Google 侧三处改名（2026-08-02 核实）：①「Managed Service for Apache Spark」是原「Dataproc on Compute Engine」（集群部署）与「Google Cloud Serverless for Apache Spark」（无服务器部署，更早叫 Dataproc Serverless）的新名；②Cloud Composer 更名为 Managed Service for Apache Airflow，Gen 3 当日最新为 Airflow 3.1.8（与 2.11.1 并列，后者为默认），并无 Airflow 3.2.x；③Dataplex Universal Catalog 于 2026-04-10 起改称 Knowledge Catalog，API／客户端库／CLI／IAM 名称不变，数据质量扫描内置 Uniqueness 唯一性规则",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "Google 官方文档：Managed Service for Apache Spark 无服务器部署概览（页内写明改名）；Managed Service for Apache Airflow 版本列表与 Managed Airflow 概览（页内写明 Cloud Composer 更名）；Knowledge Catalog 自动数据质量概览（页内写明原名与规则类型） https://docs.cloud.google.com/dataproc-serverless/docs/overview",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Azure 侧两处已换代（2026-08-02 核实）：Azure Data Factory 的 Workflow Orchestration Manager（托管 Airflow）自 2026-01-01 起不能新建 Airflow 实例，官方要求 2025-12-31 前迁到 Microsoft Fabric 的 Apache Airflow job（Fabric 文档称其为 Workflow Orchestration Manager 的下一代），该页已归档；承载一方托管 Flink 的 Azure HDInsight on AKS 已于 2025-01-31 退役，官方要求迁往 Microsoft Fabric 或等价 Azure 产品。同日核对：Azure Stream Analytics 介绍页无退役公告，仍在维护",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn「What is Workflow Orchestration Manager?」（已归档，页首退役公告）；Microsoft Learn「What is Apache Flink in Azure HDInsight on AKS?」（已归档，页首退役公告）；Microsoft Fabric「What is Apache Airflow job?」；Microsoft Learn「Introduction to Azure Stream Analytics」 https://learn.microsoft.com/en-us/azure/data-factory/concepts-workflow-orchestration-manager",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "Amazon Bedrock 批量推理确实覆盖嵌入模型：官方「支持批量推理的区域与模型」表逐行列出 Titan Text Embeddings V2（amazon.titan-embed-text-v2:0，十余个区域）与 Amazon Nova Multimodal Embeddings（amazon.nova-2-multimodal-embeddings-v1:0，当日仅 us-east-1）。但 5 折不能直接套到嵌入上——官方定价页的原话是「部分基础模型（来自 Anthropic、Meta、Mistral AI、Amazon）批量推理价比按需低 50%」，页面并未给出任何嵌入模型的批量价",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "AWS 官方文档「Supported Regions and models for batch inference」（模型表逐行核对）；Amazon Bedrock 定价页（50% 表述原文，嵌入模型仅列按需价） https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference-supported.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "阿里云百炼（Model Studio）批量推理：成功请求的输入与输出 Token 单价均为实时推理的 50%，支持的嵌入模型含 text-embedding-v1 至 v4（文档按地域分列，北京地域列出这四款），创建任务时可自定义最长等待时间 1–14 天，超时任务转为 expired 状态",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "阿里云百炼（Model Studio）官方文档「批量推理」 https://help.aliyun.com/zh/model-studio/batch-inference",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "Azure OpenAI 全球批量的口径已核实：官方文档写明「24 小时目标周转、成本比全球标准低 50%」，completion window 当前只能填 24h，超窗任务状态为 expired（但服务不主动过期长跑任务）。但同页 FAQ「Can I use the batch API for embeddings models?」（批量 API 能否用于嵌入模型）一条的答复原文是「The batch API doesn't currently support fine-tuned models.」——复制了微调那条的答案、答非所问，因此不能据此认定支持嵌入，落地前须另行确认",
+     "chapter": "de-pipeline",
+     "verified": "2026-08-02",
+     "source": "Microsoft Learn「How to use global batch processing with Azure OpenAI in Microsoft Foundry Models」（50%／24 小时表述与该条 FAQ 原文逐字核对） https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/batch",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "服务名与形态是当日快照，且正在动：Google 两处连改——Dataplex Universal Catalog 自 2026-04-10 起改名 Knowledge Catalog，BigLake 自 2026-04-20 起改名 Lakehouse for Apache Iceberg（BigLake metastore 改称 Lakehouse 运行时目录），两处均只改叫法，官方原文写「The API, client library, CLI, and IAM names remain unchanged」。同类「形态快照」还有 Databricks 预测式优化的默认开启范围：官方文档写明 2024-11-11 及以后创建的账号默认开启，存量账号灰度中、预计 2026 年 8 月完成——今天正好在这个窗口里，别按「默认都开了」讲。本节服务名一律按 2026-08-02 当日官方文档写。",
+     "chapter": "de-governance",
+     "verified": "2026-08-02",
+     "source": "Google Cloud 官方文档《Knowledge Catalog overview》改名说明、《Set up the Lakehouse Iceberg REST catalog endpoint》改名说明；Databricks 官方文档《Predictive optimization for Unity Catalog managed tables》 https://docs.cloud.google.com/dataplex/docs/introduction",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "行列级管控四家的形态与状态（2026-08-02 逐页核）：AWS Lake Formation 用「数据筛选器」做列级/行级/单元格级，官方原句是「Filters apply only to read operations. Therefore, you can grant only the SELECT Lake Formation permission with filters」；Databricks Unity Catalog 的行过滤器与列掩码由 SQL 用户定义函数实现，基于治理标签的 ABAC（Attribute-Based Access Control，基于属性的访问控制）策略、治理标签与自动数据分类于 2026-05-13 起正式可用，官方明说跨多表要一致效果时推荐用 ABAC 而非逐表挂 UDF；Microsoft Fabric OneLake security 用角色做表/文件夹 + 列级 + 行级，Lakehouse、Spark 笔记本、SQL 分析端点（用户身份模式）、Direct Lake on OneLake 已正式可用，Eventhouse 与「授权第三方引擎」仍是公共预览；BigQuery 是行级安全策略与列级政策标记两件事分开配。开源对位是 Apache Ranger 的行过滤与列掩码。",
+     "chapter": "de-governance",
+     "verified": "2026-08-02",
+     "source": "AWS 文档《Data filtering and cell-level security in Lake Formation》；Databricks 官方博客《ABAC row filtering and column masking policies, governed tags, and data classification are now GA》（2026-05-13）与文档《Row filters and column masks》；Microsoft Learn《OneLake security access control model》（更新于 2026-07-23）；Google Cloud《Introduction to row-level security》 https://docs.aws.amazon.com/lake-formation/latest/dg/data-filtering.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "「开放目录 = 只换来互通、换不来权限」这句话不成立，两家是反的，必须按家说：Google 官方限制页写明「Tables managed through the Apache Iceberg REST catalog endpoint don't support fine-grained access control (FGAC), such as row-level and column-level security」，该端点给的是凭证下发（credential vending，目录侧发临时存储凭据，用户不必直连存储桶）；AWS 侧相反——官方写明联邦 Iceberg 目录是 Lake Formation 注册资源，可用 Lake Formation 授权授予行、列、单元格级细粒度权限，并由 Lake Formation 下发限定范围凭据。开源对位 Apache Polaris 于 2026-02-19 毕业为 Apache 顶级项目，实现 Iceberg REST Catalog 规范。",
+     "chapter": "de-governance",
+     "verified": "2026-08-02",
+     "source": "Google Cloud《Set up the Lakehouse Iceberg REST catalog endpoint》限制与凭证下发章节；AWS《Catalog federation to remote Iceberg catalogs》（Lake Formation 开发者指南）；Apache Polaris 官方博客《Apache Polaris Graduates to Top Level Project!》（2026-02-19） https://docs.cloud.google.com/lakehouse/docs/set-up-lakehouse-iceberg-rest-catalog",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "列级血缘不能按「支持」一句话承诺，各家都带采集边界：Google Knowledge Catalog 数据血缘对 BigQuery、Dataflow、Data Fusion、托管 Airflow 与 Spark、Vertex AI Pipelines 与 Feature Store、Lakehouse Iceberg REST 目录表等自动采集，但列级血缘不覆盖 BigQuery 的加载作业与例程、单个作业产生超过 1500 条列级链接即不采集、且只到顶层字段（STRUCT、JSON 等复杂类型内的嵌套字段不支持）；可导入 OpenLineage 事件接入第三方来源。阿里云 DataWorks 数据地图侧的边界不在粒度上——表级与字段级血缘都能在表详情「血缘信息」页看到（代码搜索与血缘分析需标准版及以上），边界在采集口径：只展示基于调度作业与数据流转信息解析出的血缘，临时查询等手动操作产生的关系不含在内，离线数据 T+1 更新。",
+     "chapter": "de-governance",
+     "verified": "2026-08-02",
+     "source": "Google Cloud《About data lineage》（Knowledge Catalog）；阿里云 DataWorks 官方文档《查看血缘信息》《数据地图》 https://docs.cloud.google.com/dataplex/docs/about-data-lineage",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "托管湖表的自动维护也有硬失败条件，不是「交出去就不用管」：Amazon S3 Tables 的压实与快照管理默认对表桶内所有表开启（压实默认目标文件 512MB，可在 64–512MB 间调；快照管理默认保留最少 1 个快照、最大快照年龄 120 小时），但官方写明只要表上存在任何用户自定义 tag 或 branch，或在 Iceberg 表属性里设了 history.expire.max-snapshot-age-ms / history.expire.min-snapshots-to-keep，快照管理就对整张表失败，不再过期或清除任何快照，须移除这些 tag、branch 与属性才能恢复；失败状态用 GetTableMaintenanceJobStatus 查。快照过期后被标记为非当前的对象，按无引用文件清理策略的 NoncurrentDays 删除，删除不可恢复。",
+     "chapter": "de-governance",
+     "verified": "2026-08-02",
+     "source": "AWS 文档《Maintenance for tables》（Amazon S3 用户指南，S3 Tables） https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-maintenance.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "托管标注这一格三家云都在收缩：Amazon SageMaker Ground Truth 官方文档页顶注记「Amazon SageMaker Ground Truth 不再对新客户开放，现有客户可照常使用，AWS 继续投入安全与可用性改进，但不计划引入新功能」，Mechanical Turk 劳动力页顶为同款注记；Google Vertex AI Data Labeling Service 已弃用并关停（弃用日 2023-06-30、关停日 2024-10-03），官方改指用 Google Cloud 控制台自助打标或 Google Cloud Marketplace 合作伙伴；阿里云 PAI-iTAG 1.0 自 2026-08-01 起调整为白名单开放并整体进入维护阶段、不再进行新功能迭代。Azure Machine Learning 数据标注（图像与文本项目，可从 Azure Marketplace 挂供应商，一致性标注为公开预览，单项目上限 50 万文件）截至核实日文档仍在、未见退役公告",
+     "chapter": "de-quality",
+     "verified": "2026-08-02",
+     "source": "AWS SageMaker AI 开发者指南「Automate data labeling」与「Using the Amazon Mechanical Turk Workforce」（https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management-public.html）页顶注记；Google Cloud「Vertex AI deprecations」（https://docs.cloud.google.com/vertex-ai/docs/deprecations）；阿里云 PAI「iTAG 概述」页顶公告（https://help.aliyun.com/zh/pai/user-guide/itag）；Microsoft Learn「Set up a text labeling project」（https://learn.microsoft.com/en-us/azure/machine-learning/how-to-create-text-labeling-projects）。四处均于 2026-08-02 回源逐句复核 https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "数据质量服务的服务名与形态快照：AWS Glue Data Quality 建在开源 DeeQu 上、用 DQDL 规则语言、25+ 内置规则类型，规则推荐只在 Data Catalog 入口支持、定位未过检记录只在 ETL 入口支持；机器学习异常检测与动态规则 2024-08-07 起正式可用，2026-07-27 起 Data Catalog 入口也支持异常检测且结果可写入 Iceberg 表（单 ruleset 上限 2000 条规则／65KB，统计量每账号 10 万条、留存最长两年）；Microsoft Purview 统一目录数据质量提供完整性、一致性、规范性、准确性、新鲜度、唯一性六维度开箱规则 + AI 生成规则，每个数据资产最多 200 条规则，扫描跑在 Apache Spark 3.5 与 Delta Lake 3.2.1 上，独立数据资产扫描、增量扫描、可配质量阈值三项 2026-05 起正式可用（阈值为人工设定值，非按历史自动推算）；Google 的自动数据质量自 2026-04-10 起由 Dataplex Universal Catalog 更名为 Knowledge Catalog（API、客户端库、gcloud 命令、IAM 名称均不变），只扫 BigQuery 与 Iceberg REST Catalog 表；阿里云 DataWorks 数据质量规则与调度任务关联、任务成功后自动触发校验，强规则校验失败阻塞下游任务、弱规则只告警",
+     "chapter": "de-quality",
+     "verified": "2026-08-02",
+     "source": "AWS Glue 开发者指南「AWS Glue Data Quality」含限制与发布记录（https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html）；Microsoft Learn「Data Quality in Microsoft Purview Unified Catalog」（https://learn.microsoft.com/en-us/purview/unified-catalog-data-quality）与「What's new in Microsoft Purview」2026 年 5 月 Data Governance 条目；Google Cloud「Auto data quality overview」与「Dataplex 简介」更名声明（https://docs.cloud.google.com/dataplex/docs/auto-data-quality-overview）；阿里云 DataWorks「数据质量」（https://help.aliyun.com/zh/dataworks/user-guide/data-quality/）。核实日 2026-08-02 https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "30",
+     "due": "2026-09-01"
+    },
+    {
+     "text": "云侧自动标注的能力边界与配额（以 SageMaker Ground Truth 为准）：主动学习式自动标注只支持四类内置任务——单标签图像分类、语义分割、边界框目标检测、单标签文本分类，自定义任务与流式标注作业都不支持；最少 1250 个对象，官方强烈建议 5000 个以上；准确率要求由服务预设、不可手工配置——图像与文本分类按「自动标签至少 95% 准确率」反推置信度阈值，边界框期望平均 IoU 0.6、语义分割 0.7；首轮随机抽样若有超过 10% 的对象人工失败，整个标注作业直接失败",
+     "chapter": "de-quality",
+     "verified": "2026-08-02",
+     "source": "AWS SageMaker AI 开发者指南「Automate data labeling」（How it works 与 Accuracy of automated labels 两节）。核实日 2026-08-02 https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
+    },
+    {
+     "text": "开源自建这一列也要看维护状态，不是「开源就等于长期可用」：Label Studio（HumanSignal 维护，Apache 2.0，支持音频、文本、图像、视频、时序与 HTML，可接 ML 后端做预标注、在线学习与主动学习）与 Great Expectations（Apache 2.0，GX Core 支持 Python 3.10 至 3.13）截至核实日仍在活跃开发；Argilla（Apache 2.0，面向大模型反馈收集与数据集策展）官方仓 README 已声明「原作者已转向新项目，代码库成熟稳定，我们不再新增功能，但会持续修复缺陷并按需发布补丁」，并公开招募维护者",
+     "chapter": "de-quality",
+     "verified": "2026-08-02",
+     "source": "GitHub 官方仓 README：HumanSignal/label-studio（https://github.com/HumanSignal/label-studio）、great-expectations/great_expectations（https://github.com/great-expectations/great_expectations）、argilla-io/argilla（https://github.com/argilla-io/argilla）。核实日 2026-08-02 https://github.com/argilla-io/argilla",
+     "recheck": "—",
+     "grade": "A",
+     "cadence": "90",
+     "due": "2026-10-31"
     }
    ],
    "edges": [
