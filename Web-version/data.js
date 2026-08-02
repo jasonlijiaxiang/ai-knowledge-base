@@ -297,7 +297,7 @@ window.KB = {
    "dir": "AI-Gateway",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "gw-what-why",
@@ -3649,7 +3649,7 @@ window.KB = {
    "dir": "LLM-Training",
    "layer": "基础层",
    "created": "2026-07-08",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "llmtrain-overview",

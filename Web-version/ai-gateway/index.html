@@ -41,6 +41,7 @@
     <li><a href="#gw-observe">6 · 可观测</a></li>
     <li><a href="#gw-mcp">7 · MCP 网关</a></li>
     <li><a href="#gw-cheatsheet">8 · 选型与问答</a></li>
+    <li><a href="#cloud">9 · 上云怎么落地</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
   </ol>
@@ -500,9 +501,81 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-prompt-injection" title="这个词的主场：Security · 提示注入与越狱">提示注入<span class="xm">Security</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前八节讲的是网关这层要管哪些事。这一节换个视角：每件事在云上对应哪个服务、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了。顺序按现场画架构图的走法排——先定这层自己放在哪，再往下压成本、挂安全与观测，最后接工具流量。 同一格给多厂商代表选项，不绑死单一供应商；只列讲义点到名的产品，没有就不硬凑。「唯一原生」这类说法是 2026-07 的横向口径，各云能力月级演进，出方案当天按各家当期文档再核一遍。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>先定网关自己放在哪，再谈接什么</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>托管网关</td><td>Azure API Management、Bedrock、Apigee、Cloudflare AI Gateway、OpenRouter</td><td>想零运维快速起步、已重度用某朵云，可用性交给云 SLA（Service Level Agreement，服务等级协议）</td></tr>
+      <tr><td>自托管网关</td><td>LiteLLM、Higress、Envoy AI Gateway、APISIX、Kong</td><td>要多云或信创、数据要留在自己边界内、想深度定制路由与护栏，且有平台团队扛可用性</td></tr>
+      <tr><td>统一多模型接口</td><td>Azure Unified Model API（含 Bedrock 后端）；AWS 以 Bedrock 为主，Multi-Provider GW 仅官方 Guidance（自部署）；GCP 侧 Apigee 有部分能力；自托管的 LiteLLM、Higress 同样提供统一入口</td><td>应用只学一种调用姿势，换模型改一行配置</td></tr>
+      <tr><td>路由与容灾</td><td>各网关内置（路由策略 + fallback + 熔断）；降本方法参考 RouteLLM、FrugalGPT</td><td>这一格没有云独占能力，选型看策略怎么写，不看谁家有</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：他现在有没有 API 网关（Kong、APISIX 这类）——有的话很多产品本就是同一网关的「AI 模式」，是加层不是重建，报价完全不同。要接几家模型，跨不跨云、有没有信创要求？数据允许走出自己的边界吗？有没有平台团队能扛网关自身的多副本、健康检查、多区域部署？</p>
+  <p><b>云替你做不了什么</b>：托管能把可用性接过去，接不走策略层的账：路由规则、护栏、缓存、配额各家写法不同，换一家要重配一遍——接口层和观测层不锁，会锁的是这一层。云 SLA 保的也只是「网关在不在」，保不了「没挂但特别慢」：整条十步请求链要自己定端到端 deadline，再给每步分配时间与降级策略，否则每层各自耗尽超时，叠出用户侧的分钟级等待。还有一条要在报价前摊开：开源不等于免费全功能，Kong 的 AI 高级插件需要企业订阅。</p>
+
+  <h3>成本治理：把 token 变成能管的账</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>按 token 限流</td><td>Azure APIM 原生 token limit 策略（网关侧先估 prompt token）；Cloudflare AI Gateway 主打花费上限；LiteLLM、Higress 内置 TPM/RPM</td><td>超额请求在网关就被拦掉，不必等打到模型才发现爆预算</td></tr>
+      <tr><td>语义缓存</td><td>Azure APIM llm-semantic-cache 策略 + Managed Redis；Portkey、Higress 内置语义缓存；自建可用 Redis + 向量检索</td><td>意思相近的问题只答一次，命中即毫秒级返回、零模型计费</td></tr>
+      <tr><td>花费归集</td><td>Azure APIM 按订阅键与维度统计；LiteLLM 虚拟密钥按 key／团队记账；各云计费导出</td><td>月底能说清谁花了多少、花在哪个模型上</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：他现在的账单能不能拆到应用和团队头上——拆不开就先做一次成本画像，别急着承诺省多少。高频重复问题占多大比例，决定语义缓存值不值得开。预算撞线那一刻，业务能接受降级到便宜模型，还是必须拒绝？额度按团队发还是按项目发？</p>
+  <p><b>云替你做不了什么</b>：限流和缓存管住的是花销，管不住质量：切到便宜档的那部分流量得配采样评估盯着，掉了就调阈值。语义缓存的阈值和缓存键这两个旋钮云不会替你拧——太松会把「北京天气」和「上海天气」当同一个问题答错，缓存键不带租户和权限还会跨用户串答，个性化与实时请求要绕过。「Azure APIM 是目前唯一原生内置按 token 限流加 LLM 专属策略的云厂商网关」是一个时点口径，各云能力在月级演进，别当成长期结论写进方案。</p>
+
+  <h3>上线之后：安检口与仪表盘</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>内容安全 · Azure</td><td>Azure AI Content Safety（Prompt Shields）+ APIM 策略</td><td>注入防护加内容分级，直接挂进网关策略里</td></tr>
+      <tr><td>内容安全 · AWS</td><td>Amazon Bedrock Guardrails</td><td>话题、敏感词、PII 过滤，随 Bedrock 一起用</td></tr>
+      <tr><td>内容安全 · GCP</td><td>Model Armor + DLP（Data Loss Prevention，数据防泄漏）</td><td>注入与越狱检测加数据防泄漏</td></tr>
+      <tr><td>内容安全 · 自托管</td><td>LiteLLM 护栏、Higress 内容安全、NeMo Guardrails</td><td>一处挂载全局生效，多云与信创场景靠它跨云</td></tr>
+      <tr><td>观测数据出口</td><td>按 OpenTelemetry GenAI 语义约定导出到 Grafana、Datadog、Langfuse</td><td>网关按标准吐数据就能接任意 APM（Application Performance Monitoring，应用性能监控），不锁定</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：客户是单云还是多云、有没有信创要求——这一句直接决定推托管护栏还是自托管护栏。日志留多久、谁有权看原文（prompt 里往往就带着敏感数据）？合规评审要的那几项证据，能不能从一条 trace 里全取到：谁调的、为何允许、路由到哪、花了多少、命中了什么护栏？</p>
+  <p><b>云替你做不了什么</b>：护栏挡不住全部提示注入，也没有哪家产品能这么承诺——它是纵深防御的一道闸，拦掉大部分已知手法，剩下的要靠最小权限和关键动作人审兜住。托管护栏省事但绑生态，换云得重挂一遍；自托管护栏灵活可跨云，代价是自己维护规则，而脱敏规则会误报，要能配置、能审计、能回溯调优。观测这头，云给的是管道和面板，答得了「快不快、贵不贵」，答不了「好不好」——质量那条线得接评估。</p>
+
+  <h3>MCP：工具流量也收进这一层</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>Higress（阿里）</td><td>托管 MCP Server、openapi-to-mcp、自建 MCP Marketplace、工具级鉴权与限流</td><td>国内与云原生客户目前能力最全的一档</td></tr>
+      <tr><td>Envoy AI Gateway</td><td>MCP 授权、后端安全策略、OIDC token 交换（路线图推进中）</td><td>标准派首选，但这几项还在路线图上</td></tr>
+      <tr><td>Apache APISIX</td><td>支持 MCP 协议、管理 AI Agent 流量</td><td>已经在用 APISIX 的团队顺路加装</td></tr>
+      <tr><td>Azure API Management</td><td>Build 2026 起提供 MCP 内容安全，把 MCP 纳入统一治理</td><td>重 Azure 生态的客户不必再买第二套网关</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：他有多少存量内部 API 想让 Agent 用——openapi-to-mcp 能批量转、几乎零改造，这句话往往当场就把话题变成一个试点。工具调用要不要带上最终用户身份（决定网关要不要做 token 交换）？一个工具能被哪些 Agent 调、谁批？Agent 失控狂调工具时，限流的额度挂在谁头上？</p>
+  <p><b>云替你做不了什么</b>：路线图上的能力不等于当期可用能力，方案里不能按路线图做承诺——Envoy 的 MCP 授权与 OIDC token 交换正在这条线上。网关能把工具流量统一代理、鉴权、限流、串进同一条 trace，替不了工具本身的权限设计：token 透传是规范明令禁止的，混淆代理和万能钥匙这两个反模式也得在每个集成里逐个改掉，网关只负责把宽 token 换成 audience 限定、最小权限、短时效的窄票。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../model-landscape/index.html">
@@ -539,7 +612,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/AI-Gateway/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09 至 2026-08-01（MCP 授权口径 2026-07-30、Portkey 归属 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
@@ -579,7 +652,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../mcp/index.html"><span class="k">上一册 · 协议层</span><b>MCP</b></a>
    <a class="nx" href="../ai-ops/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Ops</b></a>

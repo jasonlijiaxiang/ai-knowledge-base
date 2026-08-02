@@ -42,6 +42,7 @@
     <li><a href="#llmtrain-reasoning">6 · RLVR 与推理模型</a></li>
     <li><a href="#llmtrain-infra">7 · 基础设施与算力账（含速算器）</a></li>
     <li><a href="#llmtrain-eval">8 · 评估与发布</a></li>
+    <li><a href="#cloud">9 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -437,9 +438,65 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../rag/index.html#rag-evaluation" title="模型本体评估 ↔ 检索质量评估，两条评估线互参">常见评估方法<span class="xm">RAG</span></a><a href="../agent/index.html#agent-eval-guardrails" title="模型本体评估 ↔ 智能体评估与护栏">评估与护栏<span class="xm">Agent</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前八节讲训练这条流水线本身。这一节换个视角：每道工序在云上对应哪类服务、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了。按工序顺序排，不按章节排——白板上就是从左往右画的。 训练这一侧各家产品名叫法不一，本节只写讲义点到的服务类别，不替某一朵云背书。还有一句先说破：三组里多数客户真正走到的是第三组，前两组的用处是把「要不要自己训」这件事的量级摆出来，当场砍掉九成不必要的预算焦虑。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>备料：数据管线是训练项目的第一笔云账</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>原始语料落盘</td><td>对象存储（存 Common Crawl 这类网页快照）</td><td>语料先得有地方放，这是训练项目里云资源的第一笔账</td></tr>
+      <tr><td>清洗与去重</td><td>分布式批处理集群（Spark 类引擎），或云上托管的批处理服务</td><td>典型的大数据批处理负载，和训练集群是两笔钱，报价时分开列</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：语料有多少、现在放在哪、多久新增一批？清洗去重打算跑在训练集群上还是单独起一套批处理集群——这两笔账混在一起报，客户后面一定回来问。合成数据打算占多少比例，谁来做过滤和抽检？</p>
+  <p><b>云替你做不了什么</b>：云给的是存的地方和算的地方，给不了清洗配方。FineWeb 说的就是这件事：同一份公开的 Common Crawl，洗法不同，训出的模型明显不一样——手艺不随集群一起买来。去重也不是「跑通就行」：重复数据会让模型死记硬背、浪费算力，还放大隐私泄露风险，滤到什么程度、按文档级还是段落级，只能自己定并自己验。</p>
+
+  <h3>训练集群：按整机交付，账却记在容错上</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>GPU 算力</td><td>云上「AI 超算集群」类产品，按整机柜或整集群交付（数百到数千卡同代同构）</td><td>卡是谁都买得到的商品，同代同构才凑得成一台机器</td></tr>
+      <tr><td>高速互联</td><td>节点内 NVLink、节点间 RDMA（Remote Direct Memory Access）网络</td><td>张量并行对带宽极度敏感——这才是云上 AI 集群和散租 GPU 的本质区别</td></tr>
+      <tr><td>并行文件存储</td><td>高吞吐并行文件系统，喂数据 + 扛 checkpoint 高频写</td><td>存储跟不上，几千张卡一起空等</td></tr>
+      <tr><td>容错与恢复</td><td>高频 checkpoint + 自动摘除坏节点 + 热备替换</td><td>训练是同步作业，一卡挂全队停，「有效训练时间占比」才是集群运营水平的刻度</td></tr>
+      <tr><td>弹性形态</td><td>整段租云 / 自建 / 预留一部分保底 + 峰值弹性上云</td><td>训练是脉冲式负载，训完就闲，按利用率盈亏点算账，别拍脑袋</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：要训多大的模型、吃多少 token——先用 6ND 当场把卡数和天数算出来，再谈买什么规格。张量并行打不打算跨节点，决定要不要机内 NVLink 这一档。checkpoint 多久写一次，故障恢复演练过没有，谁按那个按钮？这轮是训完就停，还是要连着跑几个月——这一句决定租云还是预留。</p>
+  <p><b>云替你做不了什么</b>：云能把卡、网、存储按整机交付，交不出「有效训练时间占比」——那是运营水平：坏节点多久摘掉、从哪个存档续上、恢复演练过没有。所以这个指标要写进算力采购的 SLA 当条款，而不是听一句承诺。另一件云不替你算的是总账：数据管线、失败重跑、消融实验、人力都不出现在集群账单上，而「正式那一跑」通常只占总投入一半以下，照账单报价必崩。</p>
+
+  <h3>大多数客户真正走到的那一档：托管微调与评估</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>托管微调服务</td><td>上传 JSONL 格式的问答数据 → 平台代跑训练与评估 → 产出私有模型或适配器（Adapter）供 API 调用</td><td>带数据来、取模型走，客户不用管卡和框架</td></tr>
+      <tr><td>微调的算力档位</td><td>LoRA／QLoRA 单卡到几卡；全参微调才要多卡集群</td><td>九成企业场景从 LoRA 起步，别按预训练级基建备预算</td></tr>
+      <tr><td>数据与权重归属</td><td>平台侧的租户边界承诺（数据不出租户边界、不回流进基础模型训练）</td><td>训练数据和产出的适配器都归客户——这条写进合同，是企业客户的底线</td></tr>
+      <tr><td>评估与选型</td><td>云上「模型评估服务」：托管评估集、多模型对比跑分、LLM 当裁判（LLM-as-a-Judge）自动初评 + 人工复核抽检</td><td>POC 阶段用它替代手工对比 Excel</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：手上有多少条数据，能不能整理成「指令 → 示范回答」的成对格式？他真正想改的是说话风格还是想补知识——补知识那档 RAG 就够，不用动权重。训练数据和产出的适配器归谁、平台承不承诺不回流进基础模型，这句现在就问出口，别等合同评审。拿什么判「变好了」——评估集有没有，谁来评分？</p>
+  <p><b>云替你做不了什么</b>：托管微调替你跑训练，替不了你把数据整理好：LIMA 那条结论是千条精品胜过十万条杂数据，成本大头在数据治理和评估的人力，不在训练那几个小时。评估服务能自动初评、能多模型对比跑分，但 LLM 当裁判只是初筛，仍要人工复核抽检；题目更得是客户自己的真题——50 到 200 道业务真题、每道配可接受答案要点、由业务专家而不是工程师评分，「什么算答对」这件事平台不会替你定义。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-08</b> 来自讲义首版对练页，<b>2026-07-13</b> 来自训练恢复与生产验收深潜，<b>2026-07-23</b> 是按客户交锋场景补的两题（要不要自己训 / 训练方案怎么验收）。</p>
   <div class="qa">
@@ -553,7 +610,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">11</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../llm/index.html">
@@ -590,7 +647,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/LLM-Training/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-08。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
@@ -622,7 +679,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm-inference/index.html"><span class="k">上一册 · 基础层</span><b>LLM-Inference</b></a>
    <a class="nx" href="../prompt-engineering/index.html"><span class="k">下一册 · 基础层</span><b>Prompt-Engineering</b></a>
