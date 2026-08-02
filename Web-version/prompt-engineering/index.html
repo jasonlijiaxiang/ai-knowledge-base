@@ -39,6 +39,7 @@
     <li><a href="#pe-engineering">5 · 工程化与自动优化</a></li>
     <li><a href="#pe-security">6 · 安全与风险</a></li>
     <li><a href="#pe-presales-map">7 · 售前收拢</a></li>
+    <li><a href="#cloud">8 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -401,9 +402,61 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-prompt-injection" title="这个词的主场：Security · 提示注入与越狱">间接注入<span class="xm">Security</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">08</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面七节讲提示词本身怎么写、怎么管。这一节换个视角：写、评、优化、降本、护栏每个环节在云上对应哪个服务，客户听完该顺着问什么，哪些事云替你做不了。按提示词自己的生命周期排，不按章节排。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>写与管：提示词从一段文本变成资产</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>写 &amp; 调提示词</td><td>各云 Playground / Prompt Management（Bedrock / Vertex / Azure AI Foundry）</td><td>建、版本、评估、运行在平台里一条路走完</td></tr>
+      <tr><td>版本化 &amp; 变体测试</td><td>Bedrock Prompt Management、Azure Prompt Flow</td><td>把提示词工程做成可视化流水线、批量跑变体对比；改坏了能一键回滚 + 对比 diff 定位</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：提示词现在写在哪——代码里、配置里，还是各人本地？谁有权改，改完谁看得见？上一次线上效果变差，查出来是不是「有人顺手优化了一下」？</p>
+  <p><b>云替你做不了什么</b>：平台把版本、变体、回滚这些管住了，管不住「哪一版才算好」——没有评估集，回滚只是换回另一版凭感觉调的东西。提示词管理这层也不管接口：结构化输出的 schema 约束、缓存怎么开，都在你自己的调用代码里，换厂商时要按新 API 重接。</p>
+
+  <h3>评与优：有了评估集，才谈得上自动优化</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>评估打分</td><td>Bedrock / Vertex / Azure 评估 + LLM-as-a-Judge（判分方法在 Evaluation 模块）</td><td>靠评估集打分，不靠感觉——这也是接自动优化的前提</td></tr>
+      <tr><td>自动优化</td><td>Bedrock Advanced Prompt Optimization、Vertex Prompt Optimizer、DSPy</td><td>用评估指标自动搜索更好的提示词；一到四成是 DSPy MIPROv2 在结构化任务上较手写的基准，云上优化器没有同口径数字，实际幅度看你的评估集</td></tr>
+      <tr><td>换模型迁移</td><td>Bedrock Advanced Prompt Optimization（把提示词迁移到新模型）、Vertex Prompt Optimizer（跨模型基准）</td><td>自动改写提示词，并对比它在不同模型上的表现，带评估反馈环</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：有没有一份带标准答案的测试样例，多少条、覆盖哪些易错情况？「这版比上版好」现在谁说了算、凭哪个数？一年会换几次模型，换完拿什么证明没变差？</p>
+  <p><b>云替你做不了什么</b>：优化器搜的是「在你给的指标上分更高」，指标定得糊，它就往糊的方向优化——「什么算好」要先拆成能判定的标准，这一步云不替你做。跨模型基准告诉你哪个模型分高，不告诉你写法档位该怎么调：通用模型和推理模型是两套写法，各家推理模式的触发条件与计费也不一致。</p>
+
+  <h3>上线之后：省钱那一折，兜底那一层</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>降本 · 提示词缓存</td><td>OpenAI（自动缓存、无需改代码）/ Anthropic（手动 cache_control 标记，写入加价 5 分钟 1.25×、1 小时 2×）/ Google Gemini（显式缓存 + 按小时存储计费）</td><td>三家缓存输入价均约 1 折、省约 90%，但机制是自动、手动、按存储三种</td></tr>
+      <tr><td>安全护栏</td><td>Bedrock Guardrails、Azure AI Content Safety、Vertex AI 安全过滤 / Model Armor</td><td>独立于模型运行的一层：拦注入与越狱、过滤有害内容、屏蔽 PII、限定话题范围——低成本第一层，属于必配</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：每次请求里有多长一段是每次都一样的——system、示例、固定文档？前缀最前面塞没塞当前时间这类每次都变的东西？这个助手会读到哪些外部内容，哪些动作做错了收不回来、现在谁批？</p>
+  <p><b>云替你做不了什么</b>：缓存按前缀匹配，云替你缓存，替不了你把稳定的部分挪到最前面——前缀里改一个字节，后面全失效；各家最小可缓存前缀还不一样（512–4096 token），短于门槛的静默不缓存、也不报错。折扣是各厂当期定价，命中率完全看你的提示词结构。（护栏那半句不动）</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">08</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页（技巧与选型为主），<b>2026-07-23</b> 是按客户交锋场景补的三题（凭什么收钱 / 换模型迁移 / 交给业务同事写）。五层结构与预算四分区那一轮（2026-07-13）加的是正文，没有新立题。</p>
   <div class="qa">
@@ -517,7 +570,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../llm/index.html">
@@ -549,7 +602,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Prompt-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09（缓存口径 2026-07-20 补核，DSPy 版本 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
@@ -578,7 +631,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm-training/index.html"><span class="k">上一册 · 基础层</span><b>LLM-Training</b></a>
    <a class="nx" href="../ai-infra-compute/index.html"><span class="k">下一册 · 算力底座层</span><b>AI-Infra-Compute</b></a>

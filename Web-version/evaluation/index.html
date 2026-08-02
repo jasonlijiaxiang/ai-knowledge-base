@@ -40,6 +40,7 @@
     <li><a href="#eval-scenarios">6 · 场景验收</a></li>
     <li><a href="#eval-tooling">7 · 工具链与闭环</a></li>
     <li><a href="#eval-cheatsheet">8 · 速查与问答</a></li>
+    <li><a href="#cloud">9 · 上云怎么落地</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
   </ol>
@@ -597,9 +598,52 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../fine-tuning/index.html#ft-eval-deploy" title="这个词的主场：Fine-tuning · 评估与部署">灾难性遗忘<span class="xm">Fine-tuning</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>在导语末尾补一句：三家的服务名与能力核实于 2026-07-09，云上产品名改得比方法论快——引用前先复查一遍，方法论那部分不受影响。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>托管评估服务：客户在哪朵云，就从哪家起步</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>托管评估作业</td><td>Bedrock 模型评估作业 / Azure AI Foundry 内置评估器 / Vertex AI Gen AI 评估服务</td><td>三家都能落地这套方法论，客户在哪朵云就先用哪家起步</td></tr>
+      <tr><td>判官（LLM-as-a-Judge）</td><td>Bedrock 内置 LLM-as-a-Judge / AI Foundry 质量 + 安全评估器成套 / Vertex 内置判官与成对比较</td><td>判官开箱即用，起步不必自己搭一套</td></tr>
+      <tr><td>RAG 评估</td><td>Bedrock 支持 RAG / 知识库评估 / AI Foundry Groundedness 等评估器 / Vertex 提供对应评估指标</td><td>RAG 场景三家都有现成指标，云上起步不必另搭；开发期要做深，仍回到 Ragas 这类专项框架——两套并行是主流做法。</td></tr>
+      <tr><td>各家侧重</td><td>AWS 按评估作业计费、含人工评估工作流；Azure 治理审计成熟、tracing 一体；Google Cloud 与训练部署链路打通</td><td>能力都够用，差别在计费方式、治理成熟度和跟训练链路的打通程度</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：客户的模型跑在哪朵云——评估服务跟着走，还是要单独选？评估集里有没有真实业务数据，要不要跟数据同区域、不出 VPC？判官用平台内置的，还是要换成私有部署的模型？</p>
+  <p><b>云替你做不了什么</b>：托管评估服务替你跑分、给你现成指标，不替你出题——黄金集是客户的真题，谁出题、谁签字确认，仍是 POC 第一周要谈下来的事，顺序是先对题、再对线、后跑分。内置判官同样要校准：换了判官就得重新校准、重建可比基线，否则「过门」这件事本身就不可信。</p>
+
+  <h3>跑在谁的机器上：开发期、生产期与数据边界</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>开发期框架</td><td>Ragas / DeepEval / promptfoo，全部开源</td><td>起步阶段开源三件套完全够、全部免费：做 RAG 上 Ragas，要进 CI 上 DeepEval，横向比模型或测攻击上 promptfoo</td></tr>
+      <tr><td>平台型 · 全生命周期</td><td>LangSmith / Braintrust / W&amp;B Weave</td><td>管数据集版本、评估记录、trace 与生产监控；深绑 LangChain 生态选 LangSmith，要全生命周期一体选 Braintrust</td></tr>
+      <tr><td>平台型 · 可自托管</td><td>Arize Phoenix（开源）</td><td>讲义把 Arize Phoenix 列为重开源、可自托管的代表——要把评估数据留在自己这边就先看它</td></tr>
+      <tr><td>判官模型</td><td>平台内置判官，或私有部署模型当判官</td><td>合规要求高的场景，判官可以换成私有部署的模型</td></tr>
+      <tr><td>数据与结果落地</td><td>评估服务与数据同区域闭环，结果落自家存储</td><td>合规要求高的场景，全链路可以不出 VPC</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：现在有 CI 吗，评估要不要卡进构建里、挂了就阻断？评估集算不算业务敏感数据，归谁管、能不能出这朵云？评估结果谁看——技术团队看逐样本证据，领导只看那三个数，汇报口径得先说清。</p>
+  <p><b>云替你做不了什么</b>：自托管解决的是数据放在谁的机器上，解决不了「谁来运维」——部署、升级、扩容这些活会跟着一起搬到你这边。判官校准不在这份清单里：托管也好自托管也好，先对齐人工再上量、换判官就重测一致率，这活始终是你的。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../model-landscape/index.html">
@@ -635,7 +679,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Evaluation/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09（深潜页 2026-07-12）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
@@ -670,7 +714,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../ai-ops/index.html"><span class="k">上一册 · 工程保障层</span><b>AI-Ops</b></a>
    <a class="nx" href="../fine-tuning/index.html"><span class="k">下一册 · 工程保障层</span><b>Fine-tuning</b></a>

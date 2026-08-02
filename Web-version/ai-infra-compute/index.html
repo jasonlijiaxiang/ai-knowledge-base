@@ -43,6 +43,7 @@
     <li><a href="#aic-scaleout">6 · Scale-out 网络</a></li>
     <li><a href="#aic-storage">7 · 存储与数据管线</a></li>
     <li><a href="#aic-econ">8 · 算力经济学（含速算器）</a></li>
+    <li><a href="#cloud">9 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -504,9 +505,68 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html#llminf-production" title="建 vs 租 vs API 盈亏线口径同源引用">生产化与售前速查<span class="xm">LLM-Inference</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面几章讲硬件本身和它的账：卡怎么选、网怎么组、存储怎么配、钱怎么算。这一节把这些落到云上——先定用哪档采购模式，再看卡型和存储各自对应哪种实例、哪种托管服务，客户听完该顺着问什么，哪些账云替你做不了。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>先定档：自建、租算力，还是直接买 API</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>自建</td><td>买卡建机房或机房托管；扛不住 120kW 就托管到具备液冷条件的数据中心</td><td>日均利用率能稳过一半、且有运维团队，自建或长租才划算——对比长期租赁的盈亏线约 40–50%，低于它自建必亏</td></tr>
+      <tr><td>租算力</td><td>各云 GPU 实例、机柜级实例（按时或包年）</td><td>负载波动大或刚起步，用云实例的弹性</td></tr>
+      <tr><td>买 API</td><td>托管 API，按 token 付费（约 $2–5/百万输出 token）</td><td>只是调用模型能力、没有自有模型，直接 API，别碰硬件</td></tr>
+      <tr><td>混合</td><td>基线自建 + 弹性上云</td><td>大客户常态：存量机房跑推理，训练上云</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：现在的 token 账单一个月多少，离自建盈亏线还有多远？有没有数据合规要求必须私有化，会不会要自有模型、微调常态化？日均利用率是多少——有监控数据，还是估的？</p>
+  <p><b>云替你做不了什么</b>：云报价里已经含了电、房、网、运维四件套，拿它跟自建的裸卡价比，是两本账。云能免掉折旧风险，免不掉利用率这个数本身——多数客户高估它，先上云跑三个月拿真实数据，那三个月的数字才是自建决策的依据。</p>
+
+  <h3>卡型落地：芯片选择翻译成云上实例</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>NVIDIA</td><td>各云 GPU 实例与机柜级集群（AWS P5/P6 系、GCP A3/A4 系、Azure ND 系、阿里云灵骏等）</td><td>通用首选：生态最全、迁移成本最低</td></tr>
+      <tr><td>AMD</td><td>部分云与 GPU 专营云（Neocloud）提供实例</td><td>推理为主、显存敏感、要第二供应商</td></tr>
+      <tr><td>Google TPU</td><td>仅 Google Cloud（GKE / Vertex AI 承载）</td><td>深度绑定 GCP、稳定大规模负载</td></tr>
+      <tr><td>AWS 自研</td><td>仅 AWS（Trn 实例、SageMaker/Bedrock 承载）</td><td>深度绑定 AWS、成本优先</td></tr>
+      <tr><td>国产（昇腾等）</td><td>华为云及国内多云国产算力专区</td><td>合规、供应链是硬约束，国内交付</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：会不会要从这朵云搬出去——多云或迁出已经写进规划了吗？</p>
+  <p><b>云替你做不了什么</b>：云把 ASIC 那条路的栈包办了（XLA/Neuron），省的是自己搭栈的功夫，省不掉迁出去重新适配——便宜的前提是「负载标准 + 绑定这朵云」。比价也别只比裸时租：网络规格、存储配套、可用性 SLA、能不能真拿到货这四件事不写在报价单上，裸价差一两成而 MFU 差两三成，总账可能是反的。实例族名随代次更新快，这里是 2026-07 的代表性形态，报价前以各云当期官网为准。</p>
+
+  <h3>存储与数据管线：五个环节各有托管形态</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>全量数据底座</td><td>对象存储（S3 / OSS / GCS / Blob 类）</td><td>便宜、无限、持久，按成本/GB·月和持久性验收</td></tr>
+      <tr><td>训练热数据层</td><td>托管并行文件（FSx for Lustre / CPFS / Managed Lustre / Parallelstore 类）</td><td>要的是并行高吞吐随机读，验收看聚合读吞吐 GB/s</td></tr>
+      <tr><td>Checkpoint</td><td>同上高性能层 + 异步回写对象存储</td><td>洪峰顺序大写，验收看聚合写带宽 GB/s</td></tr>
+      <tr><td>节点缓存</td><td>实例本地 NVMe（临时盘）</td><td>要极致低延迟，验收看单节点 IOPS 与带宽</td></tr>
+      <tr><td>KV Cache 池</td><td>内存/NVMe 池化方案（新兴，各云形态尚在演进）</td><td>低延迟共享读写，验收看命中率与 TTFT 改善</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：数据集现在多大、多少个文件、单个样本多大？一个 checkpoint 多大，写的时候 GPU 停多久你们能接受？现有存储的聚合吞吐实测过没有——先测一遍，数据会说话。</p>
+  <p><b>云替你做不了什么</b>：托管并行文件把「热层怎么搭、谁来运维」接过去了，接不过去的是「配多少」——数据加载按 GPU 数 × 每卡消费速率、checkpoint 按模型状态大小 ÷ 可接受的暂停时间，两个峰值仍要自己倒推。托管也不改物理：对象存储直连训练在小规模实验行、生产集群会把 GPU 利用率拖垮，分层这一步省不掉。服务名各云叫法不同、更新也快，给客户讲「类别 + 验收指标」比背服务名稳。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-23</b> 是按客户交锋场景补的三题（容量怎么证明 / 卡坏了谁负责 / 报价被比价）。</p>
   <div class="qa">
@@ -619,7 +679,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">11</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>一句话分工：本页讲铁，Training/Inference 讲负载本身，姊妹册讲把负载高效跑在铁上的中间层。</p>
   <div class="rel">
     <a href="../ai-infra-platform/index.html">
@@ -643,7 +703,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/AI-Infra-Compute/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-09。<b>芯片与网络代次年更，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -677,7 +737,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../prompt-engineering/index.html"><span class="k">上一册 · 基础层</span><b>Prompt-Engineering</b></a>
    <a class="nx" href="../ai-infra-platform/index.html"><span class="k">下一册 · 算力底座层</span><b>AI-Infra-Platform</b></a>

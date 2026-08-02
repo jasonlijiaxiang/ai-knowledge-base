@@ -44,6 +44,7 @@
     <li><a href="#sec-governance">7 · 治理与合规框架</a></li>
     <li><a href="#sec-china">8 · 中国监管合规</a></li>
     <li><a href="#sec-cheatsheet">9 · 速查（含自查器）</a></li>
+    <li><a href="#cloud">10 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -516,9 +517,62 @@
   </div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">10</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面几节按威胁和框架排。这一节换个视角：每个安全动作在云上对应哪些现成服务、该顺着追问客户什么、哪些事云替你做不了。按「进出闸—控权与监控—国内合规」排，按客户已有云栈就近落地，不绑死一家。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>进出两道闸：护栏与敏感数据用托管的</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>护栏 / 内容安全</td><td>Bedrock Guardrails / Azure AI Content Safety + Prompt Shields / Model Armor、Vertex 安全</td><td>托管护栏当第一道语义闸；多数生产系统组合 2–3 个，别指望一个工具包打天下</td></tr>
+      <tr><td>敏感数据发现</td><td>Macie / Purview / Sensitive Data Protection（DLP，Data Loss Prevention）</td><td>敏感数据用 DLP 类服务先找出来，输出侧再挂一道敏感信息过滤兜底漏网 PII</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：你们最后要拦的是哪一类——注入越狱，还是 PII 和敏感词往外漏？公司里现在有没有 DLP 类工具在管非 AI 的数据，能不能直接接过来？模型的输出接下来去哪：直接进 SQL、拼进页面，还是丢给 shell？</p>
+  <p><b>云替你做不了什么</b>：托管护栏拦的是它认识的那些类目，而注入是一段语法完全合法的自然语言，既转义不掉也没固定特征——单道闸必被绕过，输入、动作、输出加监控四道叠起来才算纵深。DLP 能把 PII 找出来，替你决定不了「机密级文档到底进不进通用问答库」，那条分级线得你自己画；也别把向量化当脱敏，嵌入在一定条件下能被部分反推。</p>
+
+  <h3>收权限、看得见：身份、态势与红队</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>身份 / 最小权限</td><td>IAM（Identity and Access Management）细粒度 + 短期凭据 / Entra ID + 托管身份 / IAM + Workload Identity</td><td>给 Agent 一个 scoped 的短期身份，任务结束即失效，每一步动作留痕可审计</td></tr>
+      <tr><td>AI 安全态势（AI-SPM）</td><td>GuardDuty + Security Hub / Defender for Cloud AI-SPM / Security Command Center</td><td>持续发现和评估 AI 资产的风险，把治理变成天天在跑的监控，而不是上线时补的一份合规文档</td></tr>
+      <tr><td>红队 / 测试</td><td>PyRIT（微软出品）；AWS 与 Google 侧自建 + PyRIT</td><td>把攻击自动化、做成上线前的门禁，让防线被常态化验证</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：Agent 现在拿的是自己的短期凭据，还是一个通用的高权限账号？哪些动作是不可逆的——转账、删库、群发——这几个现在需不需要人点头？还有一句得先问出口：公司里到底有多少模型、Agent 和数据管线，有没有一张清单？没有清单，后面的门禁和监控都无从谈起。</p>
+  <p><b>云替你做不了什么</b>：IAM 发得出短期凭据，替你判不了「这个动作该不该做」——哪些不可逆动作要人在环上，是业务定的策略，权限系统自己推不出来。AI-SPM 把资产和风险摆出来，改不了研发流程；安全动作嵌不进日常准入、门禁、监控，看板再全也只是好看。红队跑出的攻破率证明的是已知手法被挡住了，对没见过的招式没有保证。</p>
+
+  <h3>在中国上线：平台帮你到哪一步</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>备案与登记材料</td><td>火山引擎备案技术安全措施材料支持（按五大类 31 小类风险出材料）、材料清单指引与流程陪跑；阿里云百炼备案指引与材料获取、平台模型备案信息公示</td><td>材料和流程有平台陪跑，周期照排——没有加急通道</td></tr>
+      <tr><td>内容审核与护栏</td><td>阿里云百炼 AI 安全护栏默认按模型挂载（输入输出双向审核）；通用能力：内容审核 API（文本 / 图片多级标签）</td><td>阿里云百炼把护栏默认挂在模型上，输入输出双向各过一遍；通用的内容审核 API 得自己接</td></tr>
+      <tr><td>部署形态</td><td>公有云 / 专有云 / 分布式云三形态</td><td>「数据不出境」的诉求靠部署形态兜</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：你们是自研或微调模型对公众提供服务，还是调用已备案的模型做应用？这一问就分出 5–8 个月的备案和周级的登记两条路。生成的内容从哪个出口发出去，显式标识打在哪一步、导出链路会不会把隐式标识洗掉？数据会不会出境，涉不涉及重要数据、在不在自贸区清单里？</p>
+  <p><b>云替你做不了什么</b>：平台工具再全，法定「服务提供者」的义务仍在应用方——内容审核、用户投诉、标识、备案主体，一样不能少。平台模型已备案不等于你的应用免登记；护栏默认挂着也不等于审核就算做过了，自建复核还得兜一层。部署选专有云能答「数据不出境」，答不了「训练数据来源合不合法」。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">11</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-17</b> 来自中国合规增章，<b>2026-07-23</b> 是按客户交锋场景补的三题（安全承诺 / 已有安全体系 / 安全验收）。</p>
   <div class="qa">
@@ -641,7 +695,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">11</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">12</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>安全是横切关注点：给全库每个技术环节配一条「怎么防」的边。</p>
   <div class="rel">
     <a href="../agent/index.html">
@@ -673,7 +727,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">13</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Security/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-09（中国合规 2026-07-17）。<b>法规与产品名快变，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -712,7 +766,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../fine-tuning/index.html"><span class="k">上一册 · 工程保障层</span><b>Fine-tuning</b></a>
    <a class="nx" href="../llm/index.html"><span class="k">下一册 · 基础层</span><b>LLM</b></a>

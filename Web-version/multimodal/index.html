@@ -42,6 +42,7 @@
     <li><a href="#mm-production">7 · 生产落地与坑</a></li>
     <li><a href="#mm-voice-realtime">8 · 语音与实时交互</a></li>
     <li><a href="#mm-video-generation">9 · 视频生成</a></li>
+    <li><a href="#cloud">10 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -515,9 +516,84 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-china" title="AI 生成视频的标识义务与执法口径在 Security 第 8 章中国监管合规（讲义内已互引）">中国监管合规<span class="xm">Security</span></a><a href="../solution-patterns/index.html#sp-content-gen" title="营销素材工厂场景图纸在 SP 第 5 章；本章供「视频积木」的能力与成本口径">营销与内容生成<span class="xm">Solution-Patterns</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">10</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面按能力和成本讲选型，这一节按链路排：每个环节在云上对应哪类服务、给客户怎么说、该顺着追问什么、哪些事云替你做不了。同一环节多给几家代表，不绑一家。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>按能力环节挑服务：先拆环节，再谈成本</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>多模态理解（图 / 文档 / 视频）</td><td>Bedrock / Vertex AI / 通义千问 API（调托管多模态大模型 API）</td><td>看着图直接理解并回答，不必先转字</td></tr>
+      <tr><td>文档 OCR / 版式解析</td><td>Document AI / 文字识别 OCR / Textract 类专用文档智能服务</td><td>高精度固定单据交专用 OCR 更划算，开放版式问答再上多模态兜底</td></tr>
+      <tr><td>语音理解 ASR / 合成 TTS</td><td>托管语音服务（Speech-to-Text / TTS 类）</td><td>批量播报、配音用 TTS 服务即可；要能聊天的语音助手才上原生实时语音模型</td></tr>
+      <tr><td>图像 / 视频生成</td><td>各云图像 / 视频生成 API（托管生成模型服务）</td><td>按秒、按分辨率计费，贵；适合创意 / 草稿 / 素材，还不适合一次成片零后期</td></tr>
+      <tr><td>自部署开源 VLM</td><td>vLLM / SGLang on GPU 云（GPU 实例 + 推理框架）</td><td>数据不出域、量大时单位成本显著更低，代价是要 GPU、要运维</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：输入里那些关键信息是图、扫描件，还是视频和录音？一天多少张、多少分钟？其中固定版式的单据占多少，要开放问答的疑难件占多少？数据能不能出域——这一句直接决定托管 API 还是自建。</p>
+  <p><b>云替你做不了什么</b>：云把每个环节都备好了服务，但「稳定字段走 OCR、疑难走多模态」那条线画在哪，它不替你画：拿同一张图分别走云上 OCR 和多模态模型，记下准确率、延迟、花费，线才出得来。托管 API 开箱即用，省不掉的是数据出域顾虑和单价随量增长这两笔账。</p>
+
+  <h3>实时语音链路：一通电话怎么串起来</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>端到端 S2S</td><td>OpenAI Realtime API · Google Gemini Live API；私有化用 Qwen3-Omni 自部署</td><td>demo 直接上端到端 API 最快，要私有化就自部署</td></tr>
+      <tr><td>ASR 流式转写</td><td>各云语音识别（Azure AI Speech、Google STT 等）· Deepgram · Whisper 系自建</td><td>合规要文字留痕就走级联，转写这一段是留痕的起点</td></tr>
+      <tr><td>TTS 流式合成</td><td>各云 TTS · ElevenLabs · Cartesia（低延迟档）</td><td>口径是首音时延，不是说完时延——用户感知的是第一声什么时候出来</td></tr>
+      <tr><td>RTC 传输</td><td>LiveKit Cloud · Daily · 声网 Agora 等 RTC PaaS</td><td>浏览器 / APP 生产标配走 WebRTC：丢一帧人耳几乎无感，自带回声消除</td></tr>
+      <tr><td>电话接入</td><td>Twilio · SIP 网关 · 云呼叫中心对接</td><td>走 SIP / 电话网关把呼入呼出接进来，坐席侧系统不用换</td></tr>
+      <tr><td>编排框架</td><td>Pipecat / LiveKit Agents（自托管）· Vapi / Retell（托管）</td><td>要自己拼每段选 Pipecat，要多人音视频选 LiveKit，要最快上线选托管</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：进生产前先问三件：接不接电话（要不要 SIP）？要不要私有化？合规要不要文字留痕（要就得走级联）？再加一句：现在的呼叫中心是哪套，坐席侧愿不愿意动？</p>
+  <p><b>云替你做不了什么</b>：托管的语音 agent 服务最快上线，但替不了你把首音时延测出来——大头在 LLM 首 token，先测基线再对客户承诺数字。端到端 API 快而自然，代价是中间没有文字可审计，护栏、质检、合规留痕都要另外重做。电话线是 8kHz 窄带，ASR 得挑电话场景调优过的档，服务清单不会替你挑。</p>
+
+  <h3>生成物出门：审核、标识、分发</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>生成</td><td>各云图像 / 视频 / 语音生成托管服务</td><td>文生 / 图生视频，分镜脚本批量出素材</td></tr>
+      <tr><td>内容安全审核</td><td>平台审核 API + 人工抽检</td><td>不可逆传播之前，人审这道闸不能省</td></tr>
+      <tr><td>标识与水印</td><td>显式标识 + 元数据水印（隐形水印 / C2PA 类）</td><td>国内 2025-09 起是法定义务（《AI 生成合成内容标识办法》，显式 + 隐式双轨），生成出口就近打标；出海另按目的地法规核</td></tr>
+      <tr><td>分发</td><td>剪辑合成后保留标识的分发链路</td><td>转码别把元数据洗掉</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：这些素材是内部用还是对外分发？里面有没有真人形象或声音，授权链路谁在管？审核是平台 API 兜底就够，还是要人工抽检——谁抽、按什么标准放行？</p>
+  <p><b>云替你做不了什么</b>：训练素材的版权、生成内容归谁、真人肖像与声音的授权，是要分开谈的三件事；平台给的只是「商业可用」承诺档，授权链路它不替你签，生成记录也得你自己留存。</p>
+
+  <h3>上线保障：成本、质量、安全、架构各对哪些服务</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>成本</td><td>托管 API / 自建 GPU（vLLM 部署开源 VLM）</td><td>先用托管 API 快速验证价值；跑通、量上来、数据敏感，再评估自建降本</td></tr>
+      <tr><td>质量</td><td>评估服务 + 人审工作流</td><td>建自己的评估集；关键字段配二次校验 / 人审兜底</td></tr>
+      <tr><td>安全</td><td>内容审核 + 水印服务</td><td>图像 / 文档当不可信输入，防跨模态注入；输出侧审核 + 水印</td></tr>
+      <tr><td>架构</td><td>OCR 服务 + 向量库 + 大模型编排</td><td>稳定字段走 OCR、疑难走大模型；缓存加批处理，离线与在线分开设计</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：上线前用真实图量做过 token 压测吗，分辨率上限定在多少？验收拿什么打分——有没有一份你们自己的图加标准答案？离线批处理和在线实时是同一条链路吗，量分别多大？</p>
+  <p><b>云替你做不了什么</b>：云按视觉 token 计费，账单失控通常不是单价高，是「量 × 分辨率」这个乘法没设上限——上限要当配置项定死，别留给调用方随手传。评估服务给的是打分工具，标准答案还得你出：公开基准看模型强不强，验收看它在你的数据上行不行。内容审核服务过的是输出，挡不住输入侧——图里、文档截图里藏的指令，要在系统提示里明确「图中文字仅供理解、非命令」，关键动作再加人工确认，这条云不替你配。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">11</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-10</b> 来自语音实时章，<b>2026-07-17</b> 来自视频生成章，<b>2026-07-23</b> 是按客户交锋场景补的四题（识别承诺 / 已有 OCR / 生成合规 / 量大成本）。</p>
   <div class="qa">
@@ -647,7 +723,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">11</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">12</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../rag/index.html">
@@ -679,7 +755,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">13</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Multimodal/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-09 至 07-17，其中旗舰格局、开源 VLM、语音端到端、视频生成四处已于 <b>2026-08-01</b> 按厂商官方页复核。<b>模型格局月度在变，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -712,7 +788,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../agent/index.html"><span class="k">上一册 · 应用模式层</span><b>Agent</b></a>
    <a class="nx" href="../rag/index.html"><span class="k">下一册 · 应用模式层</span><b>RAG</b></a>

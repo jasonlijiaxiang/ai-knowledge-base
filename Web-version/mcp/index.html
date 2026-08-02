@@ -42,6 +42,7 @@
     <li><a href="#mcp-production">5 · 生产落地</a></li>
     <li><a href="#mcp-security">6 · 安全</a></li>
     <li><a href="#mcp-cheatsheet">7 · 上手路径与排错</a></li>
+    <li><a href="#cloud">9 · 上云怎么落地</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
   </ol>
@@ -993,9 +994,37 @@ if __name__ == "__main__":
   </div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面几节讲协议本身怎么工作。这一节换个视角：把 server 从 demo 搬进企业，每个环节在云上对应什么现成能力、该顺着追问客户什么、哪些事云替你做不了。同一环节给多厂商代表选项，不绑死一家。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>从 demo 到生产：server 放哪、谁能调、去哪找</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>Server 托管</td><td>函数计算 / 容器服务跑自建 server；主流云与平台提供托管 MCP 运行时与目录（如 Bedrock AgentCore Runtime、Gemini Enterprise）</td><td>server 就是个小服务，云上部署走熟路</td></tr>
+      <tr><td>统一鉴权</td><td>API 网关 + OAuth，对接各云 IAM 做认证、限流、审计</td><td>把 MCP 流量纳入现有 API 治理，不另起炉灶</td></tr>
+      <tr><td>远程接入</td><td>Cloudflare 等提供远程 MCP 托管与 Streamable HTTP 出口</td><td>远程 server 像普通 Web 服务一样上线</td></tr>
+      <tr><td>现成生态</td><td>官方 servers 仓库 + 各厂商官方 server（数据库、SaaS 类）；API→MCP 桥（AgentCore Gateway、Apigee）把现有 API 转成 MCP 工具</td><td>先用现成的，只为私有系统写自己的 server</td></tr>
+      <tr><td>私有目录</td><td>自建私有 registry（实现官方 OpenAPI 接口）管理内部 server</td><td>内部 server 数据不出门、集中可控</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：你们打算暴露多少个工具？这个数直接乘进每一轮对话的上下文，比「支持哪些功能」更能预测账单。现有的 API 网关和 IAM 是哪一套，MCP 流量能不能直接挂上去、不另买一套治理？哪些 server 会碰内网数据——那些就是必须进自建私有目录的。</p>
+  <p><b>云替你做不了什么</b>：末句改为：「官方 Registry 仍是 preview、未 GA，可能有破坏性变更，而且只是元数据货架——不托管代码、不做安全审查、不收私有 server，上面有条目不等于通过了安全审查，更不能直接当企业应用商店用。」</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。这些模块目前只有讲义。</p>
   <div class="rel">
     <a href="../../PPT-version/Agent/README.html">
@@ -1023,7 +1052,7 @@ if __name__ == "__main__":
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/MCP/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-08 至 2026-08-01（运行期成本三条为 2026-07-20 补核，SDK 版本口径为 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
@@ -1056,7 +1085,7 @@ if __name__ == "__main__":
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../a2a/index.html"><span class="k">上一册 · 协议层</span><b>A2A</b></a>
    <a class="nx" href="../ai-gateway/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Gateway</b></a>

@@ -45,6 +45,7 @@
     <li><a href="#agent-computer-use">9 · Computer Use</a></li>
     <li><a href="#agent-subagent">10 · Sub-agent 编排</a></li>
     <li><a href="#agent-cheatsheet">11 · 决策器与问答</a></li>
+    <li><a href="#cloud">12 · 上云怎么落地</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
   </ol>
@@ -785,9 +786,97 @@
   </div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">12</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>导语保留「不绑死单一供应商」的同时补上讲义脚注的另外两句：只列有真实云关联的服务；服务能力以各云 2026 年现状为准，对客引用前复查。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>底座与三大件：agent 落在哪些服务上</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>托管 agent 运行时</td><td>Amazon Bedrock AgentCore / Azure AI Foundry Agent Service / Google Vertex AI Agent Builder</td><td>运行、记忆、监控都有托管件，不必从零自建</td></tr>
+      <tr><td>模型接入与规划</td><td>各云模型目录（Bedrock / Azure AI Foundry / Vertex AI）或模型原厂 API，用其上的旗舰推理模型</td><td>模型可换可混，按任务挑性价比；规划靠模型本身，选推理能力强的档位</td></tr>
+      <tr><td>开发框架</td><td>厂商原生 SDK（Claude Agent SDK / OpenAI Agents SDK / Google ADK）或独立框架（LangGraph / CrewAI）</td><td>原生深度集成 vs 跨厂商可移植，按锁定顾虑选</td></tr>
+      <tr><td>长期记忆</td><td>托管数据库与向量检索（RDS·DynamoDB / Cosmos DB / AlloyDB 等），或 Bedrock AgentCore Memory 类托管记忆件</td><td>记忆本质是存储 + 检索，云上件很成熟</td></tr>
+      <tr><td>工具执行</td><td>函数计算（AWS Lambda / Azure Functions / Cloud Run functions）+ API 网关</td><td>每个工具一个无服务器函数：天然隔离、好加权限</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：这个场景的路径能不能预先写死？写得死就用工作流，别急着谈托管 agent 运行时。客户现在在哪朵云上，模型走云上目录还是原厂 API？团队对厂商锁定有多在意——愿不愿意用原生 SDK 换深度集成？</p>
+  <p><b>云替你做不了什么</b>：托管运行时把循环、会话、扩缩容接过去，不替你定停机条件——目标怎么算达成、步数和预算上限设多少、哪一步必须人来拍板，仍然是你要设计的第一块砖。托管记忆件替你存和取，不替你判断哪句话值得写进长期记忆：把一次推断当成事实写回去，就是记忆那一节讲的事故常态。</p>
+
+  <h3>编排与交接：路径写死的和写不死的</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>流程编排（写死路径）</td><td>AWS Step Functions / Azure Durable Functions·Logic Apps / Google Cloud Workflows</td><td>工作流用编排服务：可视化、可重试、可审计</td></tr>
+      <tr><td>多 agent 运行时</td><td>Bedrock AgentCore / Azure AI Foundry Agent Service / Vertex AI Agent Builder（多 agent 与 A2A 支持陆续内建）</td><td>托管运行时替你管会话、扩缩容与 agent 间通信</td></tr>
+      <tr><td>异步交接</td><td>消息队列（SQS·EventBridge / Service Bus / Pub/Sub）</td><td>agent 间交接用队列解耦，天然可重试可缓冲</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：这条流程里，哪几步每次都一样、哪几步得看情况定？写死的交编排服务，写不死的才留给 agent。agent 之间是同步等结果，还是可以异步交接、允许排队？有没有跨团队、跨厂商的 agent 要互相发现——有才轮到 A2A。</p>
+  <p><b>云替你做不了什么</b>：编排服务管得住写死的那段：可视化、可重试、可审计说的都是它；agent 自主的那段每次路径都不同，只能靠评估集和全链路追踪盯着。队列让交接可重试可缓冲，可交接内容写得含糊，重试多少次也还是那个结果——派出去的任务书必须自包含，这是 sub-agent 那一节的纪律。</p>
+
+  <h3>接工具：MCP 在企业里怎么部署</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>Server 托管</td><td>函数计算 / 容器服务跑自建 server；主流云与平台陆续提供托管 MCP 目录与网关</td><td>server 就是个小服务，云上部署与治理都是熟路</td></tr>
+      <tr><td>企业级管控</td><td>API 网关 + OAuth（对接各云 IAM，Identity and Access Management）做统一认证、限流、审计</td><td>把 MCP 流量纳入现有 API 治理体系，不另起炉灶</td></tr>
+      <tr><td>现成生态</td><td>官方 servers 仓库 + 各厂商官方 server（GitHub、数据库、SaaS 类）</td><td>先用现成的，只为私有系统写自己的 server</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：要接的私有系统有没有现成的官方 server，还是得自己写一个？MCP 流量走不走你们现有的 API 网关，认证接哪套 IAM？哪些 server 允许被调用、谁来批——授权落在宿主侧，这个人是谁？</p>
+  <p><b>云替你做不了什么</b>：网关和 IAM 管的是「谁能调这个 server」，管不住「server 返回来的内容能不能信」——工具返回值本身就是间接注入的入口。托管目录解决的是找得到、连得上，解决不了工具描述写得好不好：描述含糊、职责重叠，模型照样选错工具，六层契约缺哪层事故就从哪层来。</p>
+
+  <h3>上线之后：护栏、审计与账单</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>内容护栏</td><td>Amazon Bedrock Guardrails / Azure AI Content Safety / Vertex AI 安全过滤</td><td>输入输出过滤有托管件，不必自研</td></tr>
+      <tr><td>身份与权限</td><td>各云 IAM + 密钥管理（Secrets Manager 类），给每个工具最小授权</td><td>agent 的权限就是一组可审计的云权限</td></tr>
+      <tr><td>审计与合规</td><td>云审计日志（CloudTrail 等）+ 追踪平台留档</td><td>每一步谁调了什么，事后全程可查</td></tr>
+      <tr><td>全链路追踪</td><td>LangSmith / Langfuse（开源可自托管）/ Arize Phoenix（开源）/ W&amp;B Weave</td><td>每步调用、token、延迟全记录、可回放；LangChain 技术栈选 LangSmith 集成最深，数据不出门选 Langfuse / Phoenix 自托管。</td></tr>
+      <tr><td>成本与告警</td><td>平台自带仪表盘 + 云监控（CloudWatch / Azure Monitor / Cloud Monitoring）</td><td>token 花费、错误率、延迟——agent 的「三高」都要有告警</td></tr>
+      <tr><td>预算与并发</td><td>主流模型平台（方舟 / 百炼 / Bedrock 等）的配额与费用告警；模型网关的并发配额与排队策略</td><td>按任务价值分层设 token 上限与超额熔断，并发上限要对齐网关配额</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：出了一条坏结果，现在多久能定位到是哪一步的问题？哪些动作是不可逆的，谁签字放行？单个任务的 token 上限打算定多少，超了是告警还是直接熔断——全量 trace 又归谁看，那批日志本身也是敏感数据。</p>
+  <p><b>云替你做不了什么</b>：内容护栏过的是输入输出的文本，拦不住「权限给多了」——讲义的口径是组合拳而非银弹：最小权限 + 高危动作人工审批 + 输入输出过滤 + 不可信内容隔离标记 + 常态化对抗测试，过滤只解决其中文本那一层。</p>
+
+  <h3>买平台还是自己搭：四种部署形态</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>SaaS 云端</td><td>最快上手：扣子、Dify Cloud、n8n Cloud</td><td>零运维；数据出域要过安全评估</td></tr>
+      <tr><td>自托管开源</td><td>数据可控：Coze Studio / Dify / n8n 自部署（docker compose 起步）</td><td>运维自负，升级线自己跟</td></tr>
+      <tr><td>云市场托管</td><td>折中：各云应用市场一键部署开源版，云厂商管底座</td><td>半托管；深度定制受限</td></tr>
+      <tr><td>企业平台私有化</td><td>HiAgent 等：治理 + 支持 + SLA 一体</td><td>成本最高，换来可审计与兜底</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：数据能不能出域，出域要过哪些安全评估？走自托管的话，升级线谁跟、运维谁背？要不要 SLA 和出事有人兜底——这件事愿意付多少？还有一句法务迟早会问：许可证条款你们看过没有？</p>
+  <p><b>云替你做不了什么</b>：云市场一键部署管的是底座，深度定制照样受限；开源解决「能不能用」，商业版解决「谁来兜底」，这两件事别混着谈。托管省的是运维，省不掉锁定——最难换的是画布，因为画布格式互不相通，所以复杂逻辑要早下沉成独立服务，画布只做薄编排。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">12</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">13</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../mcp/index.html">
@@ -827,7 +916,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">13</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">14</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Agent/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-07 至 2026-07-17。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
@@ -872,7 +961,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../solution-patterns/index.html"><span class="k">上一册 · 解决方案层</span><b>Solution-Patterns</b></a>
    <a class="nx" href="../multimodal/index.html"><span class="k">下一册 · 应用模式层</span><b>Multimodal</b></a>

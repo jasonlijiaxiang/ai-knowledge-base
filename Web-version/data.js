@@ -17,7 +17,7 @@ window.KB = {
    "dir": "A2A",
    "layer": "协议层",
    "created": "2026-07-09",
-   "updated": "2026-07-23",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "a2a-what-why",
@@ -695,7 +695,7 @@ window.KB = {
    "dir": "AI-Infra-Compute",
    "layer": "算力底座层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "aic-overview",
@@ -1320,7 +1320,7 @@ window.KB = {
    "dir": "AI-Ops",
    "layer": "工程保障层",
    "created": "2026-07-10",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "ops-what-why",
@@ -1627,7 +1627,7 @@ window.KB = {
    "dir": "Agent",
    "layer": "应用模式层",
    "created": "2026-07-07",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "agent-what-why",
@@ -2377,7 +2377,7 @@ window.KB = {
    "dir": "Evaluation",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "eval-why-hard",
@@ -3967,7 +3967,7 @@ window.KB = {
    "dir": "MCP",
    "layer": "协议层",
    "created": "2026-07-08",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "mcp-what-why",
@@ -4752,7 +4752,7 @@ window.KB = {
    "dir": "Multimodal",
    "layer": "应用模式层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "mm-what-why",
@@ -5139,7 +5139,7 @@ window.KB = {
    "dir": "Prompt-Engineering",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "pe-what-why",
@@ -5772,7 +5772,7 @@ window.KB = {
    "dir": "Security",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "sec-landscape",
@@ -6155,7 +6155,7 @@ window.KB = {
    "dir": "Solution-Patterns",
    "layer": "解决方案层",
    "created": "2026-07-10",
-   "updated": "2026-08-01",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "sp-what-why",

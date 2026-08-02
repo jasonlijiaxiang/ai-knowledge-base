@@ -42,6 +42,7 @@
     <li><a href="#sp-digital-human">7 · 数字人</a></li>
     <li><a href="#sp-chatbi">8 · ChatBI 与数据分析</a></li>
     <li><a href="#sp-meeting">9 · 会议与办公助手</a></li>
+    <li><a href="#cloud">10 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -603,9 +604,37 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../multimodal/index.html#mm-understanding" title="ASR 与说话人分离能力底座；实时字幕走语音链路">理解侧能力盘点<span class="xm">Multimodal</span></a><a href="../multimodal/index.html#mm-voice-realtime" title="ASR 与说话人分离能力底座；实时字幕走语音链路">语音与实时交互<span class="xm">Multimodal</span></a><a href="../rag/index.html#rag-hybrid" title="会议记忆库 = 权限感知检索；行动项自动执行的审批边界">混合检索<span class="xm">RAG</span></a><a href="../agent/index.html#agent-eval-guardrails" title="会议记忆库 = 权限感知检索；行动项自动执行的审批边界">评估与护栏<span class="xm">Agent</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">10</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>删掉尾巴那半句，只留：「前面几章按场景拆积木。这一节换个视角：客户问「在你们云上怎么搭」，五层架构每层点一个服务名——按架构层自上而下排，不按章节排。」</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>五层架构上云：每层点一个服务名</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>入口层</td><td>各云 API 网关 / AI Gateway 托管版 · 自建 LiteLLM / Higress</td><td>统一接入、限流配额、审计、成本治理都挂在这一层</td></tr>
+      <tr><td>编排层</td><td>函数计算 / 容器服务 · 托管 agent 平台（含低代码：Coze / Dify / HiAgent 类）</td><td>业务逻辑跑在这里：Agent、工作流、低代码平台</td></tr>
+      <tr><td>模型层</td><td>MaaS（Model as a Service） 模型 API · GPU 实例自部署（vLLM 系）</td><td>模型选型、提示词、微调都在这层；五层里只有它在快速迭代，所以要做成可替换件</td></tr>
+      <tr><td>数据层</td><td>托管向量检索 · 对象存储 + 检索引擎自建</td><td>知识库、向量检索、权限——和模型层一起，是 POC 常只建的那两层</td></tr>
+      <tr><td>保障层</td><td>内容安全 API · 托管评估服务（Bedrock 评估 / Vertex 评估类）</td><td>「评估验收、护栏、内容安全——方案书必须画全的后三层之一，客户的安全团队和采购看的恰恰是这几层」</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：您这套准备落在哪家云上，模型 API 和向量检索现在用的是谁家的？编排打算自己写，还是先用低代码平台起步？入口和保障两层——网关限流、审计、内容安全——是已经有现成的，还是这次要一起建？</p>
+  <p><b>云替你做不了什么</b>：这张表回答的是「在你们云上怎么搭」，不回答「选哪个」——具体选型要翻回对应的技术模块。托管 agent 平台把编排接起来了，但 POC 砌的只是模型和数据两层样板墙：入口、保障、运营三层是上生产才补的工程大头，云省的是搭建，省不掉限流配额、审计、内容安全这些要一件件确认的事。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">11</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-10</b> 来自讲义首版对练页，<b>2026-07-11</b> 来自 ChatBI 与会议助手两章，<b>2026-07-23</b> 是按客户交锋场景补的三题（交付周期与配合人力 / 出错谁担责 / 换供应商能不能接手）。</p>
   <div class="qa">
@@ -725,7 +754,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">11</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">12</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>本页是全库的「场景索引层」：单向引用所有技术模块——每个场景章的积木清单就是深潜入口。</p>
   <div class="rel">
     <a href="../rag/index.html">
@@ -758,7 +787,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">13</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Solution-Patterns/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-10 至 08-01。<b>市场数字会漂但相对关系稳定——报价先量级后精确，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -795,7 +824,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../model-landscape/index.html"><span class="k">上一册 · 解决方案层</span><b>Model-Landscape</b></a>
    <a class="nx" href="../agent/index.html"><span class="k">下一册 · 应用模式层</span><b>Agent</b></a>

@@ -41,6 +41,7 @@
     <li><a href="#a2a-orchestration">5 · 多智能体协作</a></li>
     <li><a href="#a2a-production">6 · 生产落地与上云</a></li>
     <li><a href="#a2a-security">7 · 安全</a></li>
+    <li><a href="#cloud">8 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -350,9 +351,35 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../mcp/index.html#mcp-security" title="安全共识对照：签名/最小权限/鉴权/opaque 边界">安全<span class="xm">MCP</span></a></div>
 </section>
 
+<!-- ============ 上云 ============ -->
+<section class="sec" id="cloud">
+  <h2><span class="num">08</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+
+  <div class="lead">
+    <p>前面几章讲协议本身怎么工作，这一节看它落到云上：Agent 托管在哪家、经 A2A 怎么对外协作、以及哪几件事云不替你做。按托管形态排，只列讲义点过名的服务。</p>
+    <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
+  </div>
+
+  <h3>托管运行时：Agent 放到云上跑，再对外协作</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
+    <tbody>
+      <tr><td>Microsoft Azure</td><td>Azure AI Foundry / Copilot Studio</td><td>Agent 托管加编排，原生支持 A2A 互操作</td></tr>
+      <tr><td>AWS</td><td>AWS Bedrock AgentCore Runtime</td><td>在 AgentCore 上运行 Agent，并经 A2A 对外协作</td></tr>
+      <tr><td>Google Cloud</td><td>Google Vertex AI Agent Engine</td><td>A2A 发源方，在 Vertex 上部署与互联</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>顺着追问什么</b>：客户的 Agent 现在跑在哪——自己容器里，还是已经用了某家云的 Agent 运行时？要对外协作的那一头是自家另一个团队，还是外部厂商，跨不跨云、跨不跨组织？现在按客户分租户了吗，每个 Task 查得到状态和 trace 吗？</p>
+  <p><b>云替你做不了什么</b>：「不锁定」说的是 A2A 这一层跨边界互操作——A2A 不做「怎么编排、怎么循环」，只做「跨边界怎么对接」（见本页协议解剖一节）；框架内部那套编排本来就不在 A2A 管辖内，换平台的代价要另算，别拿 A2A 的中立性去背书。</p>
+
+  <p class="ev">本节服务清单与「给客户一句话」与讲义各章的「上云怎么落地」页同源，<b>未引入新事实</b>；「顺着追问什么」与「云替你做不了什么」两格是网页版补的售前视角。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——具体产品的地域可用性、配额、计价单位与生命周期状态会月级变动，出方案前按当期官方文档逐项复核。</p>
+</section>
+
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">08</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-12</b> 来自状态机与交付方式深潜，<b>2026-07-23</b> 是按客户交锋场景补的四题（成熟度 / 内部自研 / 责任边界 / 押错协议）。</p>
   <div class="qa">
@@ -477,7 +504,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">09</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../mcp/index.html">
@@ -507,7 +534,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">10</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/A2A/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09
     至 07-12。<b>生态数字季度级增长，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -542,7 +569,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-07-23</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../rag/index.html"><span class="k">上一册 · 应用模式层</span><b>RAG</b></a>
    <a class="nx" href="../mcp/index.html"><span class="k">下一册 · 协议层</span><b>MCP</b></a>
