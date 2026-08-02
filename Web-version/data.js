@@ -5401,7 +5401,7 @@ window.KB = {
    "dir": "RAG",
    "layer": "应用模式层",
    "created": "2026-07-07",
-   "updated": "2026-07-23",
+   "updated": "2026-08-02",
    "chapters": [
     {
      "id": "rag-what-why",
