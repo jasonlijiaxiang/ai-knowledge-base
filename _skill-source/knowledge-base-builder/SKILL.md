@@ -1,7 +1,7 @@
 ---
 name: knowledge-base-builder
 metadata:
-  version: "8.6"
+  version: "8.7"
 description: >-
   维护一个持续扩充、持续更新的个人知识库（领域可配置，默认 AI 技术）：每个主题模块固定产出①精选电子书书单（只列正规渠道链接，不下载文件）+②讲义式 PPT，并可建网页版。读者画像与口味由库根 KB-CONFIG.md 配置（默认 AI 平台"售前技术"角色）。六种情况务必使用本技能，即使用户没点名"知识库"或"技能"：(1) 新增主题模块——"再加一章 X / 建个 X 的知识库 / 帮我整理 X 的资料"；(2) 已有模块增补或更新——"更新 X 那一节 / 补充 X / X 有新版本了"，或不点名模块说"结合最新的参考材料更新对应模块"（走参考路由，扫描库内 _reference/ 判断对应模块）；(3) 保鲜巡检——用户或定时任务说"巡检 / 体检 / 保鲜 / 查查哪些过期了"；(4) 初始化或迁移——"帮我建个知识库"、目标目录没有 KB-CONFIG.md、或库为旧布局待迁移；(5) 给已有讲义配图——"配图 / 配信息图 / 加几张图 / 图太少 / 文字太多"（含"全库都配"，走配图分支）；(6) 网页版（Web 面）建设与增补——"做网页版 / 网页版样板 / 某模块网页版"（一源两面：PPT 为基底、网页为延伸增强，MANIFEST 唯一账本，portable 铁律，动手前先跑布局就位检查）。输入可以很随意——一个概念、一个名词、一段用户与大模型的对话、一份资料；本技能自动判断该新增还是更新哪个模块，模糊时先反问。凡涉及"整理学习资料 / 做电子书书单 / 做讲义 PPT / 配信息图 / 建网页版 / 把某个概念或对话沉淀进知识库 / 扩充更新这个知识库"的请求，都应触发本技能，以保证结构、风格、命名一致。
 ---
@@ -256,6 +256,14 @@ description: >-
   的总数声明），后者查书单每条资料是否都给出了可用的正规渠道链接、有无本地馆藏残留
   （v4.3 换判据：库已不下载电子书文件）；巡检时随 `audit_pptx.py`/`check_html_links.py` 一起跑，同样随库复制进
   `_maintenance/`。
+- `scripts/kb_deck_build.py` — **讲义生成器**（需 `python-pptx`，v8.7）：把结构化内容 JSON 渲染成
+  合规讲义。把设计系统的**机械部分**编码进来，人只写内容——令牌（尺寸/字体/字号档/色板/边距）、
+  明暗节奏自动归属、页脚「模块 · 章节 ID + 页码」自动写（页码即放映位，天然满足
+  `check_footer_pagenum`）、`docProps/app.xml` 自动重建（python-pptx 不维护它，会留 `Slides=0`，
+  正是 ppt-design-system §7 那条「漏改 app.xml 导致 PowerPoint 弹修复」的老账，audit 检查项 9 当场抓）。
+  **它不替人做的事**：写什么、每章几页、版式选哪种、类比好不好——那些是 ppt-rules 与
+  core-rules §六 的活。页 kind：cover/toc/chapter/goals/points/steps/table/qa/handson/summary/recap/sources。
+  生成后照跑 audit 与逐页渲染目检——生成器只管长相，管不了「文字撑破卡片」那一格。
 - `scripts/kb_draw.py` + `scripts/kb_insert.py` — 配图任务的绘图库与 zip 级插页嫁接器（依赖
   `python-pptx`）：`kb_draw` 出设计系统令牌 + 形状 helper + 成例，`kb_insert.insert_figures`
   把新页嫁接进讲义、同步 app.xml（单/多对 HeadingPairs 通吃）。用法见 `references/ppt/illustration-rules.md`。
