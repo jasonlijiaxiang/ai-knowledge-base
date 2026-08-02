@@ -42,6 +42,7 @@ WEB2MOD = {
     "evaluation": "Evaluation", "llm-training": "LLM-Training", "mcp": "MCP",
     "multimodal": "Multimodal", "prompt-engineering": "Prompt-Engineering",
     "rag": "RAG", "security": "Security", "solution-patterns": "Solution-Patterns",
+    "model-landscape": "Model-Landscape",
 }
 
 # kb_deck_build 的版式常量是按 13.333×7.5 写的，换画布要整套按比例重算
@@ -203,7 +204,10 @@ def main(argv):
     apply = "--apply" in argv
     cards = load_cards()
     total = 0
+    only = [a for a in argv[1:] if not a.startswith("--")]
     for web, mod in sorted(WEB2MOD.items()):
+        if only and web not in only:
+            continue
         groups = cards.get(web)
         if not groups:
             sys.exit("%s：卡片数据缺失，先跑生成卡片那一步" % web)
