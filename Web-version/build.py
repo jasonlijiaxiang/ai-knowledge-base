@@ -1153,41 +1153,97 @@ def render_graph(data):
 
     lay_nodes = {l: [m["id"] for m in mods if m["layer"] == l] for l in layers}
 
-    # 几何：viewBox 1000 宽，每层一条带
-    W, padTop, bandH, areaL, areaR, nw, nh = 1000, 16, 98, 172, 980, 132, 40
-    H = padTop * 2 + len(layers) * bandH
+    # 几何：viewBox 1000 宽，每层一条带（带高按该层排几行算，不再全库统一）
+    W, padTop, bandH, areaL, areaR, nh = 1000, 16, 98, 172, 980, 40
     chip = 26
-
-    def xcenter(j, n):
-        return (areaL + areaR) / 2 if n <= 1 else areaL + (j + 0.5) * (areaR - areaL) / n
-
-    pos = {}
-
-    def place():
-        for l in layers:
-            yc = padTop + layer_i[l] * bandH + bandH / 2
-            n = len(lay_nodes[l])
-            for j, mid in enumerate(lay_nodes[l]):
-                pos[mid] = (xcenter(j, n), yc)
-
-    place()
-    # 重心排序：每层内按「邻居平均 x」重排，上下交替扫，收敛到较少交叉
-    for p in range(6):
-        seq = layers if p % 2 == 0 else list(reversed(layers))
-        for l in seq:
-            n = len(lay_nodes[l])
-            lay_nodes[l] = sorted(
-                lay_nodes[l],
-                key=lambda mid: (sum(pos[k][0] for k in adj[mid]) / len(adj[mid]))
-                if adj[mid] else pos[mid][0])
-            yc = padTop + layer_i[l] * bandH + bandH / 2
-            for j, mid in enumerate(lay_nodes[l]):
-                pos[mid] = (xcenter(j, n), yc)
+    GAP, ROWGAP = 14, 12          # 胶囊横向间距 / 行间距
 
     # 节点宽度按名字长短算，不写死——否则 Solution-Patterns / Prompt-Engineering
     # 这类长名会撑出胶囊框（用户实测「框比字短」）。字面量：左内边距 7 + 字标 26 +
     # 间距 8 + 名字宽（每字符约 7.0px，加宽估避免裁字）+ 右内边距 16，最短兜底 100。
     NW = {m["id"]: max(100, int(7 + chip + 8 + len(m["dir"]) * 7.0 + 16)) for m in mods}
+
+    def pack(ids):
+        """把一层的胶囊排成若干行——**一行装不下就换行**。
+
+        原来是按个数均分槽位（`areaL + (j+0.5)*area/n`），**完全不看胶囊有多宽**。
+        层里模块少时碰巧不出事；21 册时工程保障层 7 个胶囊合计 939px，而可用宽度只有
+        808px——于是相邻胶囊互相压住、长名字被裁掉半截（用户实测「全部挤到一起」）。
+        这类缺陷没有门禁拦得住：坏链、配平、样式契约各管各的，重叠是几何。
+        """
+        area = areaR - areaL
+
+        def fits(row):
+            return sum(NW[m] for m in row) + GAP * (len(row) - 1) <= area
+
+        rows, cur = [], []                          # ① 贪心：先定出要几行
+        for mid in ids:
+            if cur and not fits(cur + [mid]):
+                rows.append(cur)
+                cur = []
+            cur.append(mid)
+        if cur:
+            rows.append(cur)
+        if len(rows) < 2:
+            return rows
+
+        # ② 按**个数**重新均分（7 个排两行 → 4+3，而不是贪心的 5+2 头重脚轻）；
+        #    均分后有任一行装不下就退回贪心——好看让位于不压字。
+        k, n = len(rows), len(ids)
+        even, i = [], 0
+        for r in range(k):
+            take = n // k + (1 if r < n % k else 0)
+            even.append(ids[i:i + take])
+            i += take
+        return even if all(fits(r) for r in even) else rows
+
+    pos = {}
+
+    def layout():
+        """按各层当前顺序摆位，返回 ({层: (带顶, 带高)}, 总高)。
+
+        单行层的带高与旧版一致（98），多行层才长高——**只有挤不下的那一层变形**。
+        """
+        geo, y = {}, padTop
+        for l in layers:
+            rows = pack(lay_nodes[l])
+            content = len(rows) * nh + (len(rows) - 1) * ROWGAP
+            bh = max(bandH, content + 44)
+            top = y + bh / 2 - content / 2 + nh / 2
+            for r, row in enumerate(rows):
+                ry = top + r * (nh + ROWGAP)
+                n = len(row)
+                # 先按旧口径（个数均分槽位）算一遍——**装得下就照旧**，
+                # 不为了修一行去改全库七层的观感。均分会压字时才换成两端对齐等间距，
+                # 换行已保证这一行装得下，摊出来的间距必 ≥ GAP。
+                even = [areaL + (j + 0.5) * (areaR - areaL) / n for j in range(n)]
+                fits = n == 1 or all(
+                    even[j + 1] - even[j] >= (NW[row[j]] + NW[row[j + 1]]) / 2 + GAP
+                    for j in range(n - 1))
+                if fits and n > 1:
+                    for j, mid in enumerate(row):
+                        pos[mid] = (even[j], ry)
+                    continue
+                gap = ((areaR - areaL) - sum(NW[m] for m in row)) / (n - 1) if n > 1 else 0
+                x = areaL if n > 1 else (areaL + areaR) / 2 - NW[row[0]] / 2
+                for mid in row:
+                    pos[mid] = (x + NW[mid] / 2, ry)
+                    x += NW[mid] + gap
+            geo[l] = (y, bh)
+            y += bh
+        return geo, y + padTop
+
+    layout()
+    # 重心排序：每层内按「邻居平均 x」重排，上下交替扫，收敛到较少交叉
+    for p in range(6):
+        seq = layers if p % 2 == 0 else list(reversed(layers))
+        for l in seq:
+            lay_nodes[l] = sorted(
+                lay_nodes[l],
+                key=lambda mid: (sum(pos[k][0] for k in adj[mid]) / len(adj[mid]))
+                if adj[mid] else pos[mid][0])
+            layout()
+    band_geo, H = layout()
 
     # 出口点分散：一个节点的每条边从它「上沿 / 下沿」的不同 x 出发，避免多条边挤成一束
     # （悬停枢纽节点时最明显——12 条边若共用一个出口点会糊成乱线）。
@@ -1239,11 +1295,11 @@ def render_graph(data):
     o.append('   <g class="kbands">')
     for l in layers:                                # ① 层带背景 + 层标签
         i = layer_i[l]
-        yc = padTop + i * bandH + bandH / 2
-        bandY = padTop + i * bandH + 4
+        btop, bh = band_geo[l]
+        yc = btop + bh / 2
         o.append('    <g class="hue-%d">' % i)
-        o.append('     <rect class="kband" x="8" y="%.1f" width="%d" height="%d" rx="12"/>'
-                 % (bandY, W - 16, bandH - 8))
+        o.append('     <rect class="kband" x="8" y="%.1f" width="%d" height="%.1f" rx="12"/>'
+                 % (btop + 4, W - 16, bh - 8))
         o.append('     <circle cx="26" cy="%.1f" r="5" fill="var(--hue)"/>' % yc)
         o.append('     <text class="klabel" x="38" y="%.1f" font-size="12.5">%s</text>'
                  % (yc + 4, esc(l)))
@@ -1259,10 +1315,9 @@ def render_graph(data):
     o.append('   <g class="knodes">')
     for l in layers:
         i = layer_i[l]
-        yc = padTop + i * bandH + bandH / 2
         for mid in lay_nodes[l]:
             m = by_id[mid]
-            xc, _ = pos[mid]
+            xc, yc = pos[mid]
             w = NW[mid]
             deg = len(adj[mid])
             adjids = ",".join(sorted(adj[mid]))
