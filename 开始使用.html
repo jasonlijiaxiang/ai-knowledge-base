@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="./README.html">AI 知识库</a><a class="ti" href="./Web-version/index.html">网页版</a>
  <a class="ti" href="./PPT-version/README.html">PPT 总览</a><a class="ti" href="./_prep/实战包.html">实战包</a><a class="ti" href="./_prep/学习路径.html">学习路径</a><a class="ti" href="./_prep/全库一页纸.html">全库一页纸</a><a class="ti cur" href="./开始使用.html">开始使用</a>
- <span class="ver">v0723n</span>
+ <span class="ver">v2026.08.03</span>
 </div></nav>
 
 <header class="top">
@@ -65,15 +65,11 @@
     </div>
     <div class="box">
       <h4>③ 验一遍</h4>
-      <p>在库根跑一次全套检查（下面那条命令）。八项全绿，说明这份拷贝是完整的：页数账、书单账、链接、样式契约、生成物、问答指针都对得上。</p>
+      <p>在库根跑一次全套检查（下面那条命令）。十九道全绿，说明这份拷贝是完整的：页数账、书单账、链接、样式契约、生成物、问答指针、事实保鲜都对得上。</p>
     </div>
   </div>
   <pre class="codeblock"><code>cd &lt;库目录&gt;
-for g in check_kb_layout check_html_links check_page_ledger check_ebook_ledger \
-         check_css_classes check_prep_coverage; do
-  python3 _maintenance/$g.py &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo "OK  $g" || echo "FAIL $g"
-done
-python3 Web-version/build.py --check</code></pre>
+bash _maintenance/run_all_gates.sh</code></pre>
   <p class="ev"><b>需要什么：</b>只要 Python 3.7 以上，用系统自带的就行——检查脚本、网页生成器、打包工具<b>全部只用标准库</b>，不联网、不装包。<b>唯一的例外</b>是改讲义 PPTX 的那批工具（配图、插页、缩放）需要 <code>python-pptx</code>；只读、只看网页、只跑检查都用不上它。</p>
 
   <h2>拿到分享的人：把它变成你自己的知识库</h2>

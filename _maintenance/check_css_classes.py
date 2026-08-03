@@ -8,10 +8,12 @@
 
   轴一 · 孤儿类：kb.css 里定义了、但全部页面/生成器/JS 都没用到的类。
         每个孤儿都是一次类名契约漂移的现场（要么页面丢了类，要么 CSS 该删）。
-  轴二 · 版本戳：每页的 kb.css?v= 缓存戳、site.js / data.js 的同名戳，与页面上可见的
-        构建标记（.ver）必须全站一个值——改了 CSS 或 JS 忘了齐戳，用户端就会出现
-        "改了但看不见"。脚本戳是 2026-07-22 补的：此前只有 CSS 带戳，改完 site.js
-        浏览器照吃旧缓存，同一个坑只堵了一半（当天调本页查找时实测踩到）。
+  轴二 · 缓存戳：每页的 kb.css?v= 与 site.js / data.js 的同名戳必须全站一个值——
+        改了 CSS 或 JS 忘了齐戳，用户端就会出现"改了但看不见"。脚本戳是 2026-07-22
+        补的：此前只有 CSS 带戳，改完 site.js 浏览器照吃旧缓存，同一个坑只堵了一半。
+        **2026-08-03 起本轴不再管可见标记 `.ver`**：那一格改成显示整库 Release 号，
+        由 `stamp_kb_version.py --check` 单独看。缓存击穿靠的是 URL 查询参数，
+        跟印给读者看的那个号是两件事，绑在一起只是历史巧合。
 
 用法: python3 _maintenance/check_css_classes.py
 退出码: 0 = 通过, 1 = 有失联类或版本戳不齐。
@@ -94,9 +96,7 @@ def check_stamps():
     for f in pages():
         t = io.open(f, encoding="utf-8").read()
         css_v = re.findall(r"kb\.css\?v=(\w+)", t)
-        ver = re.findall(r'class="ver">v?(\w+)<', t)
-        stamps[os.path.relpath(f, ROOT)] = (css_v[0] if css_v else "无",
-                                            ver[0] if ver else "无")
+        stamps[os.path.relpath(f, ROOT)] = (css_v[0] if css_v else "无",)
         # 脚本引用要么不引，要引就必须带戳且与 CSS 同值
         for src in re.findall(r'<script src="([^"]+\.js)(?:\?v=(\w+))?"', t):
             path, sv = src
@@ -105,14 +105,10 @@ def check_stamps():
                                   % (os.path.relpath(f, ROOT), path,
                                      sv or "（没有）", css_v[0] if css_v else "无"))
     css_set = {v[0] for v in stamps.values()}
-    ver_set = {v[1] for v in stamps.values()}
-    ok = len(css_set) == 1 and len(ver_set) == 1 and "无" not in css_set | ver_set
-    # 缓存戳（20260721f）尾号与构建标记（0721f）尾号必须同一个字母
-    if ok and next(iter(css_set))[-1] != next(iter(ver_set))[-1]:
-        ok = False
+    ok = len(css_set) == 1 and "无" not in css_set
     if not ok:
-        for f, (c, v) in sorted(stamps.items()):
-            print("  [戳] %s: kb.css?v=%s / 标记 v%s" % (f, c, v))
+        for f, (c,) in sorted(stamps.items()):
+            print("  [戳] %s: kb.css?v=%s" % (f, c))
     for b in script_bad:
         print("  [脚本戳] " + b)
     return ok and not script_bad

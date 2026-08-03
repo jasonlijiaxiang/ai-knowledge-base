@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""技能版本号与已发布标签的对账（报告型，零第三方依赖）。
+"""版本号与已发布标签的对账（报告型，零第三方依赖）：技能 + 整库两条线。
 
 **为什么要有它**（2026-08-03 工程审视时补）：发布线本身设计得挺严——推 `skill-vX.Y`
 标签即从源现场打包、版本号对账、结构与内容双自检、从 CHANGELOG 取发布说明。
@@ -33,21 +33,33 @@ def skill_version():
     return None, None
 
 
-def latest_tag():
+def kb_version():
+    p = os.path.join(ROOT, "KB-CONFIG.md")
+    if not os.path.exists(p):
+        return None
+    m = re.search(r"^\|\s*库版本\s*\|(.*?)\|\s*$", open(p, encoding="utf-8").read(), re.M)
+    if not m:
+        return None
+    v = re.search(r"\d{4}\.\d{2}\.\d{2}", m.group(1))
+    return v.group(0) if v else None
+
+
+def latest_tag(prefix="skill-v"):
     try:
-        r = subprocess.run(["git", "tag", "-l", "skill-v*"], cwd=ROOT,
+        r = subprocess.run(["git", "tag", "-l", prefix + "*"], cwd=ROOT,
                            capture_output=True, text=True)
     except OSError:
         return None
     if r.returncode != 0:
         return None
-    tags = [t.strip()[len("skill-v"):] for t in r.stdout.split("\n") if t.strip()]
+    tags = [t.strip()[len(prefix):] for t in r.stdout.split("\n") if t.strip()]
     if not tags:
         return None
-    return sorted(tags, key=lambda v: [int(x) for x in v.split(".") if x.isdigit()])[-1]
+    return sorted(tags, key=lambda v: [int(x) for x in re.findall(r"\d+", v)])[-1]
 
 
 def main():
+    check_kb()
     name, ver = skill_version()
     if not ver:
         print("读不到技能版本号，跳过。")
@@ -63,6 +75,22 @@ def main():
     print("  README 对外承诺「历次版本去 Releases 找」，包过期等于对外说的话不算数。")
     print("  补发：git tag skill-v%s && git push origin skill-v%s" % (ver, ver))
     return 0
+
+
+def check_kb():
+    v = kb_version()
+    if not v:
+        print("KB-CONFIG 读不到「库版本」，跳过整库这条线。")
+        return
+    tag = latest_tag("kb-v")
+    if tag is None:
+        print("还没打过 kb-v* 标签，跳过。")
+        return
+    if tag == v:
+        print("整库 KB-CONFIG 库版本 %s 与最新标签 kb-v%s 一致。" % (v, tag))
+        return
+    print("KB-CONFIG 库版本是 %s，最新标签却是 kb-v%s——页面右上角印的号还没发布过。" % (v, tag))
+    print("  补发：git tag kb-v%s && git push origin kb-v%s" % (v, v))
 
 
 if __name__ == "__main__":

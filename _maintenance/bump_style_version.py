@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""样式版本戳升档：把全站的 `kb.css?v=YYYYMMDDx` 与可见构建标记 `.ver` 一起推进一档。
+"""样式版本戳升档：把全站的 `kb.css?v=YYYYMMDDx` 与同名的 js 戳推进一档。
 
 为什么要有它：改了 `_assets/kb.css` 不齐戳，用户端就会「改了但看不见」（浏览器吃缓存）。
 `check_css_classes.py` 只**校验**两者全站一致，不提供升档操作——于是每轮换肤都手写一遍
 同样的批量替换，e→f→g 三轮各写一次。同一工序重复第三次就该固化（core-rules §五）。
 
-两个戳必须尾号同字母：缓存戳 `20260721g` ←→ 构建标记 `v0721g`（门禁按此校验）。
+**2026-08-03 起不再动可见标记 `.ver`**：那一格改成显示整库 Release 号了
+（见 `stamp_kb_version.py`）。缓存击穿靠的是 URL 上的查询参数，可见标记从来只是它的
+镜子——镜子挪走不影响功能，而把「样式改到第几轮」印给读者看本来就没意义。
 
 用法:
     python3 bump_style_version.py            # 预演：只打印将要改什么，不落盘
@@ -36,17 +38,15 @@ def pages():
 
 
 def current():
-    """读出全站现行的 (缓存戳, 构建标记)，不一致就报错——升档前现状必须是齐的。"""
-    css, ver = set(), set()
+    """读出全站现行的缓存戳，不一致就报错——升档前现状必须是齐的。"""
+    css = set()
     for f in pages():
-        t = io.open(f, encoding="utf-8").read()
-        css.update(re.findall(r"kb\.css\?v=(\w+)", t))
-        ver.update(re.findall(r'class="ver">v?(\w+)<', t))
-    if len(css) != 1 or len(ver) != 1:
+        css.update(re.findall(r"kb\.css\?v=(\w+)", io.open(f, encoding="utf-8").read()))
+    if len(css) != 1:
         print("现状就不一致，先跑 check_css_classes.py 修齐再升档：")
-        print("  缓存戳:", sorted(css) or "无", " 构建标记:", sorted(ver) or "无")
-        return None, None
-    return css.pop(), ver.pop()
+        print("  缓存戳:", sorted(css) or "无")
+        return None
+    return css.pop()
 
 
 def next_stamp(css_v, date=None):
@@ -75,14 +75,14 @@ def main():
             print("--date 要跟 YYYYMMDD")
             return 1
 
-    css_v, ver_v = current()
+    css_v = current()
     if not css_v:
         return 1
-    new_css, new_ver = next_stamp(css_v, date)
+    new_css, _ = next_stamp(css_v, date)
     if not new_css:
         return 1
 
-    print("升档：kb.css?v=%s → %s ；构建标记 v%s → v%s" % (css_v, new_css, ver_v, new_ver))
+    print("升档：kb.css?v=%s → %s（js 同戳）" % (css_v, new_css))
     changed = 0
     for f in pages():
         t = io.open(f, encoding="utf-8").read()
@@ -91,8 +91,6 @@ def main():
         # 改完 JS 浏览器照吃旧缓存——同一个「改了但看不见」的坑，之前只堵了一半。
         n = n.replace("site.js?v=" + css_v, "site.js?v=" + new_css)
         n = n.replace("data.js?v=" + css_v, "data.js?v=" + new_css)
-        n = n.replace('class="ver">v' + ver_v + "<", 'class="ver">v' + new_ver + "<")
-        n = n.replace('class="ver">' + ver_v + "<", 'class="ver">' + new_ver + "<")
         if n != t:
             changed += 1
             if apply:

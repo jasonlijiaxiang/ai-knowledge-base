@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   gates:
-    name: 十八道门禁
+    name: 十九道门禁
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -70,6 +70,12 @@ jobs:
       # ---- 生成物无漂移 ----
       - name: 网页产物与 MANIFEST 一致
         run: python3 Web-version/build.py --check
+
+      # 页面右上角那个号是整库 Release 号，真源是 KB-CONFIG 的「库版本」。
+      # 它跟 kb.css?v= 那套缓存戳是两件事——2026-08-03 之前绑在一起，
+      # 于是印给读者看的是「样式改到第几轮」，读者根本不关心那个。
+      - name: 整库版本戳与 KB-CONFIG 一致
+        run: python3 _maintenance/stamp_kb_version.py --check
 
       # 生成器立的规矩是「产物从源现场生成」，但它自己没有绑定：2026-08-02 生成的两册，
       # 整册内容 JSON 既没进版本库也没留在磁盘上——全库唯一能兑现「改令牌就重渲染」

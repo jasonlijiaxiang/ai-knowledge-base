@@ -28,6 +28,26 @@ jobs:
         with:
           python-version: "3.11"
 
+      # 标签里的版本号必须与 KB-CONFIG 的「库版本」一致——那一格同时印在每个页面的
+      # 右上角。对不上就等于站点显示的号与发出去的包对不上（口径同 release-skill.yml）。
+      - name: 版本号对账（标签 vs KB-CONFIG 库版本）
+        run: |
+          TAG="${GITHUB_REF_NAME#kb-v}"
+          SRC=$(python3 - <<'PY'
+          import re
+          t = open("KB-CONFIG.md", encoding="utf-8").read()
+          m = re.search(r"^\|\s*库版本\s*\|(.*?)\|\s*$", t, re.M)
+          v = re.search(r"\d{4}\.\d{2}\.\d{2}", m.group(1)) if m else None
+          print(v.group(0) if v else "")
+          PY
+          )
+          echo "标签版本 = $TAG ； KB-CONFIG 库版本 = $SRC"
+          if [ -z "$SRC" ]; then echo "::error::KB-CONFIG.md 读不出「库版本」"; exit 1; fi
+          if [ "$TAG" != "$SRC" ]; then
+            echo "::error::标签 $GITHUB_REF_NAME 与 KB-CONFIG 的 $SRC 对不上——改一头再推标签"
+            exit 1
+          fi
+
       # make_share.py 只把 zip 写进给它的目录，不负责建目录（本地跑时缺省写库根，
       # 目录天然存在，所以这个边角在本机试不出来——首跑就是被它挡住的）。
       - name: 打分享包（含解压自检）

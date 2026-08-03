@@ -1,7 +1,7 @@
 ---
 name: knowledge-base-builder
 metadata:
-  version: "9.0"
+  version: "9.1"
 description: >-
   维护一个持续扩充、持续更新的个人知识库（领域可配置，默认 AI 技术）：每个主题模块固定产出①精选电子书书单（只列正规渠道链接，不下载文件）+②讲义式 PPT，并可建网页版。读者画像与口味由库根 KB-CONFIG.md 配置（默认 AI 平台"售前技术"角色）。六种情况务必使用本技能，即使用户没点名"知识库"或"技能"：(1) 新增主题模块——"再加一章 X / 建个 X 的知识库 / 帮我整理 X 的资料"；(2) 已有模块增补或更新——"更新 X 那一节 / 补充 X / X 有新版本了"，或不点名模块说"结合最新的参考材料更新对应模块"（走参考路由，扫描库内 _reference/ 判断对应模块）；(3) 保鲜巡检——用户或定时任务说"巡检 / 体检 / 保鲜 / 查查哪些过期了"；(4) 初始化或迁移——"帮我建个知识库"、目标目录没有 KB-CONFIG.md、或库为旧布局待迁移；(5) 给已有讲义配图——"配图 / 配信息图 / 加几张图 / 图太少 / 文字太多"（含"全库都配"，走配图分支）；(6) 网页版（Web 面）建设与增补——"做网页版 / 网页版样板 / 某模块网页版"（一源两面：PPT 为基底、网页为延伸增强，MANIFEST 唯一账本，portable 铁律，动手前先跑布局就位检查）。输入可以很随意——一个概念、一个名词、一段用户与大模型的对话、一份资料；本技能自动判断该新增还是更新哪个模块，模糊时先反问。凡涉及"整理学习资料 / 做电子书书单 / 做讲义 PPT / 配信息图 / 建网页版 / 把某个概念或对话沉淀进知识库 / 扩充更新这个知识库"的请求，都应触发本技能，以保证结构、风格、命名一致。
 ---
@@ -265,7 +265,8 @@ docstring，两处同源）。这里只留「什么时候伸手拿哪个」：
 | 配图 | `kb_draw.py` 画 → `kb_insert.py` 嫁接（先读目标册 `sldSz`） |
 | 查哪些事实过期了 | `check_freshness.py`（**别手工比日期**）+ `gen_source_list.py` 按信源批处理 |
 | 页数账／页脚页码对不上 | `fix_page_ledger.py` / `fix_footer_pagenum.py` |
-| 改了 `_assets/kb.css` | `bump_style_version.py --apply` |
+| 改了 `_assets/kb.css` | `bump_style_version.py --apply`（只动缓存戳） |
+| 发整库版本 | 改 KB-CONFIG「库版本」→ `stamp_kb_version.py --apply` → 推 `kb-v*` 标签 |
 | PowerPoint 弹「需要修复」 | `fix_schema_order.py` / `fix_theme_sharing.py` |
 | 打包分享整个库 | `make_share.py`（自带解压自检） |
 | 重打技能包之后 | `check_skill_package.py` + `check_skill_sync.py` + **真装一次** |
