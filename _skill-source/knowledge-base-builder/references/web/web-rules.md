@@ -11,7 +11,7 @@
 
 PPT 是基底，网页是它的延伸和加强（尤其交互）；两面**同一受众**（读者画像以 KB-CONFIG 为准）。
 站点根 = KB-CONFIG「Web 面根目录」（默认 `Web-version/`），模块内容真源在「PPT 面根目录」
-（默认 `PPT-version/`）——目录布局定版见 `library-rules.md`；**动手前先跑
+（默认 `PPT-version/`）——目录布局定版见 `library-layout.md`；**动手前先跑
 `scripts/check_kb_layout.py` 确认布局就位**（退出码 2 = 旧布局，先走 init-rules
 「v4.0 布局迁移」再回来）。
 
@@ -237,7 +237,7 @@ MANIFEST「最后更新」同时记两面落地情况；哪面欠着就显式登
 - **问答区新增一道题时**，条目旁给 `<span class="added">新增 YYYY-MM-DD</span>`；
   存量用问答区顶部一行基线声明覆盖，不逐条补。
 
-理由、写法与"为什么这不算派生账"见 `shared/library-rules.md`「新增标注」（唯一出处）。
+理由、写法与"为什么这不算派生账"见 `shared/library-layout.md`「新增标注」（唯一出处）。
 
 ## 七、问答与证据纪律
 

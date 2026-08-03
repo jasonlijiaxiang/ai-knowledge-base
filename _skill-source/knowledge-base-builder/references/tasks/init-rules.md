@@ -132,8 +132,8 @@
 ## v4.1 索引拆分（根总纲 / 面总览）
 
 把库根 `README.html` 拆成**面中立的根总纲** + **PPT 面总览**（判据与两页各装什么见
-`shared/library-rules.md`「索引两层」）。适用两种场合：从 v3 一路迁上来的库，在上面第 6 步
-门禁之前做；已经在 v4.0 的库，单独按本节升级即可。改索引前先按 `library-rules` 落档旧
+`shared/library-layout.md`「索引两层」）。适用两种场合：从 v3 一路迁上来的库，在上面第 6 步
+门禁之前做；已经在 v4.0 的库，单独按本节升级即可。改索引前先按 `library-layout` 落档旧
 `README.html`（`_maintenance/history/<日期>-README.html`）。步骤：
 
 1. **拆内容**：原 `README.html` 里，`<h2>模块列表</h2>` 表格 + 预留扩充位 + 本面目录约定

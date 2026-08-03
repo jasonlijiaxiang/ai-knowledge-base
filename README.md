@@ -83,7 +83,7 @@ git clone https://github.com/jasonlijiaxiang/ai-knowledge-base.git
 | 目录 | 作用 |
 | --- | --- |
 | `PPT-version/` | **内容出处**，21 个模块整体在此（讲义 pptx + README + MANIFEST + 电子书书单 + raw-data 留痕） |
-| `Web-version/` | 网页派生站点，由 `build.py` 从各模块 MANIFEST 生成，19/19 已建成 |
+| `Web-version/` | 网页派生站点，由 `build.py` 从各模块 MANIFEST 生成，21/21 已建成 |
 | `_prep/` | 库级取用产物（全库一页纸、学习路径、实战包） |
 | `_reference/` | 库级参考材料（吸收清单与外部对照材料） |
 | `_maintenance/` | 门禁脚本、巡检报告、设计文档 |

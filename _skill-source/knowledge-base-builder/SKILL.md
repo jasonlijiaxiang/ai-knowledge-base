@@ -1,7 +1,7 @@
 ---
 name: knowledge-base-builder
 metadata:
-  version: "8.9"
+  version: "9.0"
 description: >-
   维护一个持续扩充、持续更新的个人知识库（领域可配置，默认 AI 技术）：每个主题模块固定产出①精选电子书书单（只列正规渠道链接，不下载文件）+②讲义式 PPT，并可建网页版。读者画像与口味由库根 KB-CONFIG.md 配置（默认 AI 平台"售前技术"角色）。六种情况务必使用本技能，即使用户没点名"知识库"或"技能"：(1) 新增主题模块——"再加一章 X / 建个 X 的知识库 / 帮我整理 X 的资料"；(2) 已有模块增补或更新——"更新 X 那一节 / 补充 X / X 有新版本了"，或不点名模块说"结合最新的参考材料更新对应模块"（走参考路由，扫描库内 _reference/ 判断对应模块）；(3) 保鲜巡检——用户或定时任务说"巡检 / 体检 / 保鲜 / 查查哪些过期了"；(4) 初始化或迁移——"帮我建个知识库"、目标目录没有 KB-CONFIG.md、或库为旧布局待迁移；(5) 给已有讲义配图——"配图 / 配信息图 / 加几张图 / 图太少 / 文字太多"（含"全库都配"，走配图分支）；(6) 网页版（Web 面）建设与增补——"做网页版 / 网页版样板 / 某模块网页版"（一源两面：PPT 为基底、网页为延伸增强，MANIFEST 唯一账本，portable 铁律，动手前先跑布局就位检查）。输入可以很随意——一个概念、一个名词、一段用户与大模型的对话、一份资料；本技能自动判断该新增还是更新哪个模块，模糊时先反问。凡涉及"整理学习资料 / 做电子书书单 / 做讲义 PPT / 配信息图 / 建网页版 / 把某个概念或对话沉淀进知识库 / 扩充更新这个知识库"的请求，都应触发本技能，以保证结构、风格、命名一致。
 ---
@@ -96,11 +96,12 @@ description: >-
         记一行（参考项、对应模块、吸收日期、借鉴要点）——下次"结合最新"不重复吃同一份材料。
 
    路由确定后，**先把本次原始输入存档**到目标模块的 `raw-data/` 文件夹（按日期存成 .md，见
-   `references/shared/library-rules.md`）——这是知识库的原始素材留痕，先存再动其它。
+   `references/shared/library-layout.md`）——这是知识库的原始素材留痕，先存再动其它。
    **输入指向库内已有参考资料时不复制大文件**：若输入是根目录 `_reference/` 下的对照成品
    （如另一工具产出的同主题知识库），raw-data 只存一份「路径引用 + 本次借鉴了哪些要点」的
    笔记；参考库本身保持原位，避免逐模块更新把同一批大文件复制 N 次。
-   模块模板、`raw-data/` 规范与索引规则都在 `references/shared/library-rules.md`。
+   模块模板与 `raw-data/` 规范在 `references/shared/library-layout.md`（索引规则在
+   `library-ledgers.md`）。
    走 B 类时，**严格沿用该模块现有的结构、风格、命名**，只动本次输入涉及的部分。
    无论 A 还是 B，**顺手跑一次 `_maintenance/check_freshness.py`**（秒级、离线）：它按每条
    事实自己的节奏（30/90/180 天）算有效复查日，超期即报。有命中就提一句"X 模块该复查了，
@@ -124,7 +125,7 @@ description: >-
    （这是主力成品）。**改写任何已有成品之前必须先存历史版本**：把旧版原样复制到该模块
    `raw-data/history/`（命名 `YYYY-MM-DD-<原文件名>`；**同日多次改写必须先查重名、顺延 b/c
    后缀，禁止用 cp 等会静默覆盖的方式写入**——2026-07-12、2026-07-20 两次丢档均由此而来，
-   用 `scripts/kb_archive.py` 落档可免手误；完整规范见 `references/shared/library-rules.md`）。
+   用 `scripts/kb_archive.py` 落档可免手误；完整规范见 `references/shared/library-layout.md`）。
    技能升级重刷旧内容、往已有章节增补导致 PPT 变化，都算"改写"——成品和输入一样要留痕，
    可回滚、可对照。**B 类增补后必须执行"一致性回刷清单"**（见 `references/ppt/ppt-rules.md`），
    封面、导览、编号、总收束、页脚不能停在旧状态。
@@ -155,14 +156,14 @@ description: >-
    - **「本次无需升级技能」**——规则全程顺畅，说一句即可；
    - **「建议升级：<哪份文件><哪条规则>怎么改、为什么」**——用户确认后**当场执行**：先判
      **写入层**——横切两面/多任务的进 `shared/`（原则进 core-rules、文字纪律进 writing-rules、
-     库结构与账本进 library-rules），单面特有进 `ppt/`／`web/`，单任务特有进 `tasks/`；
+     库结构与留痕进 library-layout、账本与对外面进 library-ledgers），单面特有进 `ppt/`／`web/`，单任务特有进 `tasks/`；
      **禁止把共享规则写进面/任务文件**，发现写错层就搬家并留指针。然后修改对应规则文件，
      更新 SKILL.md 的版本号（新增任务类型时同步加一行加载矩阵；frontmatter description 必须 ≤1024 字符——claude.ai 上传硬门槛，超限直接拒收），**版本历史全部写进
      `references/CHANGELOG.md`，本文件一行都不加**（v4.9 定版）：先在它的「速查表」顶部加一行
      （版本号＋日期＋一句话主旨），再在「完整记录」顶部写完整条目（动机、事故、教训、回归验证）。
      本文件只留一段指针——**版本史是"按需读"的东西，放正文等于每次任务都白载入一遍**
      （v3.5 起用"每版一行"控制篇幅，两度衰退回长条目；到 28 个版本时该节已占 SKILL.md 的 18%，
-     v4.9 整体外置）——再重新打包分发用的 .skill 归档（若库内或别处维护了副本，一并同步）——**打包结构与验收见 `shared/library-rules.md`「技能包打包与验收」，打完跑 `scripts/check_skill_package.py`，并请用户真装一次**。
+     v4.9 整体外置）——再重新打包分发用的 .skill 归档（若库内或别处维护了副本，一并同步）——**打包结构与验收见 `shared/library-ledgers.md`「技能包打包与验收」，打完跑 `scripts/check_skill_package.py`，并请用户真装一次**。
    升级粒度：措辞澄清、阈值微调等小改并入当前版本号的修订记录；新增门禁、流程变化等行为级
    改动升次版本号。这一步是技能的自我进化机制——知识库越用，技能越准。
 
@@ -173,20 +174,23 @@ description: >-
 动手产出前把该任务的必读文件**加载齐，没读齐就动笔 = 流程违规**（历史教训：主流程只给一半
 信息、执行者以为拿全了，同一原因落档丢档两次——见 CHANGELOG v3.16㊁）；矩阵之外的文件按需再读。
 
-| 任务类型 | 动手产出前必读 |
-| --- | --- |
-| A 类新增 / B 类增补（PPT 面） | `shared/` 三件；第 3 步起加 `ppt/ppt-rules`；第 4、5 步加 `ppt/ppt-design-system` |
-| 配图分支 | `shared/core-rules` + `ppt/illustration-rules` + `ppt/ppt-design-system` |
-| Web 面任务 | `shared/` 三件 + `web/web-rules`；生成与验收加 `web/web-design-system`（**设计方法已并入其 §三·五，不必再外挂 frontend-design 之类的技能**） |
-| C 类巡检 | `tasks/patrol-rules`（+ 库内门禁脚本） |
-| D 类库级产物 | `shared/core-rules` + `shared/writing-rules` + `tasks/prep-rules` |
-| 电子书 / 书单 | `shared/writing-rules` + `tasks/ebook-rules` |
-| 初始化 / 布局迁移 | `tasks/init-rules` + `shared/library-rules` |
-| 文案打磨类 | `shared/writing-rules`（+ 目标面 design-system 的字号底线） |
-| **收尾验收 / 全面 review / 第 6 步自省** | `shared/failure-matrix`——门禁跑完、报「完成」之前扫一遍与本次改动沾边的行 |
+| 任务类型 | 动手产出前必读 | 收尾（第 5 步起）再加 |
+| --- | --- | --- |
+| A 类新增 / B 类增补（PPT 面） | `shared/` 三件；第 3 步起加 `ppt/ppt-rules`；第 4 步加 `ppt/ppt-design-system` | `shared/library-ledgers` + `shared/failure-matrix` |
+| 配图分支 | `shared/core-rules` + `ppt/illustration-rules` + `ppt/ppt-design-system` | `shared/failure-matrix` |
+| Web 面任务 | `shared/` 三件 + `web/web-rules`；生成与验收加 `web/web-design-system`（**设计方法已并入其 §三·五，不必再外挂 frontend-design 之类的技能**） | `shared/library-ledgers` + `shared/failure-matrix` |
+| C 类巡检 | `tasks/patrol-rules`（+ 库内门禁脚本） | — |
+| D 类库级产物 | `shared/core-rules` + `shared/writing-rules` + `tasks/prep-rules` | `shared/library-ledgers` + `shared/failure-matrix` |
+| 电子书 / 书单 | `shared/writing-rules` + `tasks/ebook-rules` | — |
+| 初始化 / 布局迁移 | `tasks/init-rules` + `shared/library-layout` | `shared/library-ledgers` |
+| 文案打磨类 | `shared/writing-rules`（+ 目标面 design-system 的字号底线） | — |
+| 全面 review / 第 6 步自省 | `shared/failure-matrix`——门禁跑完、报「完成」之前扫一遍与本次改动沾边的行 | — |
+| 要用某个工具时 | `references/tools.md` 里它那一段（**按需翻，不要通读**） | — |
 
-（**「`shared/` 三件」= `core-rules` + `writing-rules` + `library-rules`**，动手产出前读；
-`failure-matrix` 是第四件，收尾时才读——它是验收清单，不是写作规则。）
+（**「`shared/` 三件」= `core-rules` + `writing-rules` + `library-layout`**，动手产出前读。
+收尾时才读的是另两件：`library-ledgers`（派生账、知识地图、打包交接）与 `failure-matrix`
+（验收清单）——**它们不是写作规则，动手前载入就是白载**。v9.0 把原 `library-rules` 按
+这条界线拆成了 layout / ledgers 两份。）
 
 各文件装什么、何时读的细节：
 
@@ -203,9 +207,12 @@ description: >-
 - `shared/writing-rules.md` — **对外文字通用纪律**：反 AI 腔写作纪律（判定口径/收尾自查/征兆
   密度体检/兼文案打磨类任务标准）、术语中英对照与缩写展开英文全称（含边界判定）、语序铁律
   （动笔写任何对外文字前读——第 3、4 步、Web 面、D 类、打磨类）。
-- `shared/library-rules.md` — 库结构与账本：v4.0 目录布局定版、模块统一模板、MANIFEST 模块
-  清单与稳定章节 ID、**派生账登记表**、知识地图、raw-data 与成品历史版本留痕规范、顶层索引
-  规则、命名约定（流程第 1、4、5 步）。
+- `shared/library-layout.md` — **库结构（动手前读，第 1、4 步）**：v4.0 目录布局定版、
+  模块统一模板、MANIFEST 模块清单与稳定章节 ID、raw-data 与成品历史版本留痕规范、
+  问答题新增标注、命名约定。
+- `shared/library-ledgers.md` — **库账本与对外面（收尾读，第 5 步）**：**派生账登记表**、
+  知识地图、顶层索引规则与「为什么 README 用 HTML」（含全库 HTML 视觉令牌）、
+  分享与交接、技能包打包与验收。
 
 **PPT 面 `references/ppt/`**
 
@@ -242,71 +249,29 @@ description: >-
   层设计原则、**v4.0 布局迁移**（第 0 步读不到配置、或布局检查报待迁移时读）。
 
 - `references/CHANGELOG.md` — 完整版本历史（版本追溯/决定重刷范围时读，日常任务不加载）。
-- `scripts/audit_pptx.py` — 工具中立的讲义契约自检脚本（零依赖，直接 `python3` 跑，批量容错）；
-  初始化或迁移一个库时，把它复制进库的 `_maintenance/`，让门禁跟库走。
-- `scripts/check_html_links.py` — 门户面坏链检查（零依赖）：全库 HTML 相对链接解析存在性，
-  巡检呈现轴顺带跑，同样随库复制进 `_maintenance/`。
-- `scripts/check_kb_layout.py` — 库目录布局就位检查（零依赖，v4.0）：Web 面任务动手前、
-  布局迁移收尾、巡检呈现轴必跑；退出码 0=v4.0 就位 / 1=残缺或迁移半途 / 2=v3 旧布局待迁移
-  （迁移步骤见 init-rules），同样随库复制进 `_maintenance/`。
-- `scripts/check_page_ledger.py` + `scripts/check_ebook_ledger.py` — 巡检「页数账实核对」与
-  「书单账实核对」两轴的固定脚本（零依赖）：前者自动比对模块 README／顶层 README／`_prep/`
-  一页纸／模块 MANIFEST 四面派生页数账与讲义放映序实测，**并兼查全库总页数轴**（v4.2：
-  各册实测求和 vs 库根 README.html/README.md、一页纸标题与页脚、`_prep/MANIFEST.md`
-  的总数声明），后者查书单每条资料是否都给出了可用的正规渠道链接、有无本地馆藏残留
-  （v4.3 换判据：库已不下载电子书文件）；巡检时随 `audit_pptx.py`/`check_html_links.py` 一起跑，同样随库复制进
-  `_maintenance/`。
-- `scripts/kb_deck_build.py` — **讲义生成器**（需 `python-pptx`，v8.7）：把结构化内容 JSON 渲染成
-  合规讲义。把设计系统的**机械部分**编码进来，人只写内容——令牌（尺寸/字体/字号档/色板/边距）、
-  明暗节奏自动归属、页脚「模块 · 章节 ID + 页码」自动写（页码即放映位，天然满足
-  `check_footer_pagenum`）、`docProps/app.xml` 自动重建（python-pptx 不维护它，会留 `Slides=0`，
-  正是 ppt-design-system §7 那条「漏改 app.xml 导致 PowerPoint 弹修复」的老账，audit 检查项 9 当场抓）。
-  **它不替人做的事**：写什么、每章几页、版式选哪种、类比好不好——那些是 ppt-rules 与
-  core-rules §六 的活。页 kind：cover/toc/chapter/goals/points/steps/table/qa/handson/summary/recap/sources。
-  生成后照跑 audit 与逐页渲染目检——生成器只管长相，管不了「文字撑破卡片」那一格。
-- `scripts/fix_page_ledger.py` — 页数账四面回刷器（零依赖，v8.9）：`check_page_ledger` 只报账
-  不修，四面加全库总数一次插页要动八九处；本脚本**直接 import 它的定位正则**（不另写一套，
-  两份必漂），只改那几个格子。**不动 MANIFEST「最后更新」叙述与顶层「更新日期」**
-  （呈现回刷不是内容更新）。默认预演，`--apply` 落盘。
+**工具 `scripts/`（41 个，全部零第三方依赖，除生成器与绘图两件）**
 
-- `scripts/kb_draw.py` + `scripts/kb_insert.py` — 配图任务的绘图库与 zip 级插页嫁接器（依赖
-  `python-pptx`）：`kb_draw` 出设计系统令牌 + 形状 helper + 成例，`kb_insert.insert_figures`
-  把新页嫁接进讲义、同步 app.xml（单/多对 HeadingPairs 通吃）。用法见 `references/ppt/illustration-rules.md`。
-- `scripts/check_skill_package.py` — 技能分发包结构自检（零依赖）：查 SKILL.md 是否在压缩包
-  根层、有无杂物、frontmatter 与 description 长度。第 6 步重新打包后必跑；**结构合格不等于
-  能装，仍需真装一次**（打包规范与教训见 `references/shared/library-rules.md`）。
-- `scripts/check_skill_sync.py` — 分发包与源目录一致性（零依赖，v7.7）：包内条目与
-  `_skill-source/<技能名>/` 逐文件比对。补的是上一条查不到的那一面——结构合格的包**照样可以
-  内容过期**；库托管在 GitHub、把这个包当"只下载技能"的入口时，这道是必挂的（见
-  `shared/library-rules.md`「库托管在 GitHub 时」）。
-- `scripts/make_share.py` — 分享打包（零依赖）：整库打瘦身 zip（含当前 `.skill`，不含
-  历史留痕）并**解压自检**（布局+坏链）；交接口径见 `shared/library-rules.md`「分享与交接」。
-- `scripts/kb_archive.py` — 安全落档（零依赖）：改写成品前把旧版复制进 `raw-data/history/`，
-  自动查重名、同日顺延 `b/c` 后缀、**拒绝静默覆盖**（第 4 步留痕的标准工具，同样随库复制进
-  `_maintenance/`）。**技能包归档另有口径**：`--dest _skill-source/history --stem-suffix -vN.N`
-  （见 `shared/library-rules.md`「技能包打包与验收」）。
-- `scripts/check_footer_pagenum.py` + `scripts/fix_footer_pagenum.py` — 页脚页码账实门禁与重排器
-  （零依赖，v8.1）：页脚里的 `p.NN` 必须等于放映位，不带页码的册直接跳过。**补的是 audit 十七项里
-  没有的一格**——插页后忘了重排页码，坏链、配平、字号、画布越界全都查不出，只有人翻到那页才发现
-  （取证：某册 66 页带页码里 62 页错位、最大差 6 页，历时数个批次无人察觉）。随库复制进 `_maintenance/`。
-- `scripts/check_web_chapters.py` — 网页章节契约（零依赖，v8.5）：网页版按读者判断链重组后，章节 ID 与讲义脱钩，**既有门禁一道都发现不了**（坏链只查文件在不在、页数账不管章节、`_prep` 覆盖率拿讲义章节当账本）。两条契约：没登记「## 网页章节」的册按默认态查（小节 id 必须是讲义章节 ID，结构性小节 qa/related/sources/cloud/boundary 白名单豁免）；登记了的按重组态查——表与页面一一对应、**每个讲义章节至少被一个网页章节承载**（重组可以打散顺序，不能丢内容）、不再作小节 id 的旧锚点必须留隐藏别名（深链不断）。**重组前先让这道门上线**，别等改完再补。随库复制进 `_maintenance/`。
-- `scripts/check_freshness.py` — 保鲜门禁（零依赖，v8.2）：每条时效性事实自报**证据等级**
-  （A 一手 / B 二手，C 不许进成品）与**复核节奏**（30 / 90 / 180 天），有效复查日
-  = min(复查日, 核实日期 + 节奏天)，到期即 FAIL；并查列契约、未来日期、章节 ID 能否解析、
-  「不能外推」是否为空。**补的是「保鲜看板只是报表」这一格**——看板可以一直红着而门禁全绿，
-  没有任何机制强迫人去看它；同时把「价格和架构原理共用一个阈值」拆成三档。
-  巡检第 1 级直接跑它，不要手工比日期。随库复制进 `_maintenance/`。
-- `scripts/kb_move.py` — zip 级移动页（零依赖，v8.0）：只改放映次序与 app.xml 标题向量，
-  **页本身字节一律不动**。B 类重排常见「这页放错章了」——用「删了再重画」会丢原页版式、
-  且要有对应绘制函数才行；移动是更小的手术。移完记得改被移动页的眉题与页脚章名。
-- `scripts/kb_deck_text.py` — 讲义文本提取器（零依赖，v7.0）：**按放映序**导出 pptx 每页文字，
-  网页版覆盖矩阵第一步与配图选页都用它。放映序取自 `presentation.xml` 的 `sldIdLst`，
-  **不是文件名数字**——插过页的册子两者会错位（实测 Agent 册 122 页里 106 处不一致）。
-  支持 `--page N` 单页、`--notes` 带备注。
-- `scripts/bump_style_version.py` — 样式版本戳升档（零依赖，v7.0）：把全站
-  `kb.css?v=` 与可见构建标记 `.ver` 一起推进一档（默认预演，`--apply` 落盘，`--date` 换日）。
-  **改了 `_assets/kb.css` 必跑**——`check_css_classes.py` 只校验两者全站一致，升档是这个脚本的活；
-  同样随库复制进 `_maintenance/`。
+细则在 `references/tools.md`——**按需读**：要用某个工具时翻它那一段（或直接读脚本头部的
+docstring，两处同源）。这里只留「什么时候伸手拿哪个」：
+
+| 想干什么 | 拿哪个 |
+| --- | --- |
+| **提交前过一遍** | `run_all_gates.sh`——唯一的门禁清单入口，**不要挑着跑** |
+| 判讲义合不合规 | `audit_pptx.py`（十七项）+ 逐页渲染目检 |
+| 建一册新讲义 | `kb_deck_build.py`（内容 JSON → 讲义），整册 JSON 必须存进 `raw-data/讲义源.json` |
+| 往已有讲义插页 / 删页 / 挪页 | `kb_insert.py` / `kb_delete.py` / `kb_move.py`（zip 级，绝不整包 round-trip） |
+| 改任何成品之前 | `kb_archive.py` 落档（拒绝静默覆盖） |
+| 取讲义文字 | `kb_deck_text.py`（**按放映序**，不是文件名序） |
+| 配图 | `kb_draw.py` 画 → `kb_insert.py` 嫁接（先读目标册 `sldSz`） |
+| 查哪些事实过期了 | `check_freshness.py`（**别手工比日期**）+ `gen_source_list.py` 按信源批处理 |
+| 页数账／页脚页码对不上 | `fix_page_ledger.py` / `fix_footer_pagenum.py` |
+| 改了 `_assets/kb.css` | `bump_style_version.py --apply` |
+| PowerPoint 弹「需要修复」 | `fix_schema_order.py` / `fix_theme_sharing.py` |
+| 打包分享整个库 | `make_share.py`（自带解压自检） |
+| 重打技能包之后 | `check_skill_package.py` + `check_skill_sync.py` + **真装一次** |
+
+初始化或迁移一个库时，把门禁那几个复制进库的 `_maintenance/`，让门禁跟着库走；
+**下游写的常设门禁要回流技能**，`check_scripts_sync.py` 会拦下没回流的。
 
 ## 版本追溯（按需读，不在本文件展开）
 

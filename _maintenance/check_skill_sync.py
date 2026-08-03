@@ -63,6 +63,12 @@ def read_src(root):
 def main(argv):
     pkg = argv[1] if len(argv) > 1 else DEFAULT_PKG
     src = argv[2] if len(argv) > 2 else DEFAULT_SRC
+    # 分享包按设计只带 `.skill` 本体、不带解包源目录（make_share 的 SKIP_SLIM_PREFIX）。
+    # 那种拷贝里这道无从比起——明说跳过，不要报成「不一致」（2026-08-03：解压自检
+    # 改成跑全套门禁后，这是唯一一道在分享包里天然缺料的）。
+    if not os.path.exists(src) and len(argv) <= 2:
+        print("本库不带技能源目录（分享包只带 .skill 本体），这道无从比起，跳过。")
+        return 0
     for p, what in ((pkg, "技能包"), (src, "技能源目录")):
         if not os.path.exists(p):
             print("%s 不存在：%s" % (what, p))

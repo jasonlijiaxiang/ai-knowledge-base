@@ -12,8 +12,12 @@
 按页码找页会找错，打印出来对不上，客户当场翻页会乱。
 
 判据：页脚里形如 `p.NN` 的页码必须等于该页的**放映序**位置（与 audit、MANIFEST 同口径）。
-**不带页脚页码的册子直接跳过**——全库 19 册里只有 PE 带页码，其余册页脚只有模块名与章名，
-给它们加页码只会多一份要维护的账。
+**不带页脚页码的册子跳过**——大多数册的页脚只有模块名与章名，给它们加页码只会多一份要维护的账。
+
+**跳过要出现在总结行里**（2026-08-03 补）：此前跳过只在明细里打一行 `[跳过]`，
+总结是干净的 `ok`——一道实际只覆盖 3/21 册的门禁，看起来像全库通过。
+带不带页码本身是**整册**的口径选择（生成器由 `page_numbers` 开关控制，v9.0 起默认关），
+所以总结行要把「几册带、几册跳过」摆出来，让覆盖面是可见的。
 
 用法: python3 check_footer_pagenum.py [讲义.pptx ...]   # 缺省扫全库
 退出码: 0 = 全部一致（或不带页码）, 1 = 有错位。
@@ -67,6 +71,7 @@ def main(argv):
         print("没找到讲义。")
         return 1
     failed = 0
+    skipped, withpn = [], []
     for path in decks:
         name = os.path.basename(path)
         has, bad = check(path)
@@ -74,8 +79,10 @@ def main(argv):
             failed = 1
             continue
         if not has:
+            skipped.append(name.replace("-讲义.pptx", ""))
             print("  [跳过] %s：页脚不带页码" % name)
             continue
+        withpn.append(name.replace("-讲义.pptx", ""))
         if bad:
             failed = 1
             print("  [错位] %s：%d/%d 页页码与放映位不符" % (name, len(bad), has))
@@ -87,6 +94,13 @@ def main(argv):
                   "（ppt-design-system §七）。")
         else:
             print("  [通过] %s：%d 页页码与放映位一致" % (name, has))
+
+    total = len(withpn) + len(skipped)
+    print("\n本道覆盖 %d/%d 册：带页码 %s；另 %d 册页脚不带页码，本道对它们无从判起。"
+          % (len(withpn), total, "、".join(withpn) or "无", len(skipped)))
+    if withpn and skipped:
+        print("  （两种口径并存是历史遗留：生成器曾无条件写页码，v9.0 起默认关。"
+              "口径以整册为单位，不要逐页开关。）")
     return failed
 
 

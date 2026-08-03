@@ -1582,12 +1582,12 @@ window.KB = {
     {
      "text": "HBM4 时代开启：Samsung 2026-02-12 全球首家量产（1c DRAM+4nm、11.7Gbps）、4 个月营收破 $10 亿；SK hynix 2026 商用、有意放缓爬坡、预计供 NVIDIA HBM4 约 2/3；在役主流 HBM3e（192-288GB/卡）",
      "chapter": "aic-hbm",
-     "verified": "2026-07-09",
-     "source": "TrendForce、DigiTimes、TechTimes、DCD",
+     "verified": "2026-08-03",
+     "source": "三星官方新闻 semiconductor.samsung.com …samsung-ships-industry-first-commercial-hbm4…（量产与 11.7Gbps 原文核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-08-08"
+     "due": "2026-09-02"
     },
     {
      "text": "DeepSeek 3FS（Fire-Flyer File System）开源：随机读优先、放弃读缓存，自报集群聚合读 6.6-7.3TB/s，支持训练加载/checkpoint/KVCache 查询",
@@ -5434,12 +5434,12 @@ window.KB = {
     {
      "text": "Grok 4.3：$1.25/$2.50、缓存输入 $0.20（比上代降 40–60%）；AA 智能指数 53；2026-06-15 上 Bedrock（第三家独立实验室）；SOC2/HIPAA",
      "chapter": "ml-closed",
-     "verified": "2026-07-10",
-     "source": "VentureBeat / digitalapplied",
+     "verified": "2026-08-03",
+     "source": "xAI 官方 models 文档 docs.x.ai/docs/models（&lt;200k 档逐字核对；≥200k 档价格翻倍）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-08-09"
+     "due": "2026-09-02"
     },
     {
      "text": "Meta 转向：Behemoth（2T）实质搁置；Muse Spark 2026-04-08 发布（首个闭源 API-only）；Llama 4 Scout（109B/17B 激活、10M ctx）与 Maverick（400B/17B、1M）成最后开放版本",
@@ -5514,12 +5514,12 @@ window.KB = {
     {
      "text": "小模型：Phi-4 / Gemma 4（26B MoE 激活 ~4B；E2B 2.3B 有效参数 4GB 内存）/ SmolLM-3 为三大部署家族；sub-10B 常规超 2024 版 GPT-4",
      "chapter": "ml-map / ml-capability",
-     "verified": "2026-07-10",
-     "source": "bentoml / callsphere 2026",
+     "verified": "2026-08-03",
+     "source": "Gemma 4 技术报告 arxiv.org/html/2607.02770v1（激活参数与内存表逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-08-09"
+     "due": "2026-09-02"
     },
     {
      "text": "推理模型：思考预算两旋钮（Anthropic budget_tokens / Gemini thinkingBudget）；L1 可控 vs L2 自适应（arXiv 2507.02076）；overthinking 实证——超临界预算准确率下降（arXiv 2506.04210）",
@@ -7934,12 +7934,12 @@ window.KB = {
     {
      "text": "Glean：ARR $300M（2026-05，+89% YoY）、估值 $7.2B（2025-06 Series F）；Glean Agents 年化 1 亿+ actions",
      "chapter": "sp-knowledge-search",
-     "verified": "2026-07-10",
-     "source": "TechCrunch 2026-05-28 / Glean press",
+     "verified": "2026-08-03",
+     "source": "TechCrunch 2026-05-28 gleans-top-line-crosses-300m…（ARR 与估值原文核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-08-09"
+     "due": "2026-09-02"
     },
     {
      "text": "AI Coding 格局：SpaceX $60B 全股票收购 Cursor 母公司 Anysphere（2026-06-16 宣布、预计 Q3 交割，建议复查 2026-10-01 确认交割）；Cursor ARR $4B 年化（2026-06 初，2 月 $2B 四个月翻倍，收入第一）；Copilot 4.7M 付费 +75% YoY（微软 FY26 Q2 财报 2026-01-28 披露，仍为最新付费数——FY26 Q4 财报 07-29 只披露总用户 5000 万未更新付费口径，用户量第一）、Claude Code 46% most-loved（JetBrains 2026-04 满意度第一）；市场 2026 年 $12.8B、85% 开发者在用；采用率 29%/18%/18%；70% 工程师同时用 2–4 个工具",

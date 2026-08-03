@@ -57,18 +57,16 @@ jobs:
           下载解压，**双击 `README.html`** 就能读——断网可用，不需要装任何软件。
           讲义 PPTX 用 PowerPoint 或 Keynote 打开。
 
-          包里带：19 册讲义与书单、网页版、库级取用产物（实战包／学习路径／全库一页纸）、
+          包里带：21 册讲义与书单、网页版、库级取用产物（实战包／学习路径／全库一页纸）、
           全套门禁脚本、技能分发包。不带：作者的历史留痕与外部输入档案。
 
           拿到之后建议先在库根跑一次自检，确认这份拷贝是完整的：
 
           ```bash
-          for g in check_kb_layout check_html_links check_page_ledger check_ebook_ledger \
-                   check_css_classes check_prep_coverage; do
-            python3 _maintenance/$g.py >/dev/null 2>&1 && echo "OK  $g" || echo "FAIL $g"
-          done
-          python3 Web-version/build.py --check
+          bash _maintenance/run_all_gates.sh
           ```
+
+          （打包时已经在解压出来的那份里跑过同一条命令——这里再跑一次是验你手上这份。）
 
           只想要维护这个库的那套方法（技能）、不要这些内容的，见仓库 README 的「两条下载路径」。
           MD

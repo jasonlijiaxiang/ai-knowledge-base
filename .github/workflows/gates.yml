@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   gates:
-    name: 十四道门禁
+    name: 十八道门禁
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -58,7 +58,8 @@ jobs:
       - name: 正文标签配平（真 XML 解析器）
         run: python3 _maintenance/check_html_wellformed.py
 
-      - name: 讲义排版契约（19 册 audit）
+      # 不写册数——库会长，写死的数字迟早过期（audit 本来就扫到几册算几册）。
+      - name: 讲义排版契约（全库 audit）
         run: python3 _maintenance/audit_pptx.py PPT-version/*/*-讲义.pptx
 
       # 页脚页码要等于放映位。audit 的 17 项都不看这个数——PE 册曾 62 页错位、
@@ -70,12 +71,24 @@ jobs:
       - name: 网页产物与 MANIFEST 一致
         run: python3 Web-version/build.py --check
 
+      # 生成器立的规矩是「产物从源现场生成」，但它自己没有绑定：2026-08-02 生成的两册，
+      # 整册内容 JSON 既没进版本库也没留在磁盘上——全库唯一能兑现「改令牌就重渲染」
+      # 的地方恰恰兑现不了，而当时 15 道门禁一片绿（2026-08-03 补这道）。
+      - name: 生成器册的源 JSON 在位
+        run: python3 _maintenance/check_deck_source.py
+
       # ---- 技能分发 ----
       - name: 技能包结构合格（能装）
         run: python3 _maintenance/check_skill_package.py _skill-source/knowledge-base-builder.skill
 
       - name: 技能包与源目录一致（不过期）
         run: python3 _maintenance/check_skill_sync.py
+
+      # 上面两道都够不到 `_maintenance/`：库内那份脚本与技能源目录之间没有任何看守。
+      # 实测 check_css_classes.py 已经漂了 12 天，且 4 道下游写的门禁从没回流技能
+      # ——用技能初始化的新库拿到的是残缺的一套（2026-08-03 补这道）。
+      - name: 库内脚本与技能源一致
+        run: python3 _maintenance/check_scripts_sync.py
 
       # ---- Portable 铁律 ----
       # 整库要能拷到别的机器上接着用。写死 /Users/<用户名>/… 的脚本换机即废，
@@ -84,6 +97,17 @@ jobs:
       - name: 无本机绝对路径
         run: python3 _maintenance/check_no_abspath.py
 
+      # ---- 语义账 ----
+      # 模块数、网页覆盖、门禁道数都是能从真源算出来的，却被手写在十几处门面里，
+      # 每长一个模块就全线过期。2026-08-03 一次审视扫出 10 处活口径过期而门禁全绿。
+      - name: 可派生数目账实（模块数 / 网页覆盖 / 门禁道数）
+        run: python3 _maintenance/check_derived_counts.py
+
       # ---- 报告型（不拦，只留痕）----
       - name: 数目声明体检（报告，不拦）
         run: python3 _maintenance/check_count_claims.py
+
+      # 发不发版是人的决定，机器只负责别让人忘了：SKILL.md 已到 v8.9 而最新标签
+      # 停在 skill-v8.1 时，README 承诺的「历次版本去 Releases 找」就不成立了。
+      - name: 技能版本 vs 已发布标签（报告，不拦）
+        run: python3 _maintenance/check_version_tag.py

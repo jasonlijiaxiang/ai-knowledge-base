@@ -21,6 +21,7 @@
 内容 JSON 结构（一页一个对象，按放映序排）：
 
     {"module": "Predictive-AI-MLOps", "display": "AI 知识库",
+     "page_numbers": false,          # 默认不写页脚页码；全库 21 册里只有 3 册带
      "pages": [{"kind": "cover"|"toc"|"chapter"|"goals"|"points"|"table"|
                         "steps"|"qa"|"handson"|"summary"|"sources"|"recap",
                 "chapter_id": "pam-what-why", "title": "...", ...}]}
@@ -141,19 +142,26 @@ def _k():
     return W / 13.333
 
 
-def footer(slide, mod, chap, num, dark=False, foot=None):
-    """ppt-design-system §7：左下页脚，右下页码；页码＝放映位。
+def footer(slide, mod, chap, num, dark=False, foot=None, pagenum=False):
+    """ppt-design-system §7：左下页脚；`pagenum=True` 时右下另写页码（页码＝放映位）。
 
     左下优先用 `foot`（形如「第 3 章 · 把业务问题切成可学的题 · 本章小结」）——
     **audit 靠这一行把学习目标/动手做/对练/小结归到章**，只写「模块 · 章节 ID」它归不上，
-    会误报「每章固定元素缺失」。既有 19 册用的就是这个写法，照它来。
+    会误报「每章固定元素缺失」。既有册用的就是这个写法，照它来。
+
+    **页码默认不写**（v9.0 改的默认值）。生成器原来无条件写页码，于是每一册新生成的
+    讲义都自动落进「带页码」那一类，而全库 21 册里 18 册不带——没人决定过这件事，
+    是生成器把库悄悄劈成了两类。分叉的代价在读者侧：v8.8 错题本已经记过
+    「凭空加一个 p.124，翻到那页像混进了另一份文件」。
+    要写页码的册在整册 JSON 顶层写 `"page_numbers": true`，全册一致，不能逐页开关。
     """
     col = "faint" if dark else "ink2"
     left = foot or ("%s · %s" % (mod, chap) if chap else mod)
     k = _k()
-    box(slide, MARGIN, FOOT_Y, 8.0 * k, 0.3 * k, left, FS["foot"], col)
-    b = box(slide, W - MARGIN - 1.2 * k, FOOT_Y, 1.2 * k, 0.3 * k, "p.%d" % num,
-            FS["foot"], col, align=PP_ALIGN.RIGHT)
+    b = box(slide, MARGIN, FOOT_Y, 8.0 * k, 0.3 * k, left, FS["foot"], col)
+    if pagenum:
+        b = box(slide, W - MARGIN - 1.2 * k, FOOT_Y, 1.2 * k, 0.3 * k, "p.%d" % num,
+                FS["foot"], col, align=PP_ALIGN.RIGHT)
     return b
 
 
@@ -438,7 +446,8 @@ def build(spec, out):
         RENDER[kind](s, p, ctx)
         if kind != "cover":
             footer(s, spec["module"], p.get("chapter_id", ""), i,
-                   dark=kind in DARK_KINDS, foot=p.get("foot"))
+                   dark=kind in DARK_KINDS, foot=p.get("foot"),
+                   pagenum=spec.get("page_numbers", False))
     prs.save(out)
     fix_app_xml(out, [p.get("title") or p.get("no", "") for p in spec["pages"]])
     return len(spec["pages"])

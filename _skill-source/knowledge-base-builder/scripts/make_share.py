@@ -13,8 +13,9 @@
         _maintenance/history/、_reference/（作者的外部输入档案）、.DS_Store。
   `--full` 全量（仍排除 .git 与 .DS_Store）。
 
-打完必自检：解压到临时目录，在里面跑布局与坏链两道门禁——**打包这条链的"真装一次"**：
-zip 建成功只证明压缩没错，不证明拆开还是一个能用的库（同款教训见技能包 v4.8）。
+打完必自检：解压到临时目录，在解出来的那份里跑 `run_all_gates.sh`（**与本地、CI 同一份
+清单**）——**打包这条链的"真装一次"**：zip 建成功只证明压缩没错，不证明拆开还是一个
+能用的库（同款教训见技能包 v4.8）。
 
 用法: python3 _maintenance/make_share.py [输出目录] [--full]
 退出码: 0 = 打包且自检通过, 1 = 失败（zip 保留，便于排查）。
@@ -105,17 +106,22 @@ def build(outdir, full):
     return path, n
 
 
-# 自检要跑的门禁：全套，不是挑两道。2026-07-22 前只跑布局与坏链——那只证明「目录在、
-# 链接通」，证明不了账本一致、样式契约、生成物没漂、库级产物指针有效，
-# 而这些恰恰是整包换机后最容易出事的面。
-GATES = ("check_kb_layout.py", "check_html_links.py", "check_page_ledger.py",
-         "check_ebook_ledger.py", "check_css_classes.py", "check_prep_coverage.py")
 # 换机第一杀手：脚本写死本机绝对路径——本机跑得通，换台机器全废，且门禁一道都查不出。
 LOCAL_PATH_RE = re.compile(r"""["'](?:/Users/|/home/|[A-Za-z]:\\)""")
 
 
 def selfcheck(path):
-    """解压 → 在解压出的库里把整套门禁跑一遍（打包这条链的「真装一次」）。"""
+    """解压 → 在解压出的库里跑 `run_all_gates.sh`（打包这条链的「真装一次」）。
+
+    **2026-08-03 起不再在这里维护第二份门禁名单。** 此前这里写着一个 6 道的 `GATES`
+    元组，注释还说「全套，不是挑两道」——那句话在只有 8 道门禁的时候是真的，
+    后来库长到 15 道，这里一道都没跟上：保鲜、网页章节契约、正文标签配平、讲义 audit、
+    页脚页码、技能包与源一致全在名单外，而 Release 说明对外写的是「门禁全跑了一遍」。
+    库里当时有四份门禁清单，只有 `gates.yml` ↔ `run_all_gates.sh` 那一对有防漂自检。
+
+    现在全部塌到 `run_all_gates.sh` 一份上。分享包天然缺料的那一道
+    （`check_skill_sync`，瘦身包不带技能源目录）由它自己明说跳过，不静默放行。
+    """
     tmp = tempfile.mkdtemp(prefix="kbshare-")
     try:
         with zipfile.ZipFile(path) as z:
@@ -123,43 +129,33 @@ def selfcheck(path):
         inner = os.path.join(tmp, os.listdir(tmp)[0])
         state = {"ok": True}
 
-        def run(args, label):
-            r = subprocess.run(args, cwd=inner, capture_output=True, text=True)
-            tail = (r.stdout or r.stderr).strip().splitlines()[-1:] or ["(无输出)"]
-            print("  [%s] %s → %s" % ("通过" if r.returncode == 0 else "不通过",
-                                      label, tail[0][:76]))
-            state["ok"] = state["ok"] and r.returncode == 0
-
-        for script in GATES:
-            run([sys.executable, os.path.join(inner, "_maintenance", script)], script)
-        build = os.path.join(inner, "Web-version", "build.py")
-        if os.path.exists(build):
-            run([sys.executable, build, "--check"], "build.py --check")
-        skill = os.path.join(inner, "_skill-source", "knowledge-base-builder.skill")
-        if os.path.exists(skill):
-            run([sys.executable,
-                 os.path.join(inner, "_maintenance", "check_skill_package.py"), skill],
-                "check_skill_package.py")
-
-        bad = []
-        for dirpath, dirnames, filenames in os.walk(inner):
-            dirnames[:] = [d for d in dirnames if d != ".git"]
-            for fn in filenames:
-                if not fn.endswith(".py"):
-                    continue
-                fp = os.path.join(dirpath, fn)
-                try:
-                    body = open(fp, encoding="utf-8", errors="replace").read()
-                except OSError:
-                    continue
-                if LOCAL_PATH_RE.search(body):
-                    bad.append(os.path.relpath(fp, inner))
-        if bad:
-            print("  [不通过] 本机绝对路径 → %d 个脚本：%s"
-                  % (len(bad), "、".join(bad[:3]) + ("…" if len(bad) > 3 else "")))
-            state["ok"] = False
+        runner = os.path.join(inner, "_maintenance", "run_all_gates.sh")
+        if os.path.exists(runner):
+            r = subprocess.run(["bash", runner], cwd=inner, capture_output=True, text=True)
+            state["ok"] = r.returncode == 0
+            # 只回显每道的名字与结果行，别把整套门禁的正文刷屏。
+            # 先剥 ANSI 颜色码——run_all_gates.sh 的 ok/FAIL 是带色的，
+            # 不剥就什么都匹配不上（首跑时自检挂了却看不出挂在哪，就是这个原因）。
+            plain = re.sub(r"\x1b\[[0-9;]*m", "", r.stdout or "")
+            pend = None
+            for ln in plain.split("\n"):
+                s = ln.strip()
+                if re.match(r"^\[\d\d\] ", s):
+                    pend = s
+                elif s in ("ok", "FAIL") and pend:
+                    if s == "FAIL" or not state["ok"]:
+                        print("  [%s] %s" % ("不通过" if s == "FAIL" else "通过", pend))
+                    pend = None
+                elif "道门禁全绿" in s or "道挂了" in s:
+                    print("  %s" % s)
+            if not state["ok"]:
+                print("  ——解压出来的这份库跑不过门禁，包不可用。")
         else:
-            print("  [通过] 本机绝对路径 → 没有脚本写死 /Users、/home 或盘符路径")
+            print("  [不通过] 包里没有 _maintenance/run_all_gates.sh，无法自检")
+            state["ok"] = False
+
+        # 死路径扫描曾经在这里内联再实现一遍——那是第五份重复。
+        # `run_all_gates.sh` 里的 `check_no_abspath.py` 跑的是同一条判据，已经覆盖。
         return state["ok"]
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

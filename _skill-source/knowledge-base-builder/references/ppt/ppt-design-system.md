@@ -244,7 +244,7 @@ v3.6 跨对象共享、检查项 17 非良构 XML、v3.12 画布裁切——缺�
 | 1 结构门禁 | `audit_pptx.py`（正则/zip 级） | 已编码成检查项的规则（令牌/字号/账面/顺序契约/共享…） | 未编码的病类；非良构 XML 照样 PASS（检查项 17 的由来：1105 处标签错配全绿） |
 | 2 XML 良构 | 真 XML 解析器逐页 parse（已并入 audit 检查项 17） | 字节级手术弄坏的标签结构 | 语义合法但视觉出界/裁切 |
 | 3 渲染目检 | soffice 渲**目标册本体**逐页看（禁止只渲独立预览册） | 溢出/裁切/丢页/字形/衔接 | 只有 PowerPoint 校验的部件（app.xml、theme/notesSlide 共享、元素顺序） |
-| 4 账实脚本 | `check_page_ledger` / `check_ebook_ledger` / `check_html_links` | 派生账与实物的漂移（账目全集见 library-rules「派生账登记表」） | 文件内部的一切问题 |
+| 4 账实脚本 | `check_page_ledger` / `check_ebook_ledger` / `check_html_links` | 派生账与实物的漂移（账目全集见 library-ledgers「派生账登记表」） | 文件内部的一切问题 |
 | 5 PowerPoint 亲测 | 请用户双击抽验（Mac「不受信文件」严格通道） | 只有 Office 严格校验才拒收的一切 | ——最后防线，无法自动化替代 |
 
 PPT 面执行口径：收尾从第 1 层依次跑到第 4 层，第 5 层交用户双击抽验（Mac「不受信文件」
