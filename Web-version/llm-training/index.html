@@ -180,7 +180,7 @@
   </table>
   </div>
   <p>2026 年旗舰开源模型几乎全是<b>稀疏 MoE</b>：Kimi K3 总参 2.8T/激活 104B、DeepSeek V4-Pro 总参 1.6T/激活仅 49B、
-    Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B（Qwen3.6 的开源线只到 35B-A3B，最大的开源 Qwen 仍是 3.5 这一代）——像会诊制医院，分诊台每次只叫得动其中一小撮医生，但医院整体什么都懂。看 MoE 先分清两个数：总参数（知识容量、显存门槛）与激活参数（每次计算的成本）——<b>MoE 省的是计算不是显存</b>，专家轮流干活但都得在场，这正是私有化部署报价的关键差异。</p>
+    Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B（Qwen3.6 的开源线只到 35B-A3B，但 Qwen3.8-2.4T-A95B 已开放权重——最大的开源 Qwen 翻篇到 3.8）——像会诊制医院，分诊台每次只叫得动其中一小撮医生，但医院整体什么都懂。看 MoE 先分清两个数：总参数（知识容量、显存门槛）与激活参数（每次计算的成本）——<b>MoE 省的是计算不是显存</b>，专家轮流干活但都得在场，这正是私有化部署报价的关键差异。</p>
   <p><b>降本组合拳</b>（「DeepSeek 为什么训得便宜」的标准结构）：架构省（MoE 稀疏激活）+
     精度省（FP8 混合精度，显存带宽近乎减半，已进主流实践）+ 算法省（Muon 优化器计算效率约
     2 倍，Kimi K2 用 MuonClip 在 15.5T token 上零训练崩溃，PyTorch 2.9 已原生内置）+ 工程省（通信计算重叠，把每张卡榨干）——是精打细算，不是偷工减料。架构侧的「发动机舱」在
@@ -188,7 +188,7 @@
   <p class="ev">MoE/FP8/Muon 格局核实 2026-08-01（Kimi K3 的 2.8T/104B 据 HF 模型卡 huggingface.co/moonshotai/Kimi-K3 与技术报告 arXiv 2607.24653；Qwen 开源线规模据 HF Qwen3.6 合集），其余来源 <a href="#src-pretrain">OpenRouter
     盘点 / PyTorch 官方博客</a>。<b>不可外推边界</b>：盘点反映的是公开模型的技术选择分布，不含各家的训练细节与失败尝试；「主流」不等于「对你的规模也最优」。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../llm/index.html#llm-why-transformer" title="LLM 原理讲架构（发动机舱），本模块讲训练（流水线），互为前置；第 3 章「可并行」一页对应其第 1 章">从序列问题到 Transformer<span class="xm">LLM</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../llm/index.html#llm-why-transformer" title="LLM 原理讲架构（发动机舱），本模块讲训练（流水线），互为前置；第 3 章「可并行」一页对应其第 1 章">从序列问题到 Transformer<span class="xm">LLM</span></a><a href="../model-landscape/index.html#ml-open" title="这个词的主场：Model-Landscape · 开放权重格局">开放权重<span class="xm">Model-Landscape</span></a></div>
 </section>
 
 <!-- ============ 4 ============ -->

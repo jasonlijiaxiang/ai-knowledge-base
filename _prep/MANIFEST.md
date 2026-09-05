@@ -45,39 +45,39 @@
 
 | 源模块（事实源头） | 实战包引用题号 | 一页纸引用处 | 核实日期（随源模块） |
 | --- | --- | --- | --- |
-| model-landscape#ml-map / ml-open / ml-china / ml-closed / ml-selection（份额、榜位、追平叙事、豆包口径——全库最易过期） | ⏳ A1–A5、A7 | — | 2026-07-10 / 2026-08-01 / 2026-08-03 |
-| model-landscape#ml-price（价格带、缓存折扣、降价传导 30–60%） | ⏳ A7、C3、C5 | 保鲜看板 Sonnet 5 行 | 2026-07-10 |
+| model-landscape#ml-map / ml-open / ml-china / ml-closed / ml-selection（份额、榜位、追平叙事、豆包口径——全库最易过期） | ⏳ A1–A5、A7 | — | 2026-09-05 |
+| model-landscape#ml-price（价格带、缓存折扣、降价传导 30–60%） | ⏳ A7、C3、C5 | — | 2026-09-05 |
 | model-landscape#ml-license（Llama 条款、蒸馏衍生） | A6、H6 | — | 2026-07-10 |
-| **model-landscape#ml-platforms（国内四平台画像与价格锚点——07-17 新章，2026-08-31 定点复查）** | ⏳ A10、A11，并回刷进 A3、A4 | — | 2026-07-17 |
-| solution-patterns（解决率口径、Glean、AI Coding 市场数据、ChatBI 准确率口径与会议助手格局） | ⏳ B4；B1–B3、B5、B6、B10 | — | 2026-07-10/11 / 2026-08-01 / 2026-08-03 |
-| multimodal#mm-voice-realtime（语音延迟/成本口径） | ⏳ C2 | — | 2026-08-01 |
-| **multimodal#mm-video-generation（四家旗舰、按秒计价 $0.022–0.029、34 倍价差——07-17 新章，08 上旬定点复查）** | ⏳ B15，并回刷进 C2 | 保鲜看板 08 上旬行 | 2026-08-01 |
+| **model-landscape#ml-platforms（国内四平台画像与价格锚点——07-17 新章，2026-08-31 定点复查）** | ⏳ A10、A11，并回刷进 A3、A4 | — | 2026-09-05 |
+| solution-patterns（解决率口径、Glean、AI Coding 市场数据、ChatBI 准确率口径与会议助手格局） | ⏳ B4；B1–B3、B5、B6、B10 | — | 2026-09-05 |
+| multimodal#mm-voice-realtime（语音延迟/成本口径） | ⏳ C2 | — | 2026-09-05 |
+| **multimodal#mm-video-generation（四家旗舰、按秒计价 $0.022–0.029、34 倍价差——07-17 新章，08 上旬定点复查）** | ⏳ B15，并回刷进 C2 | — | 2026-09-05 |
 | multimodal#mm-fusion（原生 vs 拼管线的取舍） | B14 | — | 2026-07-09 |
-| pe#pe-engineering（缓存折扣口径）· pe#pe-core-techniques（正向指令、few-shot 边界） | ⏳ C3；F11 | — | 2026-07-20 |
+| pe#pe-engineering（缓存折扣口径）· pe#pe-core-techniques（正向指令、few-shot 边界） | ⏳ C3；F11 | — | 2026-09-05 |
 | ai-infra-compute#aic-econ（自建盈亏线 40–50%、TCO 四件套） | ⏳ C7 | — | 2026-07-09 |
-| **ai-infra-compute#aic-chips（非 NVIDIA 可行边界、国产线）· aic-gpu（两本显存账）** | ⏳ G6；C10 | 保鲜看板「芯片格局易过期」标 | 2026-07-09 / 2026-08-01 |
+| **ai-infra-compute#aic-chips（非 NVIDIA 可行边界、国产线）· aic-gpu（两本显存账）** | ⏳ G6；C10 | 保鲜看板「芯片格局易过期」标 | 2026-09-05 |
 | **ai-infra-platform#aip-overview / aip-scheduling / aip-sharing / aip-serving / aip-cloud（利用率 10–20%→翻倍、MIG 最多 7 实例、切分 15%→70%+）** | G3–G5、G7 | — | 2026-07-09 / 2026-08-01 |
-| **ai-gateway#gw-what-why / gw-route / gw-cost / gw-guardrail / gw-mcp / gw-cheatsheet（三杠杆降本、可控降级、语义缓存双刃、openapi-to-mcp、令牌交换 RFC 8693）** | ⏳ C9、G2；D12、D13、G1、G7、A11、兜底四 | 串联线 1、4、5 | 2026-07-09 / 2026-07-30 / 2026-08-01 |
-| agent#agent-orchestration（multi-agent ~15× token）· agent#agent-memory（ASI06 注入成功率 >95%）· agent#agent-computer-use（83.5% / 20.6% 两口径）· agent#agent-lowcode（Dify 附加条款、n8n fair-code） | ⏳ C8、B16、B17、D14；G8 | — | 2026-07-11/12 / 2026-08-01 |
+| **ai-gateway#gw-what-why / gw-route / gw-cost / gw-guardrail / gw-mcp / gw-cheatsheet（三杠杆降本、可控降级、语义缓存双刃、openapi-to-mcp、令牌交换 RFC 8693）** | ⏳ C9、G2；D12、D13、G1、G7、A11、兜底四 | 串联线 1、4、5 | 2026-09-05 |
+| agent#agent-orchestration（multi-agent ~15× token）· agent#agent-memory（ASI06 注入成功率 >95%）· agent#agent-computer-use（83.5% / 20.6% 两口径）· agent#agent-lowcode（Dify 附加条款、n8n fair-code） | ⏳ C8、B16、B17、D14；G8 | — | 2026-09-05 |
 | **agent#agent-subagent（三层框架、四层触发、派与不派账——07-17 新章）** | ⏳ B16、C8，并回刷进 B9、D9 | — | 2026-08-01 |
-| ai-ops（OTel span 状态、采样口径、运营包、PII 三开关） | D4–D9、D15、兜底四 | 串联线 2 | 2026-08-01 |
-| security#sec-landscape / sec-prompt-injection / sec-data-privacy / sec-governance（EchoLeak、OWASP 口径、EU AI Act 时间线与 7% 罚则） | ⏳ H8；D1、D2、H4 | — | 2026-07-09 / 2026-08-01 |
-| **security#sec-china（备案 5–8 个月、988 款已备案、标识 2025-09 法定、GB/T 45654、出境六类豁免＋三通道——07-17 新章）** | ⏳ H1–H3，并回刷进 D2 | 串联线 5 | 2026-08-01 |
-| data-engineering（数据就绪四问=报价显性件、pgvector 五千万至一亿量级、MinerU 分水岭、向量化≠匿名化） | ⏳ B12；B11、B14、H5 | — | 2026-08-02 |
-| evaluation（判官一致率、榜单水分、起步量级、Agent 双轨五层） | A8、E1–E8、D13 | — | 2026-08-01 |
-| fine-tuning（50–10,000 条官方口径、回归门禁、合成数据治理三问） | C11、E8、F7、H7 | — | 2026-08-01 |
-| llm-inference#llminf-quant（FP8 损失 0.5–2% 生产默认）· llminf-production（goodput 口径） | ⏳ F4；E9、F2、F3 | — | 2026-07-09 / 2026-07-12 |
-| mcp / a2a（协议版本与治理归属——2026-07-28 新版已落地） | F5、F6、F12、D11、G2 | 保鲜看板 07-28 行 | 2026-07-12 / 2026-08-01 |
-| **predictive-ai-mlops#pam-what-why（两种 AI 的分界：排序/卡阈值/结算归预测式——2026-08-02 新模块）** | B18；学习路径 D6、跳读线 | — | 2026-08-02 |
-| **predictive-ai-mlops#pam-platform（两种 AI 的云上门面与共用注册表——2026-08-02 新模块）** | B18 | — | 2026-08-02 |
-| **predictive-ai-mlops#pam-features-time（特征时间语义：预测那一刻取不到的数据训练时不许取——2026-08-02 新模块）** | D16；学习路径跳读线 | — | 2026-08-02 |
-| **predictive-ai-mlops#pam-problem-framing（离线好上线垮的排查顺序——2026-08-02 新模块）** | D16 | — | 2026-08-02 |
-| **predictive-ai-mlops#pam-monitoring（七类信号对七种动作——2026-08-02 新模块）** | 学习路径跳读线 | — | 2026-08-02 |
-| **ai-governance#gov-what-why（治理第一步：按用途登记——2026-08-02 新模块）** | H9 | — | 2026-08-02 |
-| **ai-governance#gov-registry（用途清单四样起步——2026-08-02 新模块）** | H9；学习路径 D7、跳读线 | — | 2026-08-02 |
-| **ai-governance#gov-decision（五种决定：批准/条件批准/例外/暂停/退役——2026-08-02 新模块）** | H10；学习路径跳读线 | — | 2026-08-02 |
-| **ai-governance#gov-evidence（证据包与「不在场的人能重做」判据——2026-08-02 新模块）** | H10；学习路径跳读线 | — | 2026-08-02 |
-| **ai-governance#gov-change-triggers（换版本/扩用途/升自主度回炉重批——2026-08-02 新模块）** | H10 | — | 2026-08-02 |
+| ai-ops（OTel span 状态、采样口径、运营包、PII 三开关） | D4–D9、D15、兜底四 | 串联线 2 | 2026-09-05 |
+| security#sec-landscape / sec-prompt-injection / sec-data-privacy / sec-governance（EchoLeak、OWASP 口径、EU AI Act 时间线与 7% 罚则） | ⏳ H8；D1、D2、H4 | — | 2026-09-05 |
+| **security#sec-china（备案 5–8 个月、988 款已备案、标识 2025-09 法定、GB/T 45654、出境六类豁免＋三通道——07-17 新章）** | ⏳ H1–H3，并回刷进 D2 | 串联线 5 | 2026-09-05 |
+| data-engineering（数据就绪四问=报价显性件、pgvector 五千万至一亿量级、MinerU 分水岭、向量化≠匿名化） | ⏳ B12；B11、B14、H5 | — | 2026-09-05 |
+| evaluation（判官一致率、榜单水分、起步量级、Agent 双轨五层） | A8、E1–E8、D13 | — | 2026-09-05 |
+| fine-tuning（50–10,000 条官方口径、回归门禁、合成数据治理三问） | C11、E8、F7、H7 | — | 2026-09-05 |
+| llm-inference#llminf-quant（FP8 损失 0.5–2% 生产默认）· llminf-production（goodput 口径） | ⏳ F4；E9、F2、F3 | — | 2026-09-05 |
+| mcp / a2a（协议版本与治理归属——2026-07-28 新版已落地） | F5、F6、F12、D11、G2 | 保鲜看板 07-28 行 | 2026-09-05 |
+| **predictive-ai-mlops#pam-what-why（两种 AI 的分界：排序/卡阈值/结算归预测式——2026-08-02 新模块）** | B18；学习路径 D6、跳读线 | — | 2026-09-05 |
+| **predictive-ai-mlops#pam-platform（两种 AI 的云上门面与共用注册表——2026-08-02 新模块）** | B18 | — | 2026-09-05 |
+| **predictive-ai-mlops#pam-features-time（特征时间语义：预测那一刻取不到的数据训练时不许取——2026-08-02 新模块）** | D16；学习路径跳读线 | — | 2026-09-05 |
+| **predictive-ai-mlops#pam-problem-framing（离线好上线垮的排查顺序——2026-08-02 新模块）** | D16 | — | 2026-09-05 |
+| **predictive-ai-mlops#pam-monitoring（七类信号对七种动作——2026-08-02 新模块）** | 学习路径跳读线 | — | 2026-09-05 |
+| **ai-governance#gov-what-why（治理第一步：按用途登记——2026-08-02 新模块）** | H9 | — | 2026-09-05 |
+| **ai-governance#gov-registry（用途清单四样起步——2026-08-02 新模块）** | H9；学习路径 D7、跳读线 | — | 2026-09-05 |
+| **ai-governance#gov-decision（五种决定：批准/条件批准/例外/暂停/退役——2026-08-02 新模块）** | H10；学习路径跳读线 | — | 2026-09-05 |
+| **ai-governance#gov-evidence（证据包与「不在场的人能重做」判据——2026-08-02 新模块）** | H10；学习路径跳读线 | — | 2026-09-05 |
+| **ai-governance#gov-change-triggers（换版本/扩用途/升自主度回炉重批——2026-08-02 新模块）** | H10 | — | 2026-09-05 |
 | （纯方法论题，无时效数字，无需巡检） | B7–B9、B13、C1、C6、C10、D3、D10、D11、E 组大部、F1、F9、F10、兜底一至三 | 七层书架表结构 | — |
 | （框架题源，无时效数字：实战包 B13/D10/D11/H1 收纳各模块「框架深潜页 + 生产验收清单」） | B13→sp-method/eval-scenarios · D10→rag-evaluation/ops-incident · D11→agent-tools-mcp/mcp-security · H1→sec-china 分诊三问 | — | — |
 

@@ -544,7 +544,7 @@
     2.5116
    ],
    "lead": "云上能自动收的是「有哪些资产」；「这条用途谁批的、什么时候失效」云替不了。",
-   "note": "同一环节给多厂商代表选项，不绑死单一供应商；只列有真实关联的环节。列宽放不下的同类产品：第 1 行还有 Purview DSPM for AI（覆盖第三方 AI 站点，需开按量计费，多数能力依赖浏览器扩展与设备接入），第 2 行还有 Azure AI Foundry。缩写：SCC，Security Command Center；AI-SPM，AI Security Posture Management；DSPM，Data Security Posture Management。第 1 行这批产品，Security 册第 7 章已按安全态势讲过一遍，本册只取它一件事——把扫出来的资产喂进用途登记表；谷歌文档写明影子 AI 资源不在控制台的发现范围，浏览器里那部分得靠别的路子。选型提醒：AWS Audit Manager 官方文档页顶已公告不再向新客户开放（2026-08-02 核实），别写进新方案；它的生成式 AI 最佳实践框架 v2 共 110 项控制（72 自动 + 38 手动），覆盖 Bedrock 与 SageMaker AI。服务能力以各云当期文档为准。",
+   "note": "同一环节给多厂商代表选项，不绑死单一供应商；只列有真实关联的环节。列宽放不下的同类产品：第 1 行还有 Purview DSPM for AI（覆盖第三方 AI 站点，需开按量计费，多数能力依赖浏览器扩展与设备接入），第 2 行还有 Azure AI Foundry。缩写：SCC，Security Command Center；AI-SPM，AI Security Posture Management；DSPM，Data Security Posture Management。第 1 行这批产品，Security 册第 7 章已按安全态势讲过一遍，本册只取它一件事——把扫出来的资产喂进用途登记表；谷歌文档写明 AI Protection 在 Standard/Premium/Enterprise 三层级可用（Enterprise 层级 2027-05-21 停用），Assets 页可盘点模型、数据源、端点、管线、Agent、Notebook 与 MCP 服务器；影子 AI 发现另靠 Defender for Cloud Apps 组合。选型提醒：AWS Audit Manager 官方文档页顶已公告不再向新客户开放（2026-08-02 核实），别写进新方案；它的生成式 AI 最佳实践框架 v2 共 110 项控制（72 自动 + 38 手动），覆盖 Bedrock 与 SageMaker AI。服务能力以各云当期文档为准。",
    "foot": "第 2 章 · 按用途登记，不按模型登记 · 上云怎么落地"
   },
   {
@@ -2573,7 +2573,7 @@
     2.5116
    ],
    "lead": "治理的四件苦力活云上都有现成件，但每件都有它替你做不了的那格。",
-   "note": "同类可选（多厂商，非绑定）：发现—Google Cloud Dataplex、ServiceNow AI Control Tower；记录—SageMaker Model Registry 与 Model Cards、Microsoft Foundry；采集—Azure Policy 加 Purview、GCP Security Command Center；留存—三云对象存储都支持不可变。服务名与形态按 2026-08-02 核实；AWS Audit Manager 已转维护模式、2026-04-30 起不对新账号开放，官方指向 AWS Config——证据链别绑死单一产品。",
+   "note": "同类可选（多厂商，非绑定）：发现—Google Cloud Knowledge Catalog、ServiceNow AI Control Tower（MCP 服务器自 Q1 2026 起纳入受管资产）；记录—SageMaker Model Registry 与 Model Cards、Microsoft Foundry；采集—Azure Policy 加 Purview、GCP Security Command Center；留存—三云对象存储都支持不可变。服务名与形态按 2026-08-02 核实；AWS Audit Manager 已转维护模式、2026-04-30 起不对新账号开放，官方指向 AWS Config——证据链别绑死单一产品。",
    "foot": "第 10 章 · 跑起来需要的角色、节奏与工具 · 上云怎么落地"
   },
   {

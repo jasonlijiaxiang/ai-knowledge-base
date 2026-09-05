@@ -1121,8 +1121,8 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>实验记录</td><td>托管 MLflow（SageMaker、Databricks 两家的托管版）/ Azure ML 与 Vertex AI 跟踪</td><td>训练一跑就自动留痕，不靠人记得写</td></tr>
-      <tr><td>模型注册表</td><td>SageMaker Model Registry / Azure ML Registries / Vertex AI Model Registry</td><td>模型带着来路入库，批准动作可审计</td></tr>
+      <tr><td>实验记录</td><td>托管 MLflow（SageMaker、Databricks 两家的托管版）/ Azure ML 与 Gemini Enterprise Agent Platform（原 Vertex AI）跟踪</td><td>训练一跑就自动留痕，不靠人记得写</td></tr>
+      <tr><td>模型注册表</td><td>SageMaker Model Registry / Azure ML Registries / Gemini Enterprise Agent Platform Model Registry</td><td>模型带着来路入库，批准动作可审计</td></tr>
       <tr><td>发布门</td><td>SageMaker Pipelines 条件步骤；Azure ML 与 Vertex 的流水线有同类步骤</td><td>指标不过线，流水线停在批准前</td></tr>
       <tr><td>影子发布</td><td>SageMaker 影子测试 / 各云端点的流量切分</td><td>真流量复制给新版，只算不返回</td></tr>
       <tr><td>国内落点</td><td>阿里云 PAI：模型注册 + 实验管理</td><td>模型按版本入库，训练任务挂着实验</td></tr>
@@ -1138,7 +1138,7 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务 / 工具（多厂商）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>分布类信号</td><td>Azure ML 漂移信号 / Vertex AI 模型监控 / Evidently（开源）</td><td>不用等标签的那四类，云上开箱就有</td></tr>
+      <tr><td>分布类信号</td><td>Azure ML 漂移信号 / Gemini Enterprise Agent Platform 模型监控 / Evidently（开源）</td><td>不用等标签的那四类，云上开箱就有</td></tr>
       <tr><td>真值类信号</td><td>Azure ML 模型性能信号（当日仍标 preview，需回灌真值）</td><td>真值不回灌，性能就无从谈起</td></tr>
       <tr><td>无真值期估计</td><td>NannyML（开源）的 CBPE，Confidence-Based Performance Estimation；各家自建回流表</td><td>空窗期有近似解，但有前提</td></tr>
       <tr><td>特征归因漂移</td><td>Azure ML 特征归因漂移信号（当日仍标 preview，需训练数据）</td><td>没标签也有一个早期预警</td></tr>
@@ -1155,8 +1155,8 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>实验与注册</td><td>SageMaker 托管 MLflow / Vertex AI 与 Azure ML 注册表</td><td>两种模型可以进同一个注册表</td></tr>
-      <tr><td>生成式那一侧</td><td>Bedrock / Vertex AI Studio / Microsoft Foundry</td><td>生成式常在另一个控制台</td></tr>
+      <tr><td>实验与注册</td><td>SageMaker 托管 MLflow / Gemini Enterprise Agent Platform 与 Azure ML 注册表</td><td>两种模型可以进同一个注册表</td></tr>
+      <tr><td>生成式那一侧</td><td>Bedrock / Agent Studio（原 Vertex AI Studio）/ Microsoft Foundry</td><td>生成式常在另一个控制台</td></tr>
       <tr><td>在线服务</td><td>SageMaker 端点 / Vertex 端点 / Azure ML 在线端点</td><td>预测式 CPU 就能跑，成本结构和生成式不同</td></tr>
       <tr><td>治理与留痕</td><td>各云模型注册表 + 自建证据库</td><td>要合就先合这一层</td></tr>
     </tbody>

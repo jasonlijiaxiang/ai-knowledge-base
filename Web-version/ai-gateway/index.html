@@ -225,9 +225,9 @@
 
   <h3>语义缓存：把相同的问题只回答一次</h3>
   <p>精确缓存一字不差才命中，换个说法就落空；语义缓存把请求算成向量、按相似度命中——「怎么退货」和「退货流程是啥」是同一个问题，命中即毫秒级返回、零模型计费。<b>阈值是关键旋钮</b>：太松会把「北京天气」和「上海天气」当一个问题答错，太紧几乎不命中。落地清单四条：①按场景分级设阈值；②个性化/实时请求绕过缓存；③<b>缓存键带上租户/权限，避免跨用户串答</b>（既是成本设计也是安全设计）；④监控命中率与疑似错答持续调参。</p>
-  <p class="ev">云上口径核实 2026-07-09：Azure APIM 是目前<b>唯一原生内置「按 token 限流 +
-    LLM 专属策略」的云厂商网关</b>（网关侧预估 prompt token 提前拦截 + llm-semantic-cache），来源 <a href="#src-azure">learn.microsoft.com</a>。缓存输入约 1 折、省约 90% 为三大厂
-    2026-06 口径（登记于 Prompt-Engineering 模块事实表）。</p>
+  <p class="ev">云上口径核实 2026-09-05：Azure APIM 原生内置「按 token 限流 +
+    LLM 专属策略」（网关侧预估 prompt token 提前拦截 + llm-semantic-cache），来源 <a href="#src-azure">learn.microsoft.com</a>；「唯一原生」的说法已被 Apigee 官方页推翻——它同样原生自带 LLM token 策略（PromptTokenLimit / LLMTokenQuota）与语义缓存。缓存输入约 1 折、省约 90% 为三大厂
+    2026-09 口径（登记于 Prompt-Engineering 模块事实表）。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html" title="网关在推理服务之上:单模型加速(Inference) vs 多模型统一治理(网关),互补分工">LLM-Inference</a><a href="../model-landscape/index.html#ml-selection" title="&quot;选哪些模型进路由池&quot;的格局与方法在 Model-Landscape(三层路由/五约束决策树),网关是其工程落地件——双向互指(2026-07-10)">选型方法论<span class="xm">Model-Landscape</span></a></div>
 </section>
@@ -506,7 +506,7 @@
   <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
 
   <div class="lead">
-    <p>前八节讲的是网关这层要管哪些事。这一节换个视角：每件事在云上对应哪个服务、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了。顺序按现场画架构图的走法排——先定这层自己放在哪，再往下压成本、挂安全与观测，最后接工具流量。 同一格给多厂商代表选项，不绑死单一供应商；只列讲义点到名的产品，没有就不硬凑。「唯一原生」这类说法是 2026-07 的横向口径，各云能力月级演进，出方案当天按各家当期文档再核一遍。</p>
+    <p>前八节讲的是网关这层要管哪些事。这一节换个视角：每件事在云上对应哪个服务、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了。顺序按现场画架构图的走法排——先定这层自己放在哪，再往下压成本、挂安全与观测，最后接工具流量。 同一格给多厂商代表选项，不绑死单一供应商；只列讲义点到名的产品，没有就不硬凑。「唯一原生」这类说法已被 2026-09 复核推翻（Apigee 同样原生自带 LLM token 策略），各云能力月级演进，出方案当天按各家当期文档再核一遍。</p>
     <p>同一环节给多厂商代表选项，<b>不绑死单一供应商</b>；只列有真实云关联的环节，没有就不硬凑。服务能力以各云 2026 年现状为准，报方案前按当期文档复核。</p>
   </div>
 
@@ -530,14 +530,14 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>按 token 限流</td><td>Azure APIM 原生 token limit 策略（网关侧先估 prompt token）；Cloudflare AI Gateway 主打花费上限；LiteLLM、Higress 内置 TPM/RPM</td><td>超额请求在网关就被拦掉，不必等打到模型才发现爆预算</td></tr>
+      <tr><td>按 token 限流</td><td>Azure APIM 原生 token limit 策略（网关侧先估 prompt token）；Cloudflare 单端点接 20+ 家 provider + Guardrails/DLP（Beta）；LiteLLM、Higress 内置 TPM/RPM</td><td>超额请求在网关就被拦掉，不必等打到模型才发现爆预算</td></tr>
       <tr><td>语义缓存</td><td>Azure APIM llm-semantic-cache 策略 + Managed Redis；Portkey、Higress 内置语义缓存；自建可用 Redis + 向量检索</td><td>意思相近的问题只答一次，命中即毫秒级返回、零模型计费</td></tr>
       <tr><td>花费归集</td><td>Azure APIM 按订阅键与维度统计；LiteLLM 虚拟密钥按 key／团队记账；各云计费导出</td><td>月底能说清谁花了多少、花在哪个模型上</td></tr>
     </tbody>
   </table>
   </div>
   <p><b>顺着追问什么</b>：他现在的账单能不能拆到应用和团队头上——拆不开就先做一次成本画像，别急着承诺省多少。高频重复问题占多大比例，决定语义缓存值不值得开。预算撞线那一刻，业务能接受降级到便宜模型，还是必须拒绝？额度按团队发还是按项目发？</p>
-  <p><b>云替你做不了什么</b>：限流和缓存管住的是花销，管不住质量：切到便宜档的那部分流量得配采样评估盯着，掉了就调阈值。语义缓存的阈值和缓存键这两个旋钮云不会替你拧——太松会把「北京天气」和「上海天气」当同一个问题答错，缓存键不带租户和权限还会跨用户串答，个性化与实时请求要绕过。「Azure APIM 是目前唯一原生内置按 token 限流加 LLM 专属策略的云厂商网关」是一个时点口径，各云能力在月级演进，别当成长期结论写进方案。</p>
+  <p><b>云替你做不了什么</b>：限流和缓存管住的是花销，管不住质量：切到便宜档的那部分流量得配采样评估盯着，掉了就调阈值。语义缓存的阈值和缓存键这两个旋钮云不会替你拧——太松会把「北京天气」和「上海天气」当同一个问题答错，缓存键不带租户和权限还会跨用户串答，个性化与实时请求要绕过。「Azure APIM 是目前唯一原生内置按 token 限流加 LLM 专属策略的云厂商网关」是一个已过时的时点口径——Apigee 同样原生自带这套策略，各云能力在月级演进，别当成长期结论写进方案。</p>
 
   <h3>上线之后：安检口与仪表盘</h3>
   <div class="tw">
@@ -620,7 +620,7 @@
     <tbody>
       <tr id="src-azure"><td><code>src-azure</code></td><td>learn.microsoft.com
           genai-gateway-capabilities</td><td>Azure APIM 的 token 限流与语义缓存能力</td>
-          <td>「唯一原生」是 2026-07 口径，各云月级演进</td></tr>
+          <td>「唯一原生」说法已被 Apigee 官方页推翻（2026-09），各云月级演进</td></tr>
       <tr id="src-litellm"><td><code>src-litellm</code></td><td>docs.litellm.ai / GitHub</td>
           <td>LiteLLM 规模数字（100+ provider、7 维路由）</td><td>版本迭代极快，配置细节看当日文档</td></tr>
       <tr id="src-envoy"><td><code>src-envoy</code></td><td>Tetrate v1.0 博客 /

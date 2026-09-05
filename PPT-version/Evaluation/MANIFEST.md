@@ -1,4 +1,4 @@
-# Evaluation · MANIFEST(模块清单)
+# Evaluation · MANIFEST（模块清单）
 
 ## 模块信息
 | 字段 | 值 |
@@ -22,14 +22,14 @@
 | eval-tooling | 第 7 章 | 评估工具链与生产闭环 | ✅ | 2026-07-09 |
 | eval-cheatsheet | 第 8 章 | 售前速查 | ✅ | 2026-07-09 |
 
-## 时效性事实(巡检盘查对象)
+## 时效性事实（巡检盘查对象）
 | 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | MMLU / MMLU-Pro 已功能性饱和,前沿模型普遍 88%+,顶部无区分度 | eval-benchmarks | 2026-07-09 | techjacksolutions / kili-technology 2026 基准综述 | — | B | 90 | 顶部饱和不代表中小模型或垂直任务上也无区分度 |
-| GPQA Diamond 头部分数:Sakana Fugu-Ultra 95.5 / GPT-5.6 Sol 94.6 / Gemini 3.1 Pro 94.3 / Claude Opus 4.7 94.2,前十差距仅 2.7 分、区分度收窄(BenchLM 2026-07-31 榜口径;各榜互差约 1 分) | eval-benchmarks | 2026-08-01 | benchlm.ai/benchmarks/gpqaDiamond;建议复查 2026-09-05 | — | B | 30 | 单榜快照，各榜互差约一分，2.7 分不足以判优劣 |
-| HLE 前沿模型约 45~65%(带工具/纯文本各榜口径不一:llm-stats 2026-07-27 榜首 53.3,BenchLM 带工具口径 64.5),人类专家约 90%,仍是区分度最好的知识型基准之一 | eval-benchmarks | 2026-08-01 | llm-stats.com / benchlm.ai/benchmarks/hle;建议复查 2026-09-05 | — | B | 30 | 带工具与纯文本口径不同，两组数字不可直接相比 |
+| GPQA Diamond 头部：GPT-6 Astra 96.0 居首；其后 Sakana Fugu-Ultra 95.5 / GPT-5.6 Sol 94.6 / Gemini 3.1 Pro 94.3 / Claude Opus 4.7 94.2，前十差距 3.1 分、区分度收窄（BenchLM 2026-09-04 榜口径；各榜互差约 1 分） | eval-benchmarks | 2026-09-05 | benchlm.ai/benchmarks/gpqa-diamond（Data verified 2026-09-04） | — | B | 30 | 单榜快照，3.1 分不足以判优劣；榜首月级换血 |
+| HLE 前沿模型约 45~65%（llm-stats 与 BenchLM 2026-09 榜首同为 65.0/65，均为 Claude Fable 5.1；带工具/纯文本各榜口径不一）；「人类专家约 90%」在 HLE 论文正文查无此数，已删；仍是区分度最好的知识型基准之一 | eval-benchmarks | 2026-09-05 | llm-stats.com/benchmarks/humanity's-last-exam；benchlm.ai/benchmarks/hle（2026-09-05 逐字核对） | — | B | 30 | 带工具与纯文本口径不同，两组数字不可直接相比 |
 | Agent 基准主战场:SWE-bench Verified / Terminal-Bench 2.1(2026-05-06 发布的修订版,沿用 89 任务、修复 28 题并引入持续校验)/ τ²-bench / OSWorld;BFCL v4(2026-04)改 Agentic 加权 40% | eval-benchmarks | 2026-08-01 | tbench.ai/news + tbench.ai/registry(2.1 官方发布);arXiv 2601.11868;建议复查 2026-11-01 | — | A | 90 | 基准清单不含分数，也不代表覆盖你的业务任务面 |
-| 2026-08 头部格局:Claude Opus 5(2026-07-24 发布)以 96% 领跑 SWE-bench Verified(BenchLM 2026-07-31 榜);GPT-5.6(2026-07-09 公开,Sol/Terra/Luna 三档)与 Gemini 3.5 家族(2026-07-21 发 3.6 Flash / 3.5 Flash-Lite / 3.5 Flash Cyber,无 3.5 Pro)已上线,GPT-5.5 仍现役;OpenAI 2026-02-23 以污染为由停报 SWE-bench Verified、改推 SWE-bench Pro,又于 2026-07-08 官方撤回该推荐(约 30% 任务损坏) | eval-benchmarks | 2026-08-01 | anthropic.com/news/claude-opus-5 / benchlm.ai/benchmarks/sweVerified / openai.com/index/gpt-5-6 / openai.com/index/why-we-no-longer-evaluate-swe-bench-verified / OpenAI 官方 X(2026-07-08 撤荐声明);建议复查 2026-09-05 | — | B | 30 | 第三方榜快照，且该榜有污染争议，不等于工程实力 |
+| 2026-08 头部格局:Claude Opus 5(2026-07-24 发布)以 96% 领跑 SWE-bench Verified(BenchLM 2026-07-31 榜);GPT-5.6(2026-07-09 公开,Sol/Terra/Luna 三档)与 Gemini 3.5 家族(2026-07-21 发 3.6 Flash / 3.5 Flash-Lite / 3.5 Flash Cyber,无 3.5 Pro)已上线,GPT-5.5 仍现役;OpenAI 2026-02-23 以污染为由停报 SWE-bench Verified、改推 SWE-bench Pro,又于 2026-07-08 官方撤回该推荐(约 30% 任务损坏) | eval-benchmarks | 2026-09-05 | anthropic.com/news/claude-opus-5 / benchlm.ai/benchmarks/sweVerified / openai.com/index/gpt-5-6 / openai.com/index/why-we-no-longer-evaluate-swe-bench-verified / OpenAI 官方 X(2026-07-08 撤荐声明);建议复查 2026-09-05 | — | B | 30 | 第三方榜快照，且该榜有污染争议，不等于工程实力 |
 | Chatbot Arena → LMArena → Arena(2026-01 更名),累计 600 万+ 投票,估值 17 亿美元 | eval-benchmarks | 2026-07-09 | openlm.ai / news.lmarena.ai | — | B | 90 | 累计票数与估值是平台自报，不证榜单结果的统计效力 |
 | 《The Leaderboard Illusion》(2025):厂商私测多变体择优公开,曾有厂商私测 27 变体只公开最优 | eval-benchmarks | 2026-07-09 | arXiv 2504.20879 / openreview | — | A | 180 | 不等于榜单造假，只是应试优化成分的证据 |
 | 判官三大偏差:位置(换序判决漂移 >10%)、冗长(无新信息加长版被偏好 >90%)、自我偏好(与困惑度相关) | eval-judge | 2026-07-09 | arXiv 2306.05685 / 2410.21819 / 2410.02736 | — | A | 180 | 漂移幅度随任务与模型而异，不能照搬到自家判官 |

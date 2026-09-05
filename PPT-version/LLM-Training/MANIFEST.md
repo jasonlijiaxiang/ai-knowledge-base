@@ -26,7 +26,7 @@
 | 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 后训练主流栈为 SFT →（可选 DPO）→ RLVR，GRPO/DAPO 一族为主力算法 | llmtrain-reasoning | 2026-07-08 | llm-stats.com 2026 后训练综述；arXiv 2407.16216 | — | B | 90 | 算法族迭代快，主流栈不等于你的数据规模适用 |
-| 旗舰开源模型几乎全是稀疏 MoE：Kimi K3 总参 2.8T / 激活 104B（1M 上下文，93 层 = 69 KDA + 24 Gated MLA），DeepSeek V4-Pro 1.6T/49B、Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B；Qwen3.6 开源线只放到 35B-A3B 与 27B dense，最大的开源 Qwen 仍是 3.5 这一代 | llmtrain-pretrain | 2026-08-01 | huggingface.co/moonshotai/Kimi-K3 模型卡 + K3 技术报告 arXiv 2607.24653；HF Qwen3.6 合集与 Qwen/Qwen3.5-397B-A17B 模型卡；其余型号沿用 OpenRouter 2026-06 盘点（建议复查日 2026-11-01） | — | B | 30 | 型号快照，旗舰配方季度级换代，不能当长期格局 |
+| 旗舰开源模型几乎全是稀疏 MoE：Kimi K3 总参 2.8T / 激活 104B（1M 上下文，93 层 = 69 KDA + 24 Gated MLA），DeepSeek V4-Pro 1.6T/49B、Llama 4 Maverick 400B/17B、Qwen 3.5 397B/17B；Qwen3.6 开源线只放到 35B-A3B 与 27B dense，但 2026-08 起 Qwen3.8-2.4T-A95B 以开放权重发布（Qwen 首个开源 Max 级）——「最大的开源 Qwen 仍是 3.5 这一代」已翻篇 | llmtrain-pretrain | 2026-09-05 | huggingface.co/Qwen/Qwen3.8-2.4T-A95B；Kimi K3 官方模型卡；Meta Llama 4 博客（2026-09-05 逐字核对） | — | B | 90 | 参数是官方口径；「主力」是时点快照，Qwen 开放线迭代快 |
 | FP8 混合精度训练进入主流实践（如 MiMo-V2.5-Pro 27T token FP8） | llmtrain-pretrain | 2026-07-08 | OpenRouter 盘点、厂商技术报告 | — | B | 90 | 旗舰厂的训练实践，小规模训练不必照搬 |
 | Muon/MuonClip：Kimi K2 15.5T token 零 spike；PyTorch 2.9 原生内置 torch.optim.Muon | llmtrain-pretrain | 2026-07-08 | PyTorch 官方博客；arXiv 2507.20534 | — | A | 90 | 单次大规模训练的稳定性结论，换配方要重验 |
 | 数据墙：互联网高质量文本存量约 10–50 万亿 token | llmtrain-data | 2026-07-08 | 多方分析（aimultiple、lifearchitect 等） | — | B | 180 | 估算区间宽达五倍，只作量级参考不能拿来算账 |

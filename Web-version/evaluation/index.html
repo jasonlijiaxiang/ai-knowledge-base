@@ -127,8 +127,8 @@
     <thead><tr><th>基准</th><th>考什么</th><th>现状（2026-08-01 核实）</th></tr></thead>
     <tbody>
       <tr><td>MMLU / MMLU-Pro</td><td>多学科选择题，通用知识</td><td><b>已饱和</b>：前沿模型 88%+，顶部无区分度</td></tr>
-      <tr><td>GPQA Diamond</td><td>博士级理科推理</td><td>头部 94~95.5%，前十仅差 2.7 分，区分度收窄</td></tr>
-      <tr><td>HLE</td><td>约 2,500 道跨学科专家题</td><td>前沿约 45~65%（人类专家约 90%；带工具/纯文本各榜口径不一），区分度最好的知识型基准</td></tr>
+      <tr><td>GPQA Diamond</td><td>博士级理科推理</td><td>头部 96.0（GPT-6 Astra）~92.9%，前十差 3.1 分，区分度收窄</td></tr>
+      <tr><td>HLE</td><td>约 2,500 道跨学科专家题</td><td>前沿约 45~65%（llm-stats 与 BenchLM 2026-09 榜首同为 65.0/65，均为 Claude Fable 5.1；带工具/纯文本各榜口径不一），区分度最好的知识型基准</td></tr>
       <tr><td>SWE-bench Verified</td><td>修真实 GitHub issue</td><td>Agent 编码主基准，判分靠跑测试用例；已趋饱和并陷污染争议</td></tr>
       <tr><td>Terminal-Bench 2.1</td><td>89 个高难终端任务</td><td>2026-05 修订版（修复 28 题 + 引入持续校验），任务来自真实工作流</td></tr>
       <tr><td>τ²-bench</td><td>多轮客服 + 工具调用</td><td>对话式 Agent 任务的代表基准</td></tr>

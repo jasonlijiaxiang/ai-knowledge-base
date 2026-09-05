@@ -31,11 +31,11 @@
 | TensorRT-LLM 进入 1.x（1.0 起 PyTorch 架构转正）；稳定版 v1.2.1，1.3.0 处于 RC（rc20 为最后支持 TensorRT backend 的 RC，下版移除）；商业包装为 NIM | llminf-engines | 2026-08-01 | GitHub releases（github.com/NVIDIA/TensorRT-LLM/releases） | — | A | 90 | RC 不是稳定版；backend 移除的具体版本与时点未定 |
 | FP8 为生产推理默认精度（校准后损失约 0.5–2%）；NVFP4 面向 Blackwell、工具链成熟中、尚未大规模生产 | llminf-quant | 2026-07-09 | vrlatech/sesamedisk 2026 量化综述 | — | B | 90 | 通用损失量级，具体任务要用业务评测集实测 |
 | 投机解码已生产标配：EAGLE-3 主流、vLLM 报告最高 ~2.5x、接受率>80% 时 2–4x | llminf-speculative | 2026-07-09 | spheron/sesamedisk 2026 实测综述 | — | B | 90 | 加速比不能脱离并发与文本类型外推 |
-| 行业预测 2030 推理算力占 AI 总算力 ~75%（与 LLM-Training llmtrain-overview 同源事实） | llminf-speculative | 2026-07-09 | 行业分析综述 | — | B | 180 | 是预测不是现状统计，不能当算力采购依据 |
+| 行业预测 2030 推理算力占 AI 总算力 ~75%（与 LLM-Training llmtrain-overview 同源事实） | llminf-speculative | 2026-07-08 | 沿用 llm-training#llmtrain-overview 同源口径（2026-09-05 派生条对齐） | — | B | 180 | 是预测不是现状统计，不能当算力采购依据 |
 | NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.3.0（2026-07-22，第 16 个特性版）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐（建议复查日随月度巡检，版本号月级漂移） | llminf-disagg | 2026-08-01 | NVIDIA 官方博客、GitHub releases（github.com/ai-dynamo/dynamo） | — | B | 90 | 厂商基准下的 7×，不能当生产环境承诺 |
 | 压测工具换代：NVIDIA AIPerf v0.11.0（2026-07-08）接棒 GenAI-Perf（官方提供迁移指南），配合 vllm bench serve 为 token 级压测主力 | llminf-production | 2026-07-12 | pypi.org/project/aiperf、github.com/ai-dynamo/aiperf | — | A | 90 | 只说工具换代，不含任何容量或性能结论 |
 | P/D 分离成大规模服务共识：Mooncake（FAST'25 最佳论文）、DistServe（OSDI'24）、开源 llm-d（K8s 系） | llminf-disagg | 2026-07-09 | arXiv 2407.00079 等 | — | A | 180 | 论文负载下的收益，换负载要重测，只作量级参考 |
-| 成本量级参考：H100 级时租 $2–3/卡、70B FP8 双卡 ~3000 token/s、自建盈亏线利用率 ~40–50%、托管 API $2–5/百万输出 token | llminf-production | 2026-07-09 | 2026 年中多方评测量级归纳（讲义中已标注"参考"口径） | — | B | 30 | 量级直觉不能当报价，各云与机型差异大 |
+| 成本量级参考（2026-09-05 核）：H100 级时租 $2.89–$3.99/卡·时（RunPod 社区云 H100 PCIe $2.89、SXM $3.29、NVL $3.19；Lambda H100 SXM $3.99——neocloud 按需档，预留价更低）；70B 级开源模型托管 API 约 $1/百万输入与输出 token（Together Llama 3.3 70B Turbo $1.04/$1.04，FP8）；前沿闭源旗舰 $12–50/百万输出 token（GPT-5.6 Terra $12、Sol $20、GPT-6 Astra $50，长上下文档至 $75）；自建盈亏线利用率不登记固定区间，按当期卡价与 API 价代入重算；「70B FP8 双卡 ~3000 token/s」无一手实测源，已删 | llminf-production | 2026-09-05 | runpod.io/product/cloud-gpus；lambda.ai/pricing；docs.together.ai/docs/serverless/models；developers.openai.com/api/docs/pricing（2026-09-05 四家官方页逐字核对） | — | B | 30 | 量级直觉不能当报价，各云与机型差异大；盈亏线按当期价重算 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

@@ -7,7 +7,7 @@
 | 所在层 | 协议层 |
 | 主导关系 | 一单活儿的委派链——读者面对的场景是把一件活儿交给别人家的 Agent。 |
 | 建立日期 | 2026-07-09 |
-| 最后更新 | 2026-08-02 网页版增补「上云怎么落地」（Codex 对照库借鉴第 3 步·回流批）：新增 `#cloud` 小节（结构性小节，与 qa/related/sources 同类，不进章节清单）……；讲义 83 页；完整更新记录见 [raw-data/更新记录.md](raw-data/更新记录.md) |
+| 最后更新 | 2026-09-05 格式收口：事实表断开两表的孤立空行删除；2026-08-02 网页版增补「上云怎么落地」（Codex 对照库借鉴第 3 步·回流批）：新增 `#cloud` 小节（结构性小节，与 qa/related/sources 同类，不进章节清单）……；讲义 83 页；完整更新记录见 [raw-data/更新记录.md](raw-data/更新记录.md) |
 | 产出 skill 版本 | v3.0 |
 
 ## 章节清单
@@ -32,7 +32,6 @@
 | 云支持：Azure AI Foundry / Copilot Studio、AWS Bedrock AgentCore Runtime、Google Cloud（Vertex AI Agent Engine） | a2a-production | 2026-07-09 | LF 一周年 press | — | B | 90 | 只说明产品名在列，绑定深度与可用区不可外推 |
 | 三种传输绑定：JSON-RPC 2.0 / gRPC / HTTP+JSON-REST；流式走 SSE，长任务用推送通知回调 | a2a-transport | 2026-07-09 | a2a-protocol.org 规范页 | — | A | 90 | 规范列三种绑定，不代表各家 SDK 与对端都实现 |
 | AP2（Agent Payments Protocol）为 A2A 之上支付扩展，60+ 组织 | a2a-production | 2026-07-09 | LF 一周年 press | — | B | 90 | 参与组织数为通稿口径，扩展仍在早期不等于可用 |
-
 | Task 状态机共九种状态（进行中 2 + 中断 2 + 终态 4 + 兜底 unspecified），终态不可回跳、重试建新 Task | a2a-protocol | 2026-07-12 | a2a-protocol.org 规范 TaskState 枚举 | — | A | 90 | 九态是 1.0 枚举，实现方可能不全用或自加语义 |
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

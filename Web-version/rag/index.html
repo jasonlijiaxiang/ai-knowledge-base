@@ -499,7 +499,7 @@
     <p>「查文」答「是什么」，「查数」答「多少」——数字类问题走文档检索是事故源：最坏情况从旧报告里捞个过期数字、还带着出处、显得特别可信。<b>入口处就要分流</b>：问题里带「多少/排名/趋势/对比数值」的，路由到查数管线。</p>
   </div>
 
-  <p>裸 Text-to-SQL 为什么不及格：模型写标准 SQL 语法早已过关，难在语义落地——真实企业库几百张表、字段名像密码、同一个「收入」五种口径。<b>准确率随基准的「真实程度」断崖式下滑</b>：学术单轮基准（Spider / BIRD）能到 80–90%，中等企业化基准掉到 50–70%，<b>最贴近真实脏 schema 的企业基准（Spider 2.0 类）低到约 20%</b>——所以对客<b>要讲最低那档</b>（场景视角与口径战场见 <a href="../solution-patterns/index.html#sp-chatbi">Solution-Patterns ChatBI 节</a>）。而且错法危险：SQL 跑得通、数字是错的（静默错误）。同一个「去年营收多少」，sum 订单表（含取消单）和 sum 财务确认收入能差 15%，都「语法正确」。</p>
+  <p>裸 Text-to-SQL 为什么不及格：模型写标准 SQL 语法早已过关，难在语义落地——真实企业库几百张表、字段名像密码、同一个「收入」五种口径。<b>准确率随基准的「真实程度」断崖式下滑</b>：学术单轮基准（Spider / BIRD）能到 80–90%，中等企业化基准掉到 50–70%，<b>最贴近真实脏 schema 的企业基准（Spider 2.0 类）低到 10–21%</b>——所以对客<b>要讲最低那档</b>（场景视角与口径战场见 <a href="../solution-patterns/index.html#sp-chatbi">Solution-Patterns ChatBI 节</a>）。而且错法危险：SQL 跑得通、数字是错的（静默错误）。同一个「去年营收多少」，sum 订单表（含取消单）和 sum 财务确认收入能差 15%，都「语法正确」。</p>
   <div class="box">
    <h4>语义层是解药</h4>
    <p>指标 / 维度 / 同义词的确定性定义（「营收 = 确认收入 − 退款」）——<b>给空降的 SQL 高手发一本《公司指标口径手册》</b>，把「猜口径」变成「查口径」，<b>准确率抬到 85–95%</b>，覆盖到的问题近乎全对。</p>
@@ -513,7 +513,7 @@
    <div class="box"><h4>③ 可复核</h4><p>答案附生成的 SQL 与口径出处。</p></div>
   </div>
   <p><b>生产定式</b>：RAG 做检索层 + 语义层做回答层，查文 / 查数入口路由。场景视角（ChatBI 口径战场）在 <a href="../../PPT-version/Solution-Patterns/README.html">Solution-Patterns</a> 第 8 章。</p>
-  <p class="ev">语义层前后 50–70% → 85–95% 为 dbt 2026 基准口径（核实 2026-07-09）；裸 SQL 随基准真实度分档（学术 80–90% / 中等 50–70% / 最难企业基准约 20%）经 2026-07-23 复核，来源 <a href="#src-sql">dbt 基准与 Spider 2.0 / 企业化基准（BEAVER、Spider-Ent）</a>。<b>不可外推边界</b>：准确率强依赖 schema 复杂度与基准口径，别拿学术单轮数字对客报真实企业库。</p>
+  <p class="ev">语义层前后 50–70% → 85–95% 为 dbt 2026 基准口径（核实 2026-07-09）；裸 SQL 随基准真实度分档（学术 80–90% / 中等 50–70% / 最难企业基准 10–21%）经 2026-07-23 复核、2026-09-05 与 SP 册对齐，来源 <a href="#src-sql">dbt 基准与 Spider 2.0 / 企业化基准（BEAVER、Spider-Ent）</a>。<b>不可外推边界</b>：准确率强依赖 schema 复杂度与基准口径，别拿学术单轮数字对客报真实企业库。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../agent/index.html#agent-components" title="SQL 查数包成 agent 工具，与文档检索并列路由，指向 Agent 模块工具使用章">核心组件<span class="xm">Agent</span></a><a href="../solution-patterns/index.html#sp-chatbi" title="本章讲 Text-to-SQL 与语义层的机制，SP 第 8 章是其场景视角（口径战场/三道闸/产品格局）——双向互指（2026-07-11）">ChatBI 与数据分析<span class="xm">Solution-Patterns</span></a></div>
 </section>

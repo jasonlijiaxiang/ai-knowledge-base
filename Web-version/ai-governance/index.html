@@ -253,9 +253,9 @@
    <table>
     <thead><tr><th>能自动收的</th><th>收不到的那部分</th></tr></thead>
     <tbody>
-     <tr><td>云内在跑的模型、端点、Agent 与 MCP 服务器（Google Cloud Security Command Center，即 SCC 的 AI Protection，需 Premium 或 Enterprise 层级，MCP 服务器发现另需按项目启用 App Hub API）</td><td>官方文档写明<b>影子 AI 资源在控制台的 SCC 中不受支持</b>——浏览器里那部分得靠别的路子</td></tr>
+     <tr><td>云内在跑的模型、端点、Agent 与 MCP 服务器（Google Cloud Security Command Center，即 SCC 的 AI Protection，Standard/Premium/Enterprise 三层级可用、Enterprise 层级 2027-05-21 停用，MCP 服务器发现另需按项目启用 App Hub API）</td><td>官方文档写明<b>影子 AI 资源在控制台的 SCC 中不受支持</b>——浏览器里那部分得靠别的路子</td></tr>
      <tr><td>第三方 AI 站点的使用面（Microsoft Purview DSPM for AI，Data Security Posture Management，数据安全态势管理）</td><td>需开按量计费，多数能力依赖浏览器扩展与设备接入，影子 AI 发现通常还要与 Defender for Cloud Apps 的云发现组合使用</td></tr>
-     <tr><td>模型版本与端点（SageMaker、Vertex AI Model Registry）</td><td>注册表不知道用途、负责人、影响对象与失效条件——那几格你自己建</td></tr>
+     <tr><td>模型版本与端点（SageMaker、Gemini Enterprise Agent Platform Model Registry）</td><td>注册表不知道用途、负责人、影响对象与失效条件——那几格你自己建</td></tr>
      <tr><td>控制项与技术证据的自动归集</td><td>「谁批的、凭什么」得人写；调用日志证明「谁调了」，证不了「这条用途被批过」</td></tr>
     </tbody>
    </table>

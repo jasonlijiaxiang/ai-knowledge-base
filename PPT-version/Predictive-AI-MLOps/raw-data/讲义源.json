@@ -1671,7 +1671,7 @@
     2.5116
    ],
    "lead": "从实验记录到影子发布，主流云都铺好了，差别在门槛值谁来定。",
-   "note": "只列有真实云关联的环节。「托管 MLflow」指 SageMaker 与 Databricks 两家的托管版；注册表三家的产品全名是 SageMaker Model Registry、Azure ML Registries、Vertex AI Model Registry；Azure ML 与 Vertex 的流水线也有同类条件步骤。服务名与能力以 2026-08-02 各厂商官方文档为准；影子测试的时长与端点限制是 AWS 一家口径（默认 7 天、最长 30 天、一个端点只挂一个影子），别家做流量镜像的规格与配额不同，报方案前逐项复核。",
+   "note": "只列有真实云关联的环节。「托管 MLflow」指 SageMaker 与 Databricks 两家的托管版；注册表三家的产品全名是 SageMaker Model Registry、Azure ML Registries、Gemini Enterprise Agent Platform Model Registry（原 Vertex AI Model Registry）；Azure ML 与 Vertex 的流水线也有同类条件步骤。服务名与能力以 2026-08-02 各厂商官方文档为准；影子测试的时长与端点限制是 AWS 一家口径（默认 7 天、最长 30 天、一个端点只挂一个影子），别家做流量镜像的规格与配额不同，报方案前逐项复核。",
    "foot": "第 6 章 · 从实验到生产 · 上云怎么落地"
   },
   {
@@ -2050,7 +2050,7 @@
    "rows": [
     [
      "分布类信号",
-     "Azure ML 漂移信号、Vertex AI 模型监控、Evidently",
+     "Azure ML 漂移信号、Gemini Enterprise Agent Platform（原 Vertex AI）模型监控、Evidently",
      "不等标签的那四类，云上开箱就有",
      "推理的输入和输出落库了吗",
      "算子云给，阈值你定"
@@ -2658,14 +2658,14 @@
     ],
     [
      "生成式那一侧",
-     "Bedrock、Vertex AI Studio、Microsoft Foundry",
+     "Bedrock、Agent Studio（原 Vertex AI Studio，隶属 Gemini Enterprise Agent Platform）、Microsoft Foundry",
      "生成式常在另一个控制台",
      "两边权限和账单打通了吗",
      "跨控制台的审计自己拼"
     ],
     [
      "在线服务",
-     "SageMaker 端点、Vertex 端点、Azure ML 在线端点",
+     "SageMaker 端点、Gemini Enterprise Agent Platform 端点（原 Vertex 端点）、Azure ML 在线端点",
      "预测式跑 CPU，成本结构不同",
      "延迟、并发、批量各要多少",
      "容量规划不归云"

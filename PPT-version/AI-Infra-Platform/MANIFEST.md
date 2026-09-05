@@ -32,7 +32,7 @@
 | GPU 切分三板斧口径：MIG（硬件隔离、最多 7 实例）、时间片（高密度无隔离、不宜生产多租户）、MPS；HAMi（CNCF）任意 NVIDIA 卡细粒度配额；MIG 正与 DRA 打通 | aip-sharing | 2026-07-09 | NVIDIA GPU Operator 文档、scaleops/collabnix/rafay 2026 教程 | — | B | 90 | 切分能力随卡型不同，隔离强度不能按一款卡外推 |
 | SageMaker HyperPod：EKS/Slurm 双编排 + 弹性容错（自动检测-替换-续训）；2026 上新一键建集群、Slurm continuous provisioning（2026-03）、G7e 实例（2026-04） | aip-faulttol | 2026-07-09 | AWS 官方文档/What's New | — | A | 90 | 云厂能力月级上新，实例型号与区域可用性要按当期核 |
 | llm-d（K8s 系 P/D 分离）、NVIDIA Dynamo 1.0（2026-03 GTC GA，P/D 编排+KV 感知路由+NIXL）为推理平台化承载 | aip-serving | 2026-07-09 | 沿用 llm-inference#llminf-disagg 同源口径 | — | B | 90 | GA 只说明可用，P/D 分离收益需按自家流量形态实测 |
-| 自建盈亏线利用率约 40-50%、托管 API $2-5/百万输出 token | aip-cloud | 2026-07-09 | 沿用 llm-inference#llminf-production 同源口径 | — | B | 30 | 量级参考不是报价，盈亏线随卡价电价与合同期变 |
+| 自建盈亏线利用率随当期卡价与 API 价重算、托管 API 分两档（开源 70B 级约 $1、前沿旗舰 $12–50/百万输出 token） | aip-cloud | 2026-09-05 | 沿用 llm-inference#llminf-production 同源口径（源行 2026-09-05 更新） | — | B | 30 | 量级参考不是报价，盈亏线随卡价电价与合同期变 |
 | K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随月度巡检，版本号周级漂移） | aip-serving | 2026-08-01 | github.com/kserve/kserve/releases、kserve.github.io 文档（LLMInferenceService 概览 / CRD API）、github.com/kubernetes-sigs/kueue/releases | — | A | 90 | 版本号周级漂移；alpha CRD 不能按稳定 API 承诺 |
 
 ## 稳定事实（不会过期，无需巡检）

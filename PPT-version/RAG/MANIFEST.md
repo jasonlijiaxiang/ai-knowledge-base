@@ -38,7 +38,7 @@
 | BGE M3 为开源多语言 embedding 代表方案 | rag-embedding | 2026-07-07 | arXiv 2402.03216 | — | B | 90 | 代表性不等于最优，检索质量要用自家评估集实测 |
 | 全量 GraphRAG 索引成本 6–8 倍；LazyGraphRAG 压至 0.1%、全局查询省约 700 倍 | rag-graphrag | 2026-07-09 | Microsoft GraphRAG 文档、2026 实践者评测 | — | B | 90 | 倍数随语料形态浮动，量级参考不能当预算 |
 | 多模态三路线：Caption / 统一嵌入（Cohere Embed 4、voyage-multimodal）/ ColPali 系晚交互 | rag-multimodal | 2026-07-09 | arXiv 2407.01449、BigData Boutique 2026 | — | B | 90 | 路线分类稳定，但点名的模型月级演进，选型前重核 |
-| 裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准 Spider 2.0 类约 20%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档 | rag-structured | 2026-07-23 | dbt 2026 基准 + Spider 2.0 / BEAVER / Spider-Ent（2026-07-23 复核；分档口径与 SP 对齐——原 07-09 只登 50–70%，与 SP 的 10–21% 打架，已按基准真实度合成一套） | — | B | 90 | 基准库口径，自家库 schema 更复杂，要实测 |
+| 裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准（Spider 2.0 类）10–21%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档 | rag-structured | 2026-07-23 | dbt 2026 基准 + Spider 2.0 / BEAVER / Spider-Ent（与 solution-patterns#sp-chatbi 同源口径，2026-09-05 两册分档对齐） | — | B | 90 | 基准库口径，自家库 schema 更复杂，要实测 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

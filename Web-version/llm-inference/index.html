@@ -320,7 +320,7 @@
     </tbody>
   </table>
   </div>
-  <p>经验阈值：<b>GPU 月利用率能稳定 >40–50% 时，自建开始比按 token 买便宜</b>——成本模型见<a href="#llminf-production">生产化</a>一节。</p>
+  <p>经验阈值：<b>GPU 月利用率稳定站上盈亏线时，自建开始比按 token 买便宜</b>（盈亏线按当期卡价与 API 价代入算）——成本模型见<a href="#llminf-production">生产化</a>一节。</p>
   <p class="ev">引擎版本核实 2026-08-01（vLLM v0.26.0 · SGLang v0.5.16、Spec V2 默认开启 ·
     TensorRT-LLM 稳定版 v1.2.1），来源 <a href="#src-engines">GitHub releases</a>。<b>这张表是本页过期最快的一处，月度巡检重点。</b><b>不可外推边界</b>：版本号只说明当期稳定版，不代表功能对等——三家的默认开关不同，跑分对比必须锁同一批参数。</p>
 </section>
@@ -486,20 +486,20 @@
    <table>
     <thead><tr><th>算一遍</th><th>数</th></tr></thead>
     <tbody>
-     <tr><td>配置</td><td>2×H100 跑 70B FP8，时租约 $6</td></tr>
-     <tr><td>压测产出</td><td>~3000 token/s ≈ 每小时 1080 万 token</td></tr>
-     <tr><td><b>折算</b></td><td><b>约 $0.56 / 百万输出 token</b></td></tr>
-     <tr><td>托管 API 常见价</td><td>$2–5 / 百万输出 token</td></tr>
+     <tr><td>配置</td><td>2×H100 跑 70B FP8，时租按当期价（H100 级 neocloud 档 $2.89–3.99/卡·时）</td></tr>
+     <tr><td>压测产出</td><td>按实测吞吐代入（旧「~3000 token/s」无一手实测源，已撤）</td></tr>
+     <tr><td><b>折算</b></td><td><b>每百万 token 成本 = 时租 ÷ 每小时产出</b></td></tr>
+     <tr><td>托管 API 两档价</td><td>开源 70B 级约 $1 / 前沿旗舰 $12–50（输出）</td></tr>
     </tbody>
    </table>
   </div>
-  <p>粗看自建便宜 5–10 倍，但要摊利用率、运维人力、峰值冗余——<b>利用率 40–50% 是常见盈亏线</b>。</p>
+  <p>粗看自建便宜，但要摊利用率、运维人力、峰值冗余——<b>盈亏线按当期卡价与 API 价代入算，不背固定区间</b>。</p>
   <div class="grid">
-   <div class="box"><h4>H100 级时租</h4><p>$2–3 / 卡</p></div>
-   <div class="box"><h4>70B FP8 双卡</h4><p>~3000 token/s</p></div>
-   <div class="box"><h4>盈亏线利用率</h4><p>~40%</p></div>
+   <div class="box"><h4>H100 级时租</h4><p>$2.89–3.99 / 卡（neocloud 档）</p></div>
+   <div class="box"><h4>开源 70B 托管</h4><p>约 $1 / 百万 token</p></div>
+   <div class="box"><h4>前沿旗舰</h4><p>$12–50 / 百万输出 token</p></div>
   </div>
-  <p>2026 年中量级参考，<b>报价以实测为准</b>。</p>
+  <p>2026-09-05 量级参考，<b>报价以实测为准</b>。</p>
 
   <h3>降本组合拳：按序叠加</h3>
   <div class="tw">
