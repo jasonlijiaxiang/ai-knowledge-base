@@ -2,6 +2,10 @@
 # 与 push 触发的门禁（gates.yml）不同：这里用 --strict，任何到期即视为失败，
 # 失败自动创建/更新 issue「到期事实清单」——到期通知走 issue，不靠人盯徽章。
 # push 门禁只拦「超期超过 KB-CONFIG 超期宽限」的（2026-09-05 起）。
+# 注意：runner 默认 shell 是 bash -e，不要把退出码 echo 进 GITHUB_OUTPUT 再让
+# 下游 step 用 if 判断——失败的命令会先让 shell 退出、输出根本写不进，
+# 建/关 issue 的判定因此整个跑进错误分支（2026-09-05 首跑实测）。这里用
+# 单 step 的 if/else 壳逻辑，退出码就地判断。
 
 name: 保鲜（到期事实清单）
 
@@ -29,38 +33,27 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: 保鲜 --strict
-        id: freshness
-        run: |
-          python3 _maintenance/check_freshness.py --strict > /tmp/freshness.txt 2>&1
-          echo "code=$?" >> "$GITHUB_OUTPUT"
-        continue-on-error: true
-
-      - name: 全绿则关闭旧 issue
-        if: steps.freshness.outputs.code == '0'
+      - name: 保鲜 --strict → 创建/更新或关闭「到期事实清单」issue
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue list --state open --search '到期事实清单 in:title' --json number -q '.[].number' |
-          while read -r n; do
-            gh issue close "$n" --comment "本周保鲜门禁（--strict）全绿，到期清单清空，issue 自动关闭。"
-          done
-
-      - name: 到期则创建/更新 issue
-        if: steps.freshness.outputs.code == '1'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          {
-            echo "保鲜门禁 \`--strict\` 检出到期或字段非法事实（每周一自动运行，也可手动 dispatch）。"
-            echo ""
-            echo '```'
-            cat /tmp/freshness.txt
-            echo '```'
-          } > /tmp/body.md
-          n=$(gh issue list --state open --search '到期事实清单 in:title' --json number -q '.[0].number')
-          if [ -n "$n" ]; then
-            gh issue edit "$n" --body-file /tmp/body.md
+          if python3 _maintenance/check_freshness.py --strict > /tmp/freshness.txt 2>&1; then
+            gh issue list --state open --search '到期事实清单 in:title' --json number -q '.[].number' |
+            while read -r n; do
+              gh issue close "$n" --comment "本周保鲜门禁（--strict）全绿，到期清单清空，issue 自动关闭。"
+            done
           else
-            gh issue create --title "到期事实清单" --body-file /tmp/body.md
+            {
+              echo "保鲜门禁 \`--strict\` 检出到期或字段非法事实（每周一自动运行，也可手动 dispatch）。"
+              echo ""
+              echo '```'
+              cat /tmp/freshness.txt
+              echo '```'
+            } > /tmp/body.md
+            n=$(gh issue list --state open --search '到期事实清单 in:title' --json number -q '.[0].number')
+            if [ -n "$n" ]; then
+              gh issue edit "$n" --body-file /tmp/body.md
+            else
+              gh issue create --title "到期事实清单" --body-file /tmp/body.md
+            fi
           fi
