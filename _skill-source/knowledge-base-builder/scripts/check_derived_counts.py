@@ -146,7 +146,48 @@ def main():
         print("\n改数字，或者——若它讲的确实是过去——把这一行登记进 "
               "_maintenance/count-exemptions.txt。")
         return 1
-    print("\n%d 个活面上的可派生数目全部与真源一致。" % len(SURFACES))
+
+    # 技能文档轴（2026-09-05 C9）：_skill-source/ 是通用的，但它文档里一旦出现
+    # 「N 个脚本」「N 项检查」「N 道门禁」，必须与库内真源一致——否则技能发出去，
+    # 照着文档数出来的门禁体系是假的。取证段落用现有豁免机制登记。
+    script_n = len([x for x in os.listdir(os.path.join(ROOT, "_maintenance"))
+                    if x.endswith((".py", ".sh"))])
+    audit_n = len(re.findall(r"检查项 \d+", open(
+        os.path.join(ROOT, "_maintenance", "audit_pptx.py"), encoding="utf-8").read()))
+    skill_bad = []
+    skill_root = os.path.join(ROOT, "_skill-source", "knowledge-base-builder")
+    for sub in ("SKILL.md", "references"):
+        base = os.path.join(skill_root, sub)
+        if not os.path.exists(base):
+            continue
+        for path in ([base] if os.path.isfile(base) else
+                     sorted(os.path.join(d, f) for d, _, fs in os.walk(base)
+                            for f in fs if f.endswith(".md")
+                            and f != "CHANGELOG.md")):
+            rel = os.path.relpath(path, ROOT)
+            src = open(path, encoding="utf-8").read()
+            for i, line in enumerate(src.split("\n"), 1):
+                if any(rel == p and f in line for p, f in ex):
+                    continue
+                for m in re.finditer(r"(\d+)\s*个(?:常设)?脚本", line):
+                    if int(m.group(1)) != script_n:
+                        skill_bad.append((rel, i, "脚本数", m.group(1), script_n, line.strip()[:80]))
+                for m in re.finditer(r"(\d+)\s*项(?=检查|契约)", line):
+                    if int(m.group(1)) != audit_n:
+                        skill_bad.append((rel, i, "audit 检查项数", m.group(1), audit_n, line.strip()[:80]))
+                for m in re.finditer(r"([一二三四五六七八九十两]{1,3}|\d+)\s*道门禁", line):
+                    v = m.group(1)
+                    n = int(v) if v.isdigit() else CN.get(v)
+                    if n and n >= 4 and n != t["门禁道数"]:
+                        skill_bad.append((rel, i, "门禁道数", v, t["门禁道数"], line.strip()[:80]))
+    if skill_bad:
+        print("\n技能文档里的可数数字对不上（%d 处）：" % len(skill_bad))
+        for rel, i, what, got, want, txt in skill_bad:
+            print("  %s:%d  %s 写 %s，应为 %s" % (rel, i, what, got, want))
+            print("      %s" % txt)
+        return 1
+    print("\n%d 个活面上的可派生数目全部与真源一致；技能文档轴一致。"
+          % len(SURFACES))
     return 0
 
 

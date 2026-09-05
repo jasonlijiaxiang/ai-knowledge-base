@@ -1,7 +1,7 @@
 ---
 name: knowledge-base-builder
 metadata:
-  version: "9.2"
+  version: "10.0"
 description: >-
   维护一个持续扩充、持续更新的个人知识库（领域可配置，默认 AI 技术）：每个主题模块固定产出①精选电子书书单（只列正规渠道链接，不下载文件）+②讲义式 PPT，并可建网页版。读者画像与口味由库根 KB-CONFIG.md 配置（默认 AI 平台"售前技术"角色）。六种情况务必使用本技能，即使用户没点名"知识库"或"技能"：(1) 新增主题模块——"再加一章 X / 建个 X 的知识库 / 帮我整理 X 的资料"；(2) 已有模块增补或更新——"更新 X 那一节 / 补充 X / X 有新版本了"，或不点名模块说"结合最新的参考材料更新对应模块"（走参考路由，扫描库内 _reference/ 判断对应模块）；(3) 保鲜巡检——用户或定时任务说"巡检 / 体检 / 保鲜 / 查查哪些过期了"；(4) 初始化或迁移——"帮我建个知识库"、目标目录没有 KB-CONFIG.md、或库为旧布局待迁移；(5) 给已有讲义配图——"配图 / 配信息图 / 加几张图 / 图太少 / 文字太多"（含"全库都配"，走配图分支）；(6) 网页版（Web 面）建设与增补——"做网页版 / 网页版样板 / 某模块网页版"（一源两面：PPT 为基底、网页为延伸增强，MANIFEST 唯一账本，portable 铁律，动手前先跑布局就位检查）。输入可以很随意——一个概念、一个名词、一段用户与大模型的对话、一份资料；本技能自动判断该新增还是更新哪个模块，模糊时先反问。凡涉及"整理学习资料 / 做电子书书单 / 做讲义 PPT / 配信息图 / 建网页版 / 把某个概念或对话沉淀进知识库 / 扩充更新这个知识库"的请求，都应触发本技能，以保证结构、风格、命名一致。
 ---
@@ -74,9 +74,9 @@ description: >-
      **先跑 `scripts/check_kb_layout.py` 做架构就位检查**：退出码 2（v3 旧布局）先走
      `references/tasks/init-rules.md`「v4.0 布局迁移」，1（残缺/半途）先修结构，0 才进正题；
      然后按 `references/web/web-rules.md` 执行（一源两面、MANIFEST 唯一账本、覆盖与缺口矩阵；
-     视觉与门禁在 `references/web/web-design-system.md`）。**现处分批扩建阶段**（2026-07-21 起，
-     样板期已结束）：每批 1–3 册、批内每册按覆盖矩阵完整走，不做一次性全库转换；选册判据见
-     web-rules 第二节末；模块内容增补类输入若库内已有网页面，两面同批落地（见 web-rules 第六节）。
+     视觉与门禁在 `references/web/web-design-system.md`）。**扩建节奏**：新增模块每批 1–3 册、批内每册按覆盖矩阵完整走，不做一次性全库转换；
+     选册判据见 web-rules 第二节末；模块内容增补类输入若库内已有网页面，两面同批落地
+     （见 web-rules 第六节）。
    - **输入是给讲义配图 / 加信息图**（"给讲义配图、配信息图、加几张图、图太少、文字太多"，
      单册或"全库都配"）→ 走 B 类改成品的**配图分支**，按 `references/ppt/illustration-rules.md`：
      判据是"这页做成图明显更好懂"、**数量按内容深度不设配额**、绘图用 `scripts/kb_draw.py`、
@@ -137,15 +137,12 @@ description: >-
    `references/tasks/prep-rules.md`）的全库口径——模块数、层数、书架表、题源覆盖——是否被本次
    新增改变；需要回刷就当场回刷或明确登记待办报告用户，**不许静默跳过**（历史教训：库长到
    19 模块时实战包仍写"18 个模块"，就是因为没有这个触发器）。
-   如果库内提供 `_maintenance/module-registry.json` 与 `_maintenance/validate_kb.rb`，MANIFEST 的章节
-   ID、标题、顺序必须与注册表逐项一致，所有跨模块边必须精确写成 `目录#稳定章节ID` 并能解析；规划
-   候选只能留在 `raw-data/`，不能进入最终 MANIFEST。库内有 `_maintenance` 门禁的运行库内门禁
-   （若当前环境缺少对应运行时——如没有 ruby——就用技能包 `scripts/audit_pptx.py` 兜底，并人工
-   核对 MANIFEST 与注册表的一致性，不得因缺工具跳过检查）；任何环境下都可以（并建议）先跑
-   技能包自带的 `scripts/audit_pptx.py <讲义.pptx>` 做工具中立的契约自检（16:9、字体、字号下限、
-   色板、负坐标、标题唯一性、app.xml 一致性、章数一致性——封面章节条与「X 章一条主线」口径
-   vs 正文最大章号、每章固定元素与收尾四件套）。自动门禁通过后，仍需按
-   `references/ppt/ppt-design-system.md` 完成逐页渲染目检，才能把面总览里的状态改成"已完成"。
+   章节 ID、标题、顺序必须与 MANIFEST 逐项一致（旧库若提供 Ruby 时期的注册表遗留件，
+   以库内 `_maintenance` 的现行门禁脚本为准——那套已不再维护）。收尾跑库内门禁：`bash _maintenance/run_all_gates.sh`
+   （唯一入口，不要挑着跑）；任何环境下都可以先跑技能包自带的
+   `scripts/audit_pptx.py <讲义.pptx>` 做工具中立的契约自检（检查项清单以其 docstring 为准）。
+   自动门禁通过后，仍需按 `references/ppt/ppt-design-system.md` 完成逐页渲染目检，
+   才能把面总览里的状态改成"已完成"。
 
 6. **技能自省（每次 A/B 类任务的固定最后一步，不可省略）。** 收尾完成后回顾本次执行，回答
    一个问题并**明确报告给用户**：本次有没有暴露技能规则的问题——哪条规则执行起来别扭、哪里
@@ -177,7 +174,7 @@ description: >-
 | 任务类型 | 动手产出前必读 | 收尾（第 5 步起）再加 |
 | --- | --- | --- |
 | A 类新增 / B 类增补（PPT 面） | `shared/` 三件；第 3 步起加 `ppt/ppt-rules`；第 4 步加 `ppt/ppt-design-system` | `shared/library-ledgers` + `shared/failure-matrix` |
-| 配图分支 | `shared/core-rules` + `ppt/illustration-rules` + `ppt/ppt-design-system` | `shared/failure-matrix` |
+| 配图分支 | `shared/core-rules` + `shared/library-layout` + `ppt/illustration-rules` + `ppt/ppt-design-system` | `shared/library-ledgers` + `shared/failure-matrix` |
 | Web 面任务 | `shared/` 三件 + `web/web-rules`；生成与验收加 `web/web-design-system`（**设计方法已并入其 §三·五，不必再外挂 frontend-design 之类的技能**） | `shared/library-ledgers` + `shared/failure-matrix` |
 | C 类巡检 | `tasks/patrol-rules`（+ 库内门禁脚本） | — |
 | D 类库级产物 | `shared/core-rules` + `shared/writing-rules` + `tasks/prep-rules` | `shared/library-ledgers` + `shared/failure-matrix` |
@@ -249,7 +246,7 @@ description: >-
   层设计原则、**v4.0 布局迁移**（第 0 步读不到配置、或布局检查报待迁移时读）。
 
 - `references/CHANGELOG.md` — 完整版本历史（版本追溯/决定重刷范围时读，日常任务不加载）。
-**工具 `scripts/`（41 个，全部零第三方依赖，除生成器与绘图两件）**
+**工具 `scripts/`（数目以 `scripts/` 目录清单为准，全部零第三方依赖，除生成器与绘图两件）**
 
 细则在 `references/tools.md`——**按需读**：要用某个工具时翻它那一段（或直接读脚本头部的
 docstring，两处同源）。这里只留「什么时候伸手拿哪个」：
@@ -257,7 +254,7 @@ docstring，两处同源）。这里只留「什么时候伸手拿哪个」：
 | 想干什么 | 拿哪个 |
 | --- | --- |
 | **提交前过一遍** | `run_all_gates.sh`——唯一的门禁清单入口，**不要挑着跑** |
-| 判讲义合不合规 | `audit_pptx.py`（十七项）+ 逐页渲染目检 |
+| 判讲义合不合规 | `audit_pptx.py`（检查项数以脚本 docstring 为准）+ 逐页渲染目检 |
 | 建一册新讲义 | `kb_deck_build.py`（内容 JSON → 讲义），整册 JSON 必须存进 `raw-data/讲义源.json` |
 | 往已有讲义插页 / 删页 / 挪页 | `kb_insert.py` / `kb_delete.py` / `kb_move.py`（zip 级，绝不整包 round-trip） |
 | 改任何成品之前 | `kb_archive.py` 落档（拒绝静默覆盖） |

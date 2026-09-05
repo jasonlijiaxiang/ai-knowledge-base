@@ -34,7 +34,7 @@
 - 用 `kb_draw` 的令牌与 helper（`bg/tb/sr/para/eyebrow/title/footer/node/arrow/band/label` + 蓝青橙绿令牌），视觉与全库讲义**同源**（设计语言见 `ppt-design-system.md`）。
 - **node 排版**：中文一行 / 英文一行 / 说明一行（英文别跟中文挤一行折断）。
 - **字号**：正文与节点说明行 **≥11pt**（避免 audit「表格外 <11pt 占比 >40%」告警）；网格图 / 密集卡片图的小标签是**合法注释**（类比图表轴标），先把节点说明提到 11pt，仍超再判是否真偏小。**绝不用 <8pt 空行占位**（触发字号硬门禁）——要留白就用定位文本框，别写小字空 `para`。
-- **小画布册插页字号预抬档（v3.15，行为级）**：`kb_insert` 生成页按大画布（13.333×7.5）绘制，小画布 9 册（AI-GW / AIC / AIP / Eval / FT / LLM-Inf / LLM-Train / PE / Security，10×5.625）靠 `fix_canvas_scale` ×0.75 事后缩放——这条路径会把常规 11–12pt 正文压到约 8.6pt，**跌破自读档 11pt 契约线**（audit 对此仅告警不拦截；07-14 配图批次属存量抢救被容忍，新增页不得沿用）。给小画布册插页而仍在大画布绘制时：**正文 ≥15pt、标注 ≥13.5pt**（×0.75 后 ≥11.25pt）。已实证：2026-07-20 LLM-Inference 第 2 章 3 页插页按此执行，零新增小字告警。根治路径是给 `kb_insert` 加目标画布参数、按目标册 sldSz 直接绘制（未实施，留待需要时做）；「插页前先读目标册 sldSz」的铁律见 `ppt-design-system.md`（v3.12）。
+- **插页画布**：`kb_insert` 自动读目标册 sldSz 按目标画布绘制，**不传 size**（2026-09-05 起，行为已工具化）；此前大画布绘制 + `fix_canvas_scale` ×0.75 事后缩放会把 11–12pt 正文压到 8.6pt、跌破自读档契约线，这条路已废弃。插页后一律跑 `fix_footer_pagenum.py` 重排页码。
 - **字形风险**：`✓ ✗` / emoji / 生僻符号在 Calibri/Cambria + LibreOffice 下可能渲染成方框（且不稳定）——**用纯文字 + 红绿色**区分，别依赖 glyph。
 - **换行**：`node` 的 zh/desc 参数、以及单个 run 里的 `\n` **不生效**（渲染成连写或坏字）——要换行用多个 `para` 或多个文本框。
 - **语义色**：状态机的 error 态 / 安全威胁用红（自定义 `REDINK/REDBG`），成功 / 达标用 `GREEN/GBG`——单页出现的非核心令牌色远低于 audit「同色 ≥10 页且 ≥25% 页 = 系统性漂移」阈值即可，属数据可视化的合法配色。
@@ -48,7 +48,7 @@
 ## 六、嫁接与 app.xml（改成品安全，详见 ppt-design-system）
 - **只做 zip 级最小手术，绝不用 python-pptx 整包 round-trip 成品**（会保留生成器病根、Mac PowerPoint 弹修复）。`kb_insert` 逐部件复制原件字节，只改 4 个索引（`presentation.xml` / `.rels` / `[Content_Types].xml` / `docProps/app.xml`）+ 加新页；新页是 python-pptx 独立生成的干净 slide（形状全 srgbClr、rels 指 `slideLayout1`）。
 - **多对 app.xml 册**（PowerPoint 亲手 Repair 过的册，带 `notesMaster` + 双 `theme`）：其 `HeadingPairs` 是 `[字体数, 主题数, 幻灯片标题数]` **三对**、`kb_insert` 只改标题数、`TitlesOfParts.size` = 三者之和。插页后**必核验四项一致**：`Slides` == 幻灯片标题数、`HeadingPairs` 各计数之和 == `TitlesOfParts.size` == 实际 `lpstr` 个数，且 `notesMasterIdLst` 仍在 `sldIdLst` **之前**（只有 PowerPoint 校验它，漏了就弹）。
-- **页码册**（页脚带「第 X 章 · 页码」或「p.N」，如 AI-Gateway / Security / LLM / Prompt-Engineering / Evaluation）：配图页用**图系统统一页脚（无页码）**，接受插入点之后真实页码轻微漂移——**保图系统跨册一致 > 页码严丝合缝**（无 `renumber_footers` 工具时的既定取舍）；要页码严丝合缝，得写一个按放映序重排全册页脚数字的 `renumber_footers`。
+- **页码册**（页脚带「第 X 章 · 页码」或「p.N」）：配图页用**图系统统一页脚（无页码）**，插页后一律跑 `fix_footer_pagenum.py` 按放映序重排全册页脚数字——页码必须等于放映位（`check_footer_pagenum` 是 FAIL 级门禁），不再接受「插入点之后轻微漂移」的旧取舍。
 
 ## 七、页脚与眉题
 - 图的 `MOD = "<模块>讲义 · <副题>"`、`footer(MOD, "第 N 章 · xxx")`；匹配该模块**无页码时**的页脚口径。眉题（顶部页眉）绑 KB-CONFIG「知识库显示名」（见 ppt-design-system）。
@@ -78,7 +78,7 @@
 
 一次配图多册就逐册过一遍。**只改页数、不改内容日期**：配图/删页是呈现回刷、模块内容没变——README「更新日期」、
 MANIFEST 内容态维持原样，别假装内容改过。册多时可写一段临时脚本按「模块→实测页数」映射批量回刷（改完即删），
-再交叉核对四面一致。零成本兜底：季度巡检的呈现轴已加「派生页数账 vs 实测」核对（见 `patrol-rules.md`），
+再交叉核对四面一致。零成本兜底：月度巡检的呈现轴已加「派生页数账 vs 实测」核对（见 `patrol-rules.md`），
 但那是事后兜底，账要在配图收尾当场回刷。
 
 ## 工具（随库 `_maintenance/`，本技能 `scripts/` 亦备一份）

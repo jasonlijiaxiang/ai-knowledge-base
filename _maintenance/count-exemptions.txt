@@ -4,3 +4,13 @@
 
 # 新门禁注释里的立项叙述——「当时 15 道一片绿」讲的是补这道之前的状态
 .github/workflows/gates.yml|当时 15 道门禁一片绿
+# 技能文档取证段落——讲的是当年事故现场的道数（改了反而是伪造历史），C9 轴豁免
+_skill-source/knowledge-base-builder/references/tasks/prep-rules.md|原有七道门禁全查不出
+_skill-source/knowledge-base-builder/references/web/web-design-system.md|这个 bug 七道门禁全绿
+_skill-source/knowledge-base-builder/references/web/web-rules.md|八道门禁一道都查不出
+_skill-source/knowledge-base-builder/references/web/web-rules.md|七道门禁全绿照样没查出来
+_skill-source/knowledge-base-builder/references/shared/library-ledgers.md|八道门禁一道都查不出
+_skill-source/knowledge-base-builder/references/tasks/patrol-rules.md|而这些七道门禁全查不出
+_skill-source/knowledge-base-builder/references/shared/failure-matrix.md|骨架提交前只跑了六道门禁
+_skill-source/knowledge-base-builder/references/shared/failure-matrix.md|十九道门禁一道都没响
+_skill-source/knowledge-base-builder/references/shared/failure-matrix.md|结构对、链接通、账目平，七道
