@@ -21,6 +21,10 @@ jobs:
   release:
     name: 打包并发布整库 zip
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: release-kb-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
 
@@ -53,7 +57,13 @@ jobs:
       - name: 打分享包（含解压自检）
         run: |
           mkdir -p dist
-          python3 _maintenance/make_share.py dist
+          python3 _maintenance/make_share.py dist > /tmp/make_share.log 2>&1
+
+      # 打包失败时把完整自检输出回显出来——make_share 的解压自检跑的是整套门禁，
+      # 不回显就只有一行 exit code，红在哪道、哪条超期完全看不见（2026-09-05 B6）。
+      - name: 失败时回显自检输出
+        if: failure()
+        run: cat /tmp/make_share.log
 
       # 资产名必须是纯 ASCII：GitHub 上传时会把非 ASCII 字符压成点号，
       # make_share 打出来的「AI知识库-2026-07-29.zip」会变成「AI.-2026-07-29.zip」。

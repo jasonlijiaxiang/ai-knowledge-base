@@ -28,6 +28,8 @@ import os
 import re
 import sys
 
+import _lib
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 OUT = os.path.join(HERE, "信源清单.md")
@@ -63,14 +65,11 @@ def collect():
     rows = []
     for man in sorted(glob.glob(os.path.join(ROOT, "PPT-version", "*", "MANIFEST.md"))):
         mod = os.path.basename(os.path.dirname(man))
-        text = open(man, encoding="utf-8").read()
-        parts = text.split("## 时效性事实")
-        if len(parts) < 2:
-            continue
-        for ln in parts[1].split("\n## ")[0].split("\n"):
-            if not ln.startswith("|") or ln.startswith("| ---") or "核实日期" in ln:
-                continue
-            c = [x.strip() for x in ln.strip("|").split("|")]
+        text = _lib.read_text(man)
+        _, body = _lib.md_table("时效性事实（巡检盘查对象）", text)
+        if body is None:
+            _, body = _lib.md_table("时效性事实", text)
+        for c in body:
             if len(c) < 8:
                 continue
             vd = parse_date(c[2])

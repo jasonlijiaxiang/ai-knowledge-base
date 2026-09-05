@@ -49,7 +49,10 @@ def main():
         mod = os.path.basename(os.path.dirname(man))
         text = open(man, encoding="utf-8").read()
         m = re.search(r"^\|\s*讲义生成方式\s*\|(.*?)\|\s*$", text, re.M)
-        if not (m and "kb_deck_build" in m.group(1)):
+        declared = bool(m and "kb_deck_build" in m.group(1))
+        has_src = os.path.exists(os.path.join(ROOT, "PPT-version", mod,
+                                              "raw-data", "讲义源.json"))
+        if not declared and not has_src:
             continue
         checked.append(mod)
         src = os.path.join(ROOT, "PPT-version", mod, "raw-data", "讲义源.json")
@@ -58,6 +61,9 @@ def main():
             problems.append("%s：MANIFEST 声明由生成器渲染，但缺 raw-data/讲义源.json"
                             "（用 deck_to_json.py 从讲义反解一份）" % mod)
             continue
+        if not declared:
+            problems.append("%s：有 raw-data/讲义源.json，但 MANIFEST 缺「讲义生成方式」"
+                            "字段或未含 kb_deck_build——判据不靠文件存在性，要靠显式声明" % mod)
         if not os.path.exists(deck):
             problems.append("%s：缺讲义 %s-讲义.pptx" % (mod, mod))
             continue

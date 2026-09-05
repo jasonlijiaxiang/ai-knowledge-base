@@ -52,6 +52,9 @@ DYNAMIC = {
                                              # 新模块先落 PPT 面时会重新出现，故保留定义
     "stat", "k",                             # site.js 统计条 / 搜索结果注记
     "hue-0", "hue-1", "hue-2", "hue-3", "hue-4", "hue-5", "hue-6",  # 七层色相
+    "kedges", "knodes",                      # build.py 关系网 SVG 分组：纯结构层、无样式需求
+    "over-grace",                            # site.js 保鲜看板：超宽限状态标记（over 已有样式，
+                                             # 宽限态只参与计数不参与着色）
 }
 
 
@@ -71,7 +74,9 @@ def used_classes():
     for f in srcs:
         t = io.open(f, encoding="utf-8", errors="replace").read()
         for m in re.findall(r'class="([^"]+)"', t):          # HTML 与生成器模板
-            used.update(m.split())
+            # % 占位符（class="hue-%d"）与正则字面（class="(?:fresh|must)"）不是类名
+            used.update(x for x in m.split()
+                        if "%" not in x and "(" not in x and "?" not in x)
         for m in re.findall(r'class=\\"([^\\"]+)\\"', t):    # Python 字符串里的转义形态
             used.update(m.split())
         for m in re.findall(r"className\s*[+]?=\s*['\"]([^'\"]+)['\"]", t):
@@ -89,6 +94,20 @@ def check_orphans():
     for c in orphans:
         print("  [失联] kb.css 定义了 .%s，但没有任何页面/生成器/JS 在用" % c)
     return not orphans
+
+
+def check_missing():
+    """轴一的反方向（2026-09-05 补，B4）：页面/生成器/JS 用了 kb.css 没有的类。
+
+    轴一只能抓「CSS 有类没人用」，抓不到「页面用了不存在的类」——后者静默丢样式，
+    正是换肤事故的另一半。JS 运行期状态类走 DYNAMIC 白名单（同一份）。"""
+    css = io.open(os.path.join(ROOT, "_assets/kb.css"), encoding="utf-8").read()
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    defined = set(re.findall(r"\.([a-zA-Z][\w-]*)", css))
+    missing = sorted(used_classes() - defined - DYNAMIC)
+    for c in missing:
+        print("  [缺样式] 页面/生成器/JS 用了 .%s，kb.css 里没有定义——类名拼错或样式被删" % c)
+    return not missing
 
 
 def check_stamps():
@@ -116,9 +135,10 @@ def check_stamps():
 
 def main():
     ok1 = check_orphans()
-    ok2 = check_stamps()
-    if ok1 and ok2:
-        print("样式契约检查通过：无失联类，%d 页版本戳一致。" % len(pages()))
+    ok2 = check_missing()
+    ok3 = check_stamps()
+    if ok1 and ok2 and ok3:
+        print("样式契约检查通过：无失联类、无缺样式类，%d 页版本戳一致。" % len(pages()))
         return 0
     print("样式契约检查不通过。")
     return 1

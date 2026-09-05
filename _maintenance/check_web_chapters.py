@@ -55,6 +55,8 @@ import os
 import re
 import sys
 
+import _lib
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 STRUCTURAL = {"qa", "related", "sources", "cloud", "boundary"}
@@ -68,21 +70,14 @@ def die(msg):
 
 
 def rows(section, text):
-    m = re.search(r"^## %s.*?$(.*?)(?=^## |\Z)" % re.escape(section), text, re.S | re.M)
-    if not m:
+    """取某个 ## 段落下的表格数据行（跳过表头与 |---| 分隔行）。
+
+    没有该段时返回 None（不是空表）——调用方拿 None 判「默认态 vs 重组态」。"""
+    head, body = _lib.md_table(section, text)
+    if head is None:
         return None
-    out = []
-    for line in m.group(1).split("\n"):
-        line = line.strip()
-        if not line.startswith("|"):
-            continue
-        cells = [c.strip() for c in line.strip("|").split("|")]
-        if not cells or set(cells[0]) <= set("- :"):
-            continue
-        if cells[0] in ("章节 ID", "网页章节 ID"):
-            continue
-        out.append(cells)
-    return out
+    return [c for c in body if c and c[0] not in ("章节 ID", "网页章节 ID")]
+
 
 
 def chapter_rows(mpath):

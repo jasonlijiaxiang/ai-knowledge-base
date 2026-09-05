@@ -17,6 +17,11 @@ import datetime
 import json
 import os
 import re
+import sys as _sys
+_maintenance = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_maintenance")
+if _maintenance not in _sys.path:
+    _sys.path.insert(0, _maintenance)
+import _lib
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -266,7 +271,7 @@ def parse_edge_targets(e):
 
 def _short(title):
     """串联条标签用短章题：去掉「（五锚点 / 按规模演进…）」这类目录式括注。"""
-    return re.split(r"[（(]", title, 1)[0].strip()
+    return re.split(r"[（(]", title, maxsplit=1)[0].strip()
 
 
 def _clip(s, n=88):
@@ -369,22 +374,10 @@ def inject_xlinks(html_text, m, by_id, concepts):
 
 def rows(section, text):
     """取某个 ## 段落下的表格数据行（跳过表头与 |---| 分隔行）。"""
-    m = re.search(r"^## %s.*?$(.*?)(?=^## |\Z)" % re.escape(section),
-                  text, re.S | re.M)
-    if not m:
-        return []
-    out = []
-    for line in m.group(1).split("\n"):
-        line = line.strip()
-        if not line.startswith("|"):
-            continue
-        cells = [c.strip() for c in line.strip("|").split("|")]
-        if not cells or set(cells[0]) <= set("- :"):   # 分隔行
-            continue
-        if cells[0] in ("字段", "章节 ID", "事实", "本模块章节", "词条"):  # 表头
-            continue
-        out.append(cells)
-    return out
+    _, body = _lib.md_table(section, text)
+    return [c for c in body
+            if c and c[0] not in ("字段", "章节 ID", "事实", "本模块章节", "词条")]
+
 
 
 def field(text, name):
@@ -396,7 +389,7 @@ def field(text, name):
 
 def clean_layer(raw):
     """所在层可能带括注（如「解决方案层（2026-07-10 层调整：…）」），只取层名。"""
-    return re.split(r"[（(]", raw, 1)[0].strip()
+    return re.split(r"[（(]", raw, maxsplit=1)[0].strip()
 
 
 def fact_due(f):

@@ -17,7 +17,13 @@ import os
 import re
 import sys
 
-CONFIG_FIELDS = ("PPT 面根目录", "Web 面根目录")  # v4.3 起不再有「电子书馆藏」
+import _lib
+
+CONFIG_FIELDS = (          # 必填字段契约（2026-09-05 B4 起全量；与 init-rules 模板一致）
+    "配置版本", "库版本", "知识库根目录", "知识领域", "读者画像", "对练页提问者",
+    "工作场景挂钩", "选书口味", "语言策略", "PPT 面根目录", "Web 面根目录",
+    "知识库显示名", "在线站点", "阅读场景", "复核节奏", "超期宽限", "巡检节奏",
+)
 MODULE_FILES = ("MANIFEST.md", "README.html", "电子书书单.md")
 
 
@@ -41,7 +47,7 @@ def config_value(text, field):
 
 
 def main(argv):
-    root = argv[1] if len(argv) > 1 else "."
+    root = argv[1] if len(argv) > 1 else _lib.kb_root()
     if not os.path.isdir(root):
         print(f"目录不存在: {root}")
         return 1

@@ -28,6 +28,8 @@
 import os
 import re
 import sys
+
+import _lib
 import zipfile
 
 SLIDE_RE = re.compile(r'^ppt/slides/slide[0-9]+\.xml$')
@@ -72,16 +74,7 @@ def resolve_module_root(root):
 
 
 def find_modules(root):
-    mods = []
-    for name in sorted(os.listdir(root)):
-        if name.startswith((".", "_")):
-            continue
-        d = os.path.join(root, name)
-        if not os.path.isdir(d):
-            continue
-        if os.path.isfile(os.path.join(d, f"{name}-讲义.pptx")):
-            mods.append(name)
-    return mods
+    return _lib.modules(root)
 
 
 def actual_pages(pptx_path):

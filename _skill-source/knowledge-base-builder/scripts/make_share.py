@@ -42,6 +42,7 @@ SKIP_SLIM_PREFIX = (
     "_skill-source/history",
     "_skill-source/knowledge-base-builder/",   # 解包源目录；分享只带 .skill 包本体
     "_maintenance/history",
+    "_maintenance/onetime",                    # 一次性脚本与基线留档：本机过程件，分享不带
     "_reference",
 )
 SKIP_SLIM_DIRNAME = "history"                  # raw-data/history/

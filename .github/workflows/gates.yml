@@ -14,18 +14,36 @@ permissions:
 
 jobs:
   gates:
-    name: 二十道门禁
+    name: 门禁
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: gates-${{ github.ref }}
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        # 本机是 3.9、手册承诺 3.7+，CI 跑最低与当前两个版本，别只押一个
+        # （2026-09-05 B6）。
+        python-version: ["3.9", "3.12"]
     steps:
+      # fetch-tags：check_version_tag 在 CI 里因 checkout 不取标签永远空跑过
+      # （报告型，但空跑等于没查）。取全标签让它输出真实比对。
       - uses: actions/checkout@v4
+        with:
+          fetch-tags: true
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
 
       # ---- 结构与账本 ----
       - name: 布局就位
         run: python3 _maintenance/check_kb_layout.py
+
+      # data.js 是 check_prep_coverage / check_web_chapters 的账本，先对产物再让它们读账
+      # （2026-09-05 B4 提序）。
+      - name: 网页产物与 MANIFEST 一致
+        run: python3 Web-version/build.py --check
 
       - name: 门户坏链
         run: python3 _maintenance/check_html_links.py
@@ -53,6 +71,12 @@ jobs:
       - name: 网页章节契约（重组不丢内容、深链不断）
         run: python3 _maintenance/check_web_chapters.py
 
+      # ---- 读者面用语 ----
+      # 技能架构词汇（一源两面/回刷/真源…）是工作语言，跨到读者面前就是黑话
+      # （2026-09-05 补，B5）。
+      - name: 内部工作用语
+        run: python3 _maintenance/check_internal_terms.py
+
       # ---- 呈现契约 ----
       - name: 样式契约（孤儿类与缓存版本戳）
         run: python3 _maintenance/check_css_classes.py
@@ -69,9 +93,11 @@ jobs:
       - name: 页脚页码账实
         run: python3 _maintenance/check_footer_pagenum.py
 
-      # ---- 生成物无漂移 ----
-      - name: 网页产物与 MANIFEST 一致
-        run: python3 Web-version/build.py --check
+      # ---- 脚本自测 ----
+      # 门禁脚本自己的回归防线：标准库 unittest，覆盖保鲜两层语义、数目声明反例、
+      # build.py 幂等与 audit 小样张（2026-09-05 补）。
+      - name: 脚本自测（unittest）
+        run: python3 -m unittest discover -s _maintenance/tests -p 'test_*.py'
 
       # 信源清单是巡检按信源批处理的起点，由 gen_source_list.py 从 MANIFEST 生成；
       # 之前一直不在门禁里，2026-09-05 实测它已经红了（与 MANIFEST 漂了），没人知道。
@@ -124,3 +150,9 @@ jobs:
       # 停在 skill-v8.1 时，README 承诺的「历次版本去 Releases 找」就不成立了。
       - name: 技能版本 vs 已发布标签（报告，不拦）
         run: python3 _maintenance/check_version_tag.py
+
+      # ---- 对账硬化（2026-09-05）：两份清单必须是同一批脚本，集合比对 ----
+      # 数步数防不了「两处各删一道」——这一行上的所有 step 与本地 run_all_gates.sh
+      # 的 gate 行抽出脚本名做集合比对，不等即 FAIL。轻量模式：不把 20 道再跑一遍。
+      - name: 清单集合比对（本地脚本 ↔ gates.yml）
+        run: bash _maintenance/run_all_gates.sh --list-only

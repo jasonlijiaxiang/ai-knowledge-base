@@ -26,6 +26,8 @@ import re
 import sys
 import urllib.parse
 
+import _lib
+
 EXCLUDE_DIRS = {"raw-data", "_reference", "_skill-source", "history"}
 LINK_RE = re.compile(r'(?:href|src)\s*=\s*["\']([^"\']+)["\']', re.I)
 SKIP_PREFIX = ("http://", "https://", "mailto:", "tel:", "data:", "javascript:")
@@ -43,7 +45,7 @@ def check(root):
             path = os.path.join(dirpath, fn)
             n_files += 1
             try:
-                html = open(path, encoding="utf8", errors="replace").read()
+                html = _lib.read_text(path)
             except OSError as e:
                 broken.append((path, f"<无法读取: {e}>", ""))
                 continue
@@ -70,7 +72,7 @@ def check(root):
                                               "请链到具体文件）"))
                 elif frag and resolved.lower().endswith((".html", ".htm")):
                     try:
-                        thtml = open(resolved, encoding="utf8", errors="replace").read()
+                        thtml = _lib.read_text(resolved)
                     except OSError:
                         continue
                     if re.search(ID_RE % re.escape(frag), thtml) is None:
@@ -80,7 +82,7 @@ def check(root):
 
 
 def main(argv):
-    root = argv[1] if len(argv) > 1 else "."
+    root = argv[1] if len(argv) > 1 else _lib.kb_root()
     if not os.path.isdir(root):
         print(f"目录不存在: {root}")
         return 1

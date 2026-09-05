@@ -45,6 +45,11 @@ LOCAL_ONLY = {
     # 无
 }
 
+# 反向白名单：技能 scripts/ 里有、库 _maintenance/ 里刻意不设的件，逐条写清理由。
+SKILL_ONLY = {
+    # 无
+}
+
 
 def find_skill_scripts():
     """技能源目录下的 scripts/。库不托管技能源时返回 None——那不是错误。"""
@@ -61,11 +66,21 @@ def main(argv):
         print("本库不托管技能源目录（_skill-source/*/scripts/ 不存在），跳过。")
         return 0
 
-    drift, missing = [], []
+    drift, missing, only_in_skill = [], [], []
     skill = {os.path.basename(p): p for p in glob.glob(os.path.join(SKILL_SCRIPTS, "*"))
              if os.path.isfile(p)}
     local = {os.path.basename(p): p for p in
              glob.glob(os.path.join(HERE, "*.py")) + glob.glob(os.path.join(HERE, "*.sh"))}
+    for name in sorted(skill):
+        if name in SKILL_ONLY or name.startswith("."):
+            continue
+        if name not in local and name != "tests":
+            only_in_skill.append(name)
+    # tests/ 一起同步：脚本自测的门禁步跑的是库内测试，技能发出去的包里也得有这份回归
+    # 防线（2026-09-05 补，B3）。
+    tests_dir = os.path.join(HERE, "tests")
+    local_tests = {os.path.join("tests", os.path.relpath(p, tests_dir)): p
+                   for p in glob.glob(os.path.join(tests_dir, "*.py"))}
 
     for name, lp in sorted(local.items()):
         if name in LOCAL_ONLY:
@@ -78,11 +93,34 @@ def main(argv):
             if a.read() != b.read():
                 drift.append(name)
 
+    skill_tests = os.path.join(SKILL_SCRIPTS, "tests")
+    for rel, lp in sorted(local_tests.items()):
+        sp = os.path.join(SKILL_SCRIPTS, rel)
+        if not os.path.isfile(sp):
+            missing.append(rel)
+            continue
+        with open(lp, "rb") as a, open(sp, "rb") as b:
+            if a.read() != b.read():
+                drift.append(rel)
+
     n = len([k for k in local if k not in LOCAL_ONLY])
+
+    if only_in_skill:
+        print("\n技能源目录里有、库 _maintenance/ 里没有（%d 个）——上游的新件要进库，"
+              "否则两边各修各的：\n  %s" % (len(only_in_skill), "、".join(only_in_skill)))
+        print("（手动复制进 _maintenance/，或写进 SKILL_ONLY 并注明理由。）")
+        if not do_sync:
+            return 1
 
     if do_sync and (drift or missing):
         for name in drift + missing:
-            shutil.copy2(local[name], os.path.join(SKILL_SCRIPTS, name))
+            if name in local_tests:
+                src = local_tests[name]
+                dst = os.path.join(SKILL_SCRIPTS, name)
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+            else:
+                src, dst = local[name], os.path.join(SKILL_SCRIPTS, name)
+            shutil.copy2(src, dst)
             print("  同步 %s → 技能源目录" % name)
         print("\n已把 %d 个文件从库内复制到技能源目录。"
               "**别忘了重打 .skill 包**，否则 check_skill_sync 会挂。" % (len(drift) + len(missing)))

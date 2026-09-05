@@ -68,11 +68,14 @@ def truths():
     web = [m for m in mods if os.path.exists(
         os.path.join(ROOT, "Web-version", m.lower(), "index.html"))]
     gates = 0
-    gy = os.path.join(ROOT, ".github", "workflows", "gates.yml")
-    if os.path.exists(gy):
-        for ln in open(gy, encoding="utf-8"):
-            m = re.match(r"^      - name: (.+)$", ln)
-            if m and "报告" not in m.group(1):
+    # 真源是 run_all_gates.sh 的 gate 行（2026-09-05 起）——此前从 gates.yml 数 step，
+    # 是「拿 gates.yml 数完再和 gates.yml 比」的循环自证：yaml 里多加一个自检步，
+    # 道数就凭空 +1。两份清单是否同一批由 run_all_gates.sh 末尾的集合比对另管，
+    # 这里只认本地清单入口。
+    rga = os.path.join(ROOT, "_maintenance", "run_all_gates.sh")
+    if os.path.exists(rga):
+        for ln in open(rga, encoding="utf-8"):
+            if re.match(r"^gate ", ln):
                 gates += 1
     return {"模块数": len(mods), "网页覆盖": len(web), "门禁道数": gates}
 

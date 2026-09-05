@@ -77,7 +77,11 @@ import os
 import re
 import sys
 
+import _lib
+
 HERE = os.path.dirname(os.path.abspath(__file__))
+parse_date = _lib.parse_date
+table = _lib.md_table
 
 SECTION = "时效性事实（巡检盘查对象）"
 SECTION_ALT = "时效性事实"
@@ -99,33 +103,8 @@ def die(msg):
     sys.exit(2)
 
 
-def parse_date(s):
-    if not DATE_RE.match(s):
-        return None
-    try:
-        return datetime.date(*(int(x) for x in s.split("-")))
-    except ValueError:
-        return None
 
 
-def table(section, text):
-    """取某个 ## 段落下的表格：返回 (表头行, [数据行])，行是已 strip 的单元格列表。"""
-    m = re.search(r"^## %s.*?$(.*?)(?=^## |\Z)" % re.escape(section), text, re.S | re.M)
-    if not m:
-        return None, []
-    head, body = None, []
-    for line in m.group(1).split("\n"):
-        line = line.strip()
-        if not line.startswith("|"):
-            continue
-        cells = [c.strip() for c in line.strip("|").split("|")]
-        if not cells or set(cells[0]) <= set("- :"):     # |---| 分隔行
-            continue
-        if head is None:
-            head = cells
-            continue
-        body.append(cells)
-    return head, body
 
 
 def chapter_ids(text):

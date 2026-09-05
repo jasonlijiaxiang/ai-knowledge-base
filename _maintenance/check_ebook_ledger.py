@@ -35,6 +35,8 @@
 import os
 import re
 import sys
+
+import _lib
 import zipfile
 
 # 链接边界须含中文标点：一格里常写「主链接；导读：另一链接」或「链接（版本注）」，
@@ -59,14 +61,7 @@ def resolve_module_root(root):
 
 
 def find_modules(root):
-    mods = []
-    for name in sorted(os.listdir(root)):
-        if name.startswith((".", "_")):
-            continue
-        d = os.path.join(root, name)
-        if os.path.isfile(os.path.join(d, "电子书书单.md")):
-            mods.append(name)
-    return mods
+    return _lib.modules(root)
 
 
 def is_entry_row(line):

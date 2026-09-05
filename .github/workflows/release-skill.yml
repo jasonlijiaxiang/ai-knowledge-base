@@ -23,6 +23,10 @@ jobs:
   release:
     name: 打包并发布 .skill
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: release-skill-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
 
