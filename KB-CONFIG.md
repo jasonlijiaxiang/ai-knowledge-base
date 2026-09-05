@@ -6,7 +6,7 @@
 | 字段 | 值 |
 | --- | --- |
 | 配置版本 | 1 |
-| 库版本 | 2026.08.03（整库 Release 标签 kb-v2026.08.03；显示在各页右上角，由 `_maintenance/stamp_kb_version.py` 落戳、`release-kb.yml` 与标签对账）|
+| 库版本 | 2026.09.05（整库 Release 标签 kb-v2026.09.05；显示在各页右上角，由 `_maintenance/stamp_kb_version.py` 落戳、`release-kb.yml` 与标签对账）|
 | 知识库根目录 | 本文件所在目录（整库可整包拷走，不写绝对路径） |
 | 知识领域 | AI 技术（大模型应用） |
 | 读者画像 | 售前技术：有 Python/API 基础，重底层概念与取舍，不啃重理论 |
