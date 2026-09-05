@@ -48,8 +48,10 @@
   轴二 · **字段合法（FAIL）**——日期格式、不许未来日期、节奏与等级取值、边界非空、
         复查日不得早于核实日期、章节 ID 必须能在该模块「章节清单」里解析到。
         最后这条顺带拦「串行」：回刷时整列错位一格，前面几轴都发现不了。
-  轴三 · **到期（FAIL / WARN）**——有效复查日 = min(复查日, 核实日期 + 节奏天)。
-        已过期 FAIL；14 天内到期 WARN（提示，不影响退出码）。
+  轴三 · **到期（两层：清单 / FAIL）**——有效复查日 = min(复查日, 核实日期 + 节奏天)。
+        已过期但未超「超期宽限」（KB-CONFIG 字段，缺省 45 天）→ 打印「到期待复核」清单、
+        退出 0（默认模式）；超过宽限 → FAIL。`--strict`（每周一 freshness workflow 用）：
+        任何到期即 FAIL。14 天内到期 WARN（提示，不影响退出码）。
         取 min 而不是「写了复查日就用它」：**「复查日」是把复核往前钉的钉子，不是把常规
         节奏往后推的豁免**。否则给一条 30 天档的报价写个明年的复查日，就能合法地让它
         躺一年——那正是本门禁要防的事。写得比常规节奏晚的复查日仍留在表里、仍出现在
@@ -60,12 +62,14 @@
 不能因为「归不进章节」就不登记。白名单是显式的，不是默认放行。
 
 用法:
-    python3 check_freshness.py [知识库根目录] [--asof YYYY-MM-DD]
+    python3 check_freshness.py [知识库根目录] [--asof YYYY-MM-DD] [--strict]
 
 `--asof` 用于复现与自测（不传则用系统当天）。CI 不传，按真实时间判——
 事实是真的会随挂钟过期的，这一点不该被参数糊弄过去。
+`--strict` 给每周定时任务用：任何到期即 FAIL（默认模式到期先按宽限进清单、不拦）。
 
-退出码: 0 = 全部事实在保鲜期内且字段合法, 1 = 存在超期或字段问题, 2 = 读取失败。
+退出码: 0 = 字段合法且无超宽限到期（默认）或全部在保鲜期内（--strict）,
+        1 = 存在超宽限到期（默认）／任何到期（--strict）或字段问题, 2 = 读取失败。
 """
 import datetime
 import glob
@@ -86,6 +90,7 @@ CHAPTER_ALLOW = {"书单"}          # 显式白名单，见文件头说明
 EMPTY = {"", "—", "-", "–"}
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 NEAR_DAYS = 14                    # 临期提醒窗口
+GRACE_DEFAULT = 45                # 超期宽限缺省（天）；真源在 KB-CONFIG「超期宽限」字段
 BOUNDARY_MAX = 40                 # 「不能外推」建议字数上限（超出只告警）
 
 
@@ -218,17 +223,36 @@ def check_module(mod, path, asof):
         due = min(rd, derived) if rd else derived     # 复查日只能提前，不能延后
         left = (due - asof).days
         stats.append((mod, i, fact, grade, cd, vd, due, left, bool(rd)))
-        if left < 0:
-            fails.append("%s：已超期 %d 天（应复核于 %s，节奏 %d 天，上次核实 %s）"
-                         % (where, -left, due, cd, verified))
-        elif left <= NEAR_DAYS:
+        if 0 <= left <= NEAR_DAYS:
             warns.append("%s：%d 天后到期（%s）" % (where, left, due))
+        # left < 0 的到期项不进 fails：默认模式按宽限分层、--strict 才一律 FAIL，
+        # 由 main() 从 stats 里取 left < 0 的条目统一处置。
 
     return fails, warns, stats, nrow
 
 
+def read_grace(root):
+    """从 KB-CONFIG.md 读「超期宽限」天数；缺字段或缺文件时用 GRACE_DEFAULT。"""
+    try:
+        text = open(os.path.join(root, "KB-CONFIG.md"), encoding="utf-8").read()
+    except OSError:
+        return GRACE_DEFAULT
+    m = re.search(r"^\|\s*超期宽限\s*\|(.+?)\|", text, re.M)
+    if not m:
+        return GRACE_DEFAULT
+    n = re.search(r"\d+", m.group(1))
+    return int(n.group(0)) if n else GRACE_DEFAULT
+
+
+def overdue_line(x):
+    """到期条目的可读描述（供清单与 FAIL 两处共用）。"""
+    mod, i, fact, g, cd, vd, due, left, _ = x
+    return "第 %d 行「%s…」已超期 %d 天（应复核于 %s，节奏 %d 天，上次核实 %s）" \
+           % (i, fact[:26], -left, due, cd, vd)
+
+
 def main(argv):
-    root, asof = None, None
+    root, asof, strict = None, None, False
     args = argv[1:]
     i = 0
     while i < len(args):
@@ -239,6 +263,9 @@ def main(argv):
             if asof is None:
                 die("--asof「%s」不是 YYYY-MM-DD" % args[i + 1])
             i += 2
+        elif args[i] == "--strict":
+            strict = True
+            i += 1
         else:
             root = args[i]
             i += 1
@@ -246,6 +273,7 @@ def main(argv):
         root = os.path.dirname(HERE)
     if asof is None:
         asof = datetime.date.today()
+    grace = read_grace(root)
 
     pv = os.path.join(root, "PPT-version")
     base = pv if os.path.isdir(pv) else root
@@ -253,7 +281,8 @@ def main(argv):
     if not paths:
         die("%s 下没找到任何模块的 MANIFEST.md" % base)
 
-    print("===== 保鲜门禁 · 判定日 %s =====" % asof)
+    mode = "（--strict：到期即 FAIL）" if strict else "（超期宽限 %d 天）" % grace
+    print("===== 保鲜门禁 · 判定日 %s %s =====" % (asof, mode))
     all_fail, all_warn, all_stats = [], [], []
     for p in paths:
         mod = os.path.basename(os.path.dirname(p))
@@ -263,7 +292,8 @@ def main(argv):
             all_fail.append((mod, x))
         for x in w:
             all_warn.append((mod, x))
-        flag = "FAIL" if f else ("warn" if w else "ok")
+        n_overdue = sum(1 for x in s if x[7] < 0)
+        flag = "FAIL" if f else ("到期%d" % n_overdue if n_overdue else ("warn" if w else "ok"))
         print("  %-22s %3d 条事实   %s" % (mod, nrow, flag))
 
     if all_stats:
@@ -289,13 +319,31 @@ def main(argv):
         for mod, x in all_warn:
             print("  [%s] %s" % (mod, x))
 
-    if all_fail:
-        print("\n===== FAIL：%d 处 =====" % len(all_fail))
-        for mod, x in all_fail:
+    overdue = sorted((x for x in all_stats if x[7] < 0), key=lambda x: x[7])
+    if overdue:
+        print("\n----- 到期待复核（%d 条）-----" % len(overdue))
+        for x in overdue:
+            print("  [%s] %s" % (x[0], overdue_line(x)))
+
+    fail_list = list(all_fail)
+    if strict:
+        fail_list += [(x[0], overdue_line(x)) for x in overdue]
+    else:
+        over_grace = [x for x in overdue if -x[7] > grace]
+        fail_list += [(x[0], overdue_line(x)) for x in over_grace]
+
+    if fail_list:
+        print("\n===== FAIL：%d 处 =====" % len(fail_list))
+        for mod, x in fail_list:
             print("  [%s] %s" % (mod, x))
         print("\n超期的处理顺序见 tasks/patrol-rules：先离线筛出变化项，只对变化项联网核实，"
               "\n再回写事实、核实日期与受影响的两面内容——不做无差别重查。")
         return 1
+
+    if overdue:
+        print("\n%d 条到期未超宽限，只进「到期待复核」清单、不拦门禁；"
+              "每周一 freshness workflow 用 --strict 到期即报 issue。" % len(overdue))
+        return 0
 
     print("\n全部 %d 条事实在保鲜期内，字段合法。" % len(all_stats))
     return 0

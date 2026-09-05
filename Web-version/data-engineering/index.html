@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Data-Engineering 数据工程 · AI 知识库网页版</title>
-<link rel="stylesheet" href="../../_assets/kb.css?v=20260723n">
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723o">
 </head>
 <body>
 
@@ -40,7 +40,8 @@
     <li><a href="#de-quality">5 · 数据质量与覆盖率</a></li>
     <li><a href="#de-labeling">6 · 标注与合成数据运营</a></li>
     <li><a href="#de-governance">7 · 治理与权限衔接</a></li>
-    <li><a href="#cloud">8 · 上云怎么落地</a></li>
+    <li><a href="#de-cheatsheet">8 · 售前速查</a></li>
+    <li><a href="#cloud">9 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -396,9 +397,65 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../ai-governance/index.html#gov-impact" title="反向回指（2026-08-02 新模块建立）：影响评估产出的数据约束（哪些特征不许进、必须留哪种记录、最小化到什么程度）由数据侧执行；执行点、权限与越权测试在">影响评估在架构冻结前做<span class="xm">AI-Governance</span></a><a href="../security/index.html#sec-data-privacy" title="Security 定规则，本章是数据管线上的三个执行点；越权测试集同 SP 第 4 章验收">数据与隐私安全<span class="xm">Security</span></a></div>
 </section>
 
+<!-- ============ 8 ============ -->
+<section class="sec" id="de-cheatsheet">
+  <h2><span class="num">08</span>售前速查<a class="anchor" href="#de-cheatsheet">#de-cheatsheet</a></h2>
+
+  <div class="lead">
+    <p>客户任何数据问题先定位到管线哪一段，再翻对应章——<a href="#de-what-why">四问评估</a>永远是第一步。本章是速查索引，数字与格局一律以对应章和 MANIFEST 为准。</p>
+  </div>
+
+  <h3>管线总图：五段 + 两条贯穿线</h3>
+  <div class="keypoints">
+    <div><b>① 四问评估</b><span><a href="#de-what-why">第 1 章</a> · 先定性再排期</span></div>
+    <div><b>② 解析</b><span><a href="#de-parsing">第 2 章</a> · 版面与表格保真</span></div>
+    <div><b>③ 连接与同步</b><span><a href="#de-pipeline">第 3 章</a> · 五件事 + 增量模式</span></div>
+    <div><b>④ 向量库</b><span><a href="#de-vectordb">第 4 章</a> · 就地起步、按约束收敛</span></div>
+    <div><b>⑤ 质量运营</b><span><a href="#de-quality">第 5 章</a> · 四指标 + 坏答案回流</span></div>
+  </div>
+  <div class="tw">
+   <table>
+    <thead><tr><th>贯穿线</th><th>说明</th></tr></thead>
+    <tbody>
+     <tr><td><b>标注与合成</b>（<a href="#de-labeling">第 6 章</a>）</td><td>评估集 / 训练集双线运营，坏例分流：不知道 → 修数据、不听话 → 微调</td></tr>
+     <tr><td><b>治理衔接</b>（<a href="#de-governance">第 7 章</a>）</td><td>ACL 映射、采集点脱敏、联动删除——三个执行点贯穿全管线</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>工具速查卡（2026-07 口径）</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>环节</th><th>首选</th><th>备注</th></tr></thead>
+    <tbody>
+     <tr><td>解析（中文重）</td><td>MinerU 自托管</td><td>CJK 版面最强；高价值文档叠 VLM 兜底</td></tr>
+     <tr><td>解析（省事）</td><td>LlamaParse / 云文档智能</td><td>按页计费；敏感文档勿用托管</td></tr>
+     <tr><td>连接与同步</td><td>成熟源走 Airbyte 模式</td><td>自研系统按五件事估工作量</td></tr>
+     <tr><td>向量库（起步）</td><td>pgvector / ES 就地升级</td><td>生产上限约 50–100M 向量；触顶再迁</td></tr>
+     <tr><td>向量库（进阶）</td><td>Qdrant（过滤）/ Milvus（规模）</td><td>双写灰度迁移</td></tr>
+     <tr><td>质量运营</td><td>四指标仪表盘 + 坏答案回流</td><td>与 AI-Ops 运营包合并交付</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">工具口径核实 2026-07-11，来源 <a href="#src-vectordb">第三方评测对比</a> 与 <a href="#src-parsing">MinerU 官方仓</a>。格局会漂——选型结论（就地起步、按约束收敛、自测为准）比工具名保值。<b>不可外推边界</b>：50–100M 是第三方评测量级，换硬件与数据分布必须自测复现。</p>
+
+  <h3>八个坑</h3>
+  <div class="keypoints">
+    <div><b>假装数据不乱</b><span>四问没做就给排期——必延期</span></div>
+    <div><b>解析用 demo 定型</b><span>必须用客户最难的 20 份自测</span></div>
+    <div><b>连接器漏报价</b><span>按源系统 × 五件事列明细</span></div>
+    <div><b>不去重</b><span>Top-K 被副本霸屏</span></div>
+    <div><b>不下架</b><span>引用三年前的旧制度 = 信任事故</span></div>
+    <div><b>向量库一步到位</b><span>为想象的规模买复杂度</span></div>
+    <div><b>坏答案只改提示词</b><span>病根多在数据层</span></div>
+    <div><b>向量当脱敏</b><span>嵌入可被部分反推</span></div>
+  </div>
+
+</section>
+
 <!-- ============ 云落点 ============ -->
 <section class="sec" id="cloud">
-  <h2><span class="num">08</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+  <h2><span class="num">09</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
 
   <div class="lead">
     <p>前七章讲的是数据底座该怎么建。这一节换个视角：<b>每个环节在云上对应哪个服务、这句话对客户意味着什么、该顺着追问他什么、以及哪些事云替你做不了</b>。按管线阶段排，不按章节排——现场画架构图时是从左到右走的。</p>
@@ -498,7 +555,7 @@
 
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">09</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">10</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-11</b> 来自讲义首版对练页，<b>2026-07-23</b> 是按客户交锋场景补的三题（数据这块怎么验收 / 能承诺到多少 / 上线后谁维护）。</p>
   <div class="qa">
@@ -598,7 +655,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">10</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">11</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>边界纪律：切分在 RAG、微调数据配方在 Fine-tuning、权限规则在 Security——本页讲它们上游的「数据就绪」。</p>
   <div class="rel">
     <a href="../rag/index.html">
@@ -630,7 +687,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">12</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Data-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-11；解析一节 2026-08-01 重核。<b>工具口径会漂——选型结论（就地起步、按约束收敛、自测为准）比工具名保值。</b></p>
   <div class="tw">
@@ -668,8 +725,8 @@
   <!-- UPDATED:END -->
 </footer>
 
-<script src="../data.js?v=20260723n"></script>
-<script src="../assets/site.js?v=20260723n"></script>
+<script src="../data.js?v=20260723o"></script>
+<script src="../assets/site.js?v=20260723o"></script>
 <script>
 /* 数据就绪度评估器：四问 → 排期量级 + 报价结构 + 技术路线。判据来自讲义第 1–4/7 章。
    无 JS 时 .tool 隐藏，静态兜底是正文四问与工具表。 */

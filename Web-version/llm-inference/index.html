@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LLM-Inference 推理服务 · AI 知识库网页版</title>
-<link rel="stylesheet" href="../../_assets/kb.css?v=20260723n">
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723o">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
       <span class="badge ok">核实窗口 2026-07-09 至 08-01</span>
-      <span class="badge recheck">引擎版本一节过期最快 · 季度巡检优先</span>
+      <span class="badge recheck">引擎版本一节过期最快 · 月度巡检优先</span>
     </p>
   </div>
 </header>
@@ -322,7 +322,7 @@
   </div>
   <p>经验阈值：<b>GPU 月利用率能稳定 >40–50% 时，自建开始比按 token 买便宜</b>——成本模型见<a href="#llminf-production">生产化</a>一节。</p>
   <p class="ev">引擎版本核实 2026-08-01（vLLM v0.26.0 · SGLang v0.5.16、Spec V2 默认开启 ·
-    TensorRT-LLM 稳定版 v1.2.1），来源 <a href="#src-engines">GitHub releases</a>。<b>这张表是本页过期最快的一处，季度巡检重点。</b><b>不可外推边界</b>：版本号只说明当期稳定版，不代表功能对等——三家的默认开关不同，跑分对比必须锁同一批参数。</p>
+    TensorRT-LLM 稳定版 v1.2.1），来源 <a href="#src-engines">GitHub releases</a>。<b>这张表是本页过期最快的一处，月度巡检重点。</b><b>不可外推边界</b>：版本号只说明当期稳定版，不代表功能对等——三家的默认开关不同，跑分对比必须锁同一批参数。</p>
 </section>
 
 <!-- ============ 5 ============ -->
@@ -757,12 +757,12 @@
   <!-- UPDATED:END -->
 </footer>
 
-<script src="../data.js?v=20260723n"></script>
-<script src="../assets/site.js?v=20260723n"></script>
+<script src="../data.js?v=20260723o"></script>
+<script src="../assets/site.js?v=20260723o"></script>
 <script>
 /* 显存与并发计算器：讲义第 2 章心算公式的交互版。
    KV/token（FP16）：8B ≈ 0.13、32B ≈ 0.26、70B ≈ 0.32 MB（GQA 口径，MLA 不适用）。
-   纪律：帮助理解与决策（web-rules §九）；无 JS 时 .tool 隐藏，静态兜底是公式与账本表。 */
+   纪律：帮助理解与决策；无 JS 时 .tool 隐藏，静态兜底是公式与账本表。 */
 (function () {
   "use strict";
   var kpi = window.KBUI.kpi;   /* 公共渲染件，见 assets/site.js */

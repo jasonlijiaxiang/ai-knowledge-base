@@ -532,7 +532,7 @@ footer { border-top: 1px solid var(--line); margin-top: 2.5rem; padding: 1.2rem 
          padding: 0 .4rem; border-radius: 6px; margin-left: .5rem; font-weight: 400; }
 
 /* ============ 全库问答库（qa/index.html）============
-   跨册聚合，纸面做不到的那一类：19 册各印各的问答汇到一处，按一句话搜。
+   跨册聚合，纸面做不到的那一类：各册各印各的问答汇到一处，按一句话搜。
    本页只登记题目与去处——答案留在原处，不做副本。
    无 JavaScript 时筛选条整块隐藏，下面的分组长列表本身就完整可读。 */
 .qa-tools { display: none; position: sticky; top: var(--topbar-h, 0px); z-index: 5;
@@ -624,7 +624,7 @@ footer { border-top: 1px solid var(--line); margin-top: 2.5rem; padding: 1.2rem 
 }
 
 /* ============ 模块页：本页查找 + 前后册导航 ============ */
-/* 本页查找由 site.js 注入进目录（19 册标记不用各改一遍）；无 JavaScript 时不出现，
+/* 本页查找由 site.js 注入进目录（各册标记不用各改一遍）；无 JavaScript 时不出现，
    目录本身仍是完整的阅读路径。单册最长两万余字，靠滚找太慢。 */
 .pf { display: none; margin: .5rem 0 0; }
 .js-on .pf { display: block; }

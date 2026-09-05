@@ -522,6 +522,52 @@
     }
   }
 
+  /* ---------- 保鲜看板：按浏览器当天重标过期行 ----------
+     产物是构建期刻的（无 JS 时按构建日挑行），打开当天由这里重算：到期行加 .over，
+     超 KB-CONFIG「超期宽限」（45 天）的行再加 .over-grace（纯状态标记，无样式），
+     汇总句改写成「今天 …：已到期 N 条（超宽限 M 条），30 天内到期 K 条」。
+     构建期也会给当时已过期的行标红，这里先把旧标注全清再按当天重标——不然晚于
+     构建日打开的页面会把已复核的行继续留在红色里。 */
+  var freshTables = document.querySelectorAll("table.fresh");
+  if (freshTables.length) {
+    var GRACE_DAYS = 45;                       // 与 KB-CONFIG「超期宽限」同值
+    var t0 = new Date(); t0.setHours(0, 0, 0, 0);
+    var overN = 0, graceN = 0, nearN = 0;
+    Array.prototype.forEach.call(freshTables, function (tb) {
+      Array.prototype.forEach.call(tb.querySelectorAll("tr[data-due]"), function (tr) {
+        var d = tr.getAttribute("data-due");
+        var due = Date.parse(d + "T00:00:00");
+        if (isNaN(due)) return;
+        var left = Math.round((due - t0.getTime()) / 86400000);
+        tr.classList.remove("over");
+        tr.classList.remove("over-grace");
+        var badge = tr.querySelector(".badge");
+        if (left < 0) {
+          overN += 1;
+          tr.classList.add("over");
+          if (-left > GRACE_DAYS) { graceN += 1; tr.classList.add("over-grace"); }
+          if (badge) {
+            badge.classList.add("over"); badge.classList.remove("recheck");
+            badge.textContent = "已过期 " + d;
+          }
+        } else {
+          if (left <= 30) nearN += 1;
+          if (badge) {
+            badge.classList.add("recheck"); badge.classList.remove("over");
+            badge.textContent = d;
+          }
+        }
+      });
+    });
+    var sum = document.getElementById("fresh-sum");
+    if (sum) {
+      var iso = t0.getFullYear() + "-" + ("0" + (t0.getMonth() + 1)).slice(-2)
+        + "-" + ("0" + t0.getDate()).slice(-2);
+      sum.innerHTML = "今天 <b>" + iso + "</b>：已到期 <b>" + overN + "</b> 条（超宽限 <b>"
+        + graceN + "</b> 条），30 天内到期 <b>" + nearN + "</b> 条。引用任何数字前先核日期。";
+    }
+  }
+
   /* ---------- 首页统计条（装饰性增强：无 JS 时不显示，不影响阅读路径） ---------- */
   var stats = document.getElementById("stats");
   if (stats && window.KB) {

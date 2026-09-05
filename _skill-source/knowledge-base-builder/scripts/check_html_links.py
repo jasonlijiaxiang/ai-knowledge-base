@@ -9,6 +9,9 @@
 规则:
   - 只查相对链接; http(s)/mailto/tel/data:/纯锚点(#...) 跳过(外链探活归书单轴, 可选);
   - ?query 与 #fragment 剥掉后按文件存在性判定;
+  - **锚点也判真**（v6.2, 2026-09-05）: 链接带 #frag 且目标是 .html/.htm 时, 在目标文件里
+    找 id="frag"（含同页 #frag）——文件在、锚点不在，同样是深链断。此前只查文件不查锚点,
+    生成器亲手写出的死链（指向已删小节的 #frag）就这么漏了过去;
   - **目录链接判坏**（v6.1）: href 指向目录（如 "./mcp/"）在 Web 服务器上会自动打开
     index.html，但 file:// 下不会——浏览器只显示文件列表。2026-07-21 用户点 MCP 卡片
     "点不进去"即此因，而旧判据只看"路径存在"，目录存在照样放行;
@@ -25,7 +28,8 @@ import urllib.parse
 
 EXCLUDE_DIRS = {"raw-data", "_reference", "_skill-source", "history"}
 LINK_RE = re.compile(r'(?:href|src)\s*=\s*["\']([^"\']+)["\']', re.I)
-SKIP_PREFIX = ("http://", "https://", "mailto:", "tel:", "data:", "javascript:", "#")
+SKIP_PREFIX = ("http://", "https://", "mailto:", "tel:", "data:", "javascript:")
+ID_RE = r'\bid=["\']%s["\']'
 
 
 def check(root):
@@ -48,8 +52,14 @@ def check(root):
                 if not link or link.lower().startswith(SKIP_PREFIX):
                     continue
                 n_links += 1
-                target = urllib.parse.unquote(link.split("#", 1)[0].split("?", 1)[0])
-                if not target:      # 纯 "#xxx" 已被上面跳过, 这里是 "?x" 之类
+                base, frag = link, ""
+                if "#" in base:
+                    base, frag = base.split("#", 1)
+                    frag = urllib.parse.unquote(frag.split("?", 1)[0])
+                target = urllib.parse.unquote(base.split("?", 1)[0])
+                if not target:
+                    if frag and re.search(ID_RE % re.escape(frag), html) is None:
+                        broken.append((path, link, "本页锚点 #%s 不存在" % frag))
                     continue
                 resolved = os.path.normpath(os.path.join(dirpath, target))
                 if not os.path.exists(resolved):
@@ -58,6 +68,14 @@ def check(root):
                     broken.append((path, link,
                                    resolved + "（目录——file:// 下不会自动打开 index.html，"
                                               "请链到具体文件）"))
+                elif frag and resolved.lower().endswith((".html", ".htm")):
+                    try:
+                        thtml = open(resolved, encoding="utf8", errors="replace").read()
+                    except OSError:
+                        continue
+                    if re.search(ID_RE % re.escape(frag), thtml) is None:
+                        broken.append((path, link,
+                                       resolved + " 里找不到 id=\"%s\" 锚点" % frag))
     return n_files, n_links, broken
 
 

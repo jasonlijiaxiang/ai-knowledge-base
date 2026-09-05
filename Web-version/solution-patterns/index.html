@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Solution-Patterns 场景方案库 · AI 知识库网页版</title>
-<link rel="stylesheet" href="../../_assets/kb.css?v=20260723n">
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723o">
 </head>
 <body>
 
@@ -42,7 +42,8 @@
     <li><a href="#sp-digital-human">7 · 数字人</a></li>
     <li><a href="#sp-chatbi">8 · ChatBI 与数据分析</a></li>
     <li><a href="#sp-meeting">9 · 会议与办公助手</a></li>
-    <li><a href="#cloud">10 · 上云怎么落地</a></li>
+    <li><a href="#sp-cheatsheet">10 · 售前速查</a></li>
+    <li><a href="#cloud">11 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -604,9 +605,91 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../multimodal/index.html#mm-understanding" title="ASR 与说话人分离能力底座；实时字幕走语音链路">理解侧能力盘点<span class="xm">Multimodal</span></a><a href="../multimodal/index.html#mm-voice-realtime" title="ASR 与说话人分离能力底座；实时字幕走语音链路">语音与实时交互<span class="xm">Multimodal</span></a><a href="../rag/index.html#rag-hybrid" title="会议记忆库 = 权限感知检索；行动项自动执行的审批边界">混合检索<span class="xm">RAG</span></a><a href="../agent/index.html#agent-eval-guardrails" title="会议记忆库 = 权限感知检索；行动项自动执行的审批边界">评估与护栏<span class="xm">Agent</span></a></div>
 </section>
 
+<!-- ============ 10 ============ -->
+<section class="sec" id="sp-cheatsheet">
+  <h2><span class="num">10</span>售前速查<a class="anchor" href="#sp-cheatsheet">#sp-cheatsheet</a></h2>
+
+  <div class="lead">
+    <p>对客前 30 秒扫总表：确定主料 → 翻对应场景章 → 深潜翻技术模块——这就是本模块的最短使用路径。本章是速查索引，数字与格局一律以对应章和 MANIFEST 为准。</p>
+  </div>
+
+  <h3>七场景 → 积木总表</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>场景</th><th>主料</th><th>兜底</th><th>对应章</th></tr></thead>
+    <tbody>
+     <tr><td><b>智能客服</b></td><td>RAG + Agent + 语音链路</td><td>Evaluation + Gateway</td><td><a href="#sp-customer-service">第 3 章</a></td></tr>
+     <tr><td><b>知识库 / AI 搜索</b></td><td>RAG 三个进阶章 + Security</td><td>Evaluation 越权测试</td><td><a href="#sp-knowledge-search">第 4 章</a></td></tr>
+     <tr><td><b>营销内容生成</b></td><td>Multimodal 生成 + Prompt-Engineering</td><td>Security 人审</td><td><a href="#sp-content-gen">第 5 章</a></td></tr>
+     <tr><td><b>AI Coding</b></td><td>Agent + AI-Gateway</td><td>Security + 私有化</td><td><a href="#sp-ai-coding">第 6 章</a></td></tr>
+     <tr><td><b>数字人</b></td><td>Multimodal 语音 + 生成</td><td>合规三问</td><td><a href="#sp-digital-human">第 7 章</a></td></tr>
+     <tr><td><b>ChatBI</b></td><td>RAG 结构化 + 语义层</td><td>Security 行级权限</td><td><a href="#sp-chatbi">第 8 章</a></td></tr>
+     <tr><td><b>会议助手</b></td><td>Multimodal ASR + RAG 记忆库</td><td>Agent 审批 + 合规</td><td><a href="#sp-meeting">第 9 章</a></td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>分诊决策树：客户开口第一句</h3>
+  <div class="lead"><p>分诊错了后面全错——宁可多问三个问题再分诊，也别顺着第一句话直接进方案。</p></div>
+  <div class="tw">
+   <table>
+    <thead><tr><th>客户说的话</th><th>分诊去向</th></tr></thead>
+    <tbody>
+     <tr><td>「想让 AI 答问题 / 少雇客服」</td><td>对外 → <a href="#sp-customer-service">第 3 章客服</a>；对内 → <a href="#sp-knowledge-search">第 4 章知识库</a></td></tr>
+     <tr><td>「想让 AI 做内容 / 做视频」</td><td><a href="#sp-content-gen">第 5 章内容生成</a>；要「人形」→ <a href="#sp-digital-human">第 7 章数字人</a></td></tr>
+     <tr><td>「研发想提效」</td><td><a href="#sp-ai-coding">第 6 章 AI Coding</a></td></tr>
+     <tr><td>「想用自然语言问数据 / 智能报表」</td><td><a href="#sp-chatbi">第 8 章 ChatBI</a></td></tr>
+     <tr><td>「会议纪要 / 办公提效」</td><td><a href="#sp-meeting">第 9 章会议助手</a></td></tr>
+     <tr><td>「都想要，先做哪个」</td><td>回<a href="#sp-what-why">第 1 章</a>：按数据就绪度 × 容错成本排矩阵</td></tr>
+     <tr><td>「你们有没有平台」</td><td><a href="../agent/index.html#agent-lowcode">Agent 模块低代码平台选型</a></td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>成本速查卡：报价先报量级</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>场景</th><th>单位成本量级</th><th>口径备注</th></tr></thead>
+    <tbody>
+     <tr><td>文本客服</td><td>$0.01–0.05 / 会话</td><td>RAG + 中档模型</td></tr>
+     <tr><td>语音客服</td><td>$0.01–0.17 / 分钟</td><td>级联管线；端到端另算</td></tr>
+     <tr><td>企业搜索</td><td>按人头订阅</td><td>Glean 模式市场定价</td></tr>
+     <tr><td>文案生成</td><td>$0.001–0.01 / 条</td><td>便宜到按吨算</td></tr>
+     <tr><td>图像生成</td><td>$0.02–0.1 / 张</td><td>迭代次数是乘数</td></tr>
+     <tr><td>AI Coding</td><td>$19–40 / 人 / 月 + 用量</td><td>IDE 层月费 + agent 层 token</td></tr>
+     <tr><td>ChatBI</td><td>大头是语义层建设人力</td><td>查询 token 成本很低</td></tr>
+     <tr><td>会议助手</td><td>按席位订阅（Teams Copilot $30/人/月 参照）</td><td>记忆库存储另计</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="ev">成本量级核实 2026-07-10，来源 <a href="#src-cost">各厂商定价页综合量级</a>。所有数字为量级口径，会漂——但相对关系稳定；报价永远「先量级后精确」。<b>不可外推边界</b>：量级直觉不是报价，出单前按当期定价逐项重算；语音一行的分钟价随实时语音模型换代已不适用，端到端分钟成本须按自身话务实测折算。</p>
+
+  <h3>高频问题汇总：电梯答案</h3>
+  <div class="lead"><p>八个最高频问题，每个 15 秒内说完；被追问再翻对应章的完整对练页。</p></div>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问题</th><th>一句话答案</th></tr></thead>
+    <tbody>
+     <tr><td>解决率能承诺多少？</td><td>承诺测法不承诺数字——评估集 + 基线 + 签字验收线（<a href="#sp-customer-service">第 3 章</a>）</td></tr>
+     <tr><td>员工会搜到不该看的吗？</td><td>权限感知检索 + 越权测试集（<a href="#sp-knowledge-search">第 4 章</a>）</td></tr>
+     <tr><td>生成内容侵权谁负责？</td><td>商业安全供应商 + 人审留痕两层兜底（<a href="#sp-content-gen">第 5 章</a>）</td></tr>
+     <tr><td>代码会被拿去训练吗？</td><td>企业版合同承诺 + 网关审计 + 私有化选项（<a href="#sp-ai-coding">第 6 章</a>）</td></tr>
+     <tr><td>POC 成功为什么还要收钱？</td><td>POC 两层，生产五层——差的三层是工程大头（<a href="#sp-method">第 2 章</a>）</td></tr>
+     <tr><td>报价贵 30% 贵在哪？</td><td>对齐口径：满负荷 TCO + 人力运营包（<a href="#sp-method">第 2 章</a>）</td></tr>
+     <tr><td>先做哪个场景？</td><td>数据就绪度 × 容错成本排矩阵（<a href="#sp-what-why">第 1 章</a>）</td></tr>
+     <tr><td>方案会不会半年过时？</td><td>模型是可替换件：网关 + 评估集守线（<a href="#sp-method">第 2 章</a>）</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <p class="ev">定位：解决方案层（与 Model-Landscape 同层）。全库的「场景索引层」——单向引用所有技术模块，技术模块无需反向依赖它。本表无新增事实，全部指向本页对应章与 MANIFEST 已登记条目。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../agent/index.html#agent-lowcode" title="「有没有平台」的分诊去向">低代码 Agent 平台<span class="xm">Agent</span></a><a href="../rag/index.html#rag-structured" title="这个词的主场：RAG · 结构化数据 RAG">语义层<span class="xm">RAG</span></a></div>
+</section>
+
 <!-- ============ 上云 ============ -->
 <section class="sec" id="cloud">
-  <h2><span class="num">10</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+  <h2><span class="num">11</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
 
   <div class="lead">
     <p>删掉尾巴那半句，只留：「前面几章按场景拆积木。这一节换个视角：客户问「在你们云上怎么搭」，五层架构每层点一个服务名——按架构层自上而下排，不按章节排。」</p>
@@ -634,7 +717,7 @@
 
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">11</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">12</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-10</b> 来自讲义首版对练页，<b>2026-07-11</b> 来自 ChatBI 与会议助手两章，<b>2026-07-23</b> 是按客户交锋场景补的三题（交付周期与配合人力 / 出错谁担责 / 换供应商能不能接手）。</p>
   <div class="qa">
@@ -754,7 +837,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">12</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">13</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>本页是全库的「场景索引层」：单向引用所有技术模块——每个场景章的积木清单就是深潜入口。</p>
   <div class="rel">
     <a href="../rag/index.html">
@@ -787,7 +870,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">13</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">14</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Solution-Patterns/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-10 至 08-01。<b>市场数字会漂但相对关系稳定——报价先量级后精确，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -809,6 +892,9 @@
         2026 横评</td><td>原生派 vs 独立派格局、Granola 融资</td><td>窗口期在收窄，格局快变</td></tr>
       <tr id="src-dh"><td><code>src-dh</code></td><td>HeyGen 官方 blog / help center</td>
         <td>Avatar V 口径（15 秒建分身/10 分钟不漂移）</td><td>—</td></tr>
+      <tr id="src-cost"><td><code>src-cost</code></td><td>各厂商定价页综合量级（2026-07 口径）</td>
+        <td>成本速查卡各场景单位成本量级</td>
+        <td>量级不是报价；语音分钟价已随实时语音换代作废，端到端须按话务实测折算</td></tr>
     </tbody>
   </table>
   </div>
@@ -832,8 +918,8 @@
   <!-- UPDATED:END -->
 </footer>
 
-<script src="../data.js?v=20260723n"></script>
-<script src="../assets/site.js?v=20260723n"></script>
+<script src="../data.js?v=20260723o"></script>
+<script src="../assets/site.js?v=20260723o"></script>
 <script>
 /* 场景分诊器：讲义第 10 章分诊树 + 场景→积木总表 + 成本速查卡的交互合体。
    无 JS 时 .tool 隐藏，静态兜底是正文各场景节。 */

@@ -48,6 +48,7 @@ gate "页脚页码账实"             python3 _maintenance/check_footer_pagenum.
 
 # ---- 生成物无漂移 ----
 gate "网页产物与 MANIFEST 一致" python3 Web-version/build.py --check
+gate "信源清单与 MANIFEST 一致" python3 _maintenance/gen_source_list.py --check
 gate "整库版本戳与 KB-CONFIG"   python3 _maintenance/stamp_kb_version.py --check
 gate "生成器册的源 JSON 在位"   python3 _maintenance/check_deck_source.py
 

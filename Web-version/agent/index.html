@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent 智能体与编排 · AI 知识库网页版</title>
-<link rel="stylesheet" href="../../_assets/kb.css?v=20260723n">
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723o">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
       <span class="badge ok">核实窗口 2026-07-07 至 07-17</span>
-      <span class="badge recheck">MCP 新版 2026-07-28 已发布 · 相关小节已回刷</span>
+      <span class="badge recheck">MCP 新版 2026-07-28 已发布 · 相关小节已按新版更新</span>
     </p>
   </div>
 </header>
@@ -226,7 +226,7 @@
   </div>
   <p>投入在工具契约上的一小时，常比调一天提示词更能提升成功率——工具返回的质量决定模型「看到什么」，提示词只决定「怎么看」。<b>评审 agent 方案先翻它的工具清单</b>：六层缺哪层，事故就从哪层来。</p>
   <p class="ev">MCP 版本现状核实 2026-07-30（建议复查日 2027-01-31），来源
-    <a href="#src-mcp">modelcontextprotocol.io</a>。<b>不可外推边界</b>：2026-07-28 新规范已发布，本节结论已按新版回刷；引用时仍必须带版本号。</p>
+    <a href="#src-mcp">modelcontextprotocol.io</a>。<b>不可外推边界</b>：2026-07-28 新规范已发布，本节结论已按新版更新；引用时仍必须带版本号。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../mcp/index.html#mcp-what-why" title="Agent 第 4 章讲 MCP 概览，协议细节深入见 MCP 模块">是什么/为什么<span class="xm">MCP</span></a><a href="../a2a/index.html#a2a-what-why" title="Agent 第 4 章提及 A2A（v1.0）；跨厂商 Agent 协作的协议细节深入见 A2A 模块">是什么/为什么<span class="xm">A2A</span></a></div>
 </section>
@@ -926,7 +926,7 @@
           Effective Agents / context engineering / multi-agent research system）</td>
           <td>五模式、四板斧、15×/90.2% 决策账</td><td>内部评测口径（BrowseComp），不能外推为任意任务的收益承诺</td></tr>
       <tr id="src-mcp"><td><code>src-mcp</code></td><td>modelcontextprotocol.io</td>
-          <td>MCP 版本现状与治理（2026-07-07）</td><td>已按 2026-07-28 新版回刷</td></tr>
+          <td>MCP 版本现状与治理（2026-07-07）</td><td>已按 2026-07-28 新版更新</td></tr>
       <tr id="src-a2a"><td><code>src-a2a</code></td><td>A2A releases / Linux Foundation 公告</td>
           <td>A2A v1.0 时间线与采用规模</td><td>不涉及协议技术细节（见 A2A 模块）</td></tr>
       <tr id="src-frameworks"><td><code>src-frameworks</code></td><td>微软官方公告 / GitHub releases</td>
@@ -969,12 +969,12 @@
   <!-- UPDATED:END -->
 </footer>
 
-<script src="../data.js?v=20260723n"></script>
-<script src="../assets/site.js?v=20260723n"></script>
+<script src="../data.js?v=20260723o"></script>
+<script src="../assets/site.js?v=20260723o"></script>
 <script>
 /* 启用条件决策器：两把尺 + 六个启用条件 + 派与不派账的交互版。
    判据全部来自本页各节（讲义第 1/7/8/9/10/11 章口径），不引入新事实。
-   纪律：帮助决策（web-rules §九）；无 JS 时 .tool 隐藏，静态兜底是启用条件表。 */
+   纪律：帮助决策；无 JS 时 .tool 隐藏，静态兜底是启用条件表。 */
 (function () {
   "use strict";
   var card = window.KBUI.card, kpi = window.KBUI.kpi;   /* 公共渲染件，见 assets/site.js */

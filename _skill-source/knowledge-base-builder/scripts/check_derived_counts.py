@@ -54,6 +54,9 @@ SURFACES = [
     "_prep/实战包.html",
     ".github/workflows/gates.yml", ".github/workflows/release-kb.yml",
     ".github/workflows/release-skill.yml",
+    # 2026-09-05 起：维护手册不再手抄门禁清单，但「跑全部道数」这类措辞仍会提道数，
+    # 同样要跟真源对账。
+    "_maintenance/维护手册.md",
 ]
 
 GEN_BLOCK = re.compile(r"<!--\s*[A-Z]+:BEGIN\b.*?<!--\s*[A-Z]+:END\s*-->", re.S)

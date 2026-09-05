@@ -110,7 +110,7 @@ WEB_PAGES = {mid: "./%s/index.html" % d for mid, d in WEB_DIRS.items()}
 def mod_href(mid, by_id, prefix="./"):
     """模块链接：有网页版就指网页版，只有讲义的回落到讲义 README。
 
-    库的分批扩建纪律允许模块先只有讲义（19 册当年都是这么过来的），
+    库的分批扩建纪律允许模块先只有讲义（全库各册当年都是这么过来的），
     但生成器一度假设「每个模块都在 WEB_DIRS 里」——新模块一进来就 KeyError。
     这里统一出口，别在四处各写一遍。
     """
@@ -552,7 +552,7 @@ def read_prep_questions():
 
 
 def render_qa(data, prep_qs):
-    """跨册问答库：19 册的现场高频追问 + 实战包的电梯版题，汇到一处可搜可筛。
+    """跨册问答库：各册的现场高频追问 + 实战包的电梯版题，汇到一处可搜可筛。
 
     **它是索引不是副本**——只登记题目、出处与深链，答案留在原处。
     同一段答案文本全库只有一份，改答案不用记得改第二个地方
@@ -1362,7 +1362,7 @@ def render_graph(data):
 def render_network(data):
     """跨模块关系网：讲一个模块时还该带上哪几块。
 
-    这是网页版相对 PPT 的结构性优势——19 册讲义各印各的，纸面上无法互相指；
+    这是网页版相对 PPT 的结构性优势——各册讲义各印各的，纸面上无法互相指；
     而串联关系本来就登记在各模块 MANIFEST 的「串联出边」里，这里只是把它们汇到一处。
     窄屏另给一个「相关模块」合并列：出边与入边对读者是同一个用途，
     三列硬撑到手机上一行会高到 400px（2026-07-20 实测），故窄屏合并（CSS 切换）。"""
@@ -1448,9 +1448,9 @@ def _fact_table(rows):
         cad = f.get("cadence", "")
         tier = ("%s 天" % cad) if cad else "—"
         pinned = " 📌" if f["recheck"] == f["due"] and f["recheck"] != "—" else ""
-        o.append('    <tr%s><td><span class="badge %s">%s%s</span></td>'
+        o.append('    <tr%s data-due="%s"><td><span class="badge %s">%s%s</span></td>'
                  '<td>%s / %s%s</td><td><a href="%s">%s</a></td><td>%s</td></tr>'
-                 % (' class="over"' if overdue else "",
+                 % (' class="over"' if overdue else "", esc(f["due"]),
                     "over" if overdue else "recheck",
                     "已过期 " if overdue else "", esc(f["due"]),
                     esc(tier), esc(f.get("grade", "") or "—"), pinned,
@@ -1464,22 +1464,23 @@ def render_fresh(data):
 
     理由：首页是学习入口，不是维护看板。真到期的该在首页拦住人，
     「最久未核实」这类长尾是巡检时才翻的（2026-07-20 用户裁决）。
+    这里算的是构建日的静态挑行（无 JS 的兜底）；带 JS 打开时 site.js
+    按浏览器当天重标过期行、重写汇总句（2026-09-05 起，构建期断言不再露面）。
     """
     rows_, due = _fresh_rows(data)
-    y, mo, d = (int(x) for x in BUILD_DATE.split("-"))
-    mo2, y2 = (mo + 1, y) if mo < 12 else (1, y + 1)
-    horizon = "%04d-%02d-%02d" % (y2, mo2, d)      # 约 30 天
+    bd = datetime.date(*(int(x) for x in BUILD_DATE.split("-")))
+    horizon = (bd + datetime.timedelta(days=30)).isoformat()   # 30 天视界，跨月不再手算
     near = [(m, f) for m, f in due if f["due"] <= horizon]
     later = len(due) - len(near)
 
     o = []
     if near:
-        o.append('  <p class="net-lead">截至构建日 <b>%s</b>，'
+        o.append('  <p class="net-lead" id="fresh-sum">截至构建日 <b>%s</b>，'
                  '<b>%d 条</b>已到期或将在一个月内到期。</p>' % (BUILD_DATE, len(near)))
         o.append(_fact_table(near))
     else:
-        o.append('  <p class="net-lead">截至构建日 <b>%s</b>，一个月内没有需要复查的事实。</p>'
-                 % BUILD_DATE)
+        o.append('  <p class="net-lead" id="fresh-sum">截至构建日 <b>%s</b>，'
+                 '一个月内没有需要复查的事实。</p>' % BUILD_DATE)
     o.append('  <p class="net-lead">全库共 %d 条时效性事实；另有 %d 条排在一个月之后，'
              '见 <a href="./fresh.html">完整保鲜看板</a>。</p>'
              % (len(rows_), later))
@@ -1496,14 +1497,12 @@ def _tier_summary(due):
 
 def render_fresh_full(data):
     rows_, due = _fresh_rows(data)
-    over = sum(1 for _, f in due if f["due"] < BUILD_DATE)
-    o = ['  <p class="net-lead">截至构建日 <b>%s</b>。全库 %d 条时效性事实各自带着复核节奏——'
-         '%s；报价与榜单一个月一查，协议与平台能力三个月，原理与方法论半年。'
-         '引用任何数字前先核日期。</p>' % (BUILD_DATE, len(rows_), _tier_summary(due))]
+    o = ['  <p class="net-lead" id="fresh-sum">截至构建日 <b>%s</b>。全库 %d 条时效性事实'
+         '各自带着复核节奏——%s；报价与榜单一个月一查，协议与平台能力三个月，'
+         '原理与方法论半年。引用任何数字前先核日期。</p>' % (BUILD_DATE, len(rows_), _tier_summary(due))]
     o.append('  <p class="net-lead">下表按<b>有效复查日</b>排开：复查日取「核实日期 + 节奏」'
              '与人工钉的日期中<b>更早</b>的那个——📌 是人工钉的（多半是已公告未生效的节点）。'
-             '%s</p>'
-             % ("目前 <b>%d 条</b>已过期。" % over if over else "目前没有过期的。"))
+             '浏览器打开时按当天重标过期行（超宽限的单独计数），行上日期就是应复核日。</p>')
     o.append("  <h2>按到期日排开</h2>")
     o.append(_fact_table(due))
     return "\n".join(o)
@@ -1622,6 +1621,15 @@ def main(argv):
             print("与 MANIFEST 已漂移：%s——请重跑 build.py 并提交产物。" % "、".join(bad))
             return 1
         print("data.js 与 index.html 生成区块均与 MANIFEST 一致。")
+        try:
+            stamped = datetime.date(*(int(x) for x in BUILD_DATE.split("-")))
+            age = (datetime.date.today() - stamped).days
+            if age > 30:
+                print("提醒（报告型，不拦）：产物刻的构建日是 %s，距今 %d 天——"
+                      "保鲜看板的静态挑行按构建日算，太久没重建会让看板失真，"
+                      "改过 MANIFEST 就重跑 build.py。" % (BUILD_DATE, age))
+        except ValueError:
+            pass
         return 0
 
     # 锚点回写要先落盘：qa 页里的链接指向它们，反过来就会指到还不存在的锚点。

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Multimodal 多模态 · AI 知识库网页版</title>
-<link rel="stylesheet" href="../../_assets/kb.css?v=20260723n">
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723o">
 </head>
 <body>
 
@@ -42,7 +42,8 @@
     <li><a href="#mm-production">7 · 生产落地与坑</a></li>
     <li><a href="#mm-voice-realtime">8 · 语音与实时交互</a></li>
     <li><a href="#mm-video-generation">9 · 视频生成</a></li>
-    <li><a href="#cloud">10 · 上云怎么落地</a></li>
+    <li><a href="#mm-cheatsheet">10 · 售前速查</a></li>
+    <li><a href="#cloud">11 · 上云怎么落地</a></li>
     <li><a href="#qa">问答</a></li>
     <li><a href="#related">相关模块</a></li>
     <li><a href="#sources">来源与核实</a></li>
@@ -516,9 +517,75 @@
   <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-china" title="AI 生成视频的标识义务与执法口径在 Security 第 8 章中国监管合规（讲义内已互引）">中国监管合规<span class="xm">Security</span></a><a href="../solution-patterns/index.html#sp-content-gen" title="营销素材工厂场景图纸在 SP 第 5 章；本章供「视频积木」的能力与成本口径">营销与内容生成<span class="xm">Solution-Patterns</span></a></div>
 </section>
 
+<!-- ============ 10 ============ -->
+<section class="sec" id="mm-cheatsheet">
+  <h2><span class="num">10</span>售前速查<a class="anchor" href="#mm-cheatsheet">#mm-cheatsheet</a></h2>
+
+  <div class="lead">
+    <p>对客前翻本章决策树 + 问题汇总；语音项目先读<a href="#mm-voice-realtime">第 8 章</a>，被追问成本 / 安全查<a href="#mm-selection">第 6</a>、<a href="#mm-production">7 章</a>。本章是速查索引，数字与格局一律以对应章和 MANIFEST 为准。</p>
+  </div>
+
+  <h3>重点术语中英对照</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>中文</th><th>英文</th><th>一句话</th></tr></thead>
+    <tbody>
+     <tr><td>多模态</td><td>Multimodal</td><td>文本外多种模态的理解 / 生成</td></tr>
+     <tr><td>视觉编码器</td><td>Vision Encoder</td><td>把图变成视觉 token（如 CLIP）</td></tr>
+     <tr><td>图文对比学习</td><td>CLIP，Contrastive Language-Image Pre-training</td><td>把图和文字对齐到同一空间</td></tr>
+     <tr><td>视觉 Transformer</td><td>ViT，Vision Transformer</td><td>把图切 patch 当 token</td></tr>
+     <tr><td>投影层</td><td>Projection / MLP</td><td>把视觉向量翻译进 LLM（LLaVA）</td></tr>
+     <tr><td>交叉注意力</td><td>Cross-Attention</td><td>LLM 内部按需看图（Flamingo）</td></tr>
+     <tr><td>查询压缩器</td><td>Q-Former</td><td>萃取少量精华视觉 token（BLIP-2）</td></tr>
+     <tr><td>原生多模态</td><td>Native / Early Fusion</td><td>训练时图文一起学，端到端</td></tr>
+     <tr><td>拼管线</td><td>Pipeline / Late Fusion</td><td>OCR / ASR 转字 + 文本 LLM</td></tr>
+     <tr><td>扩散模型</td><td>Diffusion</td><td>从噪声去噪生成，写实美学强</td></tr>
+     <tr><td>自回归生成</td><td>Autoregressive</td><td>逐 token 拼图，指令 / 文字强</td></tr>
+     <tr><td>视觉语言模型</td><td>VLM，Vision-Language Model</td><td>能看图的语言模型统称</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <h3>选型决策树：五问走完</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问</th><th>判据与去向</th></tr></thead>
+    <tbody>
+     <tr><td><b>① 输入有非文字信息且是关键吗？</b></td><td>否 → 用纯文本 LLM，别上多模态</td></tr>
+     <tr><td><b>② 要「转录」还是「理解」？</b></td><td>只要抠字段 → 传统 OCR / ASR 管线足够</td></tr>
+     <tr><td><b>③ 版式稳定吗？</b></td><td>固定单据 → 拼管线（OCR + LLM）性价比最高</td></tr>
+     <tr><td><b>④ 需要开放问答 / 图表推理 / 复杂版式？</b></td><td>是 → 原生多模态模型（可与管线混合兜底）</td></tr>
+     <tr><td><b>⑤ 数据敏感 / 量极大 / 要降本？</b></td><td>是 → 自建开源 VLM（vLLM）；否 → 托管 API 起步</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>五问走完，方案基本落地。多数企业文档场景的答案是「拼管线打底 + 原生兜底 + 托管起步」。</p>
+
+  <h3>客户问题汇总：一页备好</h3>
+  <div class="tw">
+   <table>
+    <thead><tr><th>问题</th><th>一句话答案</th></tr></thead>
+    <tbody>
+     <tr><td>多模态和 OCR 区别？</td><td>OCR 只转字，多模态能连看带理解、开放问答</td></tr>
+     <tr><td>我要不要上多模态？</td><td>有关键非文字信息 + 要理解才上，否则更贵更慢</td></tr>
+     <tr><td>原生还是拼管线？</td><td>版式稳走管线省钱，版式变 / 要理解走原生</td></tr>
+     <tr><td>开源能打过闭源吗？</td><td>单项基准已逼近，综合稳定性闭源仍领先</td></tr>
+     <tr><td>传图贵不贵？</td><td>按视觉 token 计费，分辨率是主变量，可压</td></tr>
+     <tr><td>为什么比文本慢？</td><td>视觉 token 多，prefill 重、首 token 延迟高</td></tr>
+     <tr><td>会不会瞎编 / 看错？</td><td>会，空间 / 计数 / 小字是短板，配评估兜底</td></tr>
+     <tr><td>有什么新安全风险？</td><td>跨模态提示注入——图里藏指令，需当不可信输入</td></tr>
+    </tbody>
+   </table>
+  </div>
+
+  <p class="ev">本表无新增事实：术语、决策树与问题汇总均来自本页对应章与 MANIFEST 已登记条目。</p>
+
+  <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html#llminf-engines" title="这个词的主场：LLM-Inference · 推理框架图鉴">vLLM<span class="xm">LLM-Inference</span></a><a href="../security/index.html#sec-prompt-injection" title="这个词的主场：Security · 提示注入与越狱">提示注入<span class="xm">Security</span></a></div>
+</section>
+
 <!-- ============ 上云 ============ -->
 <section class="sec" id="cloud">
-  <h2><span class="num">10</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
+  <h2><span class="num">11</span>上云怎么落地<a class="anchor" href="#cloud">#cloud</a></h2>
 
   <div class="lead">
     <p>前面按能力和成本讲选型，这一节按链路排：每个环节在云上对应哪类服务、给客户怎么说、该顺着追问什么、哪些事云替你做不了。同一环节多给几家代表，不绑一家。</p>
@@ -593,7 +660,7 @@
 
 <!-- ============ 问答 ============ -->
 <section class="sec" id="qa">
-  <h2><span class="num">11</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
+  <h2><span class="num">12</span>现场高频追问<a class="anchor" href="#qa">#qa</a></h2>
   <p>只收会改变某个决定的问题——会改变技术方案、风险判断、验收方法、对客沟通或下一步行动。</p>
   <p class="baseline">每题标出它<b>加入本题库</b>的日期：<b>2026-07-09</b> 来自讲义首版对练页，<b>2026-07-10</b> 来自语音实时章，<b>2026-07-17</b> 来自视频生成章，<b>2026-07-23</b> 是按客户交锋场景补的四题（识别承诺 / 已有 OCR / 生成合规 / 量大成本）。</p>
   <div class="qa">
@@ -723,7 +790,7 @@
 
 <!-- ============ 相关模块 ============ -->
 <section class="sec" id="related">
-  <h2><span class="num">12</span>相关模块<a class="anchor" href="#related">#related</a></h2>
+  <h2><span class="num">13</span>相关模块<a class="anchor" href="#related">#related</a></h2>
   <p>同一个概念在库里只有一个主要归属，其余模块讲的是它的另一个层面。</p>
   <div class="rel">
     <a href="../rag/index.html">
@@ -755,7 +822,7 @@
 
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
-  <h2><span class="num">13</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
+  <h2><span class="num">14</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
   <p>本页时效性数字均经联网核实后写入，完整登记见<a href="../../PPT-version/Multimodal/MANIFEST.md">本模块 MANIFEST</a>。核实窗口
     2026-07-09 至 07-17，其中旗舰格局、开源 VLM、语音端到端、视频生成四处已于 <b>2026-08-01</b> 按厂商官方页复核。<b>模型格局月度在变，引用任何数字前先核日期。</b></p>
   <div class="tw">
@@ -796,8 +863,8 @@
   <!-- UPDATED:END -->
 </footer>
 
-<script src="../data.js?v=20260723n"></script>
-<script src="../assets/site.js?v=20260723n"></script>
+<script src="../data.js?v=20260723o"></script>
+<script src="../assets/site.js?v=20260723o"></script>
 <script>
 /* 多模态方案分诊器：五问决策树（讲义第 10 章）的交互版。无 JS 时 .tool 隐藏，
    静态兜底是第 3 节的三问落子与正文决策框架。 */

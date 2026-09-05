@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MCP 模型上下文协议 · AI 知识库网页版</title>
-<link rel="stylesheet" href="../../_assets/kb.css?v=20260723n">
+<link rel="stylesheet" href="../../_assets/kb.css?v=20260723o">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
       <span class="badge ok">现行规范 2026-07-28</span>
-      <span class="badge recheck">2026-07-28 新版已发布 · 已回刷</span>
+      <span class="badge recheck">2026-07-28 新版已发布 · 已按新版更新</span>
     </p>
   </div>
 </header>
@@ -211,7 +211,7 @@
   </figure>
 
   <div class="box warn">
-    <p><span class="badge recheck">2026-07-28 已回刷</span>新版已删掉这套握手、改走无状态：删掉 initialize 与会话 ID，上下文随每个请求走。理解经典三步仍是基础，但届时这一节的机制描述需要改写——细节见<a href="#mcp-transport">传输与版本演进</a>。</p>
+    <p><span class="badge recheck">2026-07-28 已按新版更新</span>新版已删掉这套握手、改走无状态：删掉 initialize 与会话 ID，上下文随每个请求走。理解经典三步仍是基础，但届时这一节的机制描述需要改写——细节见<a href="#mcp-transport">传输与版本演进</a>。</p>
   </div>
 
   <h3>三大原语：两把刀切同一件事</h3>
@@ -245,7 +245,7 @@
   <p>除服务端三原语外，协议还定义了反向能力：Sampling（服务端反过来请客户端的模型帮忙生成）、
     Elicitation（服务端向用户追问补充信息）、Roots（客户端告知可访问的目录范围）。</p>
   <div class="box warn">
-    <p><span class="badge recheck">2026-07-28 已回刷</span>新版已把 Roots、Sampling、Logging 正式列入弃用（Deprecated），建议改用工具参数、直连模型 API、stderr 或 OpenTelemetry 等替代，保留至少 12 个月缓冲。选型时不要把架构压在这几项上。</p>
+    <p><span class="badge recheck">2026-07-28 已按新版更新</span>新版已把 Roots、Sampling、Logging 正式列入弃用（Deprecated），建议改用工具参数、直连模型 API、stderr 或 OpenTelemetry 等替代，保留至少 12 个月缓冲。选型时不要把架构压在这几项上。</p>
   </div>
 
   <h3 id="wire">真实报文：一次 tools/call 的来回</h3>
@@ -506,7 +506,7 @@
     四个 Tier 1 SDK（TypeScript、Python、Go、C#）都已出支持版本，Rust 为 beta，包内附迁移说明。</p>
 
   <p class="ev">核实 2026-07-30，来源 <a href="#src-rc">MCP 官方 2026-07-28 发布文与 changelog</a>。
-    规范已于 2026-07-28 正式发布，本节按官方 changelog 逐项回刷。<b>本节仍是全册时效性最强的一处，下一次定点复查 2027-01-31。</b></p>
+    规范已于 2026-07-28 正式发布，本节按官方 changelog 逐项更新。<b>本节仍是全册时效性最强的一处，下一次定点复查 2027-01-31。</b></p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../prompt-engineering/index.html#pe-engineering" title="这个词的主场：Prompt-Engineering · 工程化与自动优化">提示词缓存<span class="xm">Prompt-Engineering</span></a></div>
 </section>
@@ -1093,7 +1093,7 @@ if __name__ == "__main__":
   <!-- UPDATED:END -->
 </footer>
 
-<script src="../data.js?v=20260723n"></script>
-<script src="../assets/site.js?v=20260723n"></script>
+<script src="../data.js?v=20260723o"></script>
+<script src="../assets/site.js?v=20260723o"></script>
 </body>
 </html>

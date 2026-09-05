@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   gates:
-    name: 十九道门禁
+    name: 二十道门禁
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,6 +42,8 @@ jobs:
       # 事实是真的会随挂钟过期的。保鲜看板此前只是报表——可以一直红着而门禁全绿，
       # 没有任何机制强迫人去看它（2026-08-02 补这道）。判据按每条事实自己的
       # 30/90/180 天节奏，不再全库一个阈值。
+      # 2026-09-05 起分两层：到期先进「到期待复核」清单，超 KB-CONFIG「超期宽限」才 FAIL
+      # （本步不传 --strict）；每周一 freshness.yml 用 --strict 到期即报 issue。
       - name: 保鲜（事实节奏与不可外推边界）
         run: python3 _maintenance/check_freshness.py
 
@@ -70,6 +72,11 @@ jobs:
       # ---- 生成物无漂移 ----
       - name: 网页产物与 MANIFEST 一致
         run: python3 Web-version/build.py --check
+
+      # 信源清单是巡检按信源批处理的起点，由 gen_source_list.py 从 MANIFEST 生成；
+      # 之前一直不在门禁里，2026-09-05 实测它已经红了（与 MANIFEST 漂了），没人知道。
+      - name: 信源清单与 MANIFEST 一致
+        run: python3 _maintenance/gen_source_list.py --check
 
       # 页面右上角那个号是整库 Release 号，真源是 KB-CONFIG 的「库版本」。
       # 它跟 kb.css?v= 那套缓存戳是两件事——2026-08-03 之前绑在一起，

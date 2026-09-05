@@ -1915,7 +1915,7 @@ window.KB = {
      "due": "2026-08-08"
     },
     {
-     "text": "K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随季度巡检，版本号周级漂移）",
+     "text": "K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "aip-serving",
      "verified": "2026-08-01",
      "source": "github.com/kserve/kserve/releases、kserve.github.io 文档（LLMInferenceService 概览 / CRD API）、github.com/kubernetes-sigs/kueue/releases",
@@ -2121,7 +2121,7 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "OTel GenAI 语义约定 2026-06-12（semconv v1.42.0）起全部 gen_ai.* span/指标/事件迁入独立仓 semantic-conventions-genai，主仓对应定义弃用；整体仍 Development、无一 Stable，新仓尚未发正式版；四类 span（agent/workflow/tool/model）实践已稳但命名仍可能变——「封装一层再用」升为硬要求（建议复查日 2026-10-31，随季度巡检）",
+     "text": "OTel GenAI 语义约定 2026-06-12（semconv v1.42.0）起全部 gen_ai.* span/指标/事件迁入独立仓 semantic-conventions-genai，主仓对应定义弃用；整体仍 Development、无一 Stable，新仓尚未发正式版；四类 span（agent/workflow/tool/model）实践已稳但命名仍可能变——「封装一层再用」升为硬要求（建议复查日 2026-10-31，随月度巡检）",
      "chapter": "ops-tracing",
      "verified": "2026-08-01",
      "source": "github.com/open-telemetry/semantic-conventions v1.42.0 release notes / github.com/open-telemetry/semantic-conventions-genai（docs/gen-ai 状态徽标均 Development、releases 页为空）",
@@ -3012,7 +3012,7 @@ window.KB = {
      "text": "治理工具锚点：OpenLineage 1.52.0（2026-07-23，Run/Job/Dataset 三实体 + facets）、OPA v1.19.0（2026-07-30）；注意血缘解释「数据怎么来」≠ 访问控制。**本行 2026-08-01 从「稳定事实」表挪回本表**——带版本号的行天然会漂，放在免巡检表里每轮都要靠补审兜底（2026-08-01 巡检结构小修，两处同批：另一处是 AIP 的 KServe/Kueue 行）",
      "chapter": "de-governance",
      "verified": "2026-08-01",
-     "source": "github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随季度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记）",
+     "source": "github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随月度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
@@ -3839,7 +3839,7 @@ window.KB = {
      "due": "2026-10-07"
     },
     {
-     "text": "PEFT 稳定版 v0.20.0（2026-07-28，一次新增 9 种 PEFT 方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随季度巡检，版本号周级漂移）",
+     "text": "PEFT 稳定版 v0.20.0（2026-07-28，一次新增 9 种 PEFT 方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "ft-training",
      "verified": "2026-08-01",
      "source": "github.com/huggingface/peft/releases",
@@ -3849,7 +3849,7 @@ window.KB = {
      "due": "2026-10-30"
     },
     {
-     "text": "TRL v1.9.2（2026-07-28）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随季度巡检，版本号周级漂移）",
+     "text": "TRL v1.9.2（2026-07-28）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "ft-training",
      "verified": "2026-08-01",
      "source": "github.com/huggingface/trl/releases",
@@ -4395,7 +4395,7 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "vLLM 当前 v0.26.0（2026-07-27），事实上的默认推理引擎（硬件覆盖最广、NVIDIA NGC 收编）（建议复查日随季度巡检，版本号周级漂移）",
+     "text": "vLLM 当前 v0.26.0（2026-07-27），事实上的默认推理引擎（硬件覆盖最广、NVIDIA NGC 收编）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "llminf-engines",
      "verified": "2026-08-01",
      "source": "github.com/vllm-project/vllm/releases（版本号）；格局定性另见 2026 对比评测（raw-data 核实笔记）",
@@ -4405,7 +4405,7 @@ window.KB = {
      "due": "2026-10-30"
     },
     {
-     "text": "SGLang 当前 v0.5.16（2026-07-25）；v0.5.13 起投机解码 Spec V2 默认开启；DeepSeek 系 day-0 支持（建议复查日随季度巡检，版本号周级漂移）",
+     "text": "SGLang 当前 v0.5.16（2026-07-25）；v0.5.13 起投机解码 Spec V2 默认开启；DeepSeek 系 day-0 支持（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "llminf-engines",
      "verified": "2026-08-01",
      "source": "github.com/sgl-project/sglang/releases",
@@ -4455,7 +4455,7 @@ window.KB = {
      "due": "2027-01-05"
     },
     {
-     "text": "NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.3.0（2026-07-22，第 16 个特性版）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐（建议复查日随季度巡检，版本号月级漂移）",
+     "text": "NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.3.0（2026-07-22，第 16 个特性版）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐（建议复查日随月度巡检，版本号月级漂移）",
      "chapter": "llminf-disagg",
      "verified": "2026-08-01",
      "source": "NVIDIA 官方博客、GitHub releases（github.com/ai-dynamo/dynamo）",

@@ -23,6 +23,10 @@
 
     qa · related · sources · cloud · boundary
 
+**反向契约（2026-09-05 补）**：章节表里状态 ✅ 的每个章节 ID，网页上必须有同名小节。
+原来只查「网页小节 ⊆ 讲义章节」这一个方向，幽灵章节（MANIFEST 登记 ✅、讲义里有、
+网页没有）反向查不出来——生成器还亲手写死过两条指向它们的死链。
+
 ## 契约二 · 重组态（有「网页章节」一节的册）
 
 MANIFEST 增一节，讲义章节清单**照旧不动**（它仍是讲义面的出处）：
@@ -81,6 +85,14 @@ def rows(section, text):
     return out
 
 
+def chapter_rows(mpath):
+    """MANIFEST 章节清单里状态 ✅ 的章节 ID（反向契约的真源是 MANIFEST，不是 data.js）。"""
+    table = rows("章节清单", open(mpath, encoding="utf-8").read())
+    if table is None:
+        return []
+    return [c[0] for c in table if len(c) >= 4 and c[3].strip() == "✅"]
+
+
 def has_alias(html, anchor):
     """旧锚点是否以隐藏元素形式留在页面里。不限定标签，只要带这个 id 且标了 hidden。"""
     pat = re.compile(r'<[a-z]+[^>]*\bid="%s"[^>]*>' % re.escape(anchor))
@@ -132,6 +144,11 @@ def check(mod, info, root):
                 fails.append("网页小节「%s」既不是讲义章节，也不在结构性白名单里；"
                              "若这是重组，MANIFEST 要加「## %s」一节登记映射"
                              % (sid, WEB_SECTION))
+        # 反向契约：MANIFEST 章节表里状态 ✅ 的章节，网页必须有同名小节
+        for sid in chapter_rows(mpath):
+            if sid not in secs:
+                fails.append("章节清单里「%s」状态 ✅，网页却没有同名小节——"
+                             "要么补回网页，要么把状态改回进行中" % sid)
         return fails, "默认态（%d 节）" % len(secs)
 
     # ---- 契约二 · 重组态 ----
