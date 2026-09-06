@@ -60,8 +60,8 @@ def source_key(raw):
     return raw.strip()[:40] or "（未填）", False
 
 
-def collect():
-    today = datetime.date.today()
+def collect(today=None):
+    today = today or datetime.date.today()
     rows = []
     for man in sorted(glob.glob(os.path.join(ROOT, "PPT-version", "*", "MANIFEST.md"))):
         mod = os.path.basename(os.path.dirname(man))
@@ -86,8 +86,8 @@ def collect():
     return rows
 
 
-def render(rows):
-    today = datetime.date.today()
+def render(rows, today=None):
+    today = today or datetime.date.today()
     groups = {}
     for r in rows:
         groups.setdefault(r["key"], []).append(r)
@@ -147,20 +147,31 @@ def render(rows):
 
 
 def main(argv):
-    rows = collect()
-    body = render(rows)
     if "--check" in argv:
         if not os.path.exists(OUT):
             print("信源清单还没生成过：python3 _maintenance/gen_source_list.py")
             return 1
         cur = open(OUT, encoding="utf-8").read()
-        # 生成日期那一行天天会变，比对时剔掉
-        norm = lambda s: re.sub(r"^生成日期 .*$", "", s, flags=re.M)
-        if norm(cur) != norm(body):
+        # 产物里的「已过期 N 天／N 天后」是相对生成日算的：比对时采用产物自己刻的那个生成日，
+        # 否则生成后第二天起这道门必红（2026-09-06 验收时抓到，口径同 build.py 的 adopt_stamped_date）。
+        # 生成日放旧了另起一行报告型提醒、不拦——刷新它是巡检的活，不是提交的活。
+        m = re.search(r"^生成日期 (\d{4}-\d{2}-\d{2})", cur, flags=re.M)
+        stamp = parse_date(m.group(1)) if m else None
+        if stamp is None:
+            print("信源清单缺「生成日期」行，无法比对——重跑 gen_source_list.py。")
+            return 1
+        body = render(collect(today=stamp), today=stamp)
+        age = (datetime.date.today() - stamp).days
+        if age > 30:
+            print("提醒（不拦）：信源清单生成日 %s 距今 %d 天，「已过期／N 天后」按生成日算；"
+                  "重跑 gen_source_list.py 刷新。" % (stamp.isoformat(), age))
+        if cur != body:
             print("信源清单与 MANIFEST 不一致——重跑 gen_source_list.py。")
             return 1
-        print("信源清单与 MANIFEST 一致。")
+        print("信源清单与 MANIFEST 一致（按生成日 %s 比对）。" % stamp.isoformat())
         return 0
+    rows = collect()
+    body = render(rows)
     with open(OUT, "w", encoding="utf-8") as f:
         f.write(body)
     print("已生成 %s：%d 条事实 / %d 个信源"
