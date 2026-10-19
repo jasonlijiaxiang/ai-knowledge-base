@@ -7,7 +7,7 @@
 | 所在层 | 应用模式层 |
 | 主导关系 | 答案丢在哪一环——读者带来的问题几乎都是「答得准不准、答不准怪谁」。 |
 | 建立日期 | 2026-07-07 |
-| 最后更新 | 2026-08-02 网页版增补「上云怎么落地」（Codex 对照库借鉴第 3 步·样板册）：新增 `#cloud` 小节（结构性小节，与 qa/related/sources 同类，不进章节清单）……；讲义 129 页；完整更新记录见 [raw-data/更新记录.md](raw-data/更新记录.md) |
+| 最后更新 | 2026-10-20 到期事实复核：成立 4 条回写日期、已变 2 条三处同步（要点：RRF 默认 k 各引擎不同——Elasticsearch 60、Qdrant 2；多模态统一嵌入代表更新为 Cohere Embed 5 / voyage-multimodal-3.5）；1 条（生产组合主流）无一手源待补；2026-08-02 网页版增补「上云怎么落地」（Codex 对照库借鉴第 3 步·样板册）：新增 `#cloud` 小节（结构性小节，与 qa/related/sources 同类，不进章节清单）……；讲义 129 页；完整更新记录见 [raw-data/更新记录.md](raw-data/更新记录.md) |
 | 产出 skill 版本 | v1.0（清单由 v2.0 回填） |
 
 ## 章节清单
@@ -29,16 +29,16 @@
 ## 时效性事实（巡检盘查对象）
 | 事实 | 章节 ID | 核实日期 | 来源 | 复查日 | 等级 | 节奏 | 不能外推 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Cohere Rerank 当前主线 v4.0（pro 重质量 / fast 低延迟高吞吐，多语言+半结构化），v3.5 与 v3.0 系仍在服务线 | rag-reranking | 2026-07-12 | docs.cohere.com/docs/rerank | — | A | 90 | 模型目录快照，排序效果仍要用自家评估集实测 |
-| 混合检索为生产最低标配，RRF k≈60 为主流引擎原生支持 | rag-hybrid | 2026-07-08 | Elasticsearch / Qdrant 官方文档 | — | A | 90 | k≈60 是默认值不是最优值，各引擎参数细节不同 |
+| Cohere Rerank 当前主线 v4.0（pro 重质量 / fast 低延迟高吞吐，多语言+半结构化），v3.5 与 v3.0 系仍在服务线 | rag-reranking | 2026-10-20 | docs.cohere.com/docs/rerank（2026-10-20 逐字核对） | — | A | 90 | 模型目录快照，排序效果仍要用自家评估集实测 |
+| 混合检索为生产最低标配，RRF 为主流引擎原生支持（Elasticsearch 默认 k=60；Qdrant 默认 k=2，v1.16 起可显式设 k） | rag-hybrid | 2026-10-20 | qdrant.tech/documentation/concepts/hybrid-queries（2026-10-20 逐字核对）；www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion | — | A | 90 | 默认 k 各引擎不同且不是最优值，要用自家评估集调 |
 | Agentic RAG 五大生产模式（Router/ReAct/Plan-Execute/Multi-Agent/Self-RAG）+ CRAG | rag-agentic | 2026-07-08 | arXiv 2501.09136、LangGraph 官方教程 | — | A | 180 | 是模式分类不是选型建议，落地效果要各自验证 |
 | 生产组合主流：LlamaIndex + LangGraph + Langfuse/LangSmith | rag-production | 2026-07-08 | 2026-07 框架对比评测 | — | B | 90 | 评测期的流行组合，不等于你的场景最优栈 |
 | 朴素 RAG 检索环节失败率约四成 | rag-production | 2026-07-08 | raw-data/2026-07-08 核实笔记 | — | B | 180 | 生产统计口径非普适常数，不能当自家系统预期 |
 | Contextual Retrieval 实测降检索失败率 49%~67% | rag-chunking | 2026-07-07 | Anthropic Cookbook | — | A | 180 | 官方实验语料的降幅，自家语料要复测 |
-| BGE M3 为开源多语言 embedding 代表方案 | rag-embedding | 2026-07-07 | arXiv 2402.03216 | — | B | 90 | 代表性不等于最优，检索质量要用自家评估集实测 |
-| 全量 GraphRAG 索引成本 6–8 倍；LazyGraphRAG 压至 0.1%、全局查询省约 700 倍 | rag-graphrag | 2026-07-09 | Microsoft GraphRAG 文档、2026 实践者评测 | — | B | 90 | 倍数随语料形态浮动，量级参考不能当预算 |
-| 多模态三路线：Caption / 统一嵌入（Cohere Embed 4、voyage-multimodal）/ ColPali 系晚交互 | rag-multimodal | 2026-07-09 | arXiv 2407.01449、BigData Boutique 2026 | — | B | 90 | 路线分类稳定，但点名的模型月级演进，选型前重核 |
-| 裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准（Spider 2.0 类）10–21%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档 | rag-structured | 2026-07-23 | dbt 2026 基准 + Spider 2.0 / BEAVER / Spider-Ent（与 solution-patterns#sp-chatbi 同源口径，2026-09-05 两册分档对齐） | — | B | 90 | 基准库口径，自家库 schema 更复杂，要实测 |
+| BGE M3 为开源多语言 embedding 代表方案 | rag-embedding | 2026-10-20 | arxiv.org/abs/2402.03216（2026-10-20 逐字核对） | — | B | 90 | 代表性不等于最优，检索质量要用自家评估集实测 |
+| 全量 GraphRAG 索引成本 6–8 倍；LazyGraphRAG 压至 0.1%、全局查询省约 700 倍 | rag-graphrag | 2026-10-20 | www.microsoft.com/en-us/research/blog/lazygraphrag-setting-a-new-standard-for-quality-and-cost（2026-10-20 逐字核对）；Microsoft GraphRAG 文档、2026 实践者评测（6–8 倍未核） | — | B | 90 | 倍数随语料形态浮动，量级参考不能当预算 |
+| 多模态三路线：Caption / 统一嵌入（Cohere Embed 5、voyage-multimodal-3.5）/ ColPali 系晚交互 | rag-multimodal | 2026-10-20 | docs.cohere.com/docs/cohere-embed（2026-10-20 逐字核对）；docs.voyageai.com/docs/multimodal-embeddings；arXiv 2407.01449 | — | B | 90 | 路线分类稳定，但点名的模型月级演进，选型前重核 |
+| 裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准（Spider 2.0 类）10–21%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档 | rag-structured | 2026-10-20 | docs.getdbt.com/blog/semantic-layer-vs-text-to-sql-2026（2026-10-20 逐字核对）；spider2-sql.github.io（与 solution-patterns#sp-chatbi 同源口径） | — | B | 90 | 基准库口径，自家库 schema 更复杂，要实测 |
 
 ## 串联出边
 | 本模块章节 | 指向 | 关系 |

@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -286,7 +286,7 @@
 
   <div class="tw">
   <table>
-    <thead><tr><th></th><th>vLLM v0.26</th><th>SGLang v0.5.16</th><th>TensorRT-LLM 1.x</th><th>llama.cpp / Ollama</th></tr></thead>
+    <thead><tr><th></th><th>vLLM v0.32</th><th>SGLang v0.5.22</th><th>TensorRT-LLM 1.x</th><th>llama.cpp / Ollama</th></tr></thead>
     <tbody>
       <tr><td>定位</td><td>通用默认引擎</td><td>前缀共享 / 结构化输出</td><td>NVIDIA 性能上限</td><td>本地 / 边缘</td></tr>
       <tr><td>绝活</td><td>PagedAttention · 生态最大</td><td>RadixAttention · day-0 支持</td><td>内核级优化 · 新精度首发</td><td>CPU 可跑 · 零门槛</td></tr>
@@ -321,7 +321,7 @@
   </table>
   </div>
   <p>经验阈值：<b>GPU 月利用率稳定站上盈亏线时，自建开始比按 token 买便宜</b>（盈亏线按当期卡价与 API 价代入算）——成本模型见<a href="#llminf-production">生产化</a>一节。</p>
-  <p class="ev">引擎版本核实 2026-08-01（vLLM v0.26.0 · SGLang v0.5.16、Spec V2 默认开启 ·
+  <p class="ev">引擎版本核实 2026-10-20（vLLM v0.32.0 · SGLang v0.5.22、Spec V2 默认开启 ·
     TensorRT-LLM 稳定版 v1.2.1），来源 <a href="#src-engines">GitHub releases</a>。<b>这张表是本页过期最快的一处，月度巡检重点。</b><b>不可外推边界</b>：版本号只说明当期稳定版，不代表功能对等——三家的默认开关不同，跑分对比必须锁同一批参数。</p>
 </section>
 
@@ -429,7 +429,7 @@
   <table>
     <thead><tr><th>方案</th><th>出品方</th><th>形态</th><th>一句话定位</th></tr></thead>
     <tbody>
-      <tr><td>NVIDIA Dynamo v1.3.0</td><td>NVIDIA</td><td>开源编排层（1.0 于 2026-03 GTC GA）</td>
+      <tr><td>NVIDIA Dynamo v1.5.1</td><td>NVIDIA</td><td>开源编排层（1.0 于 2026-03 GTC GA）</td>
           <td>vLLM 等引擎之上做 P/D 分池 + KV 感知路由；NVIDIA 全家桶首选</td></tr>
       <tr><td>llm-d</td><td>红帽/谷歌/IBM 等</td><td>K8s 原生开源项目</td>
           <td>P/D 分离、KV 感知调度做成 K8s 组件；已有 K8s 平台团队的自然选择</td></tr>
@@ -442,7 +442,7 @@
   </div>
   <p>配套拼图是 KV 分层存储（显存→内存→SSD）：热前缀留显存、温的下沉，命中即免 prefill——「存储换计算」。<b>什么时候不用</b>：客户规模没到「多机集群 + 长上下文」之前，单机 vLLM +
     chunked prefill 足够；过度架构是减分项，能讲出「什么时候不用」比「什么都用」更显专业。</p>
-  <p class="ev">核实 2026-08-01（Dynamo 稳定版 v1.3.0，2026-07-22），来源
+  <p class="ev">核实 2026-10-20（Dynamo 稳定版 v1.5.1，2026-10-07），来源
     <a href="#src-dynamo">NVIDIA 官方博客 / GitHub releases</a>；Mooncake 见
     <a href="#src-mooncake">arXiv 2407.00079</a>。<b>不可外推边界</b>：分布式推理的收益随规模才显现，论文与厂商博客给的都是大规模场景的数字；小集群引入会先付一笔运维成本。</p>
 
@@ -478,7 +478,7 @@
 
   <h3>压测与成本心算</h3>
   <p>压测三口诀：<b>真实流量、分位延迟、goodput 口径</b>——用 vllm bench serve / AIPerf
-    （v0.11.0 起接棒 GenAI-Perf）这类懂 token 级计时的压测器，流量画像照生产日志配；看
+    （现 v0.13.0，接棒 GenAI-Perf）这类懂 token 级计时的压测器，流量画像照生产日志配；看
     P50/P90/P99 TTFT、P90 TPOT、整机吞吐、goodput（满足 SLO 的那部分吞吐）；画「并发-延迟」曲线找拐点，报价按拐点的 70–80% 留余量。三类假数字要拦：只报均值不报 P99、拿饱和吞吐当可用容量、短输入压测冒充长文档场景。</p>
   <p><b>要签的不是一个吞吐数，是四份证据</b>：<b>负载</b>——流量画像照生产日志配，短问答和长文档分开报；<b>性能</b>——P50/P90/P99 的 TTFT、P90 的 TPOT，容量口径用 goodput 不用裸吞吐；<b>质量</b>——量化档、投机解码这些优化开关都要过业务评测集门禁（见<a href="#llminf-quant">第 5 节</a>）；<b>成本</b>——每百万 token 单价。四份必须<b>绑同一个发布组合</b>（模型、精度档、引擎参数、流量画像）一起出：其中任何一项改了，这份报告就作废——这就是「同口径对比」在推理侧的具体含义。</p>
   <p>成本公式：<b>每百万 token 成本 ≈ GPU 集群时租 ÷ 每小时产出</b>。</p>
@@ -536,7 +536,7 @@
     </tbody>
   </table>
   </div>
-  <p class="ev">SLO 与成本量级核实 2026-07-09、压测工具 07-12（AIPerf v0.11.0），来源
+  <p class="ev">SLO 与成本量级核实 2026-07-09、压测工具 10-20（AIPerf v0.13.0），来源
     <a href="#src-aiperf">pypi/GitHub</a> 与 <a href="#src-cost">2026 年中多方评测量级归纳</a>（讲义中已标注「参考」口径）。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../ai-infra-platform/index.html#aip-observability" title="利用率/goodput/SLO 运营两侧互指（2026-07-09 补）">可观测性与利用率运营<span class="xm">AI-Infra-Platform</span></a></div>
@@ -749,7 +749,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm/index.html"><span class="k">上一册 · 基础层</span><b>LLM</b></a>
    <a class="nx" href="../llm-training/index.html"><span class="k">下一册 · 基础层</span><b>LLM-Training</b></a>

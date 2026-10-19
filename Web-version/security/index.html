@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -92,11 +92,11 @@
     <thead><tr><th>地图</th><th>记什么</th><th>怎么用</th></tr></thead>
     <tbody>
      <tr><td><b>OWASP LLM Top 10</b>（2025 版）</td><td>有哪些坑</td><td>完整清单见<a href="#sec-cheatsheet">速查</a></td></tr>
-     <tr><td><b>MITRE ATLAS</b></td><td>敌人具体怎么打的每一招——约 16 个战术、84 个技术，全部基于真实攻击</td><td>客户问「你们防不防 XX」，<b>查 ATLAS 对应技术就能说清在哪一环拦</b></td></tr>
+     <tr><td><b>MITRE ATLAS</b></td><td>敌人具体怎么打的每一招——16 个战术、120 个技术（2026-09 数据版），全部基于真实攻击</td><td>客户问「你们防不防 XX」，<b>查 ATLAS 对应技术就能说清在哪一环拦</b></td></tr>
     </tbody>
    </table>
   </div>
-  <p class="ev">OWASP 2025 版变化（LLM07/08 新增、敏感信息泄露升第 2）核实 2026-07-09，来源 <a href="#src-owasp">genai.owasp.org</a>；ATLAS 规模核实同日，来源
+  <p class="ev">OWASP 2025 版变化（LLM07/08 新增、敏感信息泄露升第 2）核实 2026-07-09，来源 <a href="#src-owasp">genai.owasp.org</a>；ATLAS 规模核实 2026-10-20，来源
     <a href="#src-atlas">MITRE ATLAS</a>。<b>不可外推边界</b>：清单反映的是社区共识的风险优先级，随版本重排；它是自查起点不是合规清单——中国监管的强制要求另见本册中国监管合规一节。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../agent/index.html#agent-memory" title="这个词的主场：Agent · 记忆系统">记忆投毒<span class="xm">Agent</span></a></div>
@@ -313,7 +313,7 @@
       <tr><td>Llama Guard</td><td>开源</td><td>输入/输出安全分类器，常作第一道语义闸</td></tr>
       <tr><td>NeMo Guardrails</td><td>开源（NVIDIA）</td><td>Colang 定义对话/动作策略，&lt;100ms，复杂对话边界</td></tr>
       <tr><td>Guardrails AI</td><td>开源</td><td>50+ validator，强在结构化输出校验</td></tr>
-      <tr><td>Lakera Guard</td><td>商业</td><td>实时 AI 防火墙，单 API 查注入/越狱/PII，接入快</td></tr>
+      <tr><td>Lakera Guard</td><td>商业（Check Point）</td><td>实时 AI 防火墙，单 API 查注入/越狱/PII，接入快</td></tr>
       <tr><td>Bedrock Guardrails</td><td>AWS 托管</td><td>6 类策略：内容/拒绝主题/敏感信息 + 上下文接地</td></tr>
       <tr><td>Azure AI Content Safety</td><td>Azure 托管</td><td>内容审核 + Prompt Shields 防注入/越狱</td></tr>
     </tbody>
@@ -412,7 +412,7 @@
   <h2><span class="num">08</span>中国监管合规<a class="anchor" href="#sec-china">#sec-china</a></h2>
 
   <div class="lead">
-    <p>在中国落地 AI，<b>合规是上线前的门票，不是上线后的补课</b>：备案全流程 5–8 个月、内容标识 2025-09 起是法定义务、安全国标 2025-11 已实施——三件事都已进入执法期。截至 2026-06-30 累计 <b>988 款服务完成备案、598 款应用完成登记</b>——说明这是常态动作，不是拦路虎。</p>
+    <p>在中国落地 AI，<b>合规是上线前的门票，不是上线后的补课</b>：备案全流程 5–8 个月、内容标识 2025-09 起是法定义务、安全国标 2025-11 已实施——三件事都已进入执法期。截至 2026-08-31 累计 <b>1112 款服务完成备案、731 款应用完成登记</b>——说明这是常态动作，不是拦路虎。</p>
   </div>
 
   <h3>分诊三问定路线</h3>
@@ -653,7 +653,7 @@
       <div class="a">
         <p>暂行办法管「向境内公众提供服务」——纯内部使用不适用备案，但数据安全与个信保护义务照常；一旦对外（哪怕小程序），就要重新分诊。</p>
         <p class="qa-why">分诊三问是中国合规的入口：自研对公众走服务备案（5–8 个月）、调已备案模型走登记（周级）、纯内部不适用——最常见误区是把登记当备案吓自己。</p>
-        <p class="qa-next"><b>下一步</b>　对公众的产品把备案排进产品计划——没有官方加急通道，988 款已备案说明这是常态动作。</p>
+        <p class="qa-next"><b>下一步</b>　对公众的产品把备案排进产品计划——没有官方加急通道，1112 款已备案说明这是常态动作。</p>
         <p class="qa-src">依据　<a href="#sec-china">分诊三问</a></p>
       </div>
     </details>
@@ -741,7 +741,7 @@
       <tr id="src-owasp"><td><code>src-owasp</code></td><td>genai.owasp.org</td>
         <td>LLM Top 10 2025 版与 Agentic 威胁清单</td><td>版本会换代</td></tr>
       <tr id="src-atlas"><td><code>src-atlas</code></td><td>MITRE ATLAS</td>
-        <td>约 16 战术 84 技术的规模口径</td><td>活知识库，数字持续增长</td></tr>
+        <td>16 战术 120 技术的规模口径（2026-09 数据版）</td><td>活知识库，数字持续增长</td></tr>
       <tr id="src-echoleak"><td><code>src-echoleak</code></td><td>arXiv 2509.10540 / Sentra</td>
         <td>EchoLeak CVE-2025-32711 与 CVSS 9.3</td><td>—</td></tr>
       <tr id="src-vendors"><td><code>src-vendors</code></td><td>三厂公开研究（2025）</td>
@@ -753,7 +753,7 @@
       <tr id="src-euact"><td><code>src-euact</code></td><td>欧盟官方文本</td>
         <td>EU AI Act GPAI 时间线与罚则、Digital Omnibus 高风险延期</td><td>高风险新时点 2027-12-02 / 2028-08-02</td></tr>
       <tr id="src-china"><td><code>src-china</code></td><td>网信办公告 / 官方法规文本</td>
-        <td>988 款备案、5–8 个月周期、标识办法、GB/T 45654、出境三通道、拟人化办法与首批端侧备案</td>
+        <td>1112 款备案、5–8 个月周期、标识办法、GB/T 45654、出境三通道、拟人化办法与首批端侧备案</td>
         <td>备案量持续增长，法规体系化演进中</td></tr>
     </tbody>
   </table>
@@ -770,7 +770,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../predictive-ai-mlops/index.html"><span class="k">上一册 · 工程保障层</span><b>Predictive-AI-MLOps</b></a>
    <a class="nx" href="../llm/index.html"><span class="k">下一册 · 基础层</span><b>LLM</b></a>

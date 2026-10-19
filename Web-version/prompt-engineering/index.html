@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -21,7 +21,7 @@
     <p class="lede">和大模型对话的「接口层」——最便宜、最快见效的能力杠杆：从三角色四要素的骨架，到 few-shot/CoT/结构化输出的工具箱，再到提示词链与推理模型时代的写法之变、版本化与自动优化、注入防护。本页是这一册的网页版，讲义 PPT 见页脚链接。</p>
     <div class="hr"></div>
     <p class="lede" style="margin-top:0">
-      <span class="badge ok">核实窗口 2026-07-09（缓存口径 07-20、DSPy 版本 08-01 补核）</span><span class="badge recheck">优化器与缓存机制月级演进 · 引用当天复查</span>
+      <span class="badge ok">核实窗口 2026-07-09（DSPy/GEPA、缓存与云服务 2026-10-20 补核）</span><span class="badge recheck">优化器与缓存机制月级演进 · 引用当天复查</span>
     </p>
   </div>
 </header>
@@ -208,9 +208,9 @@
     <p>像流水线，拆成有序多次调用、每步只干一件清楚的事——更可控、可单独调试、可插入校验，代价是延迟与成本上升；复杂业务流几乎都值得拆链。</p>
    </div>
   </div>
-  <p><b>推理模型时代的写法之变</b>（2026 关键）：GPT-5.6、Claude 5、Gemini 3.1 Pro、Grok 4.3、DeepSeek V4
+  <p><b>推理模型时代的写法之变</b>（2026 关键）：GPT-6、Claude 5.5、Gemini 4 Argon、Grok 4.7、DeepSeek V4 系
     等当前主力模型已把 CoT 内建——<b>不用再手写「一步步思考」，硬塞反而多余</b>；重点从「教它思考」转向「花多少推理算力」——
-    控制点是 <code>effort</code>（low / medium / high / xhigh / max，默认 high），按 token 数设「思考预算」的老写法在 Claude
+    控制点是 <code>effort</code>（low / medium / high / xhigh / max，默认多为 high，Opus 5.5 为 medium），按 token 数设「思考预算」的老写法在 Claude
     当前主力模型上已被移除。思考 token 照常计费，但原始思维链不返回，最多给摘要。一句话：<b>模型越会「自己想」，你越该少教它「怎么想」，多花力气在「说清要什么」和「给对上下文」</b>。预算控制的市场侧（overthinking 陷阱）见
     <a href="../model-landscape/index.html#ml-capability">Model-Landscape 网页版</a>。</p>
 
@@ -224,7 +224,7 @@
       <tr><td><code>temperature</code> / <code>top_p</code> / <code>top_k</code></td><td>Opus 5、Fable 5 及 4.x 代上<b>已移除</b>，传了直接报错</td><td>要输出多样：用提示词说清楚，或让模型先给几个方向再挑一个</td></tr>
       <tr><td>助手预填充（prefill）强行开头锁格式</td><td>4.6 及以后<b>返回 400</b></td><td>要锁死输出结构：改用结构化输出，按 schema 约束返回</td></tr>
       <tr><td>按 token 数设「思考预算」</td><td>已移除</td><td>换成 <code>effort</code>——见下一行</td></tr>
-      <tr><td><code>effort</code></td><td><b>还在，而且成了主角</b>：low / medium / high / xhigh / max，默认 high</td><td>一个参数同时管思考深度与整体花销；难题往上调，日常任务往下调</td></tr>
+      <tr><td><code>effort</code></td><td><b>还在，而且成了主角</b>：low / medium / high / xhigh / max，默认多为 high（Opus 5.5 为 medium）</td><td>一个参数同时管思考深度与整体花销；难题往上调，日常任务往下调</td></tr>
     </tbody>
   </table>
   </div>
@@ -255,17 +255,17 @@
     <div><b>与代码解耦</b></div>
   </div>
   <p><b>评估驱动</b>：准备测试样例
-    + 打分标准，每版跑分对比而不是凭感觉——「第 3 版措辞更漂亮但分数反而降了」没有评估集根本发现不了（判分方法在 <a href="../evaluation/index.html">Evaluation 网页版</a>）。<b>自动优化</b>：DSPy（3.x，当前 3.2.1）定义「要做什么 + 怎么衡量」自动编译提示词——MIPROv2 较手写
-    +10~40%（结构化任务），GEPA 再 +13%、rollout 少 35×（ICLR 2026 oral）。</p>
+    + 打分标准，每版跑分对比而不是凭感觉——「第 3 版措辞更漂亮但分数反而降了」没有评估集根本发现不了（判分方法在 <a href="../evaluation/index.html">Evaluation 网页版</a>）。<b>自动优化</b>：DSPy（3.x，当前 3.4.1）定义「要做什么 + 怎么衡量」自动编译提示词——MIPROv2 较手写
+    +10~40%（结构化任务），GEPA 较 MIPROv2 再高 10% 以上、较 GRPO rollout 最多少 35×（ICLR 2026 oral）。</p>
   <h3>缓存省钱（成本方案必带）</h3>
-  <p>三大厂缓存输入价均约 1 折（省约 90%），<b>但机制不同</b>：</p>
+  <p>三大厂缓存输入价多为约 1 折（省约 90%），新一代更低（Anthropic Opus 5.5/Sonnet 5.5 与 OpenAI GPT-6.1 Sol 为 0.05×，Fable 5.1/Mythos 5.1 为 0.025×），<b>但机制不同</b>：</p>
   <div class="tw">
    <table>
     <thead><tr><th>厂商</th><th>怎么开</th><th>要注意</th></tr></thead>
     <tbody>
      <tr><td>OpenAI</td><td>自动，无需改代码</td><td>各家最小可缓存前缀不同（1024–4096 token），低于门槛静默不缓存、也不报错</td></tr>
      <tr><td>Anthropic</td><td>手动 cache_control</td><td><b>写入加价</b>（5min 1.25× / 1h 2×）</td></tr>
-     <tr><td>Gemini</td><td>隐式默认开启；显式仅 generateContent API</td><td>存储按小时计费</td></tr>
+     <tr><td>Gemini</td><td>隐式默认开启；显式仅 generateContent API</td><td>存储按小时计费；Gemini 4 Argon 起不支持显式缓存</td></tr>
     </tbody>
    </table>
   </div>
@@ -295,12 +295,12 @@
    <figcaption>越靠前越稳定，缓存命中率就越高；越靠后越易变，截断从后往前砍。</figcaption>
   </figure>
   <p>四分区只讲了「前稳后砍」，还有一条<b>位置规则</b>别漏：<b>重要的放两端，别埋中间</b>——模型对上下文首尾的注意力强于正中间（长上下文的「中间迷失」），这是分区排序的物理依据，不是排版偏好。每段还要记来源、版本、位置与截断原因——<b>「为什么模型没看到那段」要能查</b>。</p>
-  <p><b>云上闭环</b>：Bedrock Prompt Management / Vertex Prompt Optimizer / Azure Prompt Flow。</p>
+  <p><b>云上闭环</b>：Bedrock Prompt Management / Gemini Enterprise Agent Platform（原 Vertex AI）Prompt Optimizer / Microsoft Foundry Prompt Flow（已不推荐新开发，2027-04-20 退役，迁往 Microsoft Agent Framework）。</p>
   <p><b>换模型时的迁移账</b>：骨架（三角色 / 四要素 / 分隔符）各家通用，不用重写；要重调的是<b>写法档位</b>——通用模型与推理模型两套写法，且各家推理模式的触发条件与计费并不一致，按目标模型的文档调；以及<b>接口层配置</b>——结构化输出的 schema 约束要按新 API 重接、缓存怎么开也要按新厂商重配。所以迁移的真实成本取决于有没有评估集：有它就是跑一遍回归、拿数据说「换完没变差」；没有它，只能凭感觉从头再调一遍。</p>
-  <p class="ev">DSPy 版本核实 2026-08-01（3.x 线，当前 3.2.1）；MIPROv2/GEPA 与缓存口径核实 2026-07-09（缓存 07-20 补核），来源
+  <p class="ev">DSPy 版本与 GEPA 数字核实 2026-10-20（3.x 线，当前 3.4.1；GEPA 依 arXiv 2507.19457）；MIPROv2 核实 2026-07-09；缓存口径核实 2026-10-20，来源
     <a href="#src-dspy">futureagi/morphllm</a> 与 <a href="#src-cache">三大厂官方定价文档</a>。<b>不可外推边界</b>：缓存折扣是各厂当期定价策略，命中率则完全取决于你的提示词结构——「等效价砍半」是高复用场景的量级，低复用场景基本无感。</p>
 
-  <div class="xlinks"><span class="xk">串联</span><a href="../evaluation/index.html#eval-methods" title="评估驱动的提示词优化直接用 Evaluation 的判分四法 / LLM-as-a-Judge（eval-judge）">评估方法谱系<span class="xm">Evaluation</span></a></div>
+  <div class="xlinks"><span class="xk">串联</span><a href="../evaluation/index.html#eval-methods" title="评估驱动的提示词优化直接用 Evaluation 的判分四法 / LLM-as-a-Judge（eval-judge）">评估方法谱系<span class="xm">Evaluation</span></a><a href="../llm-training/index.html#llmtrain-reasoning" title="这个词的主场：LLM-Training · 后训练 III · RLVR 与推理模型：教会思考">GRPO<span class="xm">LLM-Training</span></a></div>
 </section>
 
 <!-- ============ 6 ============ -->
@@ -416,8 +416,8 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>写 &amp; 调提示词</td><td>各云 Playground / Prompt Management（Bedrock / Vertex / Azure AI Foundry）</td><td>建、版本、评估、运行在平台里一条路走完</td></tr>
-      <tr><td>版本化 &amp; 变体测试</td><td>Bedrock Prompt Management、Azure Prompt Flow</td><td>把提示词工程做成可视化流水线、批量跑变体对比；改坏了能一键回滚 + 对比 diff 定位</td></tr>
+      <tr><td>写 &amp; 调提示词</td><td>各云 Playground / Prompt Management（Bedrock / Vertex / Microsoft Foundry）</td><td>建、版本、评估、运行在平台里一条路走完</td></tr>
+      <tr><td>版本化 &amp; 变体测试</td><td>Bedrock Prompt Management、Azure Prompt Flow（2027-04-20 退役）</td><td>把提示词工程做成可视化流水线、批量跑变体对比；改坏了能一键回滚 + 对比 diff 定位</td></tr>
     </tbody>
   </table>
   </div>
@@ -430,8 +430,8 @@
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
       <tr><td>评估打分</td><td>Bedrock / Vertex / Azure 评估 + LLM-as-a-Judge（判分方法在 Evaluation 模块）</td><td>靠评估集打分，不靠感觉——这也是接自动优化的前提</td></tr>
-      <tr><td>自动优化</td><td>Bedrock Advanced Prompt Optimization、Vertex Prompt Optimizer、DSPy</td><td>用评估指标自动搜索更好的提示词；一到四成是 DSPy MIPROv2 在结构化任务上较手写的基准，云上优化器没有同口径数字，实际幅度看你的评估集</td></tr>
-      <tr><td>换模型迁移</td><td>Bedrock Advanced Prompt Optimization（把提示词迁移到新模型）、Vertex Prompt Optimizer（跨模型基准）</td><td>自动改写提示词，并对比它在不同模型上的表现，带评估反馈环</td></tr>
+      <tr><td>自动优化</td><td>Bedrock Prompt Optimization、Vertex Prompt Optimizer、DSPy</td><td>用评估指标自动搜索更好的提示词；一到四成是 DSPy MIPROv2 在结构化任务上较手写的基准，云上优化器没有同口径数字，实际幅度看你的评估集</td></tr>
+      <tr><td>换模型迁移</td><td>Bedrock Prompt Optimization（自动改写并与原版对比）、Vertex Prompt Optimizer（跨模型基准）</td><td>自动改写提示词，并对比改写前后与不同模型上的表现</td></tr>
     </tbody>
   </table>
   </div>
@@ -443,7 +443,7 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>降本 · 提示词缓存</td><td>OpenAI（自动缓存、无需改代码）/ Anthropic（手动 cache_control 标记，写入加价 5 分钟 1.25×、1 小时 2×）/ Google Gemini（隐式默认开启，显式仅 generateContent API，存储按小时计费）</td><td>三家缓存读取价均约 1 折、省约 90%，但机制各不同</td></tr>
+      <tr><td>降本 · 提示词缓存</td><td>OpenAI（自动缓存、无需改代码）/ Anthropic（手动 cache_control 标记，写入加价 5 分钟 1.25×、1 小时 2×）/ Google Gemini（隐式默认开启，显式仅 generateContent API，存储按小时计费，Gemini 4 Argon 起不支持显式）</td><td>三家缓存读取价均约 1 折、省约 90%，但机制各不同</td></tr>
       <tr><td>安全护栏</td><td>Bedrock Guardrails、Azure AI Content Safety、Vertex AI 安全过滤 / Model Armor</td><td>独立于模型运行的一层：拦注入与越狱、过滤有害内容、屏蔽 PII、限定话题范围——低成本第一层，属于必配</td></tr>
     </tbody>
   </table>
@@ -503,7 +503,7 @@
       <summary>提示词能自动优化吗？<span class="added">2026-07-09</span></summary>
       <div class="a">
         <p>能。DSPy 用「评估指标」自动搜索更好的提示词：MIPROv2 结构化任务较手写 +10~40%，
-          GEPA 再 +13%——前提是先有评估集。</p>
+          GEPA 较 MIPROv2 再高 10% 以上——前提是先有评估集。</p>
         <p class="qa-why">「工程化的分水岭是有没有评估集」：没有它，版本对比、自动优化、可靠上线都无从谈起。</p>
         <p class="qa-next"><b>下一步</b>　先建 50 条带标准答案的样例（方法在 Evaluation
           网页版），再接 DSPy 试一轮。</p>
@@ -603,16 +603,16 @@
 <!-- ============ 来源 ============ -->
 <section class="sec" id="sources">
   <h2><span class="num">11</span>来源与核实<a class="anchor" href="#sources">#sources</a></h2>
-  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Prompt-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09（缓存口径 2026-07-20 补核，DSPy 版本 2026-08-01 补核）。<b>引用任何数字前先核日期。</b></p>
+  <p>本页时效性数字均经联网核实后写入，完整登记（事实 × 核实日期 × 信源）见<a href="../../PPT-version/Prompt-Engineering/MANIFEST.md">本模块 MANIFEST</a>。核实窗口 2026-07-09（DSPy/GEPA、缓存与云服务 2026-10-20 补核）。<b>引用任何数字前先核日期。</b></p>
   <div class="tw">
   <table>
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
       <tr id="src-reasoning"><td><code>src-reasoning</code></td><td>OpenAI/Anthropic 文档综述</td>
           <td>推理模型内建 CoT 与「少给显式步骤」口径</td><td>各家思考模式的参数名与档位月级变化</td></tr>
-      <tr id="src-dspy"><td><code>src-dspy</code></td><td>futureagi / morphllm（GEPA）；版本号见 stanfordnlp/dspy GitHub releases</td>
-          <td>MIPROv2 +10~40%、GEPA +13% 的量级；DSPy 当前版本线</td><td>提升幅度依任务而异，自家任务要实测</td></tr>
-      <tr id="src-cache"><td><code>src-cache</code></td><td>三大厂官方定价文档（2026-06 口径）</td>
+      <tr id="src-dspy"><td><code>src-dspy</code></td><td>futureagi（MIPROv2）；GEPA 见 arXiv 2507.19457；版本号见 stanfordnlp/dspy GitHub releases</td>
+          <td>MIPROv2 +10~40%、GEPA 较 MIPROv2 +10% 以上的量级；DSPy 当前版本线</td><td>提升幅度依任务而异，自家任务要实测</td></tr>
+      <tr id="src-cache"><td><code>src-cache</code></td><td>三大厂官方定价文档（2026-10 口径）</td>
           <td>缓存约 1 折与三种机制差异</td><td>价格与触发条件月级演进</td></tr>
       <tr id="src-owasp"><td><code>src-owasp</code></td><td>OWASP GenAI Top 10 for LLM
           Applications 2025</td><td>注入连续两版第一、RAG/微调不能根治</td><td>清单是风险目录，具体防线要按场景设计</td></tr>
@@ -631,7 +631,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../llm-training/index.html"><span class="k">上一册 · 基础层</span><b>LLM-Training</b></a>
    <a class="nx" href="../ai-infra-compute/index.html"><span class="k">下一册 · 算力底座层</span><b>AI-Infra-Compute</b></a>

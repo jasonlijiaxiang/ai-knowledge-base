@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -120,7 +120,7 @@
     <tbody>
       <tr><td>LlamaParse</td><td>VLM 解析复杂版面、托管 API、agentic OCR</td><td>&lt;1000 页/天、非敏感文档、要省事</td></tr>
       <tr><td>Docling</td><td>IBM Research 开源，AI 版面检测、保留语义层级</td><td>自托管零按页成本，生态好</td></tr>
-      <tr><td>MinerU</td><td>OpenDataLab 出品，2.5 起走 1.2B 视觉语言模型路线（当前主力 MinerU2.5-Pro-2605-1.2B）；3.1 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可，商用门槛明显降低</td><td>中文文档 / 扫描件重的国内项目；许可放宽后自托管商用更好谈</td></tr>
+      <tr><td>MinerU</td><td>OpenDataLab 出品，2.5 起走 1.2B 视觉语言模型路线（3.x 末版主力 MinerU2.5-Pro-2605-1.2B）；3.1 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可，商用门槛明显降低；4.0 起后端选择改为四档解析质量，现行 4.0.x</td><td>中文文档 / 扫描件重的国内项目；许可放宽后自托管商用更好谈</td></tr>
       <tr><td>Unstructured</td><td>老牌解析管线，格式覆盖广</td><td>多格式混杂的存量清洗</td></tr>
       <tr><td>云文档智能</td><td>Textract / Document Intelligence / Document AI</td><td>企业已有云协议时的默认起点</td></tr>
     </tbody>
@@ -139,7 +139,7 @@
     </tbody>
    </table>
   </div>
-  <p><b>两榜排序不一致，别拿单一排序当结论</b>：OmniDocBench 由 OpenDataLab（MinerU 同门）维护，v1.6 榜首其实是 PaddleOCR-VL-1.6（96.34），MinerU2.5-Pro 紧随；olmOCR-bench 是 Ai2 的第三方题库，但上面这组分数是 Datalab（Marker 作者）自跑的，比的是「文本层管线」这一档——Datalab 自己也注明 MinerU 的视觉语言模型后端分数更高。两边测的后端不同、维护方各是当事人，所以<b>用客户自己的文档自测才是唯一可信口径</b>。（核实 2026-08-01）</p>
+  <p><b>两榜排序不一致，别拿单一排序当结论</b>：OmniDocBench 由 OpenDataLab（MinerU 同门）维护，v1.6 榜首现为 2026-09-11 新增的 TeleOCR（96.91），PaddleOCR-VL-1.6 为 96.34，MinerU2.5-Pro 为 95.75；olmOCR-bench 是 Ai2 的第三方题库，但上面这组分数是 Datalab（Marker 作者）自跑的，比的是「文本层管线」这一档——Datalab 自己也注明 MinerU 的视觉语言模型后端分数更高。两边测的后端不同、维护方各是当事人，所以<b>用客户自己的文档自测才是唯一可信口径</b>。（核实 2026-08-01）</p>
 
   <h3>三个选型硬约束</h3>
   <div class="tw">
@@ -470,7 +470,7 @@
     <tbody>
       <tr><td>落地区：原始件先有个家（对象存储 / 数据湖）</td><td>Amazon S3（表格数据可用 S3 Tables 表桶，原生 Apache Iceberg 格式，S3 自动做 compaction、快照管理与无引用文件清理）/ Azure Data Lake Storage（微软文档已统称此名，不再挂 Gen2；它不是独立服务，是在 Blob 存储上打开分层命名空间得到的一组能力）/ Google Cloud Storage / 阿里云 OSS；表格式自建走 Apache Iceberg、Delta Lake</td><td>原始件先落一个不会被人挪走的地方——后面解析换了工具、切分改了参数，都能从这儿重跑，不用回头求业务部门再导一次。</td></tr>
       <tr><td>存量搬家：本地 NAS 与文件服务器的第一次上云</td><td>AWS DataSync（本地端支持 NFS、SMB、HDFS、对象存储；也支持从 Google Cloud Storage、Azure Blob、Azure Files、阿里云 OSS 等他云搬入）/ Google Storage Transfer Service（本地文件系统、HDFS、S3 及 S3 兼容存储、Azure Blob 起点，官方定位为 1TiB 以上的大批量传输）/ 各云同类迁移与离线寄盘服务</td><td>第一次搬家是一次性工程，跟以后每天的增量同步是两笔钱、两种人力——报价里要拆开写，不然后面加钱就说不清了。</td></tr>
-      <tr><td>企业系统连接器：SharePoint / Confluence / 网盘这类</td><td>Amazon Bedrock 知识库现分两类：托管知识库（Managed，七个连接器：S3、Confluence、SharePoint、Google Drive、OneDrive、网页爬取、自定义）/ 自管知识库（连接器页仍维护 S3、Confluence、SharePoint、Salesforce、网页爬取、自定义，其中 SharePoint 官方标注 preview 且只支持 OpenSearch Serverless 向量库）——注意 AWS 两处文档口径不一致，托管对照表把自管一类写成只剩 S3 与自定义，落地前以控制台实际可选项为准；Amazon Q Business 已停止接新客户，同类需求官方指向 Amazon Quick。Azure AI Search 索引器（SharePoint in Microsoft 365 索引器仍在 preview）/ Google Gemini Enterprise 连接器（Confluence Cloud、Jira Cloud、SharePoint、OneDrive、Outlook、ServiceNow、Microsoft Entra ID 等）/ 阿里云百炼数据连接（文件、表格、MySQL、PostgreSQL、PolarDB-X 2.0、语雀、OSS）；开源自建走 Airbyte</td><td>常见的那几个系统，托管平台都有现成连接器，接上就能跑。但要一个个验——同一个平台里，有的连接器是正式版，有的还挂着预览标，还有的整条产品线已经不接新客户了。</td></tr>
+      <tr><td>企业系统连接器：SharePoint / Confluence / 网盘这类</td><td>Amazon Bedrock 知识库现分两类：托管知识库（Managed，七个连接器：S3、Confluence、SharePoint、Google Drive、OneDrive、网页爬取、自定义）/ 自管知识库（连接器页仍维护 S3、Confluence、SharePoint、Salesforce、网页爬取、自定义，其中 SharePoint 官方标注 preview 且只支持 OpenSearch Serverless 向量库；自 2026-09-30 起自管知识库不能再新建 Confluence、SharePoint、Salesforce、网页爬取连接器，存量照常摄取与检索，官方改荐托管知识库）；官方对照表里自管一类只列 S3 与自定义，落地前以控制台实际可选项为准；Amazon Q Business 已停止接新客户，同类需求官方指向 Amazon Quick。Azure AI Search 索引器（SharePoint in Microsoft 365 索引器仍在 preview）/ Google Gemini Enterprise 连接器（Confluence Cloud、Jira Cloud、SharePoint、OneDrive、Outlook、ServiceNow、Microsoft Entra ID 等）/ 阿里云百炼数据连接（文件、表格、MySQL、PostgreSQL、PolarDB-X 2.0、语雀、OSS）；开源自建走 Airbyte</td><td>常见的那几个系统，托管平台都有现成连接器，接上就能跑。但要一个个验——同一个平台里，有的连接器是正式版，有的还挂着预览标，还有的整条产品线已经不接新客户了。</td></tr>
       <tr><td>数据库增量：CDC（变更数据捕获）</td><td>AWS DMS（读数据库事务日志，支持「全量 + CDC」与「纯 CDC」两种任务）/ Azure Data Factory 变更数据捕获（原生 CDC 连接器为 SAP CDC、Azure SQL Database、SQL Server、Azure SQL 托管实例、Cosmos DB（SQL API 与分析存储）、Snowflake，其余走自增列自动增量抽取；微软已在该页把 Microsoft Fabric 的 Data Factory 标为下一代，新方案要问清客户走哪条）/ Google Datastream（MySQL、Oracle、PostgreSQL、SQL Server、MongoDB、Spanner 均为正式版，Salesforce 亦正式版；落 BigQuery、Cloud Storage 或 Apache Iceberg 表）/ 阿里云 DTS，数据传输服务 Data Transmission Service（数据同步与数据订阅）；开源自建走 Debezium、Apache Flink CDC</td><td>结构化数据要接的话，走数据库日志，别让人写 SQL 定时全量捞——那是拿客户的生产库当抽数机器使。</td></tr>
       <tr><td>权限元数据跟不跟着文档一起进来（ACL 同步）</td><td>三家现在都能做，但机制与成熟度不一样：Amazon Bedrock 托管知识库的 ACL 感知检索（正式版，SharePoint、OneDrive、Google Drive、Confluence 支持预过滤 + 每次查询实时回源复核权限，S3 与自定义连接器靠客户提供的 ACL 配置文件做预过滤，网页爬取不支持；以邮箱为唯一用户标识，两边对不上就静默查不到东西）/ Google Gemini Enterprise 身份同步（identity sync，把用户账号与 ACL 组的对应关系单独同步，跟全量、增量分开排期）/ Azure AI Search 的 SharePoint 索引器 ACL 摄取（preview）；托管连接器不覆盖时，退路仍是按访问级别拆成多个知识库分别授权</td><td>文档在源系统里谁能看，这层信息要不要一起接进来——今天就得定。等库灌完再补，等于重灌一遍。</td></tr>
     </tbody>
@@ -541,14 +541,14 @@
       <tr><td>质量规则定义与打分（把「数据很乱」变成一个数）</td><td>AWS Glue Data Quality（建在开源 DeeQu 上，用 DQDL 规则语言，25+ 内置规则类型，Data Catalog 入口可两步「创建规则 → 推荐规则」，ETL 入口不支持规则推荐）/ Microsoft Purview 统一目录数据质量（完整性、一致性、规范性、准确性、新鲜度、唯一性六个维度的开箱规则 + AI 生成规则 + 自定义规则，2026-03 起 SQL 表达式自定义规则 GA）/ Google Knowledge Catalog 自动数据质量（2026-04-10 前叫 Dataplex Universal Catalog）/ 阿里云 DataWorks 数据质量（内置规则模板库 + 自定义规则，支持单表配置与批量配置）；开源自建 Great Expectations、DeeQu</td><td>先把「数据很乱」跑成一个分数，改进才有靶子——跑分是自动的，定规则不是。</td></tr>
       <tr><td>异常检测与阈值怎么定（这一格几家差得最远）</td><td>AWS Glue Data Quality 的机器学习异常检测与动态规则（可写 RowCount &gt; avg(last(10)) 这类跟着历史走的阈值，2024-08-07 起正式可用，2026-07-27 起 Data Catalog 入口也能开）/ Microsoft Purview 是人定的固定阈值：规则级与数据资产级可配阈值 2026-05 起正式可用，未达标发邮件别名或通讯组告警，异常状态在「数据质量操作中心」里跟 / Google Knowledge Catalog 走的是先跑数据剖析扫描、由剖析结果推荐规则，分数低于目标分即发通知，不是按历史自动定阈值；开源侧靠自己攒历史统计</td><td>别把这几家当同一档：只有 AWS 这一格能让阈值跟着你们自己的历史走，其余几家阈值还是人拍的一个数——这个差别开工前就要说清楚。</td></tr>
       <tr><td>脏数据阻断（不让坏数据流到下游）</td><td>阿里云 DataWorks 数据质量：规则与调度任务关联，任务运行成功后自动触发校验，强规则校验失败阻塞下游任务、弱规则只告警 / AWS Glue Data Quality 在 ETL 作业入口跑规则，可定位到没过检的具体记录并隔离（Data Catalog 入口明确不支持定位失败记录）/ 开源自建 Great Expectations 在管线里做校验（Purview 与 Knowledge Catalog 的文档给到的是扫描、评分、告警与操作中心，要卡住下游任务得自己在编排层接）</td><td>坏数据要在进库前拦下来，进了库再回头修，代价高一个数量级。</td></tr>
-      <tr><td>托管标注平台（组织人去标那一段）</td><td>Amazon SageMaker Ground Truth（私有／供应商／Mechanical Turk 三种劳动力；官方文档页顶注记「不再对新客户开放，现有客户照常用，不再引入新功能」，Mechanical Turk 页顶同款注记）/ Azure Machine Learning 数据标注（图像与文本项目，文本支持多分类、多标签、命名实体识别；可从 Azure Marketplace 挂标注供应商，一致性标注为公开预览，单项目上限 50 万文件）/ Google Vertex AI Data Labeling Service 已关停（弃用 2023-06-30、关停 2024-10-03），官方改指 Google Cloud 控制台自助打标或 Marketplace 合作伙伴 / 阿里云 PAI-iTAG（图像、文本、视频、音频与大模型类模板；1.0 自 2026-08-01 起白名单开放并整体进入维护阶段）；开源自建 Label Studio（Apache 2.0）、CVAT、doccano</td><td>这几年托管标注服务一直在收缩，所以标注标准和标好的数据我们留在你们这边——换工具不换资产。</td></tr>
-      <tr><td>机器辅助标注与预标注（让人只看拿不准的那部分）</td><td>SageMaker Ground Truth 自动标注（主动学习，仅支持单标签图像分类、语义分割、边界框目标检测、单标签文本分类四类内置任务，自定义任务与流式作业不支持）/ Azure Machine Learning 机器学习辅助标注（先人工标一批，模型评估出置信度阈值后给出预标签，人工改错；文本 DNN 每例只取前约 128 词）/ 阿里云 iTAG 对部分大模型标注模板（图生文、图文解释等）提供智能标注 / 开源 Label Studio 接 ML 后端做预标注、在线学习与主动学习</td><td>预标注让人从「从零标」变成「改错」，专家的时间只花在拿不准的那几条上。</td></tr>
+      <tr><td>托管标注平台（组织人去标那一段）</td><td>Amazon SageMaker Ground Truth（私有／供应商／Mechanical Turk 三种劳动力；官方文档页顶注记「不再对新客户开放，现有客户照常用，不再引入新功能」，Mechanical Turk 公共众包劳动力已于 2026-09-30 永久关闭）/ Azure Machine Learning 数据标注（已于 2026-09-30 退役，官方要求转向第三方标注服务商，退役当日运行中的标注工作负载被删除）/ Google Vertex AI Data Labeling Service 已关停（弃用 2023-06-30、关停 2024-10-03），官方改指 Google Cloud 控制台自助打标或 Marketplace 合作伙伴 / 阿里云 PAI-iTAG（图像、文本、视频、音频与大模型类模板；1.0 自 2026-08-01 起白名单开放并整体进入维护阶段）；开源自建 Label Studio（Apache 2.0）、CVAT、doccano</td><td>这几年托管标注服务一直在收缩，所以标注标准和标好的数据我们留在你们这边——换工具不换资产。</td></tr>
+      <tr><td>机器辅助标注与预标注（让人只看拿不准的那部分）</td><td>SageMaker Ground Truth 自动标注（主动学习，仅支持单标签图像分类、语义分割、边界框目标检测、单标签文本分类四类内置任务，自定义任务与流式作业不支持）/ 阿里云 iTAG 对部分大模型标注模板（图生文、图文解释等）提供智能标注 / 开源 Label Studio 接 ML 后端做预标注、在线学习与主动学习</td><td>预标注让人从「从零标」变成「改错」，专家的时间只花在拿不准的那几条上。</td></tr>
       <tr><td>质量结果落库、告警与月报（运营跑得下去）</td><td>AWS Glue Data Quality 结果可写 Amazon S3 或 Data Catalog 的 Apache Iceberg 表（含规则结果、剖析结果、分布结果、逐行结果、观测结果，2026-07-27 起），并接 EventBridge 与 CloudWatch / Microsoft Purview 的质量分数按规则 → 数据资产 → 数据产品 → 治理域逐层汇总，可配邮件别名或通讯组告警 / Google Knowledge Catalog 结果可在 Cloud Logging 里按 data_scan 与 data_quality_scan_rule_result 日志设告警，并出通知报告 / 阿里云 DataWorks 支持质量报告模板与定时发送、多渠道告警订阅</td><td>四个指标每月自动出一张报告，谁看、多久看一次，开工前就定下来。</td></tr>
     </tbody>
   </table>
   </div>
   <p><b>顺着追问什么</b>：四个指标现在谁在看、多久看一次？阈值是打算人定一个数，还是要让它跟着历史走（这决定了云选哪家）？标注是自己招人还是外包，标注员能不能碰生产数据？你们名下有没有已经在用的 Ground Truth——没有的话这条路对新客户是关着的。坏答案有没有人跟到底？</p>
-  <p><b>云替你做不了什么</b>：云真够不着的是这三条。一，新客户现在买不到公有云的托管标注平台：Ground Truth 与 Mechanical Turk 不再对新客户开放，Google 的标注服务 2024 年就关停了，阿里 iTAG 1.0 从 2026-08-01 起只对白名单——这不是配置问题，是没得开通。二，自动标注只覆盖四类内置任务，自定义任务和流式作业根本不支持，连置信度阈值都由服务预设、不给你调；任务形态一超出这四类，云侧那个开关就是灰的。三，覆盖率云看不见——文档里没写的答案，扫描怎么扫都扫不出来，只能你们自己补。（至于定规则、定阈值、写标注标准，云已经做了一半：推荐规则、AI 生成规则、按历史算阈值都有，但拍板还是人——这算「云做了要你配」，别拿它当云的短板讲。）</p>
+  <p><b>云替你做不了什么</b>：云真够不着的是这三条。一，新客户现在买不到公有云的托管标注平台：Ground Truth 不再对新客户开放，Mechanical Turk 劳动力与 Azure ML 数据标注都在 2026-09-30 关停，Google 的标注服务 2024 年就关停了，阿里 iTAG 1.0 从 2026-08-01 起只对白名单——这不是配置问题，是没得开通。二，自动标注只覆盖四类内置任务，自定义任务和流式作业根本不支持，连置信度阈值都由服务预设、不给你调；任务形态一超出这四类，云侧那个开关就是灰的。三，覆盖率云看不见——文档里没写的答案，扫描怎么扫都扫不出来，只能你们自己补。（至于定规则、定阈值、写标注标准，云已经做了一半：推荐规则、AI 生成规则、按历史算阈值都有，但拍板还是人——这算「云做了要你配」，别拿它当云的短板讲。）</p>
 
   <p class="ev">本节服务清单与状态标注均于 2026-08-02 联网核实，逐条落到各厂商官方文档，完整登记见<a href="../../PPT-version/Data-Engineering/MANIFEST.md">本模块 MANIFEST</a>（新增 22 条，多数按 30 天节奏复查）。<b>不可外推边界</b>：这是「哪个环节有云服务可用」的地图，不是选型结论——预览状态、配额、计价单位与产品生命周期月级变动，出方案前按当期官方文档逐项复核。</p>
 </section>
@@ -718,7 +718,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../ai-infra-platform/index.html"><span class="k">上一册 · 算力底座层</span><b>AI-Infra-Platform</b></a>
   </nav>

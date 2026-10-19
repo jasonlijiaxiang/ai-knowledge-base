@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -217,7 +217,7 @@
    </div>
   </div>
   <p>这三条改变的动作很具体：客户说「先上深度模型」，你把预算谈成「先用树立基线，省下的时间做切题」；客户说「一个标签都没有」，你把第一期做成<b>凑那 1% 标签</b>的工程，而不是直接交一个没法验收的无监督方案。</p>
-  <p class="ev">TabArena 为 NeurIPS 2025 数据集与基准赛道 Spotlight（arXiv:2506.16791 v4，2025-11-03）；表格基础模型的规模上限按 Prior Labs 官方文档：TabPFNv2 为 1 万样本 / 500 特征 / 10 类，TabPFN-2.6 为 10 万样本 / 2000 特征，TabPFN-3 与 TabPFN-3-Plus 为 100 万行 × 200 特征（可换成 10 万 × 2000 或 1000 × 2 万）、160 类。核实 2026-08-02，来源 <a href="#src-tabular">表格模型基准与官方文档</a>。<b>不可外推边界</b>：TabArena 是公开精选数据集上的排名，不代表客户数据上的名次；那几个规模上限只说跑得动多大，<b>不代表在该规模上压得过树</b>，也不含耗时与显存。</p>
+  <p class="ev">TabArena 为 NeurIPS 2025 数据集与基准赛道 Spotlight（arXiv:2506.16791 v4，2025-11-03）；表格基础模型的规模上限按 Prior Labs 官方文档：TabPFNv2 为 1 万样本 / 500 特征 / 10 类，TabPFN-2.5 与 2.6 为 10 万样本 / 2000 特征，TabPFN-3 与 TabPFN-3-Plus 为最多 100 万行、最多 2000 列（行列上限此消彼长、不能同时取满）、原生 160 类，2026-09 新出的 TabPFN-3.5 系列为 100 万行 / 2 万列。核实 2026-10-20，来源 <a href="#src-tabular">表格模型基准与官方文档</a>。<b>不可外推边界</b>：TabArena 是公开精选数据集上的排名，不代表客户数据上的名次；那几个规模上限只说跑得动多大，<b>不代表在该规模上压得过树</b>，也不含耗时与显存。</p>
   <p class="ev">M5 结论出自竞赛组织方的官方总结论文 Key findings 一节；ADBench 为 NeurIPS 2022 数据集与基准赛道论文。核实 2026-08-02，来源 <a href="#src-m5-adbench">竞赛总结与异常检测基准</a>。<b>不可外推边界</b>：M5 是零售销量单场竞赛的结论，不能外推到所有时序场景；ADBench 那个 1% 是公开数据集上的平均结论，不是保证——客户拿不出这 1%，方案就得改口径。</p>
 
   <div class="box">
@@ -380,7 +380,7 @@
     <div><b>两者的差</b><span>回流延迟，几分钟到几天。逾期 T 日发生，征信 T+5 才回来</span></div>
     <div><b>怎么验证</b><span>问数据方一句：这张表有没有落库时间列</span></div>
   </div>
-  <p class="ev">AWS 的托管特征库把这层语义做成了默认字段：离线库自动给每条记录附加 <code>api_invocation_time</code>（服务收到写入调用的时间）、<code>write_time</code>（真正落到离线库的时间，官方注明可用于构造时间旅行类查询）与 <code>is_deleted</code>，事件时间则由用户自建的时间列提供。核实 2026-08-02，来源 <a href="#src-feature-store">AWS 官方文档 · 离线库数据格式</a>。<b>不可外推边界</b>：这是 AWS 一家的字段设计，别家命名与语义不同，看到「有时间列」不等于看到同一件事。</p>
+  <p class="ev">AWS 的托管特征库把这层语义做成了默认字段：离线库自动给每条记录附加 <code>api_invocation_time</code>（服务收到写入调用的时间）、<code>write_time</code>（记录写入 S3 文件的时间，官方注明这不一定是可查询的时间、记录也不一定按它的顺序变得可查）与 <code>is_deleted</code>，事件时间则由用户自建的时间列提供。核实 2026-10-20，来源 <a href="#src-feature-store">AWS 官方文档 · 离线库数据格式</a>。<b>不可外推边界</b>：这是 AWS 一家的字段设计，别家命名与语义不同，看到「有时间列」不等于看到同一件事。</p>
 
   <h3>同一个样本，两种取数口径差多少（举例）</h3>
   <div class="tw">
@@ -880,14 +880,14 @@
       <text x="626" y="63" text-anchor="middle" font-size="10.5" fill="var(--warn)">按政策处置，不是记录</text>
       <path d="M166 50 H180 M346 50 H360 M526 50 H540" stroke="var(--ink-400)" stroke-width="1.5"/>
       <path d="M180 50 l-6 -3.5 v7 z M360 50 l-6 -3.5 v7 z M540 50 l-6 -3.5 v7 z" fill="var(--ink-400)"/>
-      <text x="360" y="104" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">新版全文没有出现「AI」「机器学习」——它按是不是模型管，不按用没用 AI 管</text>
+      <text x="360" y="104" text-anchor="middle" font-size="11.5" fill="var(--ink-400)">新版脚注把生成式与智能体 AI 排除在外，非生成式 AI 模型照管——按是不是模型管</text>
      </g>
     </svg>
    </div>
    <figcaption>跑了十五年的 SR 11-7 换版，2026-04-17 起看 SR 26-2。这四步值钱的是方法，不是它的适用名单。</figcaption>
   </figure>
   <p>客户说「我们不是银行，这套要不要做」，答案是这套动作可以裁剪：<b>模型清单、三件验证、独立挑战</b>三样带过去，评审会好过得多。至于「我们那套规则引擎算不算模型」，现行口径把模型定成用统计、经济或金融理论把输入变成定量估计的方法，纯算术和确定性规则不算——规则引擎多半在外，树模型一定在内。</p>
-  <p class="ev">SR 26-2 换版与适用范围核实 2026-08-02，来源
+  <p class="ev">SR 26-2 换版与适用范围核实 2026-10-20，来源
     <a href="#src-governance">美联储 SR 26-2 通知页与指引全文</a>。<b>不可外推边界</b>：这是主要适用于总资产超 300 亿美元美国银行的监管口径，不是通用企业合规要求；对非金融客户，它是可借鉴的方法而不是必须遵守的条文。</p>
 
   <h3>客户风控部门会要的三张纸，提前备好</h3>
@@ -1377,7 +1377,7 @@
     <details id="q-predictive-ai-mlops-21">
       <summary>我们不是银行，模型风险管理那套要不要做？<span class="added">2026-08-02</span></summary>
       <div class="a">
-        <p>那份指引自己写明主要适用于总资产超 300 亿美元的美国银行，2026-04-17 起换成了新版。但那套动作值钱的是方法：模型清单（在用、在建都要登）、三件验证（概念站不站得住、上线后持续监测、结果与真实对照）、由既有专业又有独立性的人做有效挑战、超线按政策处置而不是记录了事。非金融客户照着裁剪，评审会好过得多。顺带一句：<b>新版全文没出现「AI」「机器学习」字样</b>——它按是不是模型管，不按用没用 AI 管。</p>
+        <p>那份指引自己写明主要适用于总资产超 300 亿美元的美国银行，2026-04-17 起换成了新版。但那套动作值钱的是方法：模型清单（在用、在建都要登）、三件验证（概念站不站得住、上线后持续监测、结果与真实对照）、由既有专业又有独立性的人做有效挑战、超线按政策处置而不是记录了事。非金融客户照着裁剪，评审会好过得多。顺带一句：<b>新版脚注把生成式与智能体 AI 排除在外</b>，传统统计模型与非生成式的 AI 模型照样在内——它按是不是模型管。</p>
         <p class="qa-why">客户一听「银行监管」就想跳过，跳过之后独立验证报告补起来比想象中慢，直接卡住上线——卡上线的常常不是精度，是解释和留痕。</p>
         <p class="qa-next"><b>下一步</b>　先确认一句：<b>这个模型的输出会不会直接对个人产生不利决定</b>？会，就先谈解释与留痕；不会，门槛低得多。</p>
         <p class="qa-src">依据　<a href="#pam-governance">可解释、公平与模型风险管理</a></p>
@@ -1528,7 +1528,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../fine-tuning/index.html"><span class="k">上一册 · 工程保障层</span><b>Fine-tuning</b></a>
    <a class="nx" href="../security/index.html"><span class="k">下一册 · 工程保障层</span><b>Security</b></a>

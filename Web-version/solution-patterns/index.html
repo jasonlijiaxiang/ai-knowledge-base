@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -150,7 +150,7 @@
   </div>
   <p><b>报价公式</b>：单位成本 × 用量 × 1.3 缓冲 + 人力运营包——先量级后精确。</p>
   <p><b>口径鉴别术</b>（性价比最高的专业度信号）：deflection 挡走率 ≠ resolution 真解决率（追问「被挡走的用户后来去哪了」）、演示数据 ≠ 真数据（「换我的数据现场跑一遍？」）、最佳延迟 ≠ P95、起步价 ≠ 满负荷 TCO（「按我的量算三年总账？」）。数据锚点：客服 AI
-    厂商自报解决率 51–80%，独立口径（Zendesk 企业全量）中位仅 41.2%——30–40 个百分点的差距是常态。五类高频坑没有一个是技术坑（需求/数据/期望/验收/安全）——AI 项目烂尾，八成烂在方法和预期管理上。</p>
+    厂商自报解决率 70–80%，独立口径（企业一线分流率）中位仅 41.2%——30–40 个百分点的差距是常态。五类高频坑没有一个是技术坑（需求/数据/期望/验收/安全）——AI 项目烂尾，八成烂在方法和预期管理上。</p>
   <p class="ev">口径锚点核实 2026-07-10，来源 <a href="#src-cs">fin.ai 对比页 /
     digitalapplied 2026 统计</a>。</p>
 
@@ -237,7 +237,7 @@
   </div>
 
   <h3>口径战场是本场景的灵魂</h3>
-  <p>自报 51–80% vs 独立中位 41.2%——<b>承诺测法不承诺数字</b>：用客户真实工单建评估集测基线，验收线一起签。</p>
+  <p>自报 70–80% vs 独立中位 41.2%——<b>承诺测法不承诺数字</b>：用客户真实工单建评估集测基线，验收线一起签。</p>
   <p>成本对标着讲 ROI：文本 $0.01–0.05/会话、语音 $0.01–0.17/分钟 vs 人工 ¥3–8/通——但 <b>ROI 只对「被真解决的那部分」成立</b>，解决率口径直接决定 ROI 真假。</p>
 
   <h3>四个高频坑</h3>
@@ -384,7 +384,7 @@
     <tbody>
      <tr><td>Copilot</td><td>付费用户量</td><td>4.7M（+75% YoY）</td></tr>
      <tr><td>Cursor</td><td>收入</td><td>$4B ARR（2026-06 年化，Forbes）</td></tr>
-     <tr><td>Claude Code</td><td>满意度</td><td>46% most-loved（JetBrains 2026-04）</td></tr>
+     <tr><td>Claude Code</td><td>工作使用率</td><td>39%（JetBrains 2026-05～07）</td></tr>
     </tbody>
    </table>
   </div>
@@ -427,7 +427,7 @@
   </figure>
   <p><b>评审门禁不降级 + 新人配 AI 结对规范</b>：AI 提高产量，评审守住质量，两者不能互换。</p>
   <p class="ev">市场数字核实 2026-08-01，来源 <a href="#src-coding">ideaplan /
-    JetBrains 2026 调查 / TechCrunch·Forbes 2026-06-16</a>。<b>不可外推边界</b>：三个「第一」各属不同维度（用户数、收入、满意度），不是同一张榜的名次，合不成「谁最强」；提效区间是行业口径且方差大，验收要用客户自己的基线。</p>
+    JetBrains 2026 调查 / TechCrunch·Forbes 2026-06-16</a>。<b>不可外推边界</b>：三个「第一」各属不同维度（用户数、收入、使用率），不是同一张榜的名次，合不成「谁最强」；提效区间是行业口径且方差大，验收要用客户自己的基线。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../agent/index.html#agent-lowcode" title="工具组合与统一预算治理">低代码 Agent 平台<span class="xm">Agent</span></a><a href="../ai-gateway/index.html#gw-cost" title="工具组合与统一预算治理">流量与成本治理<span class="xm">AI-Gateway</span></a></div>
 </section>
@@ -437,7 +437,7 @@
   <h2><span class="num">07</span>数字人<a class="anchor" href="#sp-digital-human">#sp-digital-human</a></h2>
 
   <div class="lead">
-    <p>先问客户要「内容工厂」还是「交互服务」——<b>差一个量级的是架构和成本结构</b>：离线生成（文本→口播视频，渲染一次卖多次、按分钟计费——HeyGen Avatar V 级 15 秒素材建分身、10 分钟身份不漂移）vs 实时驱动（WebRTC 双向对话，每秒都在算、按并发计费）。</p>
+    <p>先问客户要「内容工厂」还是「交互服务」——<b>差一个量级的是架构和成本结构</b>：离线生成（文本→口播视频，渲染一次卖多次、按分钟计费——HeyGen Avatar V 级 15 秒素材建分身、30 分钟身份不漂移）vs 实时驱动（WebRTC 双向对话，每秒都在算、按并发计费）。</p>
   </div>
 
   <p>实时数字人 = <b>语音 Agent + 一张会动的脸</b>：</p>
@@ -514,7 +514,7 @@
    <table>
     <thead><tr><th>流派</th><th>代表</th><th>取舍</th></tr></thead>
     <tbody>
-     <tr><td><b>垂直一体派</b></td><td>Cortex Analyst YAML 语义模型 / Databricks Genie / Fabric Copilot</td><td>自家平台内最准最顺，代价是数据进平台</td></tr>
+     <tr><td><b>垂直一体派</b></td><td>Cortex Analyst YAML 语义模型 / Databricks Genie Agents / Fabric Copilot</td><td>自家平台内最准最顺，代价是数据进平台</td></tr>
      <tr><td><b>独立派</b></td><td>ThoughtSpot / dbt 语义层 / Cube</td><td>跨平台不搬数据，集成自己做</td></tr>
     </tbody>
    </table>
@@ -522,7 +522,7 @@
   <p><b>选型第一问不是「哪家准」而是「客户数据在哪」</b>：已在 Snowflake / Databricks → 顺势用自家的；多源分散 → 独立语义层。国内格局：主流 BI（帆软 / 观远 / 网易有数等）均已挂 ChatBI，按客户已有 BI 栈顺势选。</p>
   <div class="box">
    <h4>新变量：语义层「太贵」的理由正在失效</h4>
-   <p>Snowflake 2026 推出 <b>Semantic View Autopilot</b>——用 ML 从元数据和 BI 使用模式<b>自动发现指标定义，把建语义层从天级压到分钟级</b>。异议处理时要知道这条：客户拿「语义层建设太贵」当反对理由时，它已经在被自动化削弱。</p>
+   <p>Snowflake 2026 推出 <b>Semantic View Autopilot</b>——从查询历史与可信 BI 资产<b>自动学习指标定义，把建语义层从天级压到分钟级</b>。异议处理时要知道这条：客户拿「语义层建设太贵」当反对理由时，它已经在被自动化削弱。</p>
   </div>
 
   <p><b>成本结构</b>：大头是语义层建设与运营的人力，不是模型调用——起步 10–20 个高频指标定口径，两三周出 POC。</p>
@@ -577,7 +577,7 @@
    <table>
     <thead><tr><th>流派</th><th>代表</th><th>判断</th></tr></thead>
     <tbody>
-     <tr><td><b>原生派</b></td><td>Zoom AI Companion 内置零安装 / Teams Copilot M365 +$30/人·月 / 飞书妙记</td><td>企业十有八九已有会议平台——<b>原生够用就别引入新工具</b></td></tr>
+     <tr><td><b>原生派</b></td><td>Zoom Workplace 内置 AI 零安装 / Teams Copilot M365 +$30/人·月 / 飞书妙记</td><td>企业十有八九已有会议平台——<b>原生够用就别引入新工具</b></td></tr>
      <tr><td><b>独立派</b></td><td>Otter / Fireflies / Granola bot-free 桌面采集（2026-03 融资 $125M）</td><td>跨平台记忆库 / 深度集成才是它的入场券</td></tr>
     </tbody>
    </table>
@@ -743,7 +743,7 @@
     <details id="q-solution-patterns-3">
       <summary>客服解决率能承诺多少？<span class="added">2026-07-10</span></summary>
       <div class="a">
-        <p>不先拍数字——厂商自报 51–80%，独立实测中位只有 41.2%，差在口径（deflection ≠
+        <p>不先拍数字——厂商自报 70–80%，独立实测中位只有 41.2%，差在口径（deflection ≠
           resolution）。承诺测法：用真实工单建评估集测基线，验收线一起签。</p>
         <p class="qa-why">30–40 个百分点的自报与实测差距是常态不是个例——会追问口径的售前，客户当场就能感到「这人懂行」。</p>
         <p class="qa-next"><b>下一步</b>　拿 20 条真实工单手工标注「真解决」比例——这就是讲口径战场时最有力的一手证据。</p>
@@ -878,7 +878,7 @@
     <thead><tr><th>来源 ID</th><th>信源</th><th>支持什么</th><th>不能支持什么</th></tr></thead>
     <tbody>
       <tr id="src-cs"><td><code>src-cs</code></td><td>fin.ai / digitalapplied / Zendesk
-        口径</td><td>自报 51–80% vs 独立中位 41.2%、66% 组织已跑 AI agent</td>
+        口径</td><td>自报 70–80% vs 独立中位 41.2%、66% 组织已跑 AI agent</td>
         <td>各家数字口径不一，引用带出处</td></tr>
       <tr id="src-glean"><td><code>src-glean</code></td><td>TechCrunch 2026-05-28 /
         Glean press</td><td>ARR $300M、估值 $7.2B、1 亿+ actions</td><td>—</td></tr>
@@ -891,7 +891,7 @@
       <tr id="src-meeting"><td><code>src-meeting</code></td><td>read.ai / zapier / tana
         2026 横评</td><td>原生派 vs 独立派格局、Granola 融资</td><td>窗口期在收窄，格局快变</td></tr>
       <tr id="src-dh"><td><code>src-dh</code></td><td>HeyGen 官方 blog / help center</td>
-        <td>Avatar V 口径（15 秒建分身/10 分钟不漂移）</td><td>—</td></tr>
+        <td>Avatar V 口径（15 秒建分身/30 分钟不漂移）</td><td>—</td></tr>
       <tr id="src-cost"><td><code>src-cost</code></td><td>各厂商定价页综合量级（2026-07 口径）</td>
         <td>成本速查卡各场景单位成本量级</td>
         <td>量级不是报价；语音分钟价已随实时语音换代作废，端到端须按话务实测折算</td></tr>
@@ -910,7 +910,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../model-landscape/index.html"><span class="k">上一册 · 解决方案层</span><b>Model-Landscape</b></a>
    <a class="nx" href="../agent/index.html"><span class="k">下一册 · 应用模式层</span><b>Agent</b></a>
@@ -937,7 +937,7 @@
         "Gateway；高危操作 AI 草稿 + 人工确认。", "#sp-customer-service"),
       card( "文本 $0.01–0.05/会话 · 语音 $0.01–0.17/分钟","成本量级", "对标人工 ¥3–8/通讲 " +
         "ROI；集成费（呼叫中心/工单）单列。", "#sp-customer-service"),
-      card( "承诺测法不承诺数字","口径提醒", "自报 51–80% vs 独立中位 41.2%——用真实工单建" +
+      card( "承诺测法不承诺数字","口径提醒", "自报 70–80% vs 独立中位 41.2%——用真实工单建" +
         "评估集测基线，验收线双方签字。", "#sp-customer-service")
     ],
     kb: [

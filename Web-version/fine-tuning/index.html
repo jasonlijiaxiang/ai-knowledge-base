@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -279,12 +279,12 @@
 
   <div class="tw">
   <table>
-    <thead><tr><th>框架</th><th>Stars（2026-07）</th><th>一句话定位</th><th>适合谁</th></tr></thead>
+    <thead><tr><th>框架</th><th>Stars（2026-10）</th><th>一句话定位</th><th>适合谁</th></tr></thead>
     <tbody>
-      <tr><td>Unsloth</td><td>~54K</td><td>单卡速度王：快 2×、省 70% 显存</td><td>单卡/Colab 起步、快速实验</td></tr>
-      <tr><td>LLaMA-Factory</td><td>~68K</td><td>Web UI 全家桶，零代码全流程</td><td>想点鼠标训练的团队</td></tr>
-      <tr><td>Axolotl</td><td>~11K</td><td>YAML 配置驱动，FSDP/DeepSpeed 开箱</td><td>多卡生产、要可复现</td></tr>
-      <tr><td>TRL</td><td>~18K</td><td>HF 官方库：SFT/DPO/GRPO/KTO 原语</td><td>要底层控制、自己写流程</td></tr>
+      <tr><td>Unsloth</td><td>~78K</td><td>单卡速度王：快 2×、省 70% 显存</td><td>单卡/Colab 起步、快速实验</td></tr>
+      <tr><td>LLaMA-Factory</td><td>~76K</td><td>Web UI 全家桶，零代码全流程</td><td>想点鼠标训练的团队</td></tr>
+      <tr><td>Axolotl</td><td>~13K</td><td>YAML 配置驱动，FSDP/DeepSpeed 开箱</td><td>多卡生产、要可复现</td></tr>
+      <tr><td>TRL</td><td>~20K</td><td>HF 官方库：SFT/DPO/GRPO/KTO 原语</td><td>要底层控制、自己写流程</td></tr>
     </tbody>
   </table>
   </div>
@@ -307,7 +307,7 @@
   </div>
   <p>效果不对<b>先查四坑、再怀疑数据、最后才怀疑方法</b>——顺序反了浪费一周。</p>
   <p><b>成本结构</b>：LoRA 级单卡几小时、云上几十到几百美元——<b>算力是零头，数据与评估的人力是大头</b>，报价拆开给客户看。</p>
-  <p class="ev">框架格局核实 2026-07-09、版本边界核实 2026-08-01（PEFT v0.20.0（07-28，一次新增 9 种方法）、TRL v1.9.2；KTO 已于 v1.8 转正），来源 <a href="#src-frameworks">GitHub releases 与框架对比</a>。<b>不可外推边界</b>：版本号是当日快照，微调框架在小版本间也会破坏兼容；方案里锁版本号，别写「用最新版」。</p>
+  <p class="ev">框架格局核实 2026-07-09（stars 2026-10-20 更新）、版本边界核实 2026-10-20（PEFT v0.21.2（10-01）、TRL v1.16.0；KTO 已于 v1.8 转正），来源 <a href="#src-frameworks">GitHub releases 与框架对比</a>。<b>不可外推边界</b>：版本号是当日快照，微调框架在小版本间也会破坏兼容；方案里锁版本号，别写「用最新版」。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-training/index.html#llmtrain-alignment" title="这个词的主场：LLM-Training · 后训练 II · 对齐：教会分寸">DPO<span class="xm">LLM-Training</span></a></div>
 </section>
@@ -369,18 +369,18 @@
     <tbody>
       <tr><td>OpenAI</td><td><b>微调平台收摊中</b>：新组织 2026-05-07 起停建、60 天不活跃组织 2026-07-02 起停建、存量客户 2027-01-06 后停止新建（官方 deprecations 页）</td>
           <td>存量微调模型推理保留到底座退役；<b>新需求别再规划</b></td></tr>
-      <tr><td>Claude</td><td><b>唯一托管路径：Bedrock 上 Claude 3 Haiku SFT</b>（us-west-2）；官方建议 50–10,000 条</td><td>更大杯型、DPO 均未开放——别口头承诺更多</td></tr>
+      <tr><td>Claude</td><td><b>原唯一托管路径（Bedrock 上 Claude 3 Haiku SFT）已失效</b>：该模型 2026-03-10 进 Legacy 停建微调，2026-09-10 在 us-west-2 等区域 EOL</td><td>没查到可替代的托管型号——别口头承诺</td></tr>
       <tr><td>Google Vertex AI</td><td>Gemini 全家 + 开源；全参/LoRA/adapter 最灵活</td>
           <td>微调-存储-鉴权-部署一体化最顺</td></tr>
-      <tr><td>Azure AI Foundry</td><td>OpenAI 系微调最全；<b>蒸馏已 GA</b>（GPT-4o→Phi-4）</td>
-          <td>托管蒸馏的代表</td></tr>
-      <tr><td>AWS Bedrock + SageMaker</td><td>Bedrock 托管微调（含 Haiku）；深度定制走 SageMaker</td>
+      <tr><td>Azure AI Foundry</td><td>OpenAI 系微调最全；基于存储补全的蒸馏流程<b>已于 2026-10-15 退役</b></td>
+          <td>官方指引迁往 Responses API 与 Agent Traces</td></tr>
+      <tr><td>AWS Bedrock + SageMaker</td><td>Bedrock 托管微调（Claude Haiku 已下线）；深度定制走 SageMaker</td>
           <td>多模型货架 + 自由度兜底</td></tr>
     </tbody>
   </table>
   </div>
-  <p>「能微调 Claude 吗」的标准话术：「能，Bedrock 上、Haiku、SFT；超出这个范围目前答案是不能——但多数语气/格式需求，Haiku 微调 + 强提示词已经够用。」<b>闭源模型能不能调、在哪调、调到什么程度，是方案第一步要查证的平台事实，答错会在评审会上翻车。</b>选型逻辑：客户在哪朵云、数据在哪，通常比「哪家微调功能强一点」更决定选型。归属要提前讲清，而客户嘴里的「数据安全」其实是三样东西，得分开答：<b>数据去哪</b>（托管即出域，不能出域就走 VPC 内训练或本地自建）、<b>产物归谁</b>（托管闭源获得专属模型 ID 的访问权、权重不交付；开源自训权重完全归你）、<b>依据在哪</b>（各平台服务条款，写进方案书当依据，别口头担保）。三样分开写，安全评审才接得住；锁定风险在方案里明示。</p>
-  <p class="ev">平台事实核实 2026-08-01（OpenAI 收摊时间表以官方 deprecations 页为准；其余平台行沿 2026-07-09 核实），来源 <a href="#src-cloud-ft">各平台官方文档</a>。开放范围月级演进，承诺前查当日事实。</p>
+  <p>「能微调 Claude 吗」的标准话术：「Bedrock 上原有的 Haiku 微调已随模型下线，目前没查到可替代的托管型号——多数语气/格式需求，强提示词已经够用。」<b>闭源模型能不能调、在哪调、调到什么程度，是方案第一步要查证的平台事实，答错会在评审会上翻车。</b>选型逻辑：客户在哪朵云、数据在哪，通常比「哪家微调功能强一点」更决定选型。归属要提前讲清，而客户嘴里的「数据安全」其实是三样东西，得分开答：<b>数据去哪</b>（托管即出域，不能出域就走 VPC 内训练或本地自建）、<b>产物归谁</b>（托管闭源获得专属模型 ID 的访问权、权重不交付；开源自训权重完全归你）、<b>依据在哪</b>（各平台服务条款，写进方案书当依据，别口头担保）。三样分开写，安全评审才接得住；锁定风险在方案里明示。</p>
+  <p class="ev">平台事实核实 2026-10-20（OpenAI 收摊时间表以官方 deprecations 页为准；Claude 行据 AWS Bedrock 模型生命周期页、Azure 行据微软存储补全退役公告；Vertex 行沿 2026-07-09 核实），来源 <a href="#src-cloud-ft">各平台官方文档</a>。开放范围月级演进，承诺前查当日事实。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../ai-infra-platform/index.html#aip-cloud" title="云上托管训练/微调形态（HyperPod/Vertex/PAI 类）两边互指：本章从微调视角、对方从平台形态视角（2026-07-09 补）">云上算力形态与售前速查<span class="xm">AI-Infra-Platform</span></a><a href="../llm-training/index.html#llmtrain-alignment" title="这个词的主场：LLM-Training · 后训练 II · 对齐：教会分寸">DPO<span class="xm">LLM-Training</span></a></div>
 </section>
@@ -456,7 +456,7 @@
       <tr><td>「微调 = 让模型学会我们的知识」</td><td>知识用 RAG（可更新可溯源）；微调管行为，两者常组合</td></tr>
       <tr><td>「数据越多越好」</td><td>质量优先：LIMA 证明千条精选可胜万条粗料</td></tr>
       <tr><td>「微调会让模型更聪明」</td><td>智商来自底座；能力不足换模型，别硬调</td></tr>
-      <tr><td>「什么模型都能微调」</td><td>闭源各有开放范围（Claude 仅 Bedrock+Haiku），先查再承诺</td></tr>
+      <tr><td>「什么模型都能微调」</td><td>闭源各有开放范围（如 Claude 托管微调已随 Haiku 下线），先查再承诺</td></tr>
       <tr><td>「微调一次就完事」</td><td>是持续闭环：bad case 回流、季度迭代、回归门禁</td></tr>
       <tr><td>「微调很贵，要大集群」</td><td>QLoRA 单卡起步；大头在数据人力，不在卡</td></tr>
     </tbody>
@@ -499,7 +499,7 @@
     <details id="q-fine-tuning-4">
       <summary>GPT / Claude / 开源，微调路径分别是什么？<span class="added">2026-07-09</span></summary>
       <div class="a">
-        <p>OpenAI：微调平台收摊中（新组织 2026-05-07 起停建、存量客户 2027-01-06 后停止新建，核实 2026-08-01）；Claude：仅 Bedrock 上 Haiku SFT；开源：自由度最大，QLoRA 单卡起步。按事实表作答，不口头加码。</p>
+        <p>OpenAI：微调平台收摊中（新组织 2026-05-07 起停建、存量客户 2027-01-06 后停止新建，核实 2026-08-01）；Claude：Bedrock 上的 Haiku 微调已随模型 EOL 失效；开源：自由度最大，QLoRA 单卡起步。按事实表作答，不口头加码。</p>
         <p class="qa-why">平台开放范围是「先查再承诺」的硬事实——OpenAI 收摊就是活例，答错会在评审会上翻车；权重归属（托管不交付）也要提前讲。</p>
         <p class="qa-next"><b>下一步</b>　方案第一步查证当日平台事实；数据不出域的需求直接切
           VPC/本地开源路线。</p>
@@ -622,7 +622,7 @@
       <tr id="src-rft"><td><code>src-rft</code></td><td>OpenAI RFT 文档 / 行业综述</td>
           <td>RFT/GRPO 的定位与适用</td><td>可调模型清单月级变化</td></tr>
       <tr id="src-cloud-ft"><td><code>src-cloud-ft</code></td><td>OpenAI/AWS/Vertex/Azure
-          官方文档</td><td>托管微调开放范围（2026-08-01，含 OpenAI 收摊时间表）</td><td><b>承诺前查当日事实</b>——开放范围月级演进</td></tr>
+          官方文档</td><td>托管微调开放范围（2026-10-20，含 OpenAI 收摊时间表、Bedrock 上 Claude 3 Haiku EOL）</td><td><b>承诺前查当日事实</b>——开放范围月级演进</td></tr>
       <tr id="src-lima"><td><code>src-lima</code></td><td>LIMA（Meta）/ Databricks
           arXiv 2405.09673</td><td>质量优先与「学得少忘得少」的实证</td><td>不同任务差距不同，深度灌注场景差距明显</td></tr>
     </tbody>
@@ -640,7 +640,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-01</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../evaluation/index.html"><span class="k">上一册 · 工程保障层</span><b>Evaluation</b></a>
    <a class="nx" href="../predictive-ai-mlops/index.html"><span class="k">下一册 · 工程保障层</span><b>Predictive-AI-MLOps</b></a>
@@ -663,7 +663,7 @@
     consumer: "QLoRA：7–8B 约 6–8GB、单张消费卡绰绰有余（70B 需 48G 专业卡）",
     pro: "LoRA（16-bit 底座）：7–8B 约 18–20GB；70B 走 QLoRA 约 40–48GB",
     cluster: "LoRA 单机起步；深度灌注才考虑全参（7B ≈ 110GB 多卡）+ 防遗忘门禁",
-    managed: "托管路径：Bedrock Haiku SFT、Vertex/Azure（OpenAI 微调平台收摊中）——先查当日开放范围"
+    managed: "托管路径：Vertex/Azure/Bedrock（Claude Haiku 微调已下线、OpenAI 微调平台收摊中）——先查当日开放范围"
   };
   function run() {
     var p = $("ad-problem").value, d = $("ad-data").value,

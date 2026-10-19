@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -158,7 +158,7 @@
    <table>
     <thead><tr><th>阵营</th><th>代表与口径</th></tr></thead>
     <tbody>
-     <tr><td><b>闭源旗舰</b></td><td>GPT-6 Astra（1.05M 上下文、收文本与图，OpenAI 现旗舰）/ Gemini 3.1 Pro（原生图音视频 + 1M）/ Claude Fable 5.1（视觉 + 1M）——原生多模态 + 长上下文 + thinking；三家里只有 Gemini 原生收音视频</td></tr>
+     <tr><td><b>闭源旗舰</b></td><td>GPT-6 Astra（1.05M 上下文、收文本与图，OpenAI 现旗舰）/ Gemini 4 Argon（原生图音视频 + 1M）/ Claude Fable 5.1（视觉 + 1M）——原生多模态 + 长上下文 + thinking；三家里只有 Gemini 原生收音视频</td></tr>
      <tr><td><b>开源</b></td><td>Qwen3-VL Thinking（Apache-2.0）居开源 MMMU 前列、文档 / OCR 同为第一梯队；InternVL3.5（Apache-2.0，官方称开源 MLLM 综合 SOTA）——两家都已换代，旧版 InternVL3-78B / Qwen2.5-VL 的分数别再引</td></tr>
     </tbody>
    </table>
@@ -353,14 +353,14 @@
 
   <div class="lead">
     <p>语音是「实时系统」问题，不是「接个 ASR 就完了」：人类换话的自然空隙是
-      <b>300–500ms</b>，超过就被察觉；级联生产目标 P50 &lt;1.5s、端到端标杆 &lt;800ms、
-      <b>&gt;1.5s 用户判定「坏了」开始重复说话</b>——ASR 把两遍话拼在一起，错误级联放大。延迟不只是体验问题，还是准确率问题。</p>
+      <b>约 200ms</b>，超过就被察觉；低于约 0.8s 听感像真人，未裁剪级联约 750–1400ms、
+      <b>&gt;1.5s 听感退化成对讲机，用户容易重复说话</b>——ASR 把两遍话拼在一起，错误级联放大。延迟不只是体验问题，还是准确率问题。</p>
   </div>
 
   <h3>级联管线时延拆账</h3>
   <figure>
    <div class="fig-wrap">
-    <svg viewBox="0 0 720 128" role="img" aria-label="级联语音管线的时延拆账：ASR 100 到 300 毫秒、LLM 首 token 350 到 1000 毫秒、TTS 首音 90 到 200 毫秒、网络 50 到 200 毫秒，瓶颈在 LLM 首 token">
+    <svg viewBox="0 0 720 128" role="img" aria-label="级联语音管线的时延拆账：ASR 100 到 300 毫秒、LLM 首 token 300 到 750 毫秒、TTS 首音 60 到 250 毫秒、网络 50 到 200 毫秒，瓶颈在 LLM 首 token">
      <g font-family="var(--sans)">
       <text x="4" y="16" font-size="12" font-weight="700" fill="var(--ink-500)">首音时延预算（毫秒，按各段上限画）</text>
       <text x="4" y="44" font-size="12.5" fill="var(--ink-900)">ASR</text>
@@ -368,10 +368,10 @@
       <text x="222" y="44" font-size="12" fill="var(--ink-500)">100–300</text>
       <text x="4" y="72" font-size="12.5" fill="var(--ink-900)">LLM 首 token</text>
       <rect x="120" y="58" width="300" height="18" rx="4" fill="var(--blue)"/>
-      <text x="432" y="72" font-size="12" font-weight="700" fill="var(--blue-d)">350–1000　瓶颈在这</text>
+      <text x="432" y="72" font-size="12" font-weight="700" fill="var(--blue-d)">300–750　瓶颈在这</text>
       <text x="4" y="100" font-size="12.5" fill="var(--ink-900)">TTS 首音</text>
       <rect x="120" y="86" width="60" height="18" rx="4" fill="var(--ink-400)" opacity=".5"/>
-      <text x="192" y="100" font-size="12" fill="var(--ink-500)">90–200</text>
+      <text x="192" y="100" font-size="12" fill="var(--ink-500)">60–250</text>
       <text x="4" y="124" font-size="12.5" fill="var(--ink-900)">网络</text>
       <rect x="120" y="110" width="60" height="14" rx="4" fill="var(--ink-400)" opacity=".35"/>
       <text x="192" y="122" font-size="12" fill="var(--ink-500)">50–200</text>
@@ -394,7 +394,7 @@
     </tbody>
    </table>
   </div>
-  <p><b>端到端四家</b>：gpt-realtime-2.1 家族（2026-07-06 换代 2.1 / 2.1-mini，128K、工具调用进音频环路、p95 时延再降 25%）、Gemini 3.1 Flash Live（官方称 90+ 语言实时多模态对话）、Qwen3-Omni / 3.5-Omni（3-Omni 权重 Apache-2.0 可自部署，119 文本 / 19 语音输入语种）、Moshi（全双工先驱）。</p>
+  <p><b>端到端四家</b>：gpt-realtime-2.1 家族（2026-07-06 换代 2.1 / 2.1-mini，128K、工具调用进音频环路、p95 时延再降 25%）、Gemini 3.8 Live（2026-09，官方定为低时延语音智能体默认款；3.1 Flash Live 已转旧版预览）、Qwen3-Omni / 3.5-Omni（3-Omni 权重 Apache-2.0 可自部署，119 文本 / 19 语音输入语种）、Moshi（全双工先驱）。</p>
   <h3>打断（Barge-in）三连动作</h3>
   <p>少做任何一件都穿帮：</p>
   <div class="grid">
@@ -419,7 +419,7 @@
    <table>
     <thead><tr><th>框架</th><th>强在哪</th></tr></thead>
     <tbody>
-     <tr><td>Pipecat v1.0</td><td>帧管线控制力最强</td></tr>
+     <tr><td>Pipecat v1.x（现行 1.13）</td><td>帧管线控制力最强</td></tr>
      <tr><td>LiveKit Agents</td><td>房间模型，多人音视频省心</td></tr>
      <tr><td>Vapi / Retell</td><td>托管，最快上线</td></tr>
     </tbody>
@@ -438,8 +438,8 @@
     </tbody>
    </table>
   </div>
-  <p>报价仍用「分钟成本 × 并发 × 时长」——<b>但换代后厂商只公布 token 单价，分钟成本得拿自己的话务实测折算</b>，旧的「端到端每分钟 $0.18–0.46」已随 gpt-realtime 换代作废。</p>
-  <p class="ev">延迟口径核实 2026-07-10；端到端型号与价格 2026-08-01 复核，来源 developers.openai.com 模型与定价页、<a href="#src-voice">2026 语音横评与实测</a>。</p>
+  <p>报价仍用「分钟成本 × 并发 × 时长」——<b>但 gpt-realtime 只公布 token 单价，分钟成本得拿自己的话务实测折算</b>（全双工 GPT-Live 1 例外，官方按 $0.05/分钟计），旧的「端到端每分钟 $0.18–0.46」已随 gpt-realtime 换代作废。</p>
+  <p class="ev">延迟口径核实 2026-10-20；端到端型号与价格 2026-08-01 复核，来源 developers.openai.com 模型与定价页、<a href="#src-voice">2026 语音横评与实测</a>。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../llm-inference/index.html#llminf-batching" title="语音链路延迟大头 = LLM 首 token；首 token 优化（批处理 / KV 缓存 / 流式）机制在 LLM-Inference 展开">把 GPU 喂饱：批处理与调度<span class="xm">LLM-Inference</span></a><a href="../agent/index.html#agent-components" title="语音是 Agent 的「耳与嘴」：实时链路为语音 Agent 提供交互层，Agent 侧编排与工具调用不变">核心组件<span class="xm">Agent</span></a><a href="../solution-patterns/index.html#sp-customer-service" title="语音客服场景的方案视角（分流漏斗 / 解决率口径）在 Solution-Patterns 第 3 章展开（模块 2026-07-10 建成，原「候选」补实）；数字人场景另接 s…">智能客服<span class="xm">Solution-Patterns</span></a></div>
 </section>
@@ -456,7 +456,7 @@
   <table>
     <thead><tr><th>旗舰</th><th>王牌</th><th>单价</th></tr></thead>
     <tbody>
-      <tr><td><b>Seedance 2.0</b></td><td>字节，创意控制：原生音视频同步、参考输入 12 文件同代最强</td><td>Fast 档为价格带最低档，官网当期核价</td></tr>
+      <tr><td><b>Seedance 2.5</b></td><td>字节，创意控制 + 长时长：单次最长 30 秒、可续两次</td><td>Fast 档为价格带最低档，官网当期核价</td></tr>
       <tr><td><b>Sora 2 · 已退场</b></td><td>OpenAI 消费端 2026-04-26 停服、Videos API 与 sora-2 系 2026-09-24 下线（官方 2026-03-24 公告）</td><td>不再计价</td></tr>
       <tr><td><b>可灵 3.0</b></td><td>性价比 + 原生 4K 直出（2026-04 起）；3.0 Turbo 档已上线</td><td>官网按积分计，当期核价</td></tr>
       <tr><td><b>Veo 3.1</b></td><td>电影级质感 + 原生音频</td><td>官方 $0.40/秒（1080p）、$0.60/秒（4K）；Lite 档 $0.05（720p）</td></tr>
@@ -511,8 +511,8 @@
    <div class="box"><h4>深度伪造</h4><p>换脸仿声属强监管。</p></div>
   </div>
   <p>合规依据在 <a href="../security/index.html#sec-china">Security 网页版第 8 节</a>。对客设预期：<b>它是「素材工厂」不是「成片机器」</b>，方案里要留后期工位。</p>
-  <p>消费端的价格锚点值得记一个：即梦注册送 <b>260 积分</b>、5 秒视频约 <b>20 积分</b>（新用户约 13 次免费生成）——按秒计价的量级感，报方案时比「贵不贵」的空话有用。</p>
-  <p class="ev">格局与价格 2026-08-01 复核：Sora 下线时间线取自 OpenAI 官方 deprecations 与帮助页，Veo 每秒价取自 Google Gemini API 官方定价页；Seedance / 可灵按积分或包月计，官方无公开每秒价，故本页只写定性，原「34 倍价差」口径已作废。即梦消费端口径（260 积分 / 5 秒约 20 积分）核实 2026-07-17、建议复查日 2026-08-31。<b>不可外推边界</b>：消费端积分口径随平台活动频繁调整，企业 API 另有计价，不能直接换算成对客报价。</p>
+  <p>消费端（即梦等）按积分计、新用户送额度可免费试生成若干次，额度随活动变——试水用积分，规模化生产回到 API 按秒计价。</p>
+  <p class="ev">格局与价格 2026-08-01 复核：Sora 下线时间线取自 OpenAI 官方 deprecations 与帮助页，Veo 每秒价取自 Google Gemini API 官方定价页；Seedance / 可灵按积分或包月计，官方无公开每秒价，故本页只写定性，原「34 倍价差」口径已作废。<b>不可外推边界</b>：消费端积分口径随平台活动频繁调整，企业 API 另有计价，不能直接换算成对客报价。</p>
 
   <div class="xlinks"><span class="xk">串联</span><a href="../security/index.html#sec-china" title="AI 生成视频的标识义务与执法口径在 Security 第 8 章中国监管合规（讲义内已互引）">中国监管合规<span class="xm">Security</span></a><a href="../solution-patterns/index.html#sp-content-gen" title="营销素材工厂场景图纸在 SP 第 5 章；本章供「视频积木」的能力与成本口径">营销与内容生成<span class="xm">Solution-Patterns</span></a></div>
 </section>
@@ -733,8 +733,8 @@
     <details id="q-multimodal-8">
       <summary>语音客服的延迟能压到多少？<span class="added">2026-07-10</span></summary>
       <div class="a">
-        <p>分架构说：端到端能进 1 秒（标杆约 800ms）；级联生产目标 P50 1.5 秒内。瓶颈通常在 LLM 首 token（350–1000ms 占大头）——先测基线再承诺数字。</p>
-        <p class="qa-why">超过 1.5 秒用户开始重复说话，ASR 把两遍话拼串——延迟同时是体验问题和准确率问题；衡量口径永远是「首音时延」。</p>
+        <p>分架构说：端到端能进 1 秒；未裁剪级联约 750–1400ms。瓶颈通常在 LLM 首 token（300–750ms 占大头）——先测基线再承诺数字。</p>
+        <p class="qa-why">超过 1.5 秒听感就像对讲机，用户容易重复说话，ASR 把两遍话拼串——延迟同时是体验问题和准确率问题；衡量口径永远是「首音时延」。</p>
         <p class="qa-next"><b>下一步</b>　三处下手：模型档位选小、提示词减脂（2000 字→
           200 字）、全链路流式化——优化前后对比就是给客户的证据。</p>
         <p class="qa-src">依据　<a href="#mm-voice-realtime">时延拆账</a></p>
@@ -836,7 +836,7 @@
         <td>GPT Image 2 / Nano Banana 2 口径与两流派格局</td><td>建议复查日 2026-08 后核版本</td></tr>
       <tr id="src-voice"><td><code>src-voice</code></td><td>softcery / telnyx 横评（延迟与级联）；
         developers.openai.com 模型与定价页（2026-08-01 复核）</td><td>延迟四条线、级联拆账、端到端型号与 token 单价</td>
-        <td>端到端「每分钟」成本——官方只公布 token 价，需自行实测折算</td></tr>
+        <td>gpt-realtime「每分钟」成本——官方只公布 token 价，需自行实测折算</td></tr>
       <tr id="src-video"><td><code>src-video</code></td><td>OpenAI 官方 deprecations 与帮助页（Sora 下线）；ai.google.dev 官方定价页（Veo 每秒价）；klingai.com 更新日志（2026-08-01 复核）</td><td>Sora 退场时间线、Veo 3.1 每秒官方价、可灵 3.0 当期能力</td><td>Seedance / 可灵无公开每秒价，跨厂商价差倍数不能引</td></tr>
       <tr id="src-frame"><td><code>src-frame</code></td><td>webrtc.ventures 2026-03 /
         QwenLM GitHub</td><td>Pipecat/LiveKit 实测量级、Qwen3-Omni 口径</td><td>—</td></tr>
@@ -855,7 +855,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../agent/index.html"><span class="k">上一册 · 应用模式层</span><b>Agent</b></a>
    <a class="nx" href="../rag/index.html"><span class="k">下一册 · 应用模式层</span><b>RAG</b></a>

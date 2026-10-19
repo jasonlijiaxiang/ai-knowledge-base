@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -503,7 +503,7 @@
   </table>
   </div>
   <p>迁移成本落在哪，官方说得很直白：<b>依赖会话标识的实现受影响最大</b>——这正是无状态改造的代价所在。
-    四个 Tier 1 SDK（TypeScript、Python、Go、C#）都已出支持版本，Rust 为 beta，包内附迁移说明。</p>
+    Tier 1 SDK 已扩至六个，其中 TypeScript、Python、Go、C# 都已出支持版本，包内附迁移说明。</p>
 
   <p class="ev">核实 2026-07-30，来源 <a href="#src-rc">MCP 官方 2026-07-28 发布文与 changelog</a>。
     规范已于 2026-07-28 正式发布，本节按官方 changelog 逐项更新。<b>本节仍是全册时效性最强的一处，下一次定点复查 2027-01-31。</b></p>
@@ -537,8 +537,8 @@ if __name__ == "__main__":
 
   <p>另外两个装饰器对应另外两个原语：<code>@mcp.resource("file://readme")</code> 暴露只读上下文，
     <code>@mcp.prompt()</code> 把一段最佳用法固化成模板。同一个 server 里三类能力可以齐活。</p>
-  <p><b>选栈两条硬事实</b>：①官方 Tier 1 SDK 四种——TypeScript / Python / C# / Go（Tier 是支持等级承诺，不是安全认证）；②面向新规范的<b>正式版已发</b>，不再是 beta：<b>Python SDK v2.0.0（2026-07-28，与规范同日）把 <code>FastMCP</code> 更名为 <code>MCPServer</code></b>，装饰器写法不变；TypeScript SDK 前一天发 2.0.0 并拆成 <code>@modelcontextprotocol/core</code> / <code>client</code> / <code>server</code> 等一组包。<b>v1 线转维护、只收安全修复</b>（当前 v1.29.0）——上面这段 <code>FastMCP</code> 写法在 v1 内仍可用，暂不升级的把依赖钉上限（<code>mcp&gt;=1.28,&lt;2</code>），做迁移评估时记得新版类名已换。</p>
-  <p class="ev">SDK 版本口径核实 2026-08-01，来源 <a href="#src-sdk">官方 SDK 页与两个 SDK 仓库的 GitHub releases</a>。<b>不可外推边界</b>：Tier 1 是支持等级承诺，各语言 SDK 的正式版进度并不同步，选栈前按目标语言的仓库发布页核当日版本。</p>
+  <p><b>选栈两条硬事实</b>：①官方 Tier 1 SDK 六种——TypeScript / Python / C# / Go / Rust / Ruby（Tier 是支持等级承诺，不是安全认证）；②面向新规范的<b>正式版已发</b>，不再是 beta：<b>Python SDK v2.0.0（2026-07-28，与规范同日）把 <code>FastMCP</code> 更名为 <code>MCPServer</code></b>，装饰器写法不变；TypeScript SDK 前一天发 2.0.0 并拆成 <code>@modelcontextprotocol/core</code> / <code>client</code> / <code>server</code> 等一组包。<b>v1 线转维护</b>（Python 当前 v1.30.0）——上面这段 <code>FastMCP</code> 写法在 v1 内仍可用，暂不升级的把依赖钉上限（<code>mcp&gt;=1.28,&lt;2</code>），做迁移评估时记得新版类名已换。</p>
+  <p class="ev">SDK 版本口径核实 2026-10-20，来源 <a href="#src-sdk">官方 SDK 页与两个 SDK 仓库的 GitHub releases</a>。<b>不可外推边界</b>：Tier 1 是支持等级承诺，各语言 SDK 的正式版进度并不同步，选栈前按目标语言的仓库发布页核当日版本。</p>
 
   <h3>开发顺序：先单测 server，再接模型</h3>
   <p>官方调试工具 MCP Inspector 相当于电工的万用表：<code>npx @modelcontextprotocol/inspector</code>
@@ -801,8 +801,8 @@ if __name__ == "__main__":
         <td>统计窗口为 2026 年 1–4 月，不可外推为全年或当前值</td>
       </tr>
       <tr>
-        <td>84.2%</td>
-        <td>MCPTox 基准下工具投毒攻击成功率</td>
+        <td>72.8%</td>
+        <td>MCPTox 基准 20 个 agent 设置中的最高投毒成功率（o1-mini）</td>
         <td><b>限定条件是「开启自动批准」</b>；关掉自动批准后此数字不适用，引用时必须带上这个前提</td>
       </tr>
       <tr>
@@ -904,7 +904,7 @@ if __name__ == "__main__":
     <details id="q-mcp-5">
       <summary>月底新版发布，我现在的 server 要立刻改代码吗？<span class="added">2026-07-08</span></summary>
       <div class="a">
-        <p>不必立刻。2026-07-28 已是现行规范，2025-11-25 进入兼容期；四个 Tier 1 SDK 都出了支持版本，弃用政策承诺任何特性从弃用到移除至少留 12 个月。</p>
+        <p>不必立刻。2026-07-28 已是现行规范，2025-11-25 进入兼容期；Tier 1 的 TS/Python/Go/C# 都出了支持版本，弃用政策承诺任何特性从弃用到移除至少留 12 个月。</p>
         <p class="qa-why">真正要提前做的不是改代码，是做影响评估：盘出有没有依赖 Roots / Sampling / Logging 的地方——这三项在新版被列入弃用。</p>
         <p class="qa-next"><b>下一步</b>　盘一遍现有集成对这三项的依赖，列出替代方案，排进 12 个月缓冲期内的迭代。</p>
         <p class="qa-src">依据　<a href="#mcp-transport">传输与版本演进</a> · <a href="#src-rc">src-rc</a></p>
@@ -941,7 +941,7 @@ if __name__ == "__main__":
       <summary>MCP 出了这么多 CVE，还能用吗？<span class="added">2026-07-08</span></summary>
       <div class="a">
         <p>能，但要用对姿势。CVE 多恰恰说明它被广泛使用、被认真审视；官方已有安全指引和修复机制，关键是默认设防、及时更新。</p>
-        <p class="qa-why">两条几乎是事故直通车，也最容易避免：把 server 无鉴权裸暴露公网，以及图省事开全自动批准。注意 84.2% 那个投毒成功率有前提——它测的是「开启自动批准」的场景，关掉之后不适用，引用时必须带上这个限定。</p>
+        <p class="qa-why">两条几乎是事故直通车，也最容易避免：把 server 无鉴权裸暴露公网，以及图省事开全自动批准。注意 72.8% 那个投毒成功率有前提——它测的是「开启自动批准」的场景，关掉之后不适用，引用时必须带上这个限定。</p>
         <p class="qa-next"><b>下一步</b>　对照 NSA/CISA 指引做一次安全自查表，逐条打勾或标注缺口——这张表是应对客户安全评审最有力的交付物。</p>
         <p class="qa-src">依据　<a href="#mcp-security">安全</a> · <a href="#src-cve">src-cve</a> · <a href="#src-mcptox">src-mcptox</a></p>
       </div>
@@ -1085,7 +1085,7 @@ if __name__ == "__main__":
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../a2a/index.html"><span class="k">上一册 · 协议层</span><b>A2A</b></a>
    <a class="nx" href="../ai-gateway/index.html"><span class="k">下一册 · 工程保障层</span><b>AI-Gateway</b></a>

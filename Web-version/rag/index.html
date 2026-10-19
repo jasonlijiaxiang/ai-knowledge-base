@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -345,11 +345,11 @@
    </div>
   </div>
   <p>企业语料里型号、代号、专名密度极高——<b>纯向量检索的翻车率被普遍低估</b>。</p>
-  <p>融合用 <b>RRF</b>（Reciprocal Rank Fusion，倒数排名融合）：两套分数不可比（BM25 无上界、余弦 0~1），RRF 只看名次——按 1/(k+r) 相加，k≈60 开箱即用。算一遍就懂：文档 A 在 BM25
+  <p>融合用 <b>RRF</b>（Reciprocal Rank Fusion，倒数排名融合）：两套分数不可比（BM25 无上界、余弦 0~1），RRF 只看名次——按 1/(k+r) 相加，k=60（Elasticsearch 默认）开箱即用。算一遍就懂：文档 A 在 BM25
     第 1、向量第 8 → 0.031；文档 B 两榜都第 3 → 0.032 胜——<b>两边都不错的稳健选手，赢过单边冠军</b>。生产标配三段式：双路宽召回（各 Top-50~100，求不漏）→ RRF 融合（不比分数、不用调权）→ 交叉编码器重排取 Top-10（求不错）。</p>
   <p>落地捷径：Elasticsearch / OpenSearch 已原生支持向量检索与 RRF 混合查询——存量 ES 用户升级配置即可，数据不搬家、运维不新增；向量库阵营（Qdrant/Milvus/Weaviate）用稀疏+稠密双向量一次查询完成融合。成本增量主要是 BM25 索引存储，比向量便宜得多。</p>
-  <p class="ev">RRF k≈60 为主流引擎原生默认，核实 2026-07-08，来源
-    <a href="#src-hybrid">Elasticsearch / Qdrant 官方文档</a>。<b>不可外推边界</b>：k≈60 是各引擎的出厂默认值，不是对某个语料调优的结果；要不要调，用自己的评估集回答。</p>
+  <p class="ev">RRF 为主流引擎原生支持（Elasticsearch 默认 k=60、Qdrant 默认 k=2），核实 2026-10-20，来源
+    <a href="#src-hybrid">Elasticsearch / Qdrant 官方文档</a>。<b>不可外推边界</b>：默认 k 各引擎不同，且都是出厂值，不是对某个语料调优的结果；要不要调，用自己的评估集回答。</p>
 </section>
 
 <!-- ============ 8 ============ -->
@@ -457,7 +457,7 @@
     <p>企业文档里最值钱的信息常在图里：架构图、财报图表、扫描件。纯文本管线的丢失发生在<b>建库期</b>——图表抽不成有意义的文字，后面检索再准也无济于事（「答案明明在第 47 页的柱状图里，系统答资料中未提及」）。</p>
   </div>
 
-  <p>三条路线从便宜到强（②的代表：Cohere Embed 4 / voyage-multimodal；③的 MaxSim 逐词对格打分，表格、图表、手写体一视同仁）：</p>
+  <p>三条路线从便宜到强（②的代表：Cohere Embed 5 / voyage-multimodal-3.5；③的 MaxSim 逐词对格打分，表格、图表、手写体一视同仁）：</p>
   <figure>
    <div class="fig-wrap">
     <svg viewBox="0 0 720 126" role="img" aria-label="多模态 RAG 三条路线，从便宜到强：①转述索引 Caption，用视觉模型给每张图写文字描述进普通管线，最便宜、改造最小；②统一多模态嵌入，文与图进同一向量空间跨模态互检，工程最干净；③页面当图 ColPali 系，整页编码成约千个图块向量、免 OCR，是扫描件杀手锏，代价是存储涨约一个量级。">
@@ -801,7 +801,7 @@
       <tr id="src-rerank"><td><code>src-rerank</code></td><td>docs.cohere.com / 2026 对比</td>
           <td>Reranker 格局（v4.0 系主线，2026-07-12）</td><td>版本线月级演进</td></tr>
       <tr id="src-hybrid"><td><code>src-hybrid</code></td><td>Elasticsearch / Qdrant 官方文档</td>
-          <td>RRF k≈60 与原生混合检索支持</td><td>各引擎参数细节以当日文档为准</td></tr>
+          <td>RRF 默认 k（ES 60 / Qdrant 2）与原生混合检索支持</td><td>各引擎参数细节以当日文档为准</td></tr>
       <tr id="src-agentic"><td><code>src-agentic</code></td><td>arXiv 2501.09136 / LangGraph
           官方教程</td><td>五大模式与 CRAG 的分类与实现</td><td>「检索失败约四成」为生产统计口径，非普适常数</td></tr>
       <tr id="src-graph"><td><code>src-graph</code></td><td>Microsoft GraphRAG 文档 /
@@ -826,7 +826,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../multimodal/index.html"><span class="k">上一册 · 应用模式层</span><b>Multimodal</b></a>
    <a class="nx" href="../a2a/index.html"><span class="k">下一册 · 协议层</span><b>A2A</b></a>
@@ -869,7 +869,7 @@
         "先确认召回率没问题再动生成端——大头通常在检索侧，别急着换模型。"));
     } else if (sym === "exact") {
       cards.push(card("混合检索", "标配",
-        "型号/报错码是纯向量的天然盲区——BM25 + 向量双路召回、RRF 融合（k≈60），存量 ES 升级即得。"));
+        "型号/报错码是纯向量的天然盲区——BM25 + 向量双路召回、RRF 融合（ES 默认 k=60），存量 ES 升级即得。"));
     } else if (sym === "visual") {
       cards.push(card("多模态路线", "建库侧",
         "信息在建库期就没进来。先转述索引兜底；扫描件海量、查询「视觉难」再上 ColPali（存储贵一个量级）。"));

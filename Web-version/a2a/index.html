@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -210,7 +210,7 @@
    <table>
     <thead><tr><th></th><th>有什么</th></tr></thead>
     <tbody>
-     <tr><td><b>官方 SDK</b></td><td>五语言（Python / JavaScript / Java / Go / .NET）覆盖主流后端栈，Python 已实现 1.0（含 0.3 兼容模式）</td></tr>
+     <tr><td><b>官方 SDK</b></td><td>六语言（Python / JavaScript / Java / Go / .NET / Rust）覆盖主流后端栈，Python 已实现 1.0（含 0.3 兼容模式）</td></tr>
      <tr><td><b>不用 SDK 行不行</b></td><td>行——A2A 是开放的 HTTP + JSON-RPC / gRPC 协议，可手写报文对接，<b>规范以 protobuf 为准</b></td></tr>
      <tr><td><b>配套工具</b></td><td>Inspector（调试观察报文）与 TCK（协议一致性测试套件）</td></tr>
     </tbody>
@@ -296,12 +296,12 @@
     <tbody>
      <tr><td>参与组织</td><td>150+（较发布时增长两倍）</td></tr>
      <tr><td>版本</td><td>v1.0.0 于 2026-03-12 发布，当前补丁 v1.0.1</td></tr>
-     <tr><td>SDK</td><td>五语言官方</td></tr>
+     <tr><td>SDK</td><td>六语言官方</td></tr>
      <tr><td>云托管</td><td>三大云</td></tr>
     </tbody>
    </table>
   </div>
-  <p>核心仓库 22,000+ stars，生产案例见于供应链、金融、保险、IT 运维。</p>
+  <p>核心仓库 26,000+ stars，生产案例见于供应链、金融、保险、IT 运维。</p>
 
   <h3>上线前六条验收线</h3>
   <p>每条都问「查什么 + 拿什么证据」，答不出证据就还没到生产：</p>
@@ -314,7 +314,7 @@
    <div class="box"><h4>质量与安全</h4><p>业务结果、恶意输入、工具副作用——证据：评测集、红队记录、人工介入控制。</p></div>
   </div>
   <p>终极判断：<b>任意一次协作都能回放「谁委派、做了什么、为何结束、交付了什么、谁验收」</b>。</p>
-  <p class="ev">生态数字核实 2026-07-12，来源 <a href="#src-lf">Linux Foundation 一周年通稿</a>；版本号来源 <a href="#src-spec">规范仓库 releases</a>。<b>不可外推边界</b>：基金会通稿的采纳规模是自报口径、未公开统计方法：它能支持的是「不是某一家的私有协议」，不能当作「已经在生产里大规模跑起来」的证据。</p>
+  <p class="ev">生态数字核实 2026-10-20，来源 <a href="#src-lf">Linux Foundation 一周年通稿</a>；版本号来源 <a href="#src-spec">规范仓库 releases</a>。<b>不可外推边界</b>：基金会通稿的采纳规模是自报口径、未公开统计方法：它能支持的是「不是某一家的私有协议」，不能当作「已经在生产里大规模跑起来」的证据。</p>
 
   <p><b>顺着追问什么</b>：客户的 Agent 现在跑在哪——自己容器里，还是已经用了某家云的 Agent 运行时？要对外协作的那一头是自家另一个团队，还是外部厂商，跨不跨云、跨不跨组织？现在按客户分租户了吗，每个 Task 查得到状态和 trace 吗？</p>
   <p><b>云替你做不了什么</b>：「不锁定」说的是 A2A 这一层跨边界互操作——A2A 不做「怎么编排、怎么循环」，只做「跨边界怎么对接」（见本页协议解剖一节）；框架内部那套编排本来就不在 A2A 管辖内，换平台的代价要另算，别拿 A2A 的中立性去背书。</p>
@@ -382,7 +382,7 @@
     <details id="q-a2a-3">
       <summary>这是不是 Google 的私有协议，用了会被锁定吗？<span class="added">2026-07-09</span></summary>
       <div class="a">
-        <p>不会。2025-06 已捐给中立的 Linux Foundation；150+ 组织参与、五语言官方 SDK、三大云托管且互通，治理和演进公开。</p>
+        <p>不会。2025-06 已捐给中立的 Linux Foundation；150+ 组织参与、六语言官方 SDK、三大云托管且互通，治理和演进公开。</p>
         <p class="qa-why">「中立治理 + 广泛采用」是回应「昙花一现」质疑最有力的组合——和 MCP 走的同一条去厂商化路线。</p>
         <p class="qa-next"><b>下一步</b>　30 秒成熟度话术用四个数字组织：150+ 组织 / v1.0
           稳定版 / 5 个 SDK / 3 大云。</p>
@@ -524,7 +524,7 @@
         一周年通稿</td><td>2025-06 捐赠、150+ 组织、22K+ stars、行业案例</td>
         <td>数字持续增长，引用前核日期</td></tr>
       <tr id="src-sdk"><td><code>src-sdk</code></td><td>github.com/a2aproject（a2a-python
-        等）</td><td>五语言 SDK 与 Python 1.0 实现、Inspector/TCK 工具</td><td>—</td></tr>
+        等）</td><td>六语言 SDK 与 Python 1.0 实现、Inspector/TCK 工具</td><td>—</td></tr>
       <tr id="src-cloud"><td><code>src-cloud</code></td><td>三家云官方文档</td>
         <td>Azure Foundry / Bedrock AgentCore / Vertex Agent Engine 托管支持</td>
         <td>产品名与能力随发布会变</td></tr>
@@ -545,7 +545,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-09-05</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../rag/index.html"><span class="k">上一册 · 应用模式层</span><b>RAG</b></a>
    <a class="nx" href="../mcp/index.html"><span class="k">下一册 · 协议层</span><b>MCP</b></a>

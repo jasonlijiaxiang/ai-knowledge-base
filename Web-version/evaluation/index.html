@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -126,18 +126,18 @@
   <table>
     <thead><tr><th>基准</th><th>考什么</th><th>现状（2026-08-01 核实）</th></tr></thead>
     <tbody>
-      <tr><td>MMLU / MMLU-Pro</td><td>多学科选择题，通用知识</td><td><b>已饱和</b>：前沿模型 88%+，顶部无区分度</td></tr>
-      <tr><td>GPQA Diamond</td><td>博士级理科推理</td><td>头部 96.0（GPT-6 Astra）~92.9%，前十差 3.1 分，区分度收窄</td></tr>
+      <tr><td>MMLU / MMLU-Pro</td><td>多学科选择题，通用知识</td><td><b>已饱和</b>：前沿模型约 87–90%，顶部无区分度</td></tr>
+      <tr><td>GPQA Diamond</td><td>博士级理科推理</td><td>头部 96.0（GPT-6 Astra）~93.5%，前十差 2.5 分，区分度收窄</td></tr>
       <tr><td>HLE</td><td>约 2,500 道跨学科专家题</td><td>前沿约 45~65%（llm-stats 与 BenchLM 2026-09 榜首同为 65.0/65，均为 Claude Fable 5.1；带工具/纯文本各榜口径不一），区分度最好的知识型基准</td></tr>
       <tr><td>SWE-bench Verified</td><td>修真实 GitHub issue</td><td>Agent 编码主基准，判分靠跑测试用例；已趋饱和并陷污染争议</td></tr>
-      <tr><td>Terminal-Bench 2.1</td><td>89 个高难终端任务</td><td>2026-05 修订版（修复 28 题 + 引入持续校验），任务来自真实工作流</td></tr>
+      <tr><td>Terminal-Bench 4.0</td><td>高难终端任务</td><td>2.1（2026-05，修复 28 题）后 07-30 出 3.0、08-28 出 4.0，已转持续维护、语义化版本，任务来自真实工作流</td></tr>
       <tr><td>τ²-bench</td><td>多轮客服 + 工具调用</td><td>对话式 Agent 任务的代表基准</td></tr>
       <tr><td>BFCL v4</td><td>函数/工具调用综合</td><td>2026-04 改版，Agentic 加权 40%</td></tr>
     </tbody>
   </table>
   </div>
-  <p>2026-08 格局一句话：Claude Opus 5（07-24 发布）以 96% 领跑 SWE-bench Verified（BenchLM 07-31 榜），
-    GPT-5.5/5.6 与 Gemini 3.5 家族已上线；OpenAI 2026-02 以污染为由退出 SWE-bench Verified，改推的 SWE-bench Pro 也在 07-08 被其官方撤回推荐——<b>没有全能冠军，按任务选对口基准</b>。能力比拼已从「答题」转向「干活」。</p>
+  <p>2026-10 格局一句话：Claude Opus 5（07-24 发布）仍以 96% 领跑 SWE-bench Verified（BenchLM 10-19 榜，已移出该榜加权总分），
+    此后各家已换代至 GPT-6 Astra、Gemini 4 Argon、Claude Opus 5.5 / Fable 5.1；OpenAI 2026-02 以污染为由退出 SWE-bench Verified，改推的 SWE-bench Pro 也在 07-08 被其官方撤回推荐——<b>没有全能冠军，按任务选对口基准</b>。能力比拼已从「答题」转向「干活」。</p>
 
   <h3>三个暗面：污染、偏好、择优</h3>
   <div class="tw">
@@ -145,7 +145,7 @@
     <thead><tr><th>暗面</th><th>怎么回事</th><th>怎么识破 / 怎么用</th></tr></thead>
     <tbody>
      <tr><td><b>数据污染</b></td><td>＝考前泄题：基准题目混进训练数据，<b>分数反映的是记忆不是能力</b></td><td>老基准分数异常亮眼、新基准平平，先怀疑污染。反污染看三件：私有保留集、动态换题、污染检测</td></tr>
-     <tr><td><b>偏好</b></td><td>Arena（原 Chatbot Arena，2026-01 更名，累计 600 万+ 投票）量的是「真人偏好」，会被风格与排版左右</td><td>适合看通用对话讨喜度，<b>专业任务还得看任务型基准</b></td></tr>
+     <tr><td><b>偏好</b></td><td>Arena（原 Chatbot Arena，2026-01 更名，累计 6200 万票，跨模态合计）量的是「真人偏好」，会被风格与排版左右</td><td>适合看通用对话讨喜度，<b>专业任务还得看任务型基准</b></td></tr>
      <tr><td><b>择优</b></td><td>Leaderboard Illusion（2025 实证）：厂商在 Arena 私测多变体择优公开，曾有厂商<b>私测 27 个变体只发最好那个</b></td><td>为榜单调的那一版和你拿到的 API 版本，<b>表现可能不一致</b></td></tr>
     </tbody>
    </table>
@@ -362,9 +362,9 @@
    <table>
     <thead><tr><th>工具</th><th>强在哪</th></tr></thead>
     <tbody>
-     <tr><td><b>Ragas</b></td><td>RAG 专项指标的事实标准</td></tr>
+     <tr><td><b>Ragas</b></td><td>RAG 起家，现扩为通用 LLM 应用评估</td></tr>
      <tr><td><b>DeepEval</b></td><td>50+ 指标，pytest 风格直接进 CI</td></tr>
-     <tr><td><b>promptfoo</b></td><td>多模型 × 多 prompt 矩阵对比 + 红队测试 40+ 插件，<b>十分钟出一张对比表</b></td></tr>
+     <tr><td><b>promptfoo</b></td><td>多模型 × 多 prompt 矩阵对比 + 红队测试 150+ 插件，<b>十分钟出一张对比表</b></td></tr>
     </tbody>
    </table>
   </div>
@@ -376,7 +376,7 @@
 
   <h3>评估资产要可迁移</h3>
   <p>OpenAI 平台内置 Evals 已官宣 <b>2026-10-31 起只读、11-30 关停</b>——教训：评估资产（题集、细则、历史结果）的寿命远长于任何平台。落地三件事：黄金集进 git 管版本、判官
-    prompt 与细则当代码管、结果定期导出归档。口诀：<b>「题在手，平台任你换；题在云，平台绑你走。」</b>三大云均有托管评估服务（Bedrock 评估作业 / AI Foundry 评估器 /
+    prompt 与细则当代码管、结果定期导出归档。口诀：<b>「题在手，平台任你换；题在云，平台绑你走。」</b>三大云均有托管评估服务（Bedrock 评估作业 / Foundry 评估器 /
     Vertex 评估服务）——客户在哪朵云就从哪家起步，黄金集保持平台无关。</p>
 
   <h3>四道发布门与质量飞轮</h3>
@@ -612,9 +612,9 @@
   <table>
     <thead><tr><th>技术环节</th><th>代表性云服务（多厂商，非绑定）</th><th>给客户一句话</th></tr></thead>
     <tbody>
-      <tr><td>托管评估作业</td><td>Bedrock 模型评估作业 / Azure AI Foundry 内置评估器 / Vertex AI Gen AI 评估服务</td><td>三家都能落地这套方法论，客户在哪朵云就先用哪家起步</td></tr>
-      <tr><td>判官（LLM-as-a-Judge）</td><td>Bedrock 内置 LLM-as-a-Judge / AI Foundry 质量 + 安全评估器成套 / Vertex 内置判官与成对比较</td><td>判官开箱即用，起步不必自己搭一套</td></tr>
-      <tr><td>RAG 评估</td><td>Bedrock 支持 RAG / 知识库评估 / AI Foundry Groundedness 等评估器 / Vertex 提供对应评估指标</td><td>RAG 场景三家都有现成指标，云上起步不必另搭；开发期要做深，仍回到 Ragas 这类专项框架——两套并行是主流做法。</td></tr>
+      <tr><td>托管评估作业</td><td>Bedrock 模型评估作业 / Microsoft Foundry（原 Azure AI Foundry）内置评估器 / Gen AI 评估服务（Gemini Enterprise Agent Platform，原 Vertex AI）</td><td>三家都能落地这套方法论，客户在哪朵云就先用哪家起步</td></tr>
+      <tr><td>判官（LLM-as-a-Judge）</td><td>Bedrock 内置 LLM-as-a-Judge / Foundry 质量 + 安全评估器成套 / Vertex 内置判官与成对比较</td><td>判官开箱即用，起步不必自己搭一套</td></tr>
+      <tr><td>RAG 评估</td><td>Bedrock 支持 RAG / 知识库评估 / Foundry Groundedness 等评估器 / Vertex 提供对应评估指标</td><td>RAG 场景三家都有现成指标，云上起步不必另搭；开发期要做深，仍回到 Ragas 这类专项框架——两套并行是主流做法。</td></tr>
       <tr><td>各家侧重</td><td>AWS 按评估作业计费、含人工评估工作流；Azure 治理审计成熟、tracing 一体；Google Cloud 与训练部署链路打通</td><td>能力都够用，差别在计费方式、治理成熟度和跟训练链路的打通程度</td></tr>
     </tbody>
   </table>
@@ -696,7 +696,7 @@
       <tr id="src-tools"><td><code>src-tools</code></td><td>2026 工具对比（confident-ai /
           genai.qa 等）</td><td>开源三件套与平台格局</td><td>版本与功能演进快，选型前看官方文档</td></tr>
       <tr id="src-openai-evals"><td><code>src-openai-evals</code></td><td>developers.openai.com
-          官方文档</td><td>平台 Evals 退役时间表（10-31 / 11-30）</td><td>不涉及其 API 评估能力的存续</td></tr>
+          官方文档</td><td>平台 Evals 退役时间表（10-31 / 11-30）</td><td>官方原文：Evals 看板与 API 一并关停</td></tr>
       <tr id="src-cloud"><td><code>src-cloud</code></td><td>三大云官方文档与 2026 平台对比</td>
           <td>托管评估服务的能力对照</td><td>云服务能力月级演进，引用前复查</td></tr>
     </tbody>
@@ -714,7 +714,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../ai-ops/index.html"><span class="k">上一册 · 工程保障层</span><b>AI-Ops</b></a>
    <a class="nx" href="../fine-tuning/index.html"><span class="k">下一册 · 工程保障层</span><b>Fine-tuning</b></a>

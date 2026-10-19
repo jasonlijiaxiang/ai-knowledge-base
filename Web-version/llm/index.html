@@ -11,7 +11,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../../README.html">AI 知识库</a><a class="ti cur" href="../../Web-version/index.html">网页版</a>
  <a class="ti" href="../../PPT-version/README.html">PPT 总览</a><a class="ti" href="../../_prep/实战包.html">实战包</a><a class="ti" href="../../_prep/学习路径.html">学习路径</a><a class="ti" href="../../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -264,7 +264,7 @@
     </tbody>
    </table>
   </div>
-  <p>最强拉长驱动是视频（约 300 token/秒，1 小时 ≈ 108 万 token）。主战场已从标称长度竞赛转向<b>有效长度 × 单位 token 经济性 × 记忆分层</b>。</p>
+  <p>最强拉长驱动是视频（高分辨率约 300 token/秒，1 小时 ≈ 108 万 token；默认低档约 100 token/秒）。主战场已从标称长度竞赛转向<b>有效长度 × 单位 token 经济性 × 记忆分层</b>。</p>
   <p>这也是两条高频答辩的架构论据：<b>「1M 窗口还要 RAG 吗」</b>——要：全量塞入平方级烧钱、过 200K 有效性衰减、新鲜度与行级权限只能在检索层做（应用视角见
     <a href="../rag/index.html#rag-what-why">RAG 网页版</a>）；<b>上下文工程为什么非做不可</b>——每多塞 1K token，所有后续轮次都为它付费（复利型成本），做法见
     <a href="../agent/index.html#agent-context">Agent 网页版</a>。服务系统怎么管好这笔账（分页、前缀缓存、容量规划）在 <a href="../llm-inference/index.html">LLM-Inference
@@ -313,7 +313,7 @@
       <tr><td>滑窗交错 SWA</td><td>减计算 O(n·w)</td><td>远依赖靠层间接力</td><td>Gemma 3（约 5:1）、GPT-OSS</td></tr>
       <tr><td>稀疏 DSA</td><td>减计算 O(L·k)</td><td>索引器额外开销</td><td>DeepSeek V3.2+、GLM-5——已进旗舰生产</td></tr>
       <tr><td>线性混合 3:1</td><td>减计算 O(n) 为主</td><td>复杂推理精度风险</td><td>Qwen3.5 转正、Kimi K3（KDA 3:1，Kimi Linear 的通道级门控进化版）</td></tr>
-      <tr><td>FlashAttention</td><td>榨硬件（不改数学）</td><td>无（纯工程收益）</td><td>全行业默认集成（FA-4 面向 Blackwell，2026-07 上 PyPI）</td></tr>
+      <tr><td>FlashAttention</td><td>榨硬件（不改数学）</td><td>无（纯工程收益）</td><td>全行业默认集成（FA-4 面向 Blackwell，PyPI 仍为 beta）</td></tr>
     </tbody>
   </table>
   </div>
@@ -536,8 +536,8 @@
           <td>具体模型的有效长度要看当期基准</td></tr>
       <tr id="src-arch"><td><code>src-arch</code></td><td>开源架构对比综述 / DeepSeek-V3 论文</td>
           <td>参数账、MoE 与 RoPE 的事实标准地位</td><td>不涉及训练侧细节（见 LLM-Training）</td></tr>
-      <tr id="src-video"><td><code>src-video</code></td><td>Gemini 官方文档（2026-07-20 核）</td>
-          <td>视频 token 换算（约 300 token/秒）</td><td>各家换算口径不同，建议复查日
+      <tr id="src-video"><td><code>src-video</code></td><td>Gemini 官方文档（2026-10-20 核）</td>
+          <td>视频 token 换算（默认约 100、高分辨率约 300 token/秒）</td><td>各家换算口径不同，建议复查日
           2026-10-31</td></tr>
     </tbody>
   </table>
@@ -554,7 +554,7 @@
   </p>
   <p>网页版与讲义用同一批事实、术语、边界和来源，但各按各的读法组织目录与节奏，清单只有一份。</p>
   <!-- UPDATED:BEGIN 由 build.py 从 MANIFEST 取，请勿手工编辑 -->
-  <p class="updated">本册最近改动 <b>2026-08-02</b>（以模块清单 MANIFEST 为准）。</p>
+  <p class="updated">本册最近改动 <b>2026-10-20</b>（以模块清单 MANIFEST 为准）。</p>
   <nav class="prevnext" aria-label="书架前后册">
    <a href="../security/index.html"><span class="k">上一册 · 工程保障层</span><b>Security</b></a>
    <a class="nx" href="../llm-inference/index.html"><span class="k">下一册 · 基础层</span><b>LLM-Inference</b></a>

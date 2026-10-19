@@ -17,7 +17,7 @@ window.KB = {
    "dir": "A2A",
    "layer": "协议层",
    "created": "2026-07-09",
-   "updated": "2026-09-05",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "a2a-what-why",
@@ -66,22 +66,22 @@ window.KB = {
     {
      "text": "规范稳定线 1.0（正文 Latest Released 1.0.0）；项目 release 当前 v1.0.1（2026-05-28 补丁；v1.0.0 于 2026-03-12 发布）；历史 0.1.0→0.2.6→0.3.0→1.0.0；以 Protocol Buffers 为唯一权威规范定义",
      "chapter": "a2a-protocol",
-     "verified": "2026-07-12",
-     "source": "a2a-protocol.org 规范页、github.com/a2aproject/A2A/releases",
+     "verified": "2026-10-20",
+     "source": "a2a-protocol.org/latest/specification/（2026-10-20 逐字核对）；github.com/a2aproject/A2A/releases",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "v1.0 头号新特性 Signed Agent Cards（签名版 Agent Card，密码学验证签发方）",
      "chapter": "a2a-security",
-     "verified": "2026-07-09",
-     "source": "LF 一周年 press",
+     "verified": "2026-10-20",
+     "source": "www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "治理：Google 2025-04 发布并开源，2025-06 捐赠 Linux Foundation 成立中立的 A2A Project",
@@ -94,64 +94,64 @@ window.KB = {
      "due": "2027-01-05"
     },
     {
-     "text": "采用度 150+ 组织、核心仓库 22,000+ stars；5 官方 SDK（Python/JS/Java/Go/.NET），Python SDK 实现 1.0 并提供 0.3 兼容模式、三种传输绑定 Client/Server 全覆盖",
+     "text": "采用度 150+ 组织、核心仓库 26,000+ stars；6 个官方 SDK（Python/JS/Java/Go/.NET/Rust），Python SDK 实现 1.0 并提供 0.3 兼容模式、三种传输绑定 Client/Server 全覆盖",
      "chapter": "a2a-production",
-     "verified": "2026-07-12",
-     "source": "LF 一周年 press、github.com/a2aproject/a2a-python",
+     "verified": "2026-10-20",
+     "source": "a2a-protocol.org/latest/blog/2026/08/27/a-new-chapter-for-a2a-joining-the-agentic-ai-foundation/（2026-10-20 逐字核对）；GitHub API stars、github.com/a2aproject/a2a-python",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "官方配套工具：Inspector（联调）与 TCK（协议一致性测试）提供一致性证据，不替代安全与业务评测",
      "chapter": "a2a-handson",
-     "verified": "2026-07-12",
-     "source": "github.com/a2aproject/a2a-inspector、github.com/a2aproject/a2a-tck",
+     "verified": "2026-10-20",
+     "source": "github.com/a2aproject/a2a-inspector（2026-10-20 逐字核对）、github.com/a2aproject/a2a-tck",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "云支持：Azure AI Foundry / Copilot Studio、AWS Bedrock AgentCore Runtime、Google Cloud（Vertex AI Agent Engine）",
      "chapter": "a2a-production",
-     "verified": "2026-07-09",
-     "source": "LF 一周年 press",
+     "verified": "2026-10-20",
+     "source": "a2a-protocol.org/latest/blog/2026/08/27/a-new-chapter-for-a2a-joining-the-agentic-ai-foundation/（2026-10-20 逐字核对）；LF 一周年 press",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "三种传输绑定：JSON-RPC 2.0 / gRPC / HTTP+JSON-REST；流式走 SSE，长任务用推送通知回调",
      "chapter": "a2a-transport",
-     "verified": "2026-07-09",
-     "source": "a2a-protocol.org 规范页",
+     "verified": "2026-10-20",
+     "source": "a2a-protocol.org/latest/specification/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "AP2（Agent Payments Protocol）为 A2A 之上支付扩展，60+ 组织",
      "chapter": "a2a-production",
-     "verified": "2026-07-09",
-     "source": "LF 一周年 press",
+     "verified": "2026-10-20",
+     "source": "www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "Task 状态机共九种状态（进行中 2 + 中断 2 + 终态 4 + 兜底 unspecified），终态不可回跳、重试建新 Task",
      "chapter": "a2a-protocol",
-     "verified": "2026-07-12",
-     "source": "a2a-protocol.org 规范 TaskState 枚举",
+     "verified": "2026-10-20",
+     "source": "a2a-protocol.org/latest/specification/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -297,7 +297,7 @@ window.KB = {
    "dir": "AI-Gateway",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "gw-what-why",
@@ -350,124 +350,124 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "Envoy AI Gateway v1.0 于 2026-06-23 发布(Tetrate+Bloomberg,基于 CNCF Envoy Gateway);token 限流 + OpenInference/OTel GenAI 观测,语义缓存与按美元成本治理在路线图",
+     "text": "Envoy AI Gateway v1.0 于 2026-06-23 发布（维护者含 Tetrate、Bloomberg，基于 Envoy Gateway）；2026-09-10 起更名 Agent Router、脱离 CNCF 成为 Agentic AI Foundation 独立项目（CRD/API 组 aigateway.envoyproxy.io、aigw CLI、Apache 2.0 均不变，v1.2.0 于 2026-10-06 为改名后首版）；token 限流 + OpenInference/OTel GenAI 观测，语义缓存与按美元成本治理在路线图",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-07-09",
-     "source": "PRNewswire / Tetrate v1.0 博客 / aigateway.envoyproxy.io",
+     "verified": "2026-10-20",
+     "source": "theagentrouter.ai/blog/envoy-ai-gateway-is-now-agent-router（2026-10-20 逐字核对）；Tetrate v1.0 博客 / github.com/envoyproxy/ai-gateway releases（已重定向新仓）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "Portkey 完整开源发布于 2026-03,主打护栏 + 语义缓存 + 提示词管理",
+     "text": "Portkey 开源网关（MIT）主线仍为 v1.15.x（最新 v1.15.2，2026-01-12）；「企业版核心并入开源」的 Gateway 2.0 截至 2026-10-20 仍是 Pre-Release 分支；开源版带护栏，语义缓存与提示词管理在 README 中标注仅 hosted/enterprise 版提供",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-07-09",
-     "source": "techsy / openziti 2026 横评",
+     "verified": "2026-10-20",
+     "source": "github.com/Portkey-AI/gateway（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "**Portkey 归属已变**:Palo Alto Networks 于 2026-04-30 宣布收购、2026-05-29 完成交割,Portkey 作为 Prisma AIRS 的 AI 网关控制面(官方定位「监控、路由并保护每一笔 AI 交易」)。开源仓 Portkey-AI/gateway 截至 2026-08-01 仍是 MIT、未归档——收购未公布对开源版的处置,不能据此说开源停更",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-08-01",
-     "source": "paloaltonetworks.com 新闻室两篇(2026-04-30 宣布 / 2026-05-29 完成);开源状态见 github.com/Portkey-AI/gateway;建议复查日 2026-11-30",
+     "verified": "2026-10-20",
+     "source": "www.paloaltonetworks.com/company/press/2026/palo-alto-networks-completes-acquisition-of-portkey-to-secure-ai-agents（2026-10-20 逐字核对）；开源状态见 github.com/Portkey-AI/gateway；建议复查日 2026-11-30",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "LiteLLM 为最广泛采用的开源 LLM 网关(Python,100+ provider);虚拟密钥、按项目预算/花费追踪、复杂度自动路由(7 维打分)、实时护栏;**版本迭代极快,本表刻意不登记小版本号**——2026-08-01 当天仓库上同时挂着 v1.95.0-rc.3(08-01)与 v1.96.0-dev.2(07-31),按日发版,写死小版本号注定常年过期(原登记的 v1.81.x 即已落后十几个小版本);要报版本请当天查 releases",
      "chapter": "gw-unify",
-     "verified": "2026-08-01",
-     "source": "docs.litellm.ai / github.com/BerriAI/litellm releases;建议复查日＝不设,按需当天查",
+     "verified": "2026-10-20",
+     "source": "docs.litellm.ai/docs/proxy/auto_routing（2026-10-20 逐字核对）；github.com/BerriAI/litellm releases；建议复查日＝不设，按需当天查",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "Azure API Management 原生内置按 token 限流（llm-token-limit 策略族）+ LLM 专属策略，并有统一模型 API（Unified Model API，preview：单一 OpenAI 兼容端点接多后端；后端格式现仅 OpenAI Chat Completions 与 Anthropic Messages 两种）与语义缓存（llm-semantic-cache + Azure Managed Redis）；「唯一原生」不成立——Google Apigee 原生自带 PromptTokenLimit / LLMTokenQuota LLM token 策略与语义缓存、Model Armor、动态模型路由，官方文档设专门「AI gateway capabilities」页（2026-07-13 更新）",
      "chapter": "gw-cost",
-     "verified": "2026-09-05",
-     "source": "learn.microsoft.com genai-gateway-capabilities；docs.cloud.google.com/apigee ai-capabilities（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/api-management/unified-model-api（2026-10-20 逐字核对）；learn.microsoft.com genai-gateway-capabilities；docs.cloud.google.com/apigee ai-capabilities",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "Azure APIM 于 Build 2026 起提供 MCP 内容安全,把 MCP 纳入统一治理",
      "chapter": "gw-mcp",
-     "verified": "2026-07-09",
-     "source": "InfoQ 2026-06 / sjwiggers",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/api-management/llm-content-safety-policy（2026-10-20 逐字核对）；InfoQ 2026-06",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "Higress(阿里,AI-Native,Istio+Envoy+Wasm):多模型统一路由 + 协议转换(100+ 模型)、语义缓存、token 限流、提示注入检测、模型级 Fallback;托管 MCP Server、openapi-to-mcp、自建 MCP Marketplace",
      "chapter": "gw-guardrail",
-     "verified": "2026-07-09",
-     "source": "github.com/higress-group/higress / higress.ai",
+     "verified": "2026-10-20",
+     "source": "github.com/higress-group/higress（2026-10-20 逐字核对）；higress.ai",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "AI 网关正与 MCP 网关融合(统一代理 LLM API + MCP Server + Agent);Envoy 路线图含 MCP 授权、后端安全策略、OIDC token 交换",
+     "text": "AI 网关正与 MCP 网关融合（统一代理 LLM API + MCP Server + Agent）；Envoy AI Gateway（2026-09 起更名 Agent Router）已发布 MCP 授权（MCPRoute 授权规则）、后端安全策略（BackendSecurityPolicy，v1beta1）与 AWS/Azure OIDC token 交换，不再只是路线图",
      "chapter": "gw-mcp",
-     "verified": "2026-07-09",
-     "source": "Envoy release-notes / Apache APISIX",
+     "verified": "2026-10-20",
+     "source": "theagentrouter.ai/docs/api/（2026-10-20 逐字核对）；Agent Router release notes",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "可观测正收敛到 OpenTelemetry GenAI 语义约定 / OpenInference",
      "chapter": "gw-observe",
-     "verified": "2026-07-09",
-     "source": "opentelemetry.io semconv/gen-ai / Envoy v1.0",
+     "verified": "2026-10-20",
+     "source": "github.com/open-telemetry/semantic-conventions-genai（2026-10-20 逐字核对）；Agent Router v1.0/v1.1 release notes",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "云厂商格局（2026-09-05 复核）：Cloudflare AI Gateway 已不止「花费上限+缓存」——单一 OpenAI 兼容端点接 20+ 家 provider，另有 rate limiting、Guardrails(Beta)、DLP(Beta)、动态路由(Beta)、统一计费；Google Apigee 官方设专门「AI gateway capabilities」文档页（Model Armor、语义缓存、LLM token 策略、动态模型路由、MCP 工具化），「有部分能力」低估；AWS 以 Bedrock 为主，Bedrock 已提供 OpenAI 兼容 API 族（Chat Completions / Responses）并上架 OpenAI GPT-5.5/5.4 等第三方模型",
+     "text": "云厂商格局（2026-10-20 复核）：Cloudflare AI Gateway 已不止「花费上限+缓存」——支持 20+ 家 provider，统一 OpenAI 兼容端点 /chat/completions（页内列 14 家）单模型调用已标弃用、改推 REST API；另有 rate limiting、Guardrails(Beta)、DLP(Beta)、动态路由(Beta)、Spend limits(Beta)、统一计费；Google Apigee 官方设专门「AI gateway capabilities」文档页（Model Armor、语义缓存、LLM token 策略、动态模型路由、MCP 工具化），「有部分能力」低估；AWS 以 Bedrock 为主，Bedrock 已提供 OpenAI 兼容 API 族（Chat Completions / Responses）并上架 OpenAI GPT-6 系列、GPT-5.6/5.5/5.4 等第三方模型",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-09-05",
-     "source": "developers.cloudflare.com/ai-gateway/usage/chat-completion/；docs.cloud.google.com/apigee ai-capabilities；docs.aws.amazon.com/bedrock models-api-compatibility（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "developers.cloudflare.com/ai-gateway/usage/chat-completion/（2026-10-20 逐字核对）；docs.cloud.google.com/apigee ai-capabilities；docs.aws.amazon.com/bedrock models-api-compatibility",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "MCP 授权现行规范为 2026-07-28(授权模型自 2025-06-18 起以 OAuth 2.1 为底座):MCP Server=资源服务器,RFC 8707 audience 校验与 RFC 9728 资源元数据为 MUST,PKCE 强制,token 透传明令禁止;2026-07-28 新增签发方(iss)校验、注册声明 application_type、凭据绑签发方,并要求 Mcp-Method/Mcp-Name 请求头(网关不解 JSON 体即可路由)",
      "chapter": "gw-mcp",
-     "verified": "2026-07-30",
-     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog / solo.io / kane.mx",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
-     "text": "网关身份传递主流做法:RFC 8693 Token 交换铸造 audience 限定窄凭证,act 委派链可验证\"用户→Agent→本次调用\";Azure APIM 策略同时支持 RFC 8693 与 Entra On-Behalf-Of,Red Hat/MuleSoft/Maverics 均已落地",
+     "text": "网关身份传递主流做法:RFC 8693 Token 交换铸造 audience 限定窄凭证,act 委派链可验证\"用户→Agent→本次调用\";MuleSoft Flex Gateway 出站策略同时支持 RFC 8693 与 Entra On-Behalf-Of,Red Hat/Maverics 均已落地;Azure APIM 官方文档未见原生 RFC 8693 交换策略",
      "chapter": "gw-mcp",
-     "verified": "2026-07-10",
-     "source": "Red Hat Developer 2025-12 / Salesforce Architect / Uber Eng",
+     "verified": "2026-10-20",
+     "source": "docs.mulesoft.com/gateway/latest/policies-outbound-oauth-obo（2026-10-20 逐字核对）；Red Hat Developer 2025-12 / Uber Eng",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "Kong AI Gateway 高级插件（AI Proxy Advanced / Semantic Cache 等）标注 tier: ai_gateway_enterprise,需企业订阅;开源版仅基础 AI Proxy",
@@ -480,34 +480,34 @@ window.KB = {
      "due": "2026-12-04"
     },
     {
-     "text": "Apache APISIX 当前正式版 3.17.0(2026-06-15),支持 MCP 与 Agent 流量治理",
+     "text": "Apache APISIX 当前正式版 3.19.0(2026-09-28),支持 MCP 与 Agent 流量治理(3.19.0 新增 openapi-to-mcp 插件)",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-07-12",
-     "source": "apisix.apache.org/downloads/",
+     "verified": "2026-10-20",
+     "source": "apisix.apache.org/downloads/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "AWS Multi-Provider Generative AI Gateway 为 AWS Solutions Library 官方 Guidance（GitHub: aws-solutions-library-samples/guidance-for-multi-provider-generative-ai-gateway-on-aws）：LiteLLM + ECS/EKS 的 Terraform 自部署参考架构，非托管网关产品；AWS 托管侧统一多模型 API 现状见上行（Bedrock 提供 OpenAI 兼容 API 族）",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-09-05",
-     "source": "AWS 官方 GitHub 仓 github.com/aws-solutions-library-samples/guidance-for-multi-provider-generative-ai-gateway-on-aws README（2026-09-05 逐字核对；Solutions 页正文 JS 渲染抓不到）",
+     "verified": "2026-10-20",
+     "source": "github.com/aws-solutions-library-samples/guidance-for-multi-provider-generative-ai-gateway-on-aws（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "Envoy AI Gateway 核心 CRD 已 v1beta1,QuotaPolicy 仍 v1alpha1(不能与核心一并描述为稳定)",
      "chapter": "gw-cheatsheet",
-     "verified": "2026-07-12",
-     "source": "aigateway.envoyproxy.io/docs/api/",
+     "verified": "2026-10-20",
+     "source": "theagentrouter.ai/docs/api/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -695,7 +695,7 @@ window.KB = {
    "dir": "AI-Governance",
    "layer": "工程保障层",
    "created": "2026-08-02",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "gov-what-why",
@@ -768,52 +768,52 @@ window.KB = {
     {
      "text": "欧盟《人工智能法》分类规则：附件三所列系统推定为高风险（第 6 条第 2 款）；第 6 条第 3 款给四个出口——窄程序任务、改进已完成的人工结果、只检测与既往决策的偏差且不替代人的判断、为后续评估做准备性工作；但对自然人做画像的一律仍为高风险；用了出口的提供方须在上市前记录判定依据，并按第 49 条第 2 款在欧盟数据库登记。与企业最相关的附件三类别：第 4 类就业（招聘或遴选，特别是定向投放职位广告、分析筛选求职申请、评估候选人；以及晋升终止、任务分配、绩效与行为监测），第 5 类(b)信用评估与信用评分（欺诈检测除外）、(c)人寿与健康保险的风险评估与定价",
      "chapter": "gov-risk-tiering",
-     "verified": "2026-08-02",
-     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 6 条、附件三，2026-08-02 读自 https://artificialintelligenceact.eu/article/6/ 与 https://artificialintelligenceact.eu/annex/3/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/6/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；另核 /annex/3/",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "欧盟《人工智能法》的三份清单：附件三共 8 个高风险领域——①生物识别 ②关键基础设施 ③教育与职业培训（入学与录取、学习成果评估、教育层级判定、考试作弊监测）④就业与劳动者管理 ⑤基本公私服务与福利的可及性（含 (b) 信用评估与信用评分、(c) 人寿与健康保险的风险评估与定价）⑥执法 ⑦移民庇护与边控 ⑧司法与民主程序；第 5 条第 1 款禁止清单 (a)–(h) 含社会评分（(c)）与职场及教育机构的情绪推断（(f)，医疗或安全用途除外）；第 50 条透明度义务：第 1 款直接与自然人交互的系统要告知，第 2 款合成音频图像视频文本要做机器可读标记，第 3 款情绪识别与生物特征分类要告知被作用的人，第 4 款深度伪造与公共议题的 AI 生成文本要披露",
+     "text": "欧盟《人工智能法》的三份清单：附件三共 8 个高风险领域——①生物识别 ②关键基础设施 ③教育与职业培训（入学与录取、学习成果评估、教育层级判定、考试作弊监测）④就业与劳动者管理 ⑤基本公私服务与福利的可及性（含 (b) 信用评估与信用评分、(c) 人寿与健康保险的风险评估与定价）⑥执法 ⑦移民庇护与边控 ⑧司法与民主程序；第 5 条第 1 款禁止清单 (a)–(h) 含社会评分（(c)）与职场及教育机构的情绪推断（(f)，医疗或安全用途除外），2026 年修正（Regulation (EU) 2026/1744）另增 (ba)(bb) 两项——未经同意生成可识别真人的逼真私密或性露骨内容、以及涉儿童性剥削材料，自 2026-12-02 适用；第 50 条透明度义务：第 1 款直接与自然人交互的系统要告知，第 2 款合成音频图像视频文本要做机器可读标记，第 3 款情绪识别与生物特征分类要告知被作用的人，第 4 款深度伪造与公共议题的 AI 生成文本要披露",
      "chapter": "gov-risk-tiering",
-     "verified": "2026-08-02",
-     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 附件三、第 5 条、第 50 条，2026-08-02 读自 https://artificialintelligenceact.eu/annex/3/、/article/5/、/article/50/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/5/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；另核 /annex/3/、/article/50/",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "欧盟《人工智能法》角色与登记义务：第 25 条第 1 款——贴上自己的名称或商标、做出重大修改、或改变预期用途使系统变成高风险，这三种情形下分销商、进口商、部署方或第三方即被视为该高风险系统的提供方；第 49 条——提供方在投放市场前须登记自身与系统，自行判定为不高风险的（第 6 条第 3 款）同样要登记，公共机构类部署方还须登记其使用；第 26 条第 7 款——雇主在职场投用高风险系统前须告知工会代表与受影响员工",
      "chapter": "gov-registry",
-     "verified": "2026-08-02",
-     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 25、26、49 条，2026-08-02 读自 https://artificialintelligenceact.eu/article/25/、/article/26/、/article/49/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/25/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；另核 /article/26/、/article/49/",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "欧盟《人工智能法》第 26 条第 6 款：高风险 AI 系统的部署方保存系统自动生成日志的期限，须与该系统的预期用途相称，且至少 6 个月",
      "chapter": "gov-what-why",
-     "verified": "2026-08-02",
-     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 26 条，2026-08-02 读自 https://artificialintelligenceact.eu/article/26/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/26/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "欧盟《人工智能法》第 27 条基本权利影响评估（FRIA）：适用主体是受公法管辖的机构、提供公共服务的私营主体，以及附件三第 5 类(b)(c)（信用评分、人寿与健康保险风险评估定价）的部署方；内容须含 (a) 使用该系统的流程描述、(b) 使用时段与频率、(c) 可能受影响的自然人与群体类别、(d) 具体伤害风险、(e) 人工监督措施如何落实、(f) 风险发生时的措施含内部治理安排与投诉机制；第 3 款要求把评估连同模板通知市场监管机构（第 46 条第 1 款情形除外）；第 4 款明确若相关义务已通过 GDPR 第 35 条的数据保护影响评估完成，FRIA 是对其的补充而非替代",
+     "text": "欧盟《人工智能法》第 27 条基本权利影响评估（FRIA）：适用主体是受公法管辖的机构、提供公共服务的私营主体，以及附件三第 5 类(b)(c)（信用评分、人寿与健康保险风险评估定价）的部署方；内容须含 (a) 使用该系统的流程描述、(b) 使用时段与频率、(c) 可能受影响的自然人与群体类别、(d) 具体伤害风险、(e) 人工监督措施如何落实、(f) 风险发生时的措施含内部治理安排与投诉机制；第 3 款要求把评估连同模板通知市场监管机构（第 46 条第 1 款情形除外）；第 4 款经 2026 年修正（Regulation (EU) 2026/1744）改为：相关义务已通过 GDPR 第 35 条的数据保护影响评估完成的，部署方做 FRIA 时可交叉引用 DPIA 相关章节或直接纳入其相关部分；第 5 款由 AI 办公室开发问卷模板（含自动化工具）",
      "chapter": "gov-impact",
-     "verified": "2026-08-02",
-     "source": "欧盟《人工智能法》(Regulation (EU) 2024/1689) 第 27 条，2026-08-02 读自 https://artificialintelligenceact.eu/article/27/（该站转录 2024 年原始刊登文本，页面未标注修正版次）",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/27/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "ISO/IEC 42005:2025《信息技术—人工智能—AI 系统影响评估》为第 1 版，2025-05-28 发布（ISO/IEC JTC 1/SC 42 归口），给出组织如何为受 AI 系统及其可预见应用影响的个人与社会做影响评估的指南，涵盖何时做、在生命周期哪些阶段做以及评估文档要求，并说明如何并入既有 AI 风险管理与管理体系；它是 ISO/IEC 42001 的配套指南",
@@ -828,72 +828,72 @@ window.KB = {
     {
      "text": "美国 OMB M-25-21 备忘录（2025-04-03 发布，取代 M-24-10）要求各机构维护并每年公开更新「AI 用途清单」（AI Use Case Inventory），登记与报送单位是「用途（use case）」而非模型；国防部与情报体系另有安排",
      "chapter": "gov-registry",
-     "verified": "2026-08-02",
-     "source": "美国管理和预算办公室 OMB Memorandum M-25-21《Accelerating Federal Use of AI through Innovation, Governance, and Public Trust》原文 PDF（whitehouse.gov）第 3(b)(v) 节与附表",
+     "verified": "2026-10-20",
+     "source": "www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "OMB M-25-21 对「高影响 AI（high-impact AI）」的判据是：其输出成为对权利或安全具有法律、实质、约束或重大影响的决定或行动的「主要依据（principal basis）」；有没有人工监督不改变这一判定。备忘录第 6 节另列 15 类推定为高影响的用途（含关键基础设施安全功能、医疗诊断与治疗、执法风险评估、公共场所一对多生物识别、联邦福利与贷款审批、以及联邦雇佣条件的确定含录用前筛查、薪酬晋升、绩效管理、招聘解雇）；机构若认定某个落在推定清单内的用途实际不属高影响，须书面报首席 AI 官（CAIO）备案",
      "chapter": "gov-risk-tiering",
-     "verified": "2026-08-02",
-     "source": "美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）第 4(a) 节与第 6 节",
+     "verified": "2026-10-20",
+     "source": "www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "OMB M-25-21 对高影响 AI 规定七条最低风险管理实践：上线前测试、完成 AI 影响评估、持续监测性能与不利影响、确保操作人员培训与考核、额外的人工监督与问责（含 fail-safe）、提供一致的救济或申诉渠道、征询并吸收终端用户与公众反馈。其中影响评估须在部署前完成、并在生命周期内定期更新，文档至少含预期目的与收益指标、数据与模型能力的适配性、对隐私与公民权利的潜在影响、重评时间表与触发条件、成本分析、由未参与开发的独立复核人出具意见（意见须原样留档并交给风险接受人）、以及风险接受人签名",
      "chapter": "gov-impact",
-     "verified": "2026-08-02",
-     "source": "美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）第 4(a)(i)–(iv)、4(b)(i)–(vii) 节",
+     "verified": "2026-10-20",
+     "source": "www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "OMB M-25-21 的停用与豁免机制：某个高影响 AI 用途若无法满足七条最低风险管理实践，机构必须安全停用该 AI 功能；首席 AI 官（CAIO，Chief AI Officer）可基于书面的系统与情境风险评估豁免个别要求，豁免须每年重新确认有效性、可随时撤销、并在批准或撤销后 30 天内报 OMB，该职责不得下放",
      "chapter": "gov-what-why",
-     "verified": "2026-08-02",
-     "source": "美国管理和预算办公室 OMB Memorandum M-25-21 原文 PDF（whitehouse.gov）第 4(a) 节豁免与停用条款",
+     "verified": "2026-10-20",
+     "source": "www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "NIST AI RMF 1.0 的 GOVERN 1.6 类目原文为「Mechanisms are in place to inventory AI systems and are resourced according to organizational risk priorities」；配套 Playbook 建议：以政策定义清单的建立与维护流程、指定专人或专队负责、范围优先覆盖全部模型或至少高风险与高风险场景中的系统、清单属性含文档、源码链接、事故响应计划、数据字典与相关责任人联系方式",
      "chapter": "gov-registry",
-     "verified": "2026-08-02",
-     "source": "NIST AI RMF Playbook（GOVERN 部分），美国国家标准与技术研究院 AI 资源中心 https://airc.nist.gov/AI_RMF_Knowledge_Base/Playbook/Govern",
+     "verified": "2026-10-20",
+     "source": "airc.nist.gov/airmf-resources/playbook/govern/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "美国科罗拉多州 SB26-189《Automated Decision-Making Technology》2026-05-01 提出、05-07 参议院通过、05-09 众议院通过、2026-05-14 州长签署成法，生效日 2027-01-01，取代 2024 年的 SB24-205（原定 2026-06-30 生效）。新法把原来针对「高风险 AI 系统」的框架换成针对「自动化决策技术（ADMT）」在「重大决定」中的使用，要求开发方向部署方提供技术文档（预期用途、训练数据类别、已知局限、使用与人工复核说明）、部署方在交互点告知并在不利决定后 30 天内给出通俗解释，消费者有权访问与更正个人数据、有权要求有实质意义的人工复核；原法中部署方的风险管理程序与影响评估义务、以及部分向州总检察长报告的义务被删除。由州总检察长按州消费者保护法作为欺骗性商业行为执法，至 2030 年前执法须提前 60 天告知",
+     "text": "美国科罗拉多州 SB26-189《Automated Decision-Making Technology》2026-05-01 提出、05-07 参议院通过、05-09 众议院通过、2026-05-14 州长签署成法，开发方与部署方义务自 2027-01-01 起，取代 2024 年的 SB24-205（原定 2026-06-30 生效）。新法把原来针对「高风险 AI 系统」的框架换成针对「自动化决策技术（ADMT）」在「重大决定」中的使用，要求开发方向部署方提供技术文档（预期用途、训练数据类别、已知局限、使用与人工复核说明）、部署方在交互点告知并在不利决定后 30 天内给出通俗解释，消费者有权访问与更正个人数据、有权要求有实质意义的人工复核；原法中部署方的风险管理程序与影响评估义务、以及部分向州总检察长报告的义务被删除。由州总检察长按州消费者保护法作为欺骗性商业行为执法，至 2030 年前执法须提前 60 天告知",
      "chapter": "gov-risk-tiering",
-     "verified": "2026-08-02",
-     "source": "科罗拉多州议会法案页 https://leg.colorado.gov/bills/sb26-189 ；变更要点另经 Hunton 隐私与网络安全法律博客交叉核对",
+     "verified": "2026-10-20",
+     "source": "leg.colorado.gov/bills/sb26-189（2026-10-20 逐字核对）；变更要点另经 Hunton 隐私与网络安全法律博客交叉核对",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "纽约市第 144 号地方法（Local Law 144，自动化雇佣决策工具 AEDT）要求：使用前一年内须由独立审计方完成偏见审计、审计结果摘要须公开发布；在职位公告或使用前至少提前 10 个工作日告知候选人与员工，并说明所评估的资质与特征；违规每次最高 500 美元且按日累计。2026 年纽约市审计长的一份审计报告指出主管部门 DCWP 在投诉受理、合规检查与专业力量使用上执行不力",
+     "text": "纽约市第 144 号地方法（Local Law 144，自动化雇佣决策工具 AEDT）要求：使用前一年内须由独立审计方完成偏见审计、审计结果摘要须公开发布；在职位公告或使用前至少提前 10 个工作日告知候选人与员工，并说明所评估的资质与特征；违规按次处以民事罚款，且按日分别计为违规。纽约州审计长 2025 年 12 月的一份审计报告指出主管部门 DCWP 在投诉受理、合规检查与专业力量使用上执行不力",
      "chapter": "gov-risk-tiering",
-     "verified": "2026-08-02",
-     "source": "纽约市 Local Law 144-21 实务解读（Deloitte、DCI Consulting）与 DLA Piper 对 2026 年市审计长报告的报道",
+     "verified": "2026-10-20",
+     "source": "knowledge.dlapiper.com/dlapiperknowledge/globalemploymentlatestdevelopments/2026/New-York-Critical-audit-of-New-York-Citys-AI-hiring-law-signals-increased-risk-for-employers（2026-10-20 逐字核对）；纽约市 DCWP 官方页 nyc.gov/site/dca/about/automated-employment-decision-tools.page",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "三云的 AI 资产发现能力现状：Google Cloud Security Command Center 的 AI Protection 现于 Standard、Premium 与 Enterprise（已弃用，2027-05-21 停用后自动转 Premium）三层级可用、能力随层级增减，可在 Assets 页 AI resources 标签盘点模型、数据源、端点、管线、Agent、Notebook 与 MCP 服务器（MCP 服务器发现另需各项目启用 App Hub API）；Microsoft 侧覆盖第三方 AI 站点的 Purview DSPM for AI 需要启用按量计费，且多数能力依赖 Purview 浏览器扩展与设备接入，官方影子 AI 部署指南将 Defender for Cloud Apps 的云发现与 Purview DSPM for AI 组合使用",
@@ -926,104 +926,104 @@ window.KB = {
      "due": "2027-01-29"
     },
     {
-     "text": "欧盟人工智能法案第 26(5) 条：高风险系统的部署方发现使用可能带来风险时，须立即通知提供方、分销方与市场监管机构，并暂停使用",
+     "text": "欧盟人工智能法案第 26(5) 条：高风险系统的部署方发现使用可能带来风险时，须无不当延迟地通知提供方或分销方以及相关市场监管机构，并暂停使用",
      "chapter": "gov-decision",
-     "verified": "2026-08-02",
-     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 26(5) 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/26/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/26/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；EUR-Lex 官方文本 eur-lex.europa.eu/eli/reg/2024/1689/oj",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "纽约市 Local Law 144 实施细则 §5-303(c)：偏见审计摘要与分发日期，须在该工具最后一次用于雇佣决定之后继续公示至少 6 个月；审计须在使用前一年内完成，§5-304 要求提前 10 个工作日通知候选人",
      "chapter": "gov-decision",
-     "verified": "2026-08-02",
-     "source": "NYC DCWP 最终规则原文 PDF，rules.cityofnewyork.us/wp-content/uploads/2023/04/DCWP-NOA-for-Use-of-Automated-Employment-Decisionmaking-Tools-2.pdf",
+     "verified": "2026-10-20",
+     "source": "rules.cityofnewyork.us/wp-content/uploads/2023/04/DCWP-NOA-for-Use-of-Automated-Employment-Decisionmaking-Tools-2.pdf（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "美联储 SR 11-7（2011）与 SR 21-8 已被 2026-04-17 发布的 SR 26-2 取代；SR 26-2 脚注明确「生成式 AI 与 agentic AI 模型不在本指引范围内」，其原则适用于传统统计模型与非生成式、非 agentic 的 AI 模型；重要性由模型用途与暴露共同决定；指引称最相关于总资产超 300 亿美元的受监管银行机构",
      "chapter": "gov-decision",
-     "verified": "2026-08-02",
-     "source": "美联储 SR 26-2 letter 页与 PDF 全文，federalreserve.gov/supervisionreg/srletters/SR2602.htm",
+     "verified": "2026-10-20",
+     "source": "www.federalreserve.gov/supervisionreg/srletters/SR2602.htm（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "欧盟人工智能法案第 18 条：高风险系统的技术文档、质量管理体系文件、变更批准记录与欧盟符合性声明等，须自投放市场或投入使用起保存 10 年，并能应主管机关要求提供",
      "chapter": "gov-evidence",
-     "verified": "2026-08-02",
-     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 18 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/18/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/18/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；EUR-Lex 官方文本 eur-lex.europa.eu/eli/reg/2024/1689/oj",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "欧盟人工智能法案第 19 条（提供方）与第 26(6) 条（部署方）：在自己控制范围内的自动生成日志，须按与预期用途相称的期限保存，至少 6 个月，除非欧盟或成员国法另有规定",
      "chapter": "gov-evidence",
-     "verified": "2026-08-02",
-     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 19 条与第 26(6) 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/19/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/19/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；EUR-Lex 官方文本 eur-lex.europa.eu/eli/reg/2024/1689/oj",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "Google Cloud Logging：_Required 日志桶固定保存 400 天且不可配置，_Default 日志桶默认保存 30 天，_Default 与自定义桶可配置为 1 至 3650 天",
+     "text": "Google Cloud Logging：_Required 日志桶固定保存 400 天且不可配置，_Default 日志桶默认保存 30 天，项目内的 _Default 与自定义桶可配置为 1 至 3650 天",
      "chapter": "gov-evidence",
-     "verified": "2026-08-02",
-     "source": "Google Cloud 官方文档 docs.cloud.google.com/logging/quotas",
+     "verified": "2026-10-20",
+     "source": "docs.cloud.google.com/logging/quotas（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Amazon Bedrock 的模型调用日志默认关闭，需手动开启并指定 CloudWatch Logs 或 S3 目的地；Google Cloud 的数据访问审计日志默认关闭（BigQuery 除外），管理活动审计日志则始终开启且不可关闭",
      "chapter": "gov-evidence",
-     "verified": "2026-08-02",
-     "source": "docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html；docs.cloud.google.com/logging/docs/audit",
+     "verified": "2026-10-20",
+     "source": "docs.cloud.google.com/logging/docs/audit（2026-10-20 逐字核对）；docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "AWS Audit Manager 已转入维护模式：自 2026-04-30 起不再支持在新账号中启用；其 Generative AI Best Practices Framework v2 含 72 项自动控制与 38 项手动控制、8 个控制组，文档明确写明该框架不用于验证系统是否合规、也不保证通过审计；停用服务后已收集的证据保留 2 年",
      "chapter": "gov-evidence",
-     "verified": "2026-09-05",
-     "source": "AWS 官方文档 docs.aws.amazon.com/audit-manager/latest/userguide/audit-manager-availability-change.html 与 /aws-generative-ai-best-practices.html（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/audit-manager/latest/userguide/audit-manager-availability-change.html（2026-10-20 逐字核对）；/aws-generative-ai-best-practices.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "欧盟人工智能法案第 3(23) 条定义「实质性修改」：投放市场或投入使用后发生、初次符合性评估未预见或未计划、并因此影响第三章第二节要求的合规性或改变已评估的预期用途；第 43(4) 条另规定，提供方在初次符合性评估时已预先确定并写入技术文档的变化，不构成实质性修改",
      "chapter": "gov-change-triggers",
-     "verified": "2026-08-02",
-     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 3(23) 条与第 43(4) 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/3/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/3/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；EUR-Lex 官方文本 eur-lex.europa.eu/eli/reg/2024/1689/oj",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "欧盟人工智能法案第 25(1) 条：分销方、进口方、部署方或第三方在三种情形下被视为高风险系统的提供方——(a) 在已上市系统上贴自己的名称或商标；(b) 对已上市系统作实质性修改且其仍为高风险；(c) 改变系统的预期用途使其成为高风险。第 25(2) 条规定原提供方此时不再被视为该系统的提供方，但须配合并提供必要信息与技术接入",
      "chapter": "gov-change-triggers",
-     "verified": "2026-08-02",
-     "source": "EUR-Lex 官方文本 Regulation (EU) 2024/1689 第 25 条，eur-lex.europa.eu/eli/reg/2024/1689/oj；条文导航副本 artificialintelligenceact.eu/article/25/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/25/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）；EUR-Lex 官方文本 eur-lex.europa.eu/eli/reg/2024/1689/oj",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "美联储 SR 26-2 原文：把模型用于其预期用途之外会带来额外的不确定性与风险；将模型使用扩展到原应用之外时，稳妥做法是对新用法及其局限补做分析，并复核现有控制",
@@ -1036,134 +1036,134 @@ window.KB = {
      "due": "2027-01-29"
     },
     {
-     "text": "科罗拉多 AI 法（SB 24-205）延期后于 2026-06-30 生效，但在 X.AI 于 2026-04 提起诉讼后，州总检察长同意在其初步禁令动议及法律修订解决前暂缓执法；替代法 SB 26-189 已于 2026-05-14 签署，自 2027-01-01 起取代原法，框架从算法歧视与注意义务转为披露与权利型",
+     "text": "科罗拉多 AI 法（SB 24-205）原定延期至 2026-06-30 生效，但在 X.AI 于 2026-04 提起诉讼后，法院准许暂缓执法的联合动议；替代法 SB 26-189 于 2026-05-14 签署、废止并重订原法条款，SB 24-205 的实体义务未及生效即被取代；新法义务自 2027-01-01 起适用，框架从算法歧视与注意义务转为披露与权利型",
      "chapter": "gov-change-triggers",
-     "verified": "2026-08-02",
-     "source": "Skadden 法律分析《Colorado Repeals and Replaces Its AI Act》(2026-06)；Norton Rose Fulbright 同题分析",
+     "verified": "2026-10-20",
+     "source": "leg.colorado.gov/bills/sb26-189（2026-10-20 逐字核对）；Skadden 法律分析《Colorado Repeals and Replaces Its AI Act》(2026-06)",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "ISO/IEC 42005:2025《AI 系统影响评估》2025-05-28 发布，属指导文件（guidance），不用于认证、不需要外部审核",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "IEC Webstore 官方条目 ISO/IEC 42005:2025 https://webstore.iec.ch/en/publication/107659",
+     "verified": "2026-10-20",
+     "source": "webstore.iec.ch/en/publication/107659（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "ISO/IEC 42006:2025 2025-07-07 发布，规定审核与认证 AI 管理体系的机构（认证机构）应满足的要求，基于 ISO/IEC 17021-1，含审核员能力与审核工时",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "IEC Webstore 官方条目 ISO/IEC 42006:2025 https://webstore.iec.ch/en/publication/108460",
+     "verified": "2026-10-20",
+     "source": "webstore.iec.ch/en/publication/108460（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "欧盟人工智能法案留存期：提供者的技术文档等文件保存至投放市场或投入使用后 10 年（第 18 条）；自动生成日志按用途适当期限保存、至少 6 个月（第 19 条，部署者同为至少 6 个月，第 26 条）",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "欧盟人工智能法案第 18、19、26 条全文页 https://artificialintelligenceact.eu/article/18/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/18/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "第 27 条 FRIA 适用主体：部署高风险系统的公法机构、提供公共服务的私营主体，以及附件三 5(b) 信贷评估与 5(c) 人寿健康保险定价的全部部署者；附件三第 2 点除外",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "欧盟人工智能法案第 27 条全文页 https://artificialintelligenceact.eu/article/27/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/27/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "第 25 条：贴上自己名称或商标、对已上市高风险系统做实质性修改、或把非高风险系统的预期用途改成高风险，部署者或第三方即被视为提供者",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "欧盟人工智能法案第 25 条全文页 https://artificialintelligenceact.eu/article/25/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/article/25/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "附件三第 4 点(a)把「招聘或选拔，特别是定向投放招聘广告、分析筛选求职申请、评估候选人」并列点名为高风险",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "欧盟人工智能法案附件三全文页 https://artificialintelligenceact.eu/annex/3/",
+     "verified": "2026-10-20",
+     "source": "artificialintelligenceact.eu/annex/3/（2026-10-20 逐字核对，该站已并入 Regulation (EU) 2026/1744 修正文本）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "SR 11-7（2011）与 SR 21-8（2021）已于 2026-04-17 被 SR 26-2《Revised Guidance on Model Risk Management》与 OCC Bulletin 2026-13 取代",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "美联储 SR 26-2 官方页 https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm",
+     "verified": "2026-10-20",
+     "source": "www.federalreserve.gov/supervisionreg/srletters/SR2602.htm（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "SR 26-2 修订版把生成式 AI 与代理式 AI 以「新颖且快速演进」为由排除在适用范围外，三家机构另计划就银行使用 AI 发布问询（RFI）",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "Sullivan & Cromwell 2026-04 客户备忘录（转述 SR 26-2／OCC 2026-13 原文）https://www.sullcrom.com/insights/memo/2026/April/OCC-Fed-FDIC-Issue-Revised-Guidance-Model-Risk-Management",
+     "verified": "2026-10-20",
+     "source": "www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-13.html（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "纽约市 Local Law 144：使用自动化雇佣决策工具须做年度独立偏见审计并公开摘要，使用前至少提前 10 个工作日告知候选人，由 DCWP 执法",
      "chapter": "gov-frameworks",
-     "verified": "2026-08-02",
-     "source": "纽约市 DCWP 规则与多家实务解读一致口径（warden-ai、verifywise 等 2026 版汇总）",
+     "verified": "2026-10-20",
+     "source": "www.nyc.gov/site/dca/about/automated-employment-decision-tools.page（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "《互联网信息服务算法推荐管理规定》第 24、25 条：提供服务之日起 10 个工作日内填报备案；备案信息变更之日起 10 个工作日内办变更；终止服务之日起 20 个工作日内办注销；主管部门收到完整材料后 30 个工作日内予以备案并发放编号",
+     "text": "《互联网信息服务算法推荐管理规定》第 24、25 条：具有舆论属性或者社会动员能力的算法推荐服务提供者提供服务之日起 10 个工作日内填报备案；备案信息变更之日起 10 个工作日内办变更；终止服务之日起 20 个工作日内办注销；主管部门收到完整材料后 30 个工作日内予以备案并发放编号",
      "chapter": "gov-china-interface",
-     "verified": "2026-08-02",
-     "source": "中央网信办官网原文 https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2022-01/04/c_1642894606364259.htm（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "《生成式人工智能服务管理暂行办法》第 2 条：未向境内公众提供服务的研发应用不适用本办法；第 17 条：有舆论属性或社会动员能力的服务须开展安全评估并履行算法备案及变更、注销手续",
      "chapter": "gov-china-interface",
-     "verified": "2026-08-02",
-     "source": "中央网信办官网原文 https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2023-07/13/c_1690898327029107.htm（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "《人工智能安全治理框架》2.0 于 2025-09-15 国家网络安全宣传周发布，为全国网安标委技术文件，非强制性法规",
      "chapter": "gov-china-interface",
-     "verified": "2026-08-02",
-     "source": "中央网信办官网发布稿 https://www.cac.gov.cn/2025-09/15/c_1759653448369123.htm",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2025-09/15/c_1759653448369123.htm（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "AWS Audit Manager 转入维护模式：2026-04-30 起新账号无法启用，存量账号可继续使用；停用后证据保留两年；官方指向 AWS Config Conformance Packs 作为替代，但 SOC2、GDPR 无对应模板",
@@ -1186,14 +1186,14 @@ window.KB = {
      "due": "2026-12-04"
     },
     {
-     "text": "欧盟人工智能法案第 4 条 AI 素养义务自 2025-02-02 适用，由成员国市场监管机构自 2026-08-02 起监督执行；欧委会明确未规定「足够」的具体水平，也不要求任何证书",
+     "text": "欧盟人工智能法案第 4 条 AI 素养义务自 2025-02-02 适用，2026 年数字综合法案（Regulation (EU) 2026/1744）将其改写为提供方与部署方须「采取措施支持」员工 AI 素养的发展、且不要求保证任何个人达到特定水平，欧委会与成员国负责支持协助；由成员国市场监管机构自 2026-08-02 起监督执行；欧委会明确未规定「足够」的具体水平，也不要求任何证书",
      "chapter": "gov-operating",
-     "verified": "2026-08-02",
-     "source": "欧盟委员会官方 Q&A「AI literacy – questions & answers」https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers",
+     "verified": "2026-10-20",
+     "source": "digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -1437,7 +1437,7 @@ window.KB = {
    "dir": "AI-Infra-Compute",
    "layer": "算力底座层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "aic-overview",
@@ -1492,92 +1492,92 @@ window.KB = {
     {
      "text": "NVIDIA 年更：Blackwell/GB200 在役、GB300 2026 放量（已成 2026 出货主力，TrendForce 2026-08-28）、Rubin H2 2026（HBM4+NVLink 6）、Rubin Ultra 2027（GTC 2026 展示 Kyber）、Feynman 2028",
      "chapter": "aic-chips",
-     "verified": "2026-09-05",
-     "source": "jonpeddie.com/news/nvidia-gtc-2026-keynote/；trendforce.cn 2026-08-28（2026-09-05 逐字核对；「出货约翻倍」旧子项无页上原文，按 TrendForce 原文改「出货主力」）",
+     "verified": "2026-10-20",
+     "source": "www.jonpeddie.com/news/nvidia-gtc-2026-keynote/（2026-10-20 逐字核对）；nvidia.com/en-us/data-center/vera-rubin-nvl72/；trendforce.cn 2026-08-28（2026-09-05 核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "VR200 NVL72 官方口径推理性能约为 GB300 NVL72 的 3.3 倍",
+     "text": "VR200 NVL72 官方口径推理吞吐最高约为 GB300 NVL72 的 3.7 倍（MLPerf Inference v6.1 预览提交，Qwen3-VL 负载，NVIDIA 2026-09-16）",
      "chapter": "aic-chips",
-     "verified": "2026-07-09",
-     "source": "NVIDIA GTC 2026",
+     "verified": "2026-10-20",
+     "source": "blogs.nvidia.com/blog/vera-rubin-nvl72-mlperf-inference（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "**AMD Helios 已从「承诺」翻页为「投产」**：MI350X/MI355X 早已量产（288GB HBM3e）；MI400 + Helios 在 Advancing AI 2026（2026-07-22/23，旧金山）正式发布，AMD 官方措辞是「now in production to be deployed by leading AI companies at gigawatt scale」。整柜规格：72 × MI455X + 18 颗第六代 EPYC「Venice」，31TB HBM4，峰值 2.9 EF FP4 / 1.4 EF FP8；单卡 MI455X 432GB HBM4、23.3TB/s、最高 40 PFLOPS FP4。首代仍走 UALink over Ethernet 过渡。已点名的部署方：OpenAI、Anthropic、Meta、Microsoft、Oracle、HUMAIN、Tensorwave、Vultr、Cirrascale；OpenAI 官方口径「预计 2026 Q4 起上线、2027 加速铺开」，Anthropic 合作规模「至多 2GW」。**「Q3 出货」核不到 AMD 一等源**（只见分析机构口径），故成品只写「已投产 + OpenAI Q4 起上线」；**原登记的「TSMC 2nm」在 amd.com 产品页查无实据，本次从成品中撤下**",
      "chapter": "aic-chips",
-     "verified": "2026-09-05",
-     "source": "ir.amd.com/news-events/press-releases/detail/1294/（aai-2026-full-stack-compute，2026-09-05 逐字核对）；storagereview.com（MI455X/Helios 规格）",
+     "verified": "2026-10-20",
+     "source": "ir.amd.com/news-events/press-releases/detail/1294/（2026-10-20 逐字核对）；storagereview.com（MI455X/Helios 规格）",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "Google TPU v7 Ironwood 2025-11 GA（192GB HBM3e、7.37TB/s、4614 FP8 TFLOPS、9216 芯 42.5EFLOPS）；AWS Trainium3 已出货（3nm、2.52PF FP8、144GB HBM3e）；两家下一代排 2027",
+     "text": "Google TPU v7 Ironwood 2025-11 GA（192GB HBM3e、7.37TB/s、4614 FP8 TFLOPS、9216 芯 42.5EFLOPS）；AWS Trainium3 已出货（3nm、2.52PF FP8、144GB HBM3e）；Google 下一代 TPU 8t（训练）/TPU 8i（推理）已在 Cloud Next '26 发布，官方口径 2026 年内 GA；AWS 下一代排 2027",
      "chapter": "aic-chips",
-     "verified": "2026-07-09",
-     "source": "Google Cloud 官方、SemiAnalysis、Spheron 2026 盘点",
+     "verified": "2026-10-20",
+     "source": "blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/eighth-generation-tpu-agentic-era/（2026-10-20 逐字核对）；docs.cloud.google.com/tpu/docs/tpu7x（Ironwood 规格）；aws.amazon.com/ai/machine-learning/trainium/（Trainium3）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "昇腾 950 系列已成 2026 主力：950PR 2026-05 起出货、6 月近 10 万片、Q3 单月目标 12–13 万片；950DT 高带宽版提前至 2026-08 上华为云（HiZQ 2.0 内存 144GB/4TB/s，支持 FP8/MXFP8/MXFP4，华为相关负责人口径，ZOL 2026-06-08）。910 系列退居二线：Q3 单月出货约 3.5–4 万片、Q4 随换代下降；910C 算力约 H100 的 60%（DeepSeek-R1 推理口径，2025-04 报道）。原「910D 预计 2026 Q2-Q3 量产」窗口已过且无落地一等信源——按 2026-08-01 自带的预案销账：改为定性表述（已多次延后、实际由 950 系列接棒），不再挂具体窗口；「2026 计划约 60 万颗」「SMIC N+2 良率 40-50%」「国产化率 90%+」仍为二手媒体口径、一等源查无，本轮一并删去",
      "chapter": "aic-chips",
-     "verified": "2026-09-05",
-     "source": "ai.zol.com.cn/1195/11955311.html（引华为相关负责人）；finance.sina.cn 2026-07-26 调研纪要（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "ai.zol.com.cn/1195/11955311.html（2026-10-20 逐字核对）；finance.sina.cn 2026-07-26 调研纪要",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "NVLink 5 单卡 1.8TB/s（18 端口）、NVL72 域内 NVLink Switch 总带宽 130TB/s",
      "chapter": "aic-scaleup",
-     "verified": "2026-07-09",
-     "source": "NVIDIA 官方 GB200 NVL72 页",
+     "verified": "2026-10-20",
+     "source": "www.nvidia.com/en-us/data-center/gb200-nvl72/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "UALink 1.0（2025-04 定稿，单层交换/至多 1024 端点）与 Broadcom SUE 竞争；原生硬件平台看 2027",
      "chapter": "aic-scaleup",
-     "verified": "2026-07-09",
-     "source": "SemiAnalysis \"The New AI Networks\"",
+     "verified": "2026-10-20",
+     "source": "ualinkconsortium.org/wp-content/uploads/2025/04/UALink-1.0-Specification-PR_FINAL.pdf（2026-10-20 逐字核对）；SemiAnalysis \"The New AI Networks\"",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "InfiniBand Quantum-X800 XDR 800Gb/s；2025 年中起新机柜配 ConnectX-8 支持 XDR（此前 NDR 400Gb/s）；Spectrum-X800 多租户以太",
      "chapter": "aic-scaleout",
-     "verified": "2026-07-09",
-     "source": "NVIDIA、NADDOD 架构分析",
+     "verified": "2026-10-20",
+     "source": "www.nvidia.com/en-us/networking/products/infiniband/quantum-x800/（2026-10-20 逐字核对）；NADDOD 架构分析",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "Ultra Ethernet UEC 1.0 规范 2025-06 发布（现 1.0.2，官网免费 PDF），100+ 成员；2026 年中全栈 UET 硬件刚出货、多数设备仅\"兼容\"、采纳早期",
+     "text": "Ultra Ethernet UEC 1.0 规范 2025-06 发布，现行版为 1.1（2026-10-12 发布，官网可下载 PDF），100+ 成员；2026 年中全栈 UET 硬件刚出货、多数设备仅\"兼容\"、采纳早期",
      "chapter": "aic-scaleout",
-     "verified": "2026-07-09",
-     "source": "UEC 官网、Arista/WWT/SemiAnalysis",
+     "verified": "2026-10-20",
+     "source": "ultraethernet.org/ultra-ethernet-consortium-releases-specification-1-1-advancing-ai-and-hpc-networking/（2026-10-20 逐字核对）；Arista/WWT/SemiAnalysis（采纳状态）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "HBM4 时代开启：Samsung 2026-02-12 全球首家量产（1c DRAM+4nm、11.7Gbps）、4 个月营收破 $10 亿；SK hynix 2026 商用、预计供 NVIDIA HBM4 约 2/3；在役主流 HBM3e（192-288GB/卡）",
@@ -1592,32 +1592,32 @@ window.KB = {
     {
      "text": "DeepSeek 3FS（Fire-Flyer File System）开源：随机读优先、放弃读缓存，自报集群聚合读 6.6-7.3TB/s，支持训练加载/checkpoint/KVCache 查询",
      "chapter": "aic-storage",
-     "verified": "2026-07-09",
-     "source": "Tom's Hardware、GitHub deepseek-ai/3FS",
+     "verified": "2026-10-20",
+     "source": "github.com/deepseek-ai/3FS（2026-10-20 逐字核对）；Tom's Hardware（7.3TB/s 上限）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "FP8 为生产推理默认精度、训练主流实践；NVFP4 面向 Blackwell、工具链成熟中",
      "chapter": "aic-gpu",
-     "verified": "2026-07-09",
-     "source": "沿用 llm-inference#llminf-quant 同源口径",
+     "verified": "2026-10-20",
+     "source": "vrlatech.com/fp4-vs-fp8-vs-fp16-for-llm-inference-which-precision-should-you-use/（2026-10-20 逐字核对）；沿用 llm-inference#llminf-quant 同源口径",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "成本量级：H100 级时租 $2.89–3.99/卡·时（neocloud 按需档）、自建盈亏线利用率随当期卡价与 API 价重算、托管 API 分两档（开源 70B 级约 $1、前沿旗舰 $12–50/百万输出 token）",
      "chapter": "aic-econ",
-     "verified": "2026-09-05",
-     "source": "沿用 llm-inference#llminf-production 同源口径（源行 2026-09-05 更新）",
+     "verified": "2026-10-20",
+     "source": "www.runpod.io/product/cloud-gpus（2026-10-20 逐字核对）；沿用 llm-inference#llminf-production 同源口径（源行 2026-10-20 更新）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "行业预测 2030 推理算力占 AI 总算力约 75%",
@@ -1782,7 +1782,7 @@ window.KB = {
    "dir": "AI-Infra-Platform",
    "layer": "算力底座层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "aip-overview",
@@ -1837,92 +1837,92 @@ window.KB = {
     {
      "text": "DRA（Dynamic Resource Allocation）K8s v1.34（2025-08）GA 并默认启用，取代 device plugin 的\"只数卡\"模式；GKE/AKS/OpenShift 4.21 等托管发行版已跟进",
      "chapter": "aip-k8s-gpu",
-     "verified": "2026-07-09",
-     "source": "kubernetes.io 官方博客、Red Hat、Google Cloud、AKS 工程博客",
+     "verified": "2026-10-20",
+     "source": "kubernetes.io/blog/2025/09/01/kubernetes-v1-34-dra-updates/（2026-10-20 逐字核对）；Red Hat、Google Cloud、AKS 工程博客",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "KubeCon EU 2026 上 NVIDIA 把 NVIDIA DRA Driver for GPUs 捐给 CNCF；DRA 成 GPU 调度社区主线",
      "chapter": "aip-k8s-gpu",
-     "verified": "2026-07-09",
-     "source": "KubeCon EU 2026 报道、AKS 博客 2026-03",
+     "verified": "2026-10-20",
+     "source": "blogs.nvidia.com/blog/nvidia-at-kubecon-2026（2026-10-20 逐字核对）；AKS 博客 2026-03",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "KAI Scheduler：NVIDIA 2025-04 开源（Apache 2.0），与商业版 Run:ai 同一调度核（gang/拓扑感知/bin-packing/DRA 集成）；Run:ai 差异=UI/多集群/SLA/fractional GPU",
      "chapter": "aip-scheduling",
-     "verified": "2026-07-09",
-     "source": "zenml/cloudoptimo/rack2cloud 2026 对比综述",
+     "verified": "2026-10-20",
+     "source": "github.com/kai-scheduler/KAI-Scheduler（2026-10-20 逐字核对）；zenml/cloudoptimo/rack2cloud 2026 对比综述",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "调度分层共识：Kueue 管准入配额、Volcano/KAI 管 gang 与放置，生产常两层叠用；小集群（<16 卡）单用 Kueue 或 KAI 够用；Slurm 在 HPC 与托管服务中仍主力",
      "chapter": "aip-scheduling",
-     "verified": "2026-07-09",
-     "source": "cloudoptimo/zenml 2026 综述",
+     "verified": "2026-10-20",
+     "source": "kueue.sigs.k8s.io/docs/overview/（2026-10-20 逐字核对）；cloudoptimo/zenml 2026 综述",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "GPU 切分三板斧口径：MIG（硬件隔离、最多 7 实例）、时间片（高密度无隔离、不宜生产多租户）、MPS；HAMi（CNCF）任意 NVIDIA 卡细粒度配额；MIG 正与 DRA 打通",
      "chapter": "aip-sharing",
-     "verified": "2026-07-09",
-     "source": "NVIDIA GPU Operator 文档、scaleops/collabnix/rafay 2026 教程",
+     "verified": "2026-10-20",
+     "source": "docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html（2026-10-20 逐字核对）；scaleops/collabnix/rafay 2026 教程",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "SageMaker HyperPod：EKS/Slurm 双编排 + 弹性容错（自动检测-替换-续训）；2026 上新一键建集群、Slurm continuous provisioning（2026-03）、G7e 实例（2026-04）",
      "chapter": "aip-faulttol",
-     "verified": "2026-07-09",
-     "source": "AWS 官方文档/What's New",
+     "verified": "2026-10-20",
+     "source": "aws.amazon.com/about-aws/whats-new/2026/03/amazon-sagemaker-hyperpod-continuous-provisioning/（2026-10-20 逐字核对）；AWS 官方文档",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "llm-d（K8s 系 P/D 分离）、NVIDIA Dynamo 1.0（2026-03 GTC GA，P/D 编排+KV 感知路由+NIXL）为推理平台化承载",
      "chapter": "aip-serving",
-     "verified": "2026-07-09",
-     "source": "沿用 llm-inference#llminf-disagg 同源口径",
+     "verified": "2026-10-20",
+     "source": "github.com/ai-dynamo/dynamo/releases（2026-10-20 逐字核对）；沿用 llm-inference#llminf-disagg 同源口径",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "自建盈亏线利用率随当期卡价与 API 价重算、托管 API 分两档（开源 70B 级约 $1、前沿旗舰 $12–50/百万输出 token）",
      "chapter": "aip-cloud",
-     "verified": "2026-09-05",
-     "source": "沿用 llm-inference#llminf-production 同源口径（源行 2026-09-05 更新）",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/api/docs/pricing（2026-10-20 逐字核对）；沿用 llm-inference#llminf-production 同源口径（源行 2026-10-20 更新）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "K8s 推理服务化新抽象：KServe 当前 v0.19.0（2026-06-14）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.19.0（2026-07-22）（建议复查日随月度巡检，版本号周级漂移）",
+     "text": "K8s 推理服务化新抽象：KServe 当前 v0.21.0（2026-09-25）；LLMInferenceService CRD 自 v0.18.0（2026-04-29）引入、至今仍是 alpha（serving.kserve.io/v1alpha2）；队列侧 Kueue 当前 v0.20.2（2026-10-15）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "aip-serving",
-     "verified": "2026-08-01",
-     "source": "github.com/kserve/kserve/releases、kserve.github.io 文档（LLMInferenceService 概览 / CRD API）、github.com/kubernetes-sigs/kueue/releases",
+     "verified": "2026-10-20",
+     "source": "github.com/kserve/kserve/releases/tag/v0.21.0（2026-10-20 逐字核对）；kserve.github.io 文档（LLMInferenceService 概览 / CRD API）；github.com/kubernetes-sigs/kueue/releases",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -2068,7 +2068,7 @@ window.KB = {
    "dir": "AI-Ops",
    "layer": "工程保障层",
    "created": "2026-07-10",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "ops-what-why",
@@ -2123,62 +2123,62 @@ window.KB = {
     {
      "text": "OTel GenAI 语义约定 2026-06-12（semconv v1.42.0）起全部 gen_ai.* span/指标/事件迁入独立仓 semantic-conventions-genai，主仓对应定义弃用；整体仍 Development、无一 Stable，新仓尚未发正式版；四类 span（agent/workflow/tool/model）实践已稳但命名仍可能变——「封装一层再用」升为硬要求（建议复查日 2026-10-31，随月度巡检）",
      "chapter": "ops-tracing",
-     "verified": "2026-08-01",
-     "source": "github.com/open-telemetry/semantic-conventions v1.42.0 release notes / github.com/open-telemetry/semantic-conventions-genai（docs/gen-ai 状态徽标均 Development、releases 页为空）",
+     "verified": "2026-10-20",
+     "source": "github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0（2026-10-20 逐字核对）；github.com/open-telemetry/semantic-conventions-genai（docs/gen-ai 状态徽标均 Development、releases 页为空）",
      "recheck": "2026-10-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-10-31"
     },
     {
-     "text": "OTLP 规范 1.10.0：Trace/Metric/Log 三信号 Stable（profiles 仍开发中）——与 GenAI 语义约定的 Development 状态是两条轨，售前别混谈",
+     "text": "OTLP 规范 1.11.1：Trace/Metric/Log 三信号 Stable（profiles 仍开发中）——与 GenAI 语义约定的 Development 状态是两条轨，售前别混谈",
      "chapter": "ops-tracing",
-     "verified": "2026-07-12",
-     "source": "opentelemetry.io/docs/specs/otlp/",
+     "verified": "2026-10-20",
+     "source": "opentelemetry.io/docs/specs/otlp/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
-     "text": "平台许可证与版本锚点：Phoenix 主仓 ELv2（限托管转售，沿 07-12 核实）；Langfuse 已切 v4 大版本线（v4.0.0 2026-07-29 破坏性升级，最新 v4.2.0 2026-07-31；core MIT、ee/ 目录除外的许可结构在 v4 原样保留）；MLflow v3.15.0（2026-07-31，Apache-2.0）",
+     "text": "平台许可证与版本锚点：Phoenix 主仓 ELv2（限托管转售，2026-10-20 复核 LICENSE 仍为 ELv2）；Langfuse v4 大版本线（v4.0.0 2026-07-29 破坏性升级，最新 v4.64.0 2026-10-19；core MIT、ee/ 目录除外的许可结构在 v4 原样保留）；MLflow v3.17.1（2026-10-13，Apache-2.0）",
      "chapter": "ops-tooling",
-     "verified": "2026-08-01",
-     "source": "GitHub releases（langfuse/langfuse、mlflow/mlflow）+ langfuse README 许可节；Phoenix 未复核沿旧记录",
+     "verified": "2026-10-20",
+     "source": "github.com/langfuse/langfuse/releases（2026-10-20 逐字核对）；github.com/mlflow/mlflow releases；github.com/Arize-ai/phoenix LICENSE",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "六平台锚定：LangSmith（LangChain 原生）/ Langfuse（开源领袖，2026-01 被 ClickHouse 收购、开源线维护不变——v4 后 core 仍 MIT、README 明写归属 ClickHouse 且在持续招聘，2026-08-01 复核成立）/ Arize Phoenix（漂移与嵌入分析）/ Helicone（drop-in 代理）/ Datadog LLM Obs / Honeycomb",
      "chapter": "ops-tooling",
-     "verified": "2026-07-10",
-     "source": "digitalapplied / latitude / laminar 2026 横评；github.com/langfuse/langfuse README（Langfuse 行 2026-08-01 复核）",
+     "verified": "2026-10-20",
+     "source": "github.com/langfuse/langfuse（2026-10-20 逐字核对）；digitalapplied / latitude / laminar 2026 横评",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "Braintrust（观测评估一体，免费档 Starter：1 GB 处理数据/月 + 10k scores/月 + 14 天留存，超出后 $4/GB、$2.50/1k scores；计量单位是 GB 处理数据量不是 span）；AgentOps（会话回放 Session replays 已发布；无限循环/递归思维检测仍在路线图 🚧 未发布；官方无「time-travel debugging」一词，对应能力为 Session Replay / Waterfall / Drilldown）",
      "chapter": "ops-tooling",
-     "verified": "2026-09-05",
-     "source": "braintrust.dev/docs/plans-and-limits；github.com/AgentOps-AI/agentops README（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "www.braintrust.dev/docs/plans-and-limits（2026-10-20 逐字核对）；github.com/AgentOps-AI/agentops README",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "APM 系 vs 专用系分工共识：Datadog 类管 token 成本与延迟够用；输出质量评估/漂移/评审队列需专用工具",
+     "text": "APM 系 vs 专用系分工共识：Datadog 类管 token 成本与延迟够用，且已自带人工评审队列（Annotation Queues）与基础评估（托管评估器、提示注入检测、话题聚类）；深度输出质量评估与漂移分析仍偏专用工具",
      "chapter": "ops-tooling",
-     "verified": "2026-07-10",
-     "source": "confident-ai / techsy 2026 对比",
+     "verified": "2026-10-20",
+     "source": "docs.datadoghq.com/llm_observability/evaluations/annotation_queues/（2026-10-20 逐字核对）；confident-ai / techsy 2026 对比",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "观测成本：RAG 管线遥测量为等价传统 API 的 10–50 倍；接入 AI 负载后 APM 账单普遍 +40–200%",
@@ -2399,7 +2399,7 @@ window.KB = {
    "dir": "Agent",
    "layer": "应用模式层",
    "created": "2026-07-07",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "agent-what-why",
@@ -2472,32 +2472,32 @@ window.KB = {
     {
      "text": "MCP 现行规范 2026-07-28（无状态核心，server 可像普通无状态 Web 服务扩容）；2025-11-25 进入兼容期，弃用到移除至少十二个月",
      "chapter": "agent-tools-mcp",
-     "verified": "2026-07-30",
-     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog（2026-10-20 逐字核对）",
      "recheck": "2027-01-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
      "text": "A2A v1.0 于 2026-03-12 发布（当前补丁 v1.0.1，2026-05-28），150+ 组织采用",
      "chapter": "agent-tools-mcp",
-     "verified": "2026-07-12",
-     "source": "github.com/a2aproject/A2A/releases、Linux Foundation 公告",
+     "verified": "2026-10-20",
+     "source": "github.com/a2aproject/A2A/releases（2026-10-20 逐字核对）；Linux Foundation 公告",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "Microsoft Agent Framework 1.0 GA（2026-04-03，.NET/Python 生产可用；Go 版仍 public preview），合并 AutoGen 与 Semantic Kernel",
      "chapter": "agent-orchestration",
-     "verified": "2026-07-12",
-     "source": "微软官方公告、learn.microsoft.com/agent-framework",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/agent-framework/overview/（2026-10-20 逐字核对）；微软官方公告",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "生产可用框架短名单：LangGraph、Claude Agent SDK、OpenAI Agents SDK、Google ADK、MS Agent Framework",
@@ -2510,74 +2510,74 @@ window.KB = {
      "due": "2026-10-05"
     },
     {
-     "text": "框架成熟度锚点：OpenAI Agents SDK 仍 0.x（Python v0.18.2，2026-07-11）；LangGraph 已过 1.0（v1.2.9，2026-07-10）——「短名单都能用，但 API 稳定性承诺不同」",
+     "text": "框架成熟度锚点：OpenAI Agents SDK 仍 0.x（Python v0.24.0，2026-10-15）；LangGraph 已过 1.0（v1.2.16，2026-10-16）——「短名单都能用，但 API 稳定性承诺不同」",
      "chapter": "agent-orchestration",
-     "verified": "2026-07-12",
-     "source": "GitHub releases（openai-agents-python、langgraph）",
+     "verified": "2026-10-20",
+     "source": "github.com/openai/openai-agents-python/releases（2026-10-20 逐字核对）、github.com/langchain-ai/langgraph/releases",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "OWASP Top 10 for Agentic Applications 2026 为 agent 安全行业标准清单",
      "chapter": "agent-eval-guardrails",
-     "verified": "2026-07-09",
-     "source": "沿用 security#sec-agentic 同源口径（genai.owasp.org；2026-09-05 派生条对齐）",
+     "verified": "2026-10-20",
+     "source": "genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/（2026-10-20 逐字核对）；沿用 security#sec-agentic 同源口径（2026-09-05 派生条对齐）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "评估/可观测平台格局：LangSmith、Langfuse、Arize Phoenix、W&B Weave；τ-bench 用 pass^k",
      "chapter": "agent-eval-guardrails",
-     "verified": "2026-07-07",
-     "source": "各官方文档",
+     "verified": "2026-10-20",
+     "source": "github.com/sierra-research/tau-bench（2026-10-20 逐字核对）；各官方文档",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-05"
+     "due": "2027-01-18"
     },
     {
-     "text": "Coze Studio 开源（2025-07，Apache 2.0）：21.1k stars、V0.5.1（2026-02）；SaaS 扣子 3.0（2026-06）多人多 Agent 协作",
+     "text": "Coze Studio 开源（2025-07，Apache 2.0）：21.7k stars、V0.5.1（2026-02）；SaaS 扣子 3.0（2026-06）多人多 Agent 协作",
      "chapter": "agent-lowcode",
-     "verified": "2026-07-10",
-     "source": "github.com/coze-dev/coze-studio / 36kr",
+     "verified": "2026-10-20",
+     "source": "github.com/coze-dev/coze-studio（2026-10-20 逐字核对）；36kr（扣子 3.0）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "Dify：151k stars、v1.16.1（2026-07-28）；v1.16.0（2026-07-17）起 Dify Agent 进入 Open Beta（内置代码沙箱 + 技能系统，默认对全员启用，产品定位从 LLM 应用底座向 agent 运行时延伸）；许可证 = Apache 2.0 + 附加条款（多租户 SaaS / 去 logo 需商业授权）",
+     "text": "Dify：159k stars、v1.17.1（2026-09-10）；v1.16.0（2026-07-17）起 Dify Agent 进入 Open Beta（内置代码沙箱 + 技能系统，默认对全员启用，产品定位从 LLM 应用底座向 agent 运行时延伸），v1.17.0（2026-08-25）加入 E2B 云沙箱后端与工作区级 Skill 管理；许可证 = Apache 2.0 + 附加条款（多租户 SaaS / 去 logo 需商业授权）",
      "chapter": "agent-lowcode",
-     "verified": "2026-08-01",
-     "source": "github.com/langgenius/dify/releases（v1.16.0/v1.16.1 发布说明）、GitHub API stars 实查",
+     "verified": "2026-10-20",
+     "source": "github.com/langgenius/dify/releases（2026-10-20 逐字核对）；GitHub API stars 实查",
      "recheck": "2026-10-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-10-31"
     },
     {
-     "text": "n8n：~127k stars；Sustainable Use License（fair-code，不得转售）；2025-10 融资 $180M（Accel/NVIDIA 参投），估值 ~$2.5B",
+     "text": "n8n：~208k stars；Sustainable Use License（fair-code，不得转售）；2025-10 融资 $180M（Accel/NVIDIA 参投），估值 ~$2.5B；2026-05 获 SAP 战略投资，估值 ~$5.2B",
      "chapter": "agent-lowcode",
-     "verified": "2026-07-10",
-     "source": "docs.n8n.io / 融资报道",
+     "verified": "2026-10-20",
+     "source": "www.highlandeurope.com/n8n-valuation-doubles-to-5-2bn-as-sap-makes-strategic-investment-and-plans-to-embed-the-ai-platform-into-joule-studio/（2026-10-20 逐字核对）；github.com/n8n-io/n8n（stars 与 LICENSE.md）；融资报道",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "HiAgent 2.0 主打数字员工治理；火山引擎居中国智能体开发平台私有化 17.8% / 公有云 19.3% 双第一（IDC 口径）",
+     "text": "HiAgent 2.0 主打数字员工治理；IDC《中国智能体开发平台市场份额，2025》（2026-06-15 首发）：私有化市场（约 17.5 亿元）火山引擎 HiAgent 居首，公有云市场（约 2.5 亿元）火山引擎扣子居首（IDC 口径，新闻稿未公布份额百分比）",
      "chapter": "agent-lowcode",
-     "verified": "2026-07-10",
-     "source": "volcengine.com / IDC 报道",
+     "verified": "2026-10-20",
+     "source": "www.idc.com/resource-center/press-releases/idc%e9%a6%96%e5%8f%91%e6%99%ba%e8%83%bd%e4%bd%93%e5%bc%80%e5%8f%91%e5%b9%b3%e5%8f%b0%e5%b8%82%e5%9c%ba%e4%bb%bd%e9%a2%9d%e6%8a%a5%e5%91%8a-%e7%a7%81%e6%9c%89%e5%8c%96%e5%88%9d/（2026-10-20 逐字核对）；volcengine.com",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "低代码选型共识：问答→Dify、集成→n8n、对话 bot→Coze、私有化+治理→HiAgent 类；生产范式 = 平台做壳、复杂节点下沉代码",
@@ -2590,74 +2590,74 @@ window.KB = {
      "due": "2026-10-08"
     },
     {
-     "text": "记忆框架四强：Mem0（托管最快、47K+ stars、向量+图+KV）/ Letta 前 MemGPT（OS 式内存块）/ Zep（时序知识图谱，自报 LoCoMo 94.7%）/ LangMem（LangGraph 原生）；生产模式 = 小核心常驻 + 检索层 + 遗忘策略",
+     "text": "记忆框架四强：Mem0（托管最快、67K+ stars、向量+图+KV）/ Letta 前 MemGPT（OS 式内存块）/ Zep（时序知识图谱，自报 LoCoMo 94.7%）/ LangMem（LangGraph 原生）；生产模式 = 小核心常驻 + 检索层 + 遗忘策略",
      "chapter": "agent-memory",
-     "verified": "2026-07-11",
-     "source": "vectorize / evermind / jobsbyculture 2026 横评",
+     "verified": "2026-10-20",
+     "source": "github.com/mem0ai/mem0（2026-10-20 逐字核对）、getzep.com/research；vectorize / evermind / jobsbyculture 2026 横评",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-09"
+     "due": "2027-01-18"
     },
     {
      "text": "记忆投毒：OWASP Agentic Top 10 于 2026 新增 ASI06；MINJA 注入成功率 >95%、多研究报 80–99.8%；防线 = 写入过滤/任务间清理/鉴权审计",
      "chapter": "agent-memory",
-     "verified": "2026-07-11",
-     "source": "arXiv 2601.05504 / 2607.06595 / beyondscale",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/abs/2601.05504（2026-10-20 逐字核对）；arXiv 2607.06595 / beyondscale",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-09"
+     "due": "2027-01-18"
     },
     {
-     "text": "Computer Use 三路线：Claude（截图+鼠键全桌面）/ Gemini（DOM 感知浏览器）/ OpenAI Codex Background CU（2026-04-16，macOS 并行）；开源代表 Browser Use；Claude Cowork 2026-03-23 上线",
+     "text": "Computer Use 三路线：Claude（截图+鼠键全桌面）/ Gemini（DOM 感知浏览器）/ OpenAI Codex Background CU（2026-04-16，macOS 并行）；开源代表 Browser Use；2026-03-23 Claude Cowork 与 Claude Code 上线电脑操作（computer use，研究预览）",
      "chapter": "agent-computer-use",
-     "verified": "2026-07-11",
-     "source": "digitalapplied 2026 对比矩阵 / particula",
+     "verified": "2026-10-20",
+     "source": "claude.com/blog/dispatch-and-computer-use（2026-10-20 逐字核对）；digitalapplied 2026 对比矩阵 / particula",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-09"
+     "due": "2027-01-18"
     },
     {
-     "text": "CU 基准两口径：Claude Opus 4.x OSWorld-Verified 83.5%（2024 年起步 14.9%）；OSWorld 2.0 长程仅 20.6%；OpenAI CUA WebVoyager 87% / OSWorld 38.1%——基准 ≠ 生产就绪",
+     "text": "CU 基准两口径：Claude Fable 5 OSWorld-Verified 85.96%（官方榜，2026-08；2024 年起步 14.9%）；OSWorld 2.0 长程仅 20.6%；OpenAI CUA WebVoyager 87% / OSWorld 38.1%——基准 ≠ 生产就绪",
      "chapter": "agent-computer-use",
-     "verified": "2026-07-11",
-     "source": "coasty 榜 / arXiv 2606.29537",
+     "verified": "2026-10-20",
+     "source": "os-world.github.io/static/data/osworld_verified_results.xlsx（2026-10-20 逐字核对）；arXiv 2606.29537",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-09"
+     "due": "2027-01-18"
     },
     {
      "text": "Claude Code sub-agent 机制：`.claude/agents/*.md`（name/description 必填，tools/model 等可选）；内置 Explore / Plan / general-purpose；嵌套深度默认 3 层、环境变量 `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` 可配（v2.1.219 起；曾在 v2.1.172–216 固定 5 层不可配，v2.1.217–218 默认 1 层）；v2.1.198 起默认后台运行、`/agents` 交互向导移除；skill 可绑 `context: fork` 强制在 sub-agent 里跑",
      "chapter": "agent-subagent",
-     "verified": "2026-08-01",
-     "source": "code.claude.com/docs/en/sub-agents（Let subagents spawn their own subagents 节）",
+     "verified": "2026-10-20",
+     "source": "code.claude.com/docs/en/sub-agents（2026-10-20 逐字核对）",
      "recheck": "2026-10-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-10-31"
     },
     {
-     "text": "Codex sub-agent：当前版本默认启用；内置 explorer / worker / default；`.codex/agents/*.toml`（name/description/developer_instructions 必填）；agents.max_threads 默认 6、agents.max_depth 默认 1；spawn_agents_on_csv（CSV 一行一工人）为实验特性",
+     "text": "Codex sub-agent：当前版本默认启用；内置 explorer / worker / default；`.codex/agents/*.toml`（name/description/developer_instructions 必填）；并发上限改为 agents.max_concurrent_threads_per_session（不设由 Codex 自定默认值，agents.max_threads 降为旧别名）",
      "chapter": "agent-subagent",
-     "verified": "2026-07-17",
-     "source": "developers.openai.com/codex/subagents",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/codex/subagents（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-15"
+     "due": "2027-01-18"
     },
     {
      "text": "Anthropic 多 agent 研究系统：比单 agent Opus 4 高 90.2%；agent ≈ 4×、multi-agent ≈ 15× token；token 用量单因素解释 80% 性能方差（BrowseComp）；复杂查询典型并行 3–5 个子 agent，研究时长最多压缩 90%",
      "chapter": "agent-subagent",
-     "verified": "2026-07-17",
-     "source": "anthropic.com/engineering/built-multi-agent-research-system",
+     "verified": "2026-10-20",
+     "source": "www.anthropic.com/engineering/built-multi-agent-research-system（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-15"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -2906,7 +2906,7 @@ window.KB = {
    "dir": "Data-Engineering",
    "layer": "数据底座层",
    "created": "2026-07-11",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "de-what-why",
@@ -2959,24 +2959,24 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "解析四强：LlamaParse（VLM 托管、agentic OCR、<1000 页/天甜区）/ Docling（IBM 开源、AI 版面检测）/ MinerU（OpenDataLab，**2.5 起改走 1.2B 视觉语言模型路线**，当前主力模型 MinerU2.5-Pro-2605-1.2B；**3.1.0 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可**，商用门槛明显降低）/ Unstructured；云文档智能三家为企业默认起点",
+     "text": "解析四强：LlamaParse（VLM 托管、agentic OCR、<1000 页/天甜区）/ Docling（IBM 开源、AI 版面检测）/ MinerU（OpenDataLab，**2.5 起改走 1.2B 视觉语言模型路线**，3.x 末版主力模型 MinerU2.5-Pro-2605-1.2B；**3.1.0 起许可由 AGPLv3 改为基于 Apache 2.0 的自有开源许可**，商用门槛明显降低；**4.0 起把 3.x 的后端选择改为四档解析质量、ONNX/Torch 小模型与独立 VLM 引擎分离**，现行 4.0.x）/ Unstructured；云文档智能三家为企业默认起点",
      "chapter": "de-parsing",
-     "verified": "2026-08-01",
-     "source": "github.com/opendatalab/MinerU README「Changelog」：3.1.0（2026-04-18 许可变更 + 换 2604 模型）、3.3（2026-06-11 换 2605 模型）、3.4（2026-06-18 OCR 换 PP-OCRv6）；建议复查日 2026-11-30",
+     "verified": "2026-10-20",
+     "source": "opendatalab.github.io/MinerU/reference/changelog/（2026-10-20 逐字核对）；github.com/opendatalab/MinerU README「Changelog」：3.1.0（2026-04-18 许可变更 + 换 2604 模型）、3.3（2026-06-11 换 2605 模型）、3.4（2026-06-18 OCR 换 PP-OCRv6）；建议复查日 2026-11-30",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "**基准要看两榜、不能用单一排序下结论**：OmniDocBench v1.6 端到端 Overall——MinerU2.5-Pro 95.75、MinerU 管线后端 86.47、Marker 78.44（榜首是 PaddleOCR-VL-1.6 的 96.34，Docling 未列入该版榜）；olmOCR-bench——Marker 2（balanced）76.0 > MinerU 管线后端 72.7 > Docling 50.3。两榜排序不一致的原因有二：**维护方各是当事人**（OmniDocBench 由 MinerU 同门的 OpenDataLab 维护；olmOCR-bench 题库虽是 Ai2 第三方，但这组分数由 Marker 作者 Datalab 自跑），**测的后端也不同**（Datalab 自己注明比的是「文本层管线」这一档，MinerU 的视觉语言模型后端分数更高）。旧登记的「opendataloader-bench 上 Docling 0.877 居首」已作废",
+     "text": "**基准要看两榜、不能用单一排序下结论**：OmniDocBench v1.6 端到端 Overall——MinerU2.5-Pro 95.75、MinerU 管线后端 86.47、Marker 78.44（2026-09-11 新增 TeleOCR 后榜首为 TeleOCR 的 96.91，PaddleOCR-VL-1.6 为 96.34，Docling 未列入该版榜）；olmOCR-bench——Marker 2（balanced）76.0 > MinerU 管线后端 72.7 > Docling 50.3。两榜排序不一致的原因有二：**维护方各是当事人**（OmniDocBench 由 MinerU 同门的 OpenDataLab 维护；olmOCR-bench 题库虽是 Ai2 第三方，但这组分数由 Marker 作者 Datalab 自跑），**测的后端也不同**（Datalab 自己注明比的是「文本层管线」这一档，MinerU 的视觉语言模型后端分数更高）。旧登记的「opendataloader-bench 上 Docling 0.877 居首」已作废",
      "chapter": "de-parsing",
-     "verified": "2026-08-01",
-     "source": "github.com/opendatalab/OmniDocBench README 端到端榜（v1.6，2026-04-10 更新）；github.com/datalab-to/marker README 基准表（olmOCR-bench 自跑，附可复现 harness）；建议复查日 2026-11-30",
+     "verified": "2026-10-20",
+     "source": "github.com/opendatalab/OmniDocBench（2026-10-20 逐字核对）；github.com/opendatalab/OmniDocBench README 端到端榜（v1.6，2026-04-10 更新）；github.com/datalab-to/marker README 基准表（olmOCR-bench 自跑，附可复现 harness）；建议复查日 2026-11-30",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "向量库口径：pgvector 生产上限约 50–100M 向量（HNSW 重建成瓶颈）；Qdrant p50 4ms/p99 25ms、过滤最强开源；Milvus/Zilliz 十亿级；Weaviate/ES 原生混合最成熟；Pinecone 等托管按量",
@@ -3009,14 +3009,14 @@ window.KB = {
      "due": "2027-01-07"
     },
     {
-     "text": "治理工具锚点：OpenLineage 1.52.0（2026-07-23，Run/Job/Dataset 三实体 + facets）、OPA v1.19.0（2026-07-30）；注意血缘解释「数据怎么来」≠ 访问控制。**本行 2026-08-01 从「稳定事实」表挪回本表**——带版本号的行天然会漂，放在免巡检表里每轮都要靠补审兜底（2026-08-01 巡检结构小修，两处同批：另一处是 AIP 的 KServe/Kueue 行）",
+     "text": "治理工具锚点：OpenLineage 1.54.0（2026-10-13，Run/Job/Dataset 三实体 + facets）、OPA v1.21.3（2026-10-19）；注意血缘解释「数据怎么来」≠ 访问控制。**本行 2026-08-01 从「稳定事实」表挪回本表**——带版本号的行天然会漂，放在免巡检表里每轮都要靠补审兜底（2026-08-01 巡检结构小修，两处同批：另一处是 AIP 的 KServe/Kueue 行）",
      "chapter": "de-governance",
-     "verified": "2026-08-01",
-     "source": "github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随月度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记）",
+     "verified": "2026-10-20",
+     "source": "github.com/open-policy-agent/opa/releases（2026-10-20 逐字核对）；github.com/OpenLineage/OpenLineage releases、github.com/open-policy-agent/opa releases；建议复查日随月度巡检（版本号周级漂移，讲义与网页均未写版本号，只有本表登记）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "「接进来」这一段的云服务快照（核实 2026-08-02）：对象存储与数据湖＝Amazon S3（含 S3 Tables 表桶，原生 Apache Iceberg 格式，S3 自动执行 compaction、快照管理与无引用文件清理）／Azure Data Lake Storage（微软文档现已统称此名，不再写 Gen2；官方明确它不是独立服务或账户类型，而是在 Blob 存储上启用分层命名空间后得到的一组能力）／Google Cloud Storage／阿里云 OSS；存量搬迁＝AWS DataSync（本地端 NFS、SMB、HDFS、对象存储，并支持从 Google Cloud Storage、Azure Blob、Azure Files、阿里云 OSS 等他云搬入）／Google Storage Transfer Service（官方原文「optimized for transfers involving more than 1TiB of data」，是 1TiB 不是 1TB）；企业系统连接器＝Bedrock 托管知识库七个连接器（S3、Confluence、SharePoint、Google Drive、OneDrive、网页爬取、自定义）／Azure AI Search 索引器／Google Gemini Enterprise 连接器（Confluence Cloud、Jira Cloud、SharePoint、OneDrive、Outlook、ServiceNow、Microsoft Entra ID 等）／阿里云百炼数据连接（文件、表格、MySQL、PostgreSQL、PolarDB-X 2.0、语雀、OSS）",
@@ -3029,24 +3029,24 @@ window.KB = {
      "due": "2026-12-04"
     },
     {
-     "text": "「接进来」相关服务的生命周期状态（核实 2026-08-02）：①Amazon Q Business 官方原文「no longer open to new customers」，建议迁往 Amazon Quick，现有客户只保留缺陷与安全修复、不再受理新功能需求；②Amazon Bedrock 自管知识库的 SharePoint 连接器官方标注「preview release and is subject to change」，且只支持 OpenSearch Serverless 向量库；③Azure AI Search 的「SharePoint in Microsoft 365」索引器仍是 preview，官方原文按「as-is」提供、best-effort 支持、且「aren't guaranteed to become generally available」，其 ACL 摄取同样在 preview（文档 2026-07-23 更新）；④微软已于 2026-04-02 停用 SharePoint 的 Azure ACS App-Only 认证，连接器必须改用 Microsoft Entra ID 的 OAuth2 客户端凭据；⑤Azure Data Factory 的 CDC 文档页顶已把 Microsoft Fabric 的 Data Factory 标为「next generation of Azure Data Factory」并引导升级，ADF 本身未停售",
+     "text": "「接进来」相关服务的生命周期状态（核实 2026-10-20）：①Amazon Q Business 官方原文「no longer open to new customers」，建议迁往 Amazon Quick，现有客户只保留缺陷与安全修复、不再受理新功能需求；②Amazon Bedrock 自管知识库（customer-managed）自 2026-09-30 起不再支持新建 SharePoint（及 Confluence、Salesforce、Web Crawler）连接器，存量连接器照常摄取与检索，官方改荐 Amazon Bedrock Managed Knowledge Base；该连接器仍标「preview release and is subject to change」，且只支持 OpenSearch Serverless 向量库；③Azure AI Search 的「SharePoint in Microsoft 365」索引器仍是 preview，适用通用预览条款（无 SLA、不建议生产、GA 前可能变更或受限），其 ACL 摄取同样在 preview（2026-05-01-preview 起支持增量 ACL 更新）；④微软已于 2026-04-02 停用 SharePoint 的 Azure ACS App-Only 认证，连接器必须改用 Microsoft Entra ID 的 OAuth2 客户端凭据；⑤Azure Data Factory 的 CDC 文档页顶已把 Microsoft Fabric 的 Data Factory 标为「next generation of Azure Data Factory」并引导升级，ADF 本身未停售",
      "chapter": "de-pipeline",
-     "verified": "2026-09-05",
-     "source": "AWS Amazon Q Business 用户指南「Amazon Q Business availability change」页；Amazon Bedrock 用户指南 sharepoint-data-source-connector 页（同页载明 ACS 停用日期）；Microsoft Learn「SharePoint in Microsoft 365 indexer」页；Microsoft Learn「Change data capture - Azure Data Factory」页 https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/qbusiness-availability-change.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/bedrock/latest/userguide/sharepoint-data-source-connector.html（2026-10-20 逐字核对）；AWS Amazon Q Business 用户指南「Amazon Q Business availability change」页；Amazon Bedrock 用户指南 sharepoint-data-source-connector 页（同页载明 ACS 停用日期）；Microsoft Learn「SharePoint in Microsoft 365 indexer」页；Microsoft Learn「Change data capture - Azure Data Factory」页 https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/qbusiness-availability-change.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "增量同步的三条能力边界（核实 2026-08-02）：①AWS DMS 官方原文「AWS DMS CDC does not provide real-time replication」「There are no SLAs for CDC latency」，延迟可能到数分钟或更久，随源库负载、网络、复制实例资源与目标写入能力波动；②Azure Data Factory 的原生 CDC 连接器只有 SAP CDC、Azure SQL Database、SQL Server、Azure SQL 托管实例、Cosmos DB（SQL API 与分析存储）、Snowflake 这几类，MySQL 与 PostgreSQL 只能走「自增列自动增量抽取」；③Google Gemini Enterprise 官方原文「An incremental sync ... does not sync identity data or deletions of entity data」，删除与身份变更要靠全量同步兜底，所以全量必须排期，不能只排增量",
      "chapter": "de-pipeline",
-     "verified": "2026-08-02",
-     "source": "AWS DMS 用户指南「Creating tasks for ongoing replication」页；Microsoft Learn「Change data capture - Azure Data Factory」页；Google Cloud「Introduction to connectors and data stores」（Gemini Enterprise）页 https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html（2026-10-20 逐字核对）；AWS DMS 用户指南「Creating tasks for ongoing replication」页；Microsoft Learn「Change data capture - Azure Data Factory」页；Google Cloud「Introduction to connectors and data stores」（Gemini Enterprise）页 https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "托管知识库的源端权限接入已从「基本没有」变成「三家都有、但都带条件」（核实 2026-08-02，此条推翻了早前「Bedrock 不做 ACL」的说法）：①Amazon Bedrock 托管知识库提供 ACL 感知检索（ACL-aware retrieval），SharePoint、OneDrive、Google Drive、Confluence 既做预过滤又在每次查询时回源实时复核权限，S3 与自定义连接器靠客户提供的 ACL 配置文件做预过滤、无实时复核，网页爬取不支持；以邮箱为唯一用户标识，无别名解析与跨身份源映射，邮箱对不上就静默无结果；出错时一律 fail closed；官方同时明写「ACL awareness is not authorization」「does not authenticate end users」，认证责任在调用方应用；②对照面，Bedrock 自管知识库的 SharePoint 连接器页仍明写同步进来的全部数据对任何拥有 bedrock:Retrieve 权限的人可检索，「包括源端设有权限管控的数据」；③Google Gemini Enterprise 提供独立的身份同步（identity sync），定义为「captures data about user accounts associated with an ACL group」；④Azure AI Search 的 SharePoint 索引器提供基础 ACL 摄取，仍在 preview。托管侧不覆盖时，退路仍是按访问级别把内容拆成多个知识库分别授权",
@@ -3071,12 +3071,12 @@ window.KB = {
     {
      "text": "AWS 文档侧的语言硬边界：Amazon Textract 官方「Set Quotas」明列只支持英、法、德、意、葡、西六种文字检测，并明示不支持竖排文字（vertical text，中日文常见）；Bedrock Data Automation 的同步与异步两张文档要求表同样只列英、德、西、法、意、葡，也同样明写不支持竖排（中文只出现在它的音频输入与自定义词表两侧）。对照面：Azure prebuilt-read／prebuilt-layout 印刷体覆盖中文简繁（zh-Hans／zh-Hant）、手写体 v4.0 覆盖简体中文；Google Enterprise Document OCR 在官方处理器清单里写「200 多种语言」，并支持 languageHints 语言提示。",
      "chapter": "de-parsing",
-     "verified": "2026-08-02",
-     "source": "AWS《Set Quotas in Amazon Textract》；AWS《Prerequisites for using Bedrock Data Automation》（bda-limits）；Microsoft Learn《Language and locale support for Read and Layout》；Google Cloud《Processor list》与《Enterprise Document OCR》条目 https://docs.aws.amazon.com/textract/latest/dg/limits-document.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/textract/latest/dg/limits-document.html（2026-10-20 逐字核对）；AWS《Set Quotas in Amazon Textract》；AWS《Prerequisites for using Bedrock Data Automation》（bda-limits）；Microsoft Learn《Language and locale support for Read and Layout》；Google Cloud《Processor list》与《Enterprise Document OCR》条目 https://docs.aws.amazon.com/textract/latest/dg/limits-document.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "解析配额（2026-08-02 核实）：Textract 同步 PDF／TIFF 限 1 页、10MB，异步限 3000 页、500MB；Bedrock Data Automation 异步开分割器 3000 页、500MB，控制台入口只到 20 页、200MB，同步档 10 页、50MB；Azure prebuilt-layout 单文件 2000 页，S0 付费档 500MB、F0 免费档 4MB 且只处理前两页；Google 版面解析器在线单 PDF 15 页、20MB，批处理 500 页、单文件 1GB；阿里云文档解析（大模型版）单文件 1.5 万页、150MB，单图 20MB。存量批灌必须按批处理口径估工期与预算。",
@@ -3091,32 +3091,32 @@ window.KB = {
     {
      "text": "两家云的现成人工复核已退场：Google 把 Document AI 的 Human-in-the-Loop 列入官方废弃清单，废弃日 2024-01-16（同批还有 Document AI Warehouse，同日废弃）；AWS 在 Amazon A2I 文档页首注明「Amazon SageMaker A2I is no longer open to new customers」，存量客户照常使用、AWS 继续投入安全与可用性，但不再引入新功能。结论：低置信页的复核队列现在基本要自建，不能当成云侧现成件写进方案。",
      "chapter": "de-parsing",
-     "verified": "2026-08-02",
-     "source": "Google Cloud《Document AI deprecations》（docs.cloud.google.com/document-ai/docs/deprecation）；AWS《Using Amazon Augmented AI for Human Review》页首 Note https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-use-augmented-ai-a2i-human-review-loops.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/a2i-use-augmented-ai-a2i-human-review-loops.html（2026-10-20 逐字核对）；Google Cloud《Document AI deprecations》（docs.cloud.google.com/document-ai/docs/deprecation）；AWS《Using Amazon Augmented AI for Human Review》页首 Note https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-use-augmented-ai-a2i-human-review-loops.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "Google 侧三处改名（2026-08-02 核实）：①「Managed Service for Apache Spark」是原「Dataproc on Compute Engine」（集群部署）与「Google Cloud Serverless for Apache Spark」（无服务器部署，更早叫 Dataproc Serverless）的新名；②Cloud Composer 更名为 Managed Service for Apache Airflow，Gen 3 当日最新为 Airflow 3.1.8（与 2.11.1 并列，后者为默认），并无 Airflow 3.2.x；③Dataplex Universal Catalog 于 2026-04-10 起改称 Knowledge Catalog，API／客户端库／CLI／IAM 名称不变，数据质量扫描内置 Uniqueness 唯一性规则",
+     "text": "Google 侧三处改名（2026-10-20 核实）：①「Managed Service for Apache Spark」是原「Dataproc on Compute Engine」（集群部署）与「Google Cloud Serverless for Apache Spark」（无服务器部署，更早叫 Dataproc Serverless）的新名；②Cloud Composer 更名为 Managed Service for Apache Airflow，Gen 3 当日最新为 Airflow 3.3.1 与 3.2.2（与 2.11.1 并列，后者为默认）；③Dataplex Universal Catalog 于 2026-04-10 起改称 Knowledge Catalog，API／客户端库／CLI／IAM 名称不变，数据质量扫描内置 Uniqueness 唯一性规则",
      "chapter": "de-pipeline",
-     "verified": "2026-08-02",
-     "source": "Google 官方文档：Managed Service for Apache Spark 无服务器部署概览（页内写明改名）；Managed Service for Apache Airflow 版本列表与 Managed Airflow 概览（页内写明 Cloud Composer 更名）；Knowledge Catalog 自动数据质量概览（页内写明原名与规则类型） https://docs.cloud.google.com/dataproc-serverless/docs/overview",
+     "verified": "2026-10-20",
+     "source": "docs.cloud.google.com/composer/docs/composer-versions（2026-10-20 逐字核对）；Google 官方文档：Managed Service for Apache Spark 无服务器部署概览（页内写明改名）；Managed Service for Apache Airflow 版本列表与 Managed Airflow 概览（页内写明 Cloud Composer 更名）；Knowledge Catalog 自动数据质量概览（页内写明原名与规则类型） https://docs.cloud.google.com/dataproc-serverless/docs/overview",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Azure 侧两处已换代（2026-08-02 核实）：Azure Data Factory 的 Workflow Orchestration Manager（托管 Airflow）自 2026-01-01 起不能新建 Airflow 实例，官方要求 2025-12-31 前迁到 Microsoft Fabric 的 Apache Airflow job（Fabric 文档称其为 Workflow Orchestration Manager 的下一代），该页已归档；承载一方托管 Flink 的 Azure HDInsight on AKS 已于 2025-01-31 退役，官方要求迁往 Microsoft Fabric 或等价 Azure 产品。同日核对：Azure Stream Analytics 介绍页无退役公告，仍在维护",
      "chapter": "de-pipeline",
-     "verified": "2026-08-02",
-     "source": "Microsoft Learn「What is Workflow Orchestration Manager?」（已归档，页首退役公告）；Microsoft Learn「What is Apache Flink in Azure HDInsight on AKS?」（已归档，页首退役公告）；Microsoft Fabric「What is Apache Airflow job?」；Microsoft Learn「Introduction to Azure Stream Analytics」 https://learn.microsoft.com/en-us/azure/data-factory/concepts-workflow-orchestration-manager",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/data-factory/concepts-workflow-orchestration-manager（2026-10-20 逐字核对）；Microsoft Learn「What is Workflow Orchestration Manager?」（已归档，页首退役公告）；Microsoft Learn「What is Apache Flink in Azure HDInsight on AKS?」（已归档，页首退役公告）；Microsoft Fabric「What is Apache Airflow job?」；Microsoft Learn「Introduction to Azure Stream Analytics」 https://learn.microsoft.com/en-us/azure/data-factory/concepts-workflow-orchestration-manager",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Amazon Bedrock 批量推理确实覆盖嵌入模型：官方「支持批量推理的区域与模型」表逐行列出 Titan Text Embeddings V2（amazon.titan-embed-text-v2:0，十余个区域）与 Amazon Nova Multimodal Embeddings（amazon.nova-2-multimodal-embeddings-v1:0，当日仅 us-east-1）。折扣口径已更新：定价页 50% 折扣原句仍是「select foundation models (FMs) from leading AI providers like Anthropic, Meta, Mistral AI, and Amazon for batch inference at a 50% lower price compared to on-demand inference pricing」，且定价表已出现嵌入模型的 Batch 价行（Nova Multimodal Embeddings 有 On-demand 与 Batch 两列）——旧表述「页面并未给出任何嵌入模型的批量价」不再成立，嵌入能否套用折扣须按定价页当期 batch 行逐模型核对，不能照搬 5 折",
@@ -3141,22 +3141,22 @@ window.KB = {
     {
      "text": "Azure OpenAI 全球批量的口径已核实：官方文档写明「24 小时目标周转、成本比全球标准低 50%」，completion window 当前只能填 24h，超窗任务状态为 expired（但服务不主动过期长跑任务）。但同页 FAQ「Can I use the batch API for embeddings models?」（批量 API 能否用于嵌入模型）一条的答复原文是「The batch API doesn't currently support fine-tuned models.」——复制了微调那条的答案、答非所问，因此不能据此认定支持嵌入，落地前须另行确认",
      "chapter": "de-pipeline",
-     "verified": "2026-08-02",
-     "source": "Microsoft Learn「How to use global batch processing with Azure OpenAI in Microsoft Foundry Models」（50%／24 小时表述与该条 FAQ 原文逐字核对） https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/batch",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/foundry/openai/how-to/batch（2026-10-20 逐字核对）；Microsoft Learn「How to use global batch processing with Azure OpenAI in Microsoft Foundry Models」（50%／24 小时表述与该条 FAQ 原文逐字核对） https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/batch",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "服务名与形态是当日快照，且正在动：Google 两处连改——Dataplex Universal Catalog 自 2026-04-10 起改名 Knowledge Catalog，BigLake 自 2026-04-20 起改名 Lakehouse for Apache Iceberg（BigLake metastore 改称 Lakehouse 运行时目录），两处均只改叫法，官方原文写「The API, client library, CLI, and IAM names remain unchanged」。同类「形态快照」还有 Databricks 预测式优化的默认开启范围：官方文档写明 2024-11-11 及以后创建的账号默认开启，存量账号灰度中、预计 2026 年 8 月完成——今天正好在这个窗口里，别按「默认都开了」讲。本节服务名一律按 2026-08-02 当日官方文档写。",
+     "text": "服务名与形态是当日快照，且正在动：Google 两处连改——Dataplex Universal Catalog 自 2026-04-10 起改名 Knowledge Catalog，BigLake 自 2026-04-20 起改名 Lakehouse（BigLake metastore 改称 Lakehouse 运行时目录），两处均只改叫法，官方原文写 API、客户端库、CLI 与 IAM 名称不变。同类「形态快照」还有 Databricks 预测式优化的默认开启范围：官方文档写明 2024-11-11 及以后创建的账号默认开启，存量账号灰度、预计 2026 年 8 月完成——该时点已过但文档至今（2026-10-20）仍是「预计」口径、未宣布完成，别按「默认都开了」讲，存量账号以工作区实际开关为准。本节服务名一律按 2026-10-20 当日官方文档写。",
      "chapter": "de-governance",
-     "verified": "2026-09-05",
-     "source": "Google Cloud 官方文档《Knowledge Catalog overview》改名说明、《Set up the Lakehouse Iceberg REST catalog endpoint》改名说明；Databricks 官方文档《Predictive optimization for Unity Catalog managed tables》 https://docs.cloud.google.com/dataplex/docs/introduction",
+     "verified": "2026-10-20",
+     "source": "docs.databricks.com/aws/en/optimizations/predictive-optimization（2026-10-20 逐字核对）；Google Cloud 官方文档《Knowledge Catalog overview》改名说明、《Set up the Lakehouse Iceberg REST catalog endpoint》改名说明；Databricks 官方文档《Predictive optimization for Unity Catalog managed tables》 https://docs.cloud.google.com/dataplex/docs/introduction",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "行列级管控四家的形态与状态（2026-08-02 逐页核）：AWS Lake Formation 用「数据筛选器」做列级/行级/单元格级，官方原句是「Filters apply only to read operations. Therefore, you can grant only the SELECT Lake Formation permission with filters」；Databricks Unity Catalog 的行过滤器与列掩码由 SQL 用户定义函数实现，基于治理标签的 ABAC（Attribute-Based Access Control，基于属性的访问控制）策略、治理标签与自动数据分类于 2026-05-13 起正式可用，官方明说跨多表要一致效果时推荐用 ABAC 而非逐表挂 UDF；Microsoft Fabric OneLake security 用角色做表/文件夹 + 列级 + 行级，Lakehouse、Spark 笔记本、SQL 分析端点（用户身份模式）、Direct Lake on OneLake 已正式可用，Eventhouse 与「授权第三方引擎」仍是公共预览；BigQuery 是行级安全策略与列级政策标记两件事分开配。开源对位是 Apache Ranger 的行过滤与列掩码。",
@@ -3181,32 +3181,32 @@ window.KB = {
     {
      "text": "列级血缘不能按「支持」一句话承诺，各家都带采集边界：Google Knowledge Catalog 数据血缘对 BigQuery、Dataflow、Data Fusion、托管 Airflow 与 Spark、Vertex AI Pipelines 与 Feature Store、Lakehouse Iceberg REST 目录表等自动采集，但列级血缘不覆盖 BigQuery 的加载作业与例程、单个作业产生超过 1500 条列级链接即不采集、且只到顶层字段（STRUCT、JSON 等复杂类型内的嵌套字段不支持）；可导入 OpenLineage 事件接入第三方来源。阿里云 DataWorks 数据地图侧的边界不在粒度上——表级与字段级血缘都能在表详情「血缘信息」页看到（代码搜索与血缘分析需标准版及以上），边界在采集口径：只展示基于调度作业与数据流转信息解析出的血缘，临时查询等手动操作产生的关系不含在内，离线数据 T+1 更新。",
      "chapter": "de-governance",
-     "verified": "2026-08-02",
-     "source": "Google Cloud《About data lineage》（Knowledge Catalog）；阿里云 DataWorks 官方文档《查看血缘信息》《数据地图》 https://docs.cloud.google.com/dataplex/docs/about-data-lineage",
+     "verified": "2026-10-20",
+     "source": "docs.cloud.google.com/dataplex/docs/about-data-lineage（2026-10-20 逐字核对）；Google Cloud《About data lineage》（Knowledge Catalog）；阿里云 DataWorks 官方文档《查看血缘信息》《数据地图》 https://docs.cloud.google.com/dataplex/docs/about-data-lineage",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "托管湖表的自动维护也有硬失败条件，不是「交出去就不用管」：Amazon S3 Tables 的压实与快照管理默认对表桶内所有表开启（压实默认目标文件 512MB，可在 64–512MB 间调；快照管理默认保留最少 1 个快照、最大快照年龄 120 小时），但官方写明只要表上存在任何用户自定义 tag 或 branch，或在 Iceberg 表属性里设了 history.expire.max-snapshot-age-ms / history.expire.min-snapshots-to-keep，快照管理就对整张表失败，不再过期或清除任何快照，须移除这些 tag、branch 与属性才能恢复；失败状态用 GetTableMaintenanceJobStatus 查。快照过期后被标记为非当前的对象，按无引用文件清理策略的 NoncurrentDays 删除，删除不可恢复。",
      "chapter": "de-governance",
-     "verified": "2026-08-02",
-     "source": "AWS 文档《Maintenance for tables》（Amazon S3 用户指南，S3 Tables） https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-maintenance.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-maintenance.html（2026-10-20 逐字核对）；AWS 文档《Maintenance for tables》（Amazon S3 用户指南，S3 Tables） https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-maintenance.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "托管标注这一格三家云都在收缩：Amazon SageMaker Ground Truth 官方文档页顶注记「Amazon SageMaker Ground Truth 不再对新客户开放，现有客户可照常使用，AWS 继续投入安全与可用性改进，但不计划引入新功能」，Mechanical Turk 劳动力页顶为同款注记；Google Vertex AI Data Labeling Service 已弃用并关停（弃用日 2023-06-30、关停日 2024-10-03），官方改指用 Google Cloud 控制台自助打标或 Google Cloud Marketplace 合作伙伴；阿里云 PAI-iTAG 1.0 自 2026-08-01 起调整为白名单开放并整体进入维护阶段、不再进行新功能迭代。Azure Machine Learning 数据标注（图像与文本项目，可从 Azure Marketplace 挂供应商，一致性标注为公开预览，单项目上限 50 万文件）截至核实日文档仍在、未见退役公告",
+     "text": "托管标注这一格四家云都已收缩或退场：Amazon SageMaker Ground Truth 官方文档页顶注记「不再对新客户开放，现有客户可照常使用，AWS 继续投入安全与可用性改进，但不计划引入新功能」，其 Mechanical Turk 公共众包劳动力已于 2026-09-30 永久关闭；Google Vertex AI Data Labeling Service 已弃用并关停（弃用日 2023-06-30、关停日 2024-10-03），官方改指用 Google Cloud 控制台自助打标或 Google Cloud Marketplace 合作伙伴；阿里云 PAI-iTAG 1.0 自 2026-08-01 起调整为白名单开放并整体进入维护阶段、不再进行新功能迭代；Azure Machine Learning 数据标注已于 2026-09-30 退役，官方要求转向第三方标注服务商，退役当日运行中的标注工作负载被删除、相关应用数据丢失",
      "chapter": "de-quality",
-     "verified": "2026-09-05",
-     "source": "AWS SageMaker AI 开发者指南「Automate data labeling」与「Using the Amazon Mechanical Turk Workforce」（https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management-public.html）页顶注记；Google Cloud「Vertex AI deprecations」（https://docs.cloud.google.com/vertex-ai/docs/deprecations）；阿里云 PAI「iTAG 概述」页顶公告（https://help.aliyun.com/zh/pai/user-guide/itag）；Microsoft Learn「Set up a text labeling project」（https://learn.microsoft.com/en-us/azure/machine-learning/how-to-create-text-labeling-projects）。四处均于 2026-08-02 回源逐句复核 https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/machine-learning/how-to-create-text-labeling-projects（2026-10-20 逐字核对）；AWS SageMaker AI 开发者指南「Automate data labeling」与「Using the Amazon Mechanical Turk Workforce」（https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management-public.html）页顶注记；Google Cloud「Vertex AI deprecations」（https://docs.cloud.google.com/vertex-ai/docs/deprecations）；阿里云 PAI「iTAG 概述」页顶公告（https://help.aliyun.com/zh/pai/user-guide/itag）；Microsoft Learn「Set up a text labeling project」（https://learn.microsoft.com/en-us/azure/machine-learning/how-to-create-text-labeling-projects）。四处均于 2026-08-02 回源逐句复核 https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "数据质量服务的服务名与形态快照：AWS Glue Data Quality 建在开源 DeeQu 上、用 DQDL 规则语言、25+ 内置规则类型，规则推荐只在 Data Catalog 入口支持、定位未过检记录只在 ETL 入口支持；机器学习异常检测与动态规则 2024-08-07 起正式可用，2026-07-27 起 Data Catalog 入口也支持异常检测且结果可写入 Iceberg 表（单 ruleset 上限 2000 条规则／65KB，统计量每账号 10 万条、留存最长两年）；Microsoft Purview 统一目录数据质量提供完整性、一致性、规范性、准确性、新鲜度、唯一性六维度开箱规则 + AI 生成规则，每个数据资产最多 200 条规则，扫描跑在 Apache Spark 3.5 与 Delta Lake 3.2.1 上，独立数据资产扫描、增量扫描、可配质量阈值三项 2026-05 起正式可用（阈值为人工设定值，非按历史自动推算）；Google 的自动数据质量自 2026-04-10 起由 Dataplex Universal Catalog 更名为 Knowledge Catalog（API、客户端库、gcloud 命令、IAM 名称均不变），只扫 BigQuery 与 Iceberg REST Catalog 表；阿里云 DataWorks 数据质量规则与调度任务关联、任务成功后自动触发校验，强规则校验失败阻塞下游任务、弱规则只告警",
@@ -3221,22 +3221,22 @@ window.KB = {
     {
      "text": "云侧自动标注的能力边界与配额（以 SageMaker Ground Truth 为准）：主动学习式自动标注只支持四类内置任务——单标签图像分类、语义分割、边界框目标检测、单标签文本分类，自定义任务与流式标注作业都不支持；最少 1250 个对象，官方强烈建议 5000 个以上；准确率要求由服务预设、不可手工配置——图像与文本分类按「自动标签至少 95% 准确率」反推置信度阈值，边界框期望平均 IoU 0.6、语义分割 0.7；首轮随机抽样若有超过 10% 的对象人工失败，整个标注作业直接失败",
      "chapter": "de-quality",
-     "verified": "2026-08-02",
-     "source": "AWS SageMaker AI 开发者指南「Automate data labeling」（How it works 与 Accuracy of automated labels 两节）。核实日 2026-08-02 https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html（2026-10-20 逐字核对）；AWS SageMaker AI 开发者指南「Automate data labeling」（How it works 与 Accuracy of automated labels 两节）。核实日 2026-08-02 https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "开源自建这一列也要看维护状态，不是「开源就等于长期可用」：Label Studio（HumanSignal 维护，Apache 2.0，支持音频、文本、图像、视频、时序与 HTML，可接 ML 后端做预标注、在线学习与主动学习）与 Great Expectations（Apache 2.0，GX Core 支持 Python 3.10 至 3.13）截至核实日仍在活跃开发；Argilla（Apache 2.0，面向大模型反馈收集与数据集策展）官方仓 README 已声明「原作者已转向新项目，代码库成熟稳定，我们不再新增功能，但会持续修复缺陷并按需发布补丁」，并公开招募维护者",
+     "text": "开源自建这一列也要看维护状态，不是「开源就等于长期可用」：Label Studio（HumanSignal 维护，Apache 2.0，支持音频、文本、图像、视频、时序与 HTML，可接 ML 后端做预标注、在线学习与主动学习）与 Great Expectations（Apache 2.0，GX Core 支持 Python 3.10 至 3.14）截至核实日仍在活跃开发；Argilla（Apache 2.0，面向大模型反馈收集与数据集策展）官方仓 README 已声明「原作者已转向新项目，代码库成熟稳定，我们不再新增功能，但会持续修复缺陷并按需发布补丁」，并公开招募维护者",
      "chapter": "de-quality",
-     "verified": "2026-08-02",
-     "source": "GitHub 官方仓 README：HumanSignal/label-studio（https://github.com/HumanSignal/label-studio）、great-expectations/great_expectations（https://github.com/great-expectations/great_expectations）、argilla-io/argilla（https://github.com/argilla-io/argilla）。核实日 2026-08-02 https://github.com/argilla-io/argilla",
+     "verified": "2026-10-20",
+     "source": "github.com/great-expectations/great_expectations（2026-10-20 逐字核对）；GitHub 官方仓 README：HumanSignal/label-studio（https://github.com/HumanSignal/label-studio）、great-expectations/great_expectations（https://github.com/great-expectations/great_expectations）、argilla-io/argilla（https://github.com/argilla-io/argilla）。核实日 2026-08-02 https://github.com/argilla-io/argilla",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -3393,7 +3393,7 @@ window.KB = {
    "dir": "Evaluation",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "eval-why-hard",
@@ -3446,64 +3446,64 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "MMLU / MMLU-Pro 已功能性饱和,前沿模型普遍 88%+,顶部无区分度",
+     "text": "MMLU / MMLU-Pro 已功能性饱和，前沿模型集中在约 87–90%（BenchLM 2026-10-19 榜 MMLU-Pro 前十 86.7–89.6%），顶部区分度很低",
      "chapter": "eval-benchmarks",
-     "verified": "2026-07-09",
-     "source": "techjacksolutions / kili-technology 2026 基准综述",
+     "verified": "2026-10-20",
+     "source": "benchlm.ai/benchmarks/mmluPro（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "GPQA Diamond 头部：GPT-6 Astra 96.0 居首；其后 Sakana Fugu-Ultra 95.5 / GPT-5.6 Sol 94.6 / Gemini 3.1 Pro 94.3 / Claude Opus 4.7 94.2，前十差距 3.1 分、区分度收窄（BenchLM 2026-09-04 榜口径；各榜互差约 1 分）",
+     "text": "GPQA Diamond 头部：GPT-6 Astra 96.0 居首；其后 Sakana Fugu-Ultra 与 Fugu 并列 95.5 / GPT-5.6 Sol 94.6 / Gemini 3.1 Pro 94.3 / Claude Opus 4.7 94.2，前十差距 2.5 分、区分度收窄（BenchLM 2026-10-19 榜口径；各榜互差约 1 分）",
      "chapter": "eval-benchmarks",
-     "verified": "2026-09-05",
-     "source": "benchlm.ai/benchmarks/gpqa-diamond（Data verified 2026-09-04）",
+     "verified": "2026-10-20",
+     "source": "benchlm.ai/benchmarks/gpqa-diamond（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "HLE 前沿模型约 45~65%（llm-stats 与 BenchLM 2026-09 榜首同为 65.0/65，均为 Claude Fable 5.1；带工具/纯文本各榜口径不一）；「人类专家约 90%」在 HLE 论文正文查无此数，已删；仍是区分度最好的知识型基准之一",
      "chapter": "eval-benchmarks",
-     "verified": "2026-09-05",
-     "source": "llm-stats.com/benchmarks/humanity's-last-exam；benchlm.ai/benchmarks/hle（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "llm-stats.com/benchmarks/humanity's-last-exam（2026-10-20 逐字核对）；benchlm.ai/benchmarks/hle",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "Agent 基准主战场:SWE-bench Verified / Terminal-Bench 2.1(2026-05-06 发布的修订版,沿用 89 任务、修复 28 题并引入持续校验)/ τ²-bench / OSWorld;BFCL v4(2026-04)改 Agentic 加权 40%",
+     "text": "Agent 基准主战场：SWE-bench Verified / Terminal-Bench（2026-05-06 的 2.1 修订版修复 28 题；2026-07-30 出 3.0、2026-08-28 出 4.0，已转为持续维护、语义化版本）/ τ²-bench / OSWorld；BFCL v4（2026-04）改 Agentic 加权 40%",
      "chapter": "eval-benchmarks",
-     "verified": "2026-08-01",
-     "source": "tbench.ai/news + tbench.ai/registry(2.1 官方发布);arXiv 2601.11868;建议复查 2026-11-01",
+     "verified": "2026-10-20",
+     "source": "www.tbench.ai/news（2026-10-20 逐字核对）；arXiv 2601.11868；建议复查 2026-11-01",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "2026-08 头部格局:Claude Opus 5(2026-07-24 发布)以 96% 领跑 SWE-bench Verified(BenchLM 2026-07-31 榜);GPT-5.6(2026-07-09 公开,Sol/Terra/Luna 三档)与 Gemini 3.5 家族(2026-07-21 发 3.6 Flash / 3.5 Flash-Lite / 3.5 Flash Cyber,无 3.5 Pro)已上线,GPT-5.5 仍现役;OpenAI 2026-02-23 以污染为由停报 SWE-bench Verified、改推 SWE-bench Pro,又于 2026-07-08 官方撤回该推荐(约 30% 任务损坏)",
+     "text": "2026-10 头部格局：Claude Opus 5（2026-07-24 发布）仍以 96% 领跑 SWE-bench Verified（BenchLM 2026-10-19 榜；该榜已把此基准移出加权总分、仅作参考）；此后各家已再换代——Anthropic 出 Opus 5.5 / Fable 5.1，OpenAI 出 GPT-6 Astra / GPT-6.1 Sol，Google 出 Gemini 4 Argon / 3.8 Flash，GPT-5.6、GPT-5.5 仍现役；OpenAI 2026-02-23 以污染为由停报 SWE-bench Verified、改推 SWE-bench Pro，又于 2026-07-08 官方撤回该推荐（约 30% 任务损坏）",
      "chapter": "eval-benchmarks",
-     "verified": "2026-09-05",
-     "source": "anthropic.com/news/claude-opus-5 / benchlm.ai/benchmarks/sweVerified / openai.com/index/gpt-5-6 / openai.com/index/why-we-no-longer-evaluate-swe-bench-verified / OpenAI 官方 X(2026-07-08 撤荐声明);建议复查 2026-09-05",
+     "verified": "2026-10-20",
+     "source": "benchlm.ai/benchmarks/sweVerified（2026-10-20 逐字核对）；anthropic.com/news/claude-opus-5；openai.com/index/why-we-no-longer-evaluate-swe-bench-verified / OpenAI 官方 X（2026-07-08 撤荐声明）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "Chatbot Arena → LMArena → Arena(2026-01 更名),累计 600 万+ 投票,估值 17 亿美元",
+     "text": "Chatbot Arena → LMArena → Arena（2026-01 更名），累计 6200 万票（覆盖文本/视觉/代码/搜索/视频/图像），2026-10-08 B 轮融资 2 亿美元、估值 31 亿美元",
      "chapter": "eval-benchmarks",
-     "verified": "2026-07-09",
-     "source": "openlm.ai / news.lmarena.ai",
+     "verified": "2026-10-20",
+     "source": "arena.ai/blog/series-b（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "《The Leaderboard Illusion》(2025):厂商私测多变体择优公开,曾有厂商私测 27 变体只公开最优",
@@ -3536,34 +3536,34 @@ window.KB = {
      "due": "2027-01-05"
     },
     {
-     "text": "开发期开源框架格局:Ragas(RAG 专项)/ DeepEval(50+ 指标, pytest CI)/ promptfoo(矩阵+红队 40+ 插件)",
+     "text": "开发期开源框架格局：Ragas（RAG 起家，现自称通用 LLM 应用评估）/ DeepEval（50+ 指标，pytest CI）/ promptfoo（矩阵+红队 150+ 插件）",
      "chapter": "eval-tooling",
-     "verified": "2026-07-09",
-     "source": "confident-ai / genai.qa / aiml.qa 2026 对比",
+     "verified": "2026-10-20",
+     "source": "www.promptfoo.dev/docs/red-team/plugins/（2026-10-20 逐字核对）；deepeval.com/docs/metrics-introduction；github.com/vibrantlabsai/ragas",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "OpenAI 平台内置 Evals:2026-10-31 起只读,2026-11-30 关停",
      "chapter": "eval-tooling",
-     "verified": "2026-07-09",
-     "source": "developers.openai.com 官方文档",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/api/docs/deprecations（2026-10-20 逐字核对）",
      "recheck": "2026-10-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2026-10-31"
     },
     {
-     "text": "三大云托管评估服务:AWS Bedrock 模型评估作业 / Azure AI Foundry 评估器 / Vertex AI Gen AI 评估服务",
+     "text": "三大云托管评估服务：AWS Bedrock 模型评估作业 / Microsoft Foundry（原 Azure AI Foundry）内置评估器 / Google Gen AI 评估服务（归属 Gemini Enterprise Agent Platform，原 Vertex AI）",
      "chapter": "eval-tooling",
-     "verified": "2026-07-09",
-     "source": "internative / bitslovers / epcgroup 2026 平台对比",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/ai-foundry/concepts/observability（2026-10-20 逐字核对）；docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html；docs.cloud.google.com/vertex-ai/generative-ai/docs/models/evaluation-overview",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -3746,7 +3746,7 @@ window.KB = {
    "dir": "Fine-tuning",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-01",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "ft-when",
@@ -3801,82 +3801,82 @@ window.KB = {
     {
      "text": "OpenAI 微调平台收摊（官方挂「winding down」告示）：新组织 2026-05-07 起不能创建微调任务、60 天内未跑微调推理的组织 2026-07-02 起停止新建、存量活跃客户 2027-01-06 后停止新建；存量微调模型推理保留到对应底座退役（建议复查日 2026-10-31，收摊推进随官方页滚动）",
      "chapter": "ft-cloud",
-     "verified": "2026-08-01",
-     "source": "developers.openai.com/api/docs/deprecations、model-optimization 指南",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/api/docs/deprecations（2026-10-20 逐字核对）；model-optimization 指南",
      "recheck": "2026-10-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-10-31"
     },
     {
-     "text": "Claude 微调唯一托管路径：Amazon Bedrock 上 Claude 3 Haiku SFT（us-west-2）；官方建议 50–10,000 条样本",
+     "text": "Amazon Bedrock 上原唯一托管的 Claude 微调路径（Claude 3 Haiku SFT，us-west-2）已失效：Claude 3 Haiku 于 2026-03-10 进入 Legacy（此后不能新建微调任务），2026-09-10 在 us-west-2 等区域 EOL；没查到可替代的 Claude 托管微调型号",
      "chapter": "ft-cloud",
-     "verified": "2026-07-09",
-     "source": "AWS 官方博客、Claude Cookbook",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html（2026-10-20 逐字核对）；AWS 官方博客 Claude 3 Haiku 微调文（EOL 告示）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "三大云格局：Vertex 微调形态最灵活（全参/LoRA/adapter）；Azure AI Foundry 蒸馏 GA（GPT-4o→Phi-4）；AWS Bedrock 托管 + SageMaker 兜底",
+     "text": "三大云格局：Vertex 微调形态最灵活（全参/LoRA/adapter）；Azure Foundry 基于存储补全（stored completions）的蒸馏流程随该功能于 2026-10-15 退役（官方指引迁往 Responses API 与 Agent Traces）；AWS Bedrock 托管 + SageMaker 兜底（Bedrock 上的 Claude 微调已随 Claude 3 Haiku EOL 失效）",
      "chapter": "ft-cloud",
-     "verified": "2026-07-09",
-     "source": "平台官方与 2026 对比评测",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/foundry-classic/openai/how-to/stored-completions（2026-10-20 逐字核对）；docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html（Bedrock 行）；平台官方与 2026 对比评测（Vertex 行）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "开源框架四强功能趋同，stars（2026-07）：LLaMA-Factory ~68K、Unsloth ~54K、TRL ~18K、Axolotl ~11K",
+     "text": "开源框架四强功能趋同，stars（2026-10）：Unsloth ~78K、LLaMA-Factory ~76K、TRL ~20K、Axolotl ~13K",
      "chapter": "ft-training",
-     "verified": "2026-07-09",
-     "source": "GitHub、框架对比评测",
+     "verified": "2026-10-20",
+     "source": "github.com/unslothai/unsloth（2026-10-20 逐字核对）；GitHub REST API stargazers_count（四仓同日取数）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "PEFT 稳定版 v0.20.0（2026-07-28，一次新增 9 种 PEFT 方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随月度巡检，版本号周级漂移）",
+     "text": "PEFT 稳定版 v0.21.2（2026-10-01；v0.21.0 于 2026-09-15 发布，新增 Riemannian 预条件 LoRA 优化器、KaSA、Super-Tuning、ShadowPEFT 等方法）；0.18.0+ 起才兼容 Transformers v5、要求 Python 3.10+（老环境升级边界）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "ft-training",
-     "verified": "2026-08-01",
-     "source": "github.com/huggingface/peft/releases",
+     "verified": "2026-10-20",
+     "source": "github.com/huggingface/peft/releases（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "TRL v1.9.2（2026-07-28）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随月度巡检，版本号周级漂移）",
+     "text": "TRL v1.16.0（2026-10-15）；KTO 自 v1.8.0（2026-07-09）起转正为顶层 API（旧导入路径 v2.0 前发 FutureWarning）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "ft-training",
-     "verified": "2026-08-01",
-     "source": "github.com/huggingface/trl/releases",
+     "verified": "2026-10-20",
+     "source": "github.com/huggingface/trl/releases（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "vLLM 动态加载 LoRA adapter 有官方安全警告：仅限隔离、完全受信环境（需显式开 VLLM_ALLOW_RUNTIME_LORA_UPDATING）",
      "chapter": "ft-eval-deploy",
-     "verified": "2026-07-12",
-     "source": "docs.vllm.ai/en/stable/features/lora/",
+     "verified": "2026-10-20",
+     "source": "docs.vllm.ai/en/stable/features/lora/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "Unsloth 宣称较 HF+FA2 快 2×、省 70% 显存；3GB 显存可玩，Colab/Kaggle 免费笔记本生态",
      "chapter": "ft-training",
-     "verified": "2026-07-09",
-     "source": "Unsloth 官方文档",
+     "verified": "2026-10-20",
+     "source": "unsloth.ai/docs（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "RFT（可验证奖励微调）为 2026 年微调新风向；开源侧主力算法 GRPO",
@@ -4081,7 +4081,7 @@ window.KB = {
    "dir": "LLM",
    "layer": "基础层",
    "created": "2026-07-08",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "llm-why-transformer",
@@ -4124,62 +4124,62 @@ window.KB = {
     {
      "text": "GQA 8:1 是生产默认（生态支持最全）；MLA 把 KV 缓存压到同级 GQA 的约 1/10，DeepSeek 全系与 GLM-5 在用；Kimi 旗舰已转 KDA 混合——K3 的 93 层 = 69 层 KDA + 24 层 Gated MLA，即每 4 层留 1 层 MLA 兜全局注意力",
      "chapter": "llm-attention-zoo",
-     "verified": "2026-08-01",
-     "source": "huggingface.co/moonshotai/Kimi-K3 模型卡；K3 技术报告 arXiv 2607.24653（建议复查日 2026-11-01）",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/moonshotai/Kimi-K3（2026-10-20 逐字核对）；K3 技术报告 arXiv 2607.24653（建议复查日 2026-11-01）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "DeepSeek V3.2 的 DSA 稀疏注意力（lightning indexer + top-k，O(L²)→O(Lk)）已生产化，GLM-5 跟进；DeepSeek-V4 用混合压缩注意力冲百万上下文",
      "chapter": "llm-attention-zoo",
-     "verified": "2026-07-08",
-     "source": "arXiv 2512.02556、arXiv 2512.12087",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/deepseek-ai/DeepSeek-V4-Pro（2026-10-20 逐字核对）；arXiv 2512.02556、arXiv 2512.12087",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "线性混合格局是「效率 ↔ 精度」的钟摆：Qwen3-Next 的 3:1 Gated DeltaNet 混合被 Qwen3.5 旗舰转正；Kimi Linear 的通道级门控进化为 KDA，随 Kimi K3（总参 2.8T / 激活 104B / 1M 上下文）进旗舰；MiniMax 则 M1 押线性 → M2 退回全注意力 → M3（2026-06-01）改用 MSA 稀疏注意力——「线性未进旗舰」已翻篇，「纯线性扛不住复杂推理」仍成立",
      "chapter": "llm-attention-zoo",
-     "verified": "2026-08-01",
-     "source": "huggingface.co/moonshotai/Kimi-K3 模型卡 + arXiv 2607.24653；minimax.io/blog/minimax-m3 + MSA 论文 arXiv 2606.13392（建议复查日 2026-11-01）",
+     "verified": "2026-10-20",
+     "source": "www.minimax.io/blog/minimax-m3（2026-10-20 逐字核对）；huggingface.co/moonshotai/Kimi-K3 模型卡 + arXiv 2607.24653；MSA 论文 arXiv 2606.13392（建议复查日 2026-11-01）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "FlashAttention-4：2026-03-05 论文（arXiv 2603.05451），2026-07-01 PyPI 发包，面向 Blackwell 非对称硬件",
+     "text": "FlashAttention-4：2026-03-05 论文（arXiv 2603.05451），同日起 PyPI 发 beta 包（flash-attn-4，现行 4.0.0b35，2026-10-14，仍为 beta），面向 Blackwell 非对称硬件",
      "chapter": "llm-attention-zoo",
-     "verified": "2026-07-08",
-     "source": "together.ai 博客、pypi.org/project/flash-attn-4",
+     "verified": "2026-10-20",
+     "source": "pypi.org/pypi/flash-attn-4/json（2026-10-20 逐字核对）；arXiv 2603.05451",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "托管商用模型 ≥1M 上下文窗口已成 2026 旗舰标配（Gemini 3.1 Pro 1M；开源 Llama 4 Scout 标称 10M）；RULER/MRCR v2/NoLiMa 显示多事实检索过 200K 普遍掉 30–60 分",
      "chapter": "llm-inference-kv",
-     "verified": "2026-09-05",
-     "source": "ai.google.dev Gemini 3.1 Pro 模型页（1M）；ai.meta.com Llama 4 博客（10M）；genai.club 长上下文基准汇总（掉分区间）（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview（2026-10-20 逐字核对）；ai.meta.com Llama 4 博客（10M）；genai.club 长上下文基准汇总（掉分区间）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "视频 token 量级：Gemini 官方口径默认分辨率约 300 token/秒（258/帧 @1fps + 音频 32/秒），1 小时视频 ≈ 108 万 token（建议复查日 2026-10-31，随 Multimodal 巡检顺带）",
+     "text": "视频 token 量级：Gemini 官方口径默认（低）分辨率约 100 token/秒（66/帧 @1fps + 音频 32/秒），高分辨率约 300 token/秒（258/帧 @1fps + 音频 32/秒）；1M 上下文默认可装约 3 小时视频、高分辨率约 1 小时（≈108 万 token/小时）（建议复查日 2026-10-31，随 Multimodal 巡检顺带）",
      "chapter": "llm-inference-kv",
-     "verified": "2026-07-20",
-     "source": "ai.google.dev/gemini-api/docs/video-understanding（raw-data/2026-07-20-联网核实笔记-视频token.md）",
+     "verified": "2026-10-20",
+     "source": "ai.google.dev/gemini-api/docs/video-understanding（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-18"
+     "due": "2027-01-18"
     },
     {
      "text": "RoPE 是主流开源模型位置编码的事实标准；超长上下文靠插值/YaRN 等扩展",
@@ -4194,12 +4194,12 @@ window.KB = {
     {
      "text": "MoE 为 2026 主流旗舰标配（DeepSeek-V3 总 671B/激活 37B；Qwen3.5、Kimi K2 同路线）",
      "chapter": "llm-architecture",
-     "verified": "2026-07-08",
-     "source": "DeepSeek-V3 论文、架构对比综述",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/deepseek-ai/DeepSeek-V3（2026-10-20 逐字核对）；架构对比综述",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -4342,7 +4342,7 @@ window.KB = {
    "dir": "LLM-Inference",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "llminf-anatomy",
@@ -4395,44 +4395,44 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "vLLM 当前 v0.26.0（2026-07-27），事实上的默认推理引擎（硬件覆盖最广、NVIDIA NGC 收编）（建议复查日随月度巡检，版本号周级漂移）",
+     "text": "vLLM 当前 v0.32.0（2026-10-18），事实上的默认推理引擎（硬件覆盖最广、NVIDIA NGC 收编）（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "llminf-engines",
-     "verified": "2026-08-01",
-     "source": "github.com/vllm-project/vllm/releases（版本号）；格局定性另见 2026 对比评测（raw-data 核实笔记）",
+     "verified": "2026-10-20",
+     "source": "github.com/vllm-project/vllm/releases/tag/v0.32.0（2026-10-20 逐字核对）；格局定性另见 2026 对比评测（raw-data 核实笔记）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "SGLang 当前 v0.5.16（2026-07-25）；v0.5.13 起投机解码 Spec V2 默认开启；DeepSeek 系 day-0 支持（建议复查日随月度巡检，版本号周级漂移）",
+     "text": "SGLang 当前 v0.5.22（2026-10-19）；v0.5.13 起投机解码 Spec V2 默认开启；DeepSeek 系 day-0 支持（建议复查日随月度巡检，版本号周级漂移）",
      "chapter": "llminf-engines",
-     "verified": "2026-08-01",
-     "source": "github.com/sgl-project/sglang/releases",
+     "verified": "2026-10-20",
+     "source": "github.com/sgl-project/sglang/releases/tag/v0.5.22（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "TensorRT-LLM 进入 1.x（1.0 起 PyTorch 架构转正）；稳定版 v1.2.1，1.3.0 处于 RC（rc20 为最后支持 TensorRT backend 的 RC，下版移除）；商业包装为 NIM",
+     "text": "TensorRT-LLM 进入 1.x（1.0 起 PyTorch 架构转正）；稳定版仍为 v1.2.1，1.3.0 停在 RC（至 rc29，2026-09-29），1.4.0rc0（2026-10-14）已开出；TensorRT backend 已自 1.3.0rc21 起移除（rc20 为最后支持的 RC）；商业包装为 NIM",
      "chapter": "llminf-engines",
-     "verified": "2026-08-01",
-     "source": "GitHub releases（github.com/NVIDIA/TensorRT-LLM/releases）",
+     "verified": "2026-10-20",
+     "source": "github.com/NVIDIA/TensorRT-LLM/releases（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "FP8 为生产推理默认精度（校准后损失约 0.5–2%）；NVFP4 面向 Blackwell、工具链成熟中、尚未大规模生产",
      "chapter": "llminf-quant",
-     "verified": "2026-07-09",
-     "source": "vrlatech/sesamedisk 2026 量化综述",
+     "verified": "2026-10-20",
+     "source": "vrlatech.com/fp4-vs-fp8-vs-fp16-for-llm-inference-which-precision-should-you-use/（2026-10-20 逐字核对）；sesamedisk 2026 量化综述",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "投机解码已生产标配：EAGLE-3 主流、vLLM 报告最高 ~2.5x、接受率>80% 时 2–4x",
@@ -4455,24 +4455,24 @@ window.KB = {
      "due": "2027-01-04"
     },
     {
-     "text": "NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.3.0（2026-07-22，第 16 个特性版）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐（建议复查日随月度巡检，版本号月级漂移）",
+     "text": "NVIDIA Dynamo 1.0 于 2026-03-16 GTC GA，当前稳定版 v1.5.1（2026-10-07）：P/D 分离编排 + KV 感知路由 + NIXL；官方宣称 DeepSeek-R1/Blackwell 最高 7x 吞吐（建议复查日随月度巡检，版本号月级漂移）",
      "chapter": "llminf-disagg",
-     "verified": "2026-08-01",
-     "source": "NVIDIA 官方博客、GitHub releases（github.com/ai-dynamo/dynamo）",
+     "verified": "2026-10-20",
+     "source": "github.com/ai-dynamo/dynamo/releases/tag/v1.5.1（2026-10-20 逐字核对）；NVIDIA 官方博客（1.0 GA 与 7x 口径）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
-     "text": "压测工具换代：NVIDIA AIPerf v0.11.0（2026-07-08）接棒 GenAI-Perf（官方提供迁移指南），配合 vllm bench serve 为 token 级压测主力",
+     "text": "压测工具换代：NVIDIA AIPerf v0.13.0（2026-09-24）接棒 GenAI-Perf（官方提供迁移指南），配合 vllm bench serve 为 token 级压测主力",
      "chapter": "llminf-production",
-     "verified": "2026-07-12",
-     "source": "pypi.org/project/aiperf、github.com/ai-dynamo/aiperf",
+     "verified": "2026-10-20",
+     "source": "github.com/ai-dynamo/aiperf/releases（2026-10-20 逐字核对）；pypi.org/project/aiperf",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
      "text": "P/D 分离成大规模服务共识：Mooncake（FAST'25 最佳论文）、DistServe（OSDI'24）、开源 llm-d（K8s 系）",
@@ -4485,14 +4485,14 @@ window.KB = {
      "due": "2027-01-05"
     },
     {
-     "text": "成本量级参考（2026-09-05 核）：H100 级时租 $2.89–$3.99/卡·时（RunPod 社区云 H100 PCIe $2.89、SXM $3.29、NVL $3.19；Lambda H100 SXM $3.99——neocloud 按需档，预留价更低）；70B 级开源模型托管 API 约 $1/百万输入与输出 token（Together Llama 3.3 70B Turbo $1.04/$1.04，FP8）；前沿闭源旗舰 $12–50/百万输出 token（GPT-5.6 Terra $12、Sol $20、GPT-6 Astra $50，长上下文档至 $75）；自建盈亏线利用率不登记固定区间，按当期卡价与 API 价代入重算；「70B FP8 双卡 ~3000 token/s」无一手实测源，已删",
+     "text": "成本量级参考（2026-10-20 核）：H100 级时租 $2.89–$3.99/卡·时（RunPod H100 PCIe $2.89、SXM $3.99、NVL $3.19；Lambda H100 SXM $3.99——neocloud 按需档，预留价更低）；70B 级开源模型托管 API 约 $1/百万输入与输出 token（Together Llama 3.3 70B $1.04/$1.04）；前沿闭源旗舰 $12–50/百万输出 token（GPT-5.6 Terra $12、Sol $20、GPT-6 Astra $50，长上下文档至 $75）；自建盈亏线利用率不登记固定区间，按当期卡价与 API 价代入重算；「70B FP8 双卡 ~3000 token/s」无一手实测源，已删",
      "chapter": "llminf-production",
-     "verified": "2026-09-05",
-     "source": "runpod.io/product/cloud-gpus；lambda.ai/pricing；docs.together.ai/docs/serverless/models；developers.openai.com/api/docs/pricing（2026-09-05 四家官方页逐字核对）",
+     "verified": "2026-10-20",
+     "source": "www.runpod.io/product/cloud-gpus（2026-10-20 逐字核对）；lambda.ai/pricing；together.ai/pricing；developers.openai.com/api/docs/pricing",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     }
    ],
    "edges": [
@@ -4683,7 +4683,7 @@ window.KB = {
    "dir": "LLM-Training",
    "layer": "基础层",
    "created": "2026-07-08",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "llmtrain-overview",
@@ -4758,22 +4758,22 @@ window.KB = {
     {
      "text": "FP8 混合精度训练进入主流实践（如 MiMo-V2.5-Pro 27T token FP8）",
      "chapter": "llmtrain-pretrain",
-     "verified": "2026-07-08",
-     "source": "OpenRouter 盘点、厂商技术报告",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro（2026-10-20 逐字核对）；厂商技术报告",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "Muon/MuonClip：Kimi K2 15.5T token 零 spike；PyTorch 2.9 原生内置 torch.optim.Muon",
      "chapter": "llmtrain-pretrain",
-     "verified": "2026-07-08",
-     "source": "PyTorch 官方博客；arXiv 2507.20534",
+     "verified": "2026-10-20",
+     "source": "docs.pytorch.org/docs/2.9/generated/torch.optim.Muon.html（2026-10-20 逐字核对）；arXiv 2507.20534",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "数据墙：互联网高质量文本存量约 10–50 万亿 token",
@@ -4796,34 +4796,34 @@ window.KB = {
      "due": "2027-01-04"
     },
     {
-     "text": "开源许可格局在分叉：Apache 2.0 仍是主流（Qwen 开源线 27B / 35B-A3B、Mistral、Gemma），DeepSeek 用 MIT；但旗舰另走一路——Qwen 3.7-Max 只出 API 不放权重，Kimi K3 用自有「Kimi K3 License」（MIT 式条款 + 商用阈值：做 Model as a Service 且连续 12 个月合计营收超 2000 万美元，须与月之暗面另签协议），**不是 Modified MIT**",
+     "text": "开源许可格局在分叉：Apache 2.0 仍是主流（Qwen 开源线 27B / 35B-A3B、Mistral、Gemma），DeepSeek 用 MIT；旗舰开放权重则改走自有许可——Qwen3.8 首次开放 Max 级权重（Qwen3.8-2.4T-A95B），用自有「Qwen3.8-Max License」（MIT 式条款 + 商用阈值：做 Model as a Service 或 AI 办公/编程助手且连续 12 个月合计营收超 5000 万美元，须向 Qwen 另取许可）；Kimi K3 用自有「Kimi K3 License」（MIT 式条款 + 商用阈值：做 Model as a Service 且连续 12 个月合计营收超 2000 万美元，须与月之暗面另签协议），**不是 Modified MIT**",
      "chapter": "llmtrain-eval",
-     "verified": "2026-08-01",
-     "source": "huggingface.co/moonshotai/Kimi-K3 仓 LICENSE 原文；alibabacloud.com/help/en/model-studio/qwen3-7-max 官方模型页（只有 API 定价、无权重下载）；HF Qwen/Qwen3.6-35B-A3B 模型卡标 apache-2.0（建议复查日 2026-11-01）",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/Qwen/Qwen3.8-2.4T-A95B（2026-10-20 逐字核对）；huggingface.co/moonshotai/Kimi-K3 仓 LICENSE 原文；HF Qwen/Qwen3.6-35B-A3B 模型卡标 apache-2.0",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "RLHF Book 2026-01 完成章节重组（对齐 Manning 印刷版），免费在线",
      "chapter": "书单",
-     "verified": "2026-07-08",
-     "source": "rlhfbook.com",
+     "verified": "2026-10-20",
+     "source": "rlhfbook.com/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "Stanford CS336 Spring 2026 视频与作业全部公开",
      "chapter": "书单",
-     "verified": "2026-07-08",
-     "source": "cs336.stanford.edu",
+     "verified": "2026-10-20",
+     "source": "cs336.stanford.edu/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -5001,7 +5001,7 @@ window.KB = {
    "dir": "MCP",
    "layer": "协议层",
    "created": "2026-07-08",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "mcp-what-why",
@@ -5050,82 +5050,82 @@ window.KB = {
     {
      "text": "现行规范 2026-07-28（2026-07-28 正式发布）：无状态协议核心、MRTR 多轮请求、Mcp-Method/Mcp-Name 头路由、列表结果可缓存（ttlMs/cacheScope）、扩展框架；上一版 2025-11-25 进入兼容期",
      "chapter": "mcp-protocol",
-     "verified": "2026-07-30",
-     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog（2026-10-20 逐字核对）",
      "recheck": "2027-01-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
      "text": "2026-07-28 九项主变更：删会话与 Mcp-Session-Id（SEP-2567）、删 initialize 握手改每请求自带版本与能力（SEP-2575）、新增 server/discover、订阅收口为 subscriptions/listen、删 ping 与 logging/setLevel、Tasks 转官方扩展（SEP-2663）、MRTR 取代服务端发起请求（SEP-2322）、结果必带 resultType、取消 SSE 断流续传",
      "chapter": "mcp-transport",
-     "verified": "2026-07-30",
-     "source": "MCP 官方 changelog 2026-07-28",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog（2026-10-20 逐字核对）",
      "recheck": "2027-01-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
      "text": "首个正式弃用政策：Active/Deprecated/Removed 三态，弃用到最早可移除之间**至少十二个月**；首批弃用 Roots、Sampling、Logging（SEP-2577）与 HTTP+SSE 传输（SEP-2596），OAuth 动态客户端注册转 CIMD",
      "chapter": "mcp-transport",
-     "verified": "2026-07-30",
-     "source": "modelcontextprotocol.io/community/feature-lifecycle",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/community/feature-lifecycle（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
      "text": "授权加固三条：授权响应带 iss 且客户端 MUST 校验（RFC 9207，SEP-2468）；动态注册须声明 application_type（SEP-837）；凭据按签发方绑定、不得跨授权服务器复用（SEP-2352）",
      "chapter": "mcp-security",
-     "verified": "2026-07-30",
-     "source": "MCP 官方 changelog 2026-07-28",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/specification/2026-07-28/changelog（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
-     "text": "官方 SDK Tier 1 为 TypeScript、Python、C#、Go（Tier 是支持等级承诺，不是安全认证）；四者均已出 2026-07-28 支持版本，Rust 为 beta",
+     "text": "官方 SDK Tier 1 为 TypeScript、Python、C#、Go、Rust、Ruby（Tier 是支持等级承诺，不是安全认证）；TypeScript、Python、C#、Go 均已出 2026-07-28 支持版本，Rust（rmcp v3.x）已实现 server/discover",
      "chapter": "mcp-server",
-     "verified": "2026-07-30",
-     "source": "modelcontextprotocol.io/docs/sdk；MCP 官方 2026-07-28 发布文",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/docs/sdk（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2027-01-18"
     },
     {
-     "text": "SDK 正式版已发（beta 阶段结束）：Python SDK v2.0.0 于 2026-07-28 发布（与规范同日；FastMCP 更名 MCPServer，装饰器 API 不变）、TypeScript SDK 2.0.0 于 2026-07-27 发布并拆包（@modelcontextprotocol/core / client / server / node / express / hono / fastify 等一组）；v1 线转维护、只收安全修复（当前 v1.29.0，2026-07-28），暂不升级的把依赖钉上限 `mcp>=1.28,<2`",
+     "text": "SDK 正式版已发（beta 阶段结束）：Python SDK v2.0.0 于 2026-07-28 发布（与规范同日；FastMCP 更名 MCPServer，装饰器 API 不变），当前 v2.3.0（2026-10-02）；TypeScript SDK 2.0.0 于 2026-07-27 发布并拆包（@modelcontextprotocol/core / client / server / node / express / hono / fastify 等一组），当前 2.3.1（2026-10-05）；v1 线转维护（Python 当前 v1.30.0，2026-09-07；TS 当前 1.32.1，2026-10-05），暂不升级的把依赖钉上限 `mcp>=1.28,<2`",
      "chapter": "mcp-server",
-     "verified": "2026-08-01",
-     "source": "github.com/modelcontextprotocol/python-sdk releases（v2.0.0 / v1.29.0）；github.com/modelcontextprotocol/typescript-sdk releases（@modelcontextprotocol/core@2.0.0 等）",
+     "verified": "2026-10-20",
+     "source": "github.com/modelcontextprotocol/python-sdk/releases（2026-10-20 逐字核对）、github.com/modelcontextprotocol/typescript-sdk/releases",
      "recheck": "2026-11-30",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-11-30"
     },
     {
      "text": "官方 Registry 仍 preview 未 GA，不支持私有 server（企业需自建）",
      "chapter": "mcp-production",
-     "verified": "2026-07-08",
-     "source": "registry 官方页",
+     "verified": "2026-10-20",
+     "source": "modelcontextprotocol.io/registry/about（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
-     "text": "2026 年 1–4 月披露 40+ CVE；CVE-2025-6514（mcp-remote RCE）；MCPTox 工具投毒成功率 84.2%",
+     "text": "2026 年 1–4 月披露 40+ CVE；CVE-2025-6514（mcp-remote RCE）；MCPTox 工具投毒最高攻击成功率 72.8%（o1-mini，20 个 agent 设置）",
      "chapter": "mcp-security",
-     "verified": "2026-07-08",
-     "source": "dev.to 汇总、arXiv 2508.14925",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/abs/2508.14925（2026-10-20 逐字核对）；dev.to 汇总（40+ CVE）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "治理归 AAIF（2025-12 捐赠，Linux Foundation 旗下），变更走 SEP 机制",
@@ -5140,22 +5140,22 @@ window.KB = {
     {
      "text": "MCP 工具定义随每条消息进上下文（非每会话一次）；GitHub 官方 server 94 工具 ≈ 17,600 tokens，描述压缩后可降至约 3,900（低压缩）／约 500（最激进）",
      "chapter": "mcp-production",
-     "verified": "2026-07-20",
-     "source": "Atlassian 工程博客《MCP Compression》2026-03-29（未公布模型与计数方法）",
+     "verified": "2026-10-20",
+     "source": "www.atlassian.com/blog/developer/mcp-compression-preventing-tool-bloat-in-ai-agents（2026-10-20 逐字核对）；Atlassian 工程博客 2026-03-29，未公布模型与计数方法",
      "recheck": "2026-10-31",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-18"
+     "due": "2026-10-31"
     },
     {
      "text": "MCP 流量经网关一跳的额外延迟：加密迭代调至约 100 次后 1–2ms／会话；默认 10 万次 KDF 迭代下为数十毫秒",
      "chapter": "mcp-production",
-     "verified": "2026-07-20",
-     "source": "Envoy AI Gateway 官方基准 2025-12-08（MacBook Pro M1 八核、echo 工具、按会话计）",
+     "verified": "2026-10-20",
+     "source": "aigateway.envoyproxy.io/blog/mcp-in-envoy-ai-gateway/（2026-10-20 逐字核对）；官方基准 2025-12-08（MacBook Pro M1 八核、echo 工具、按会话计）",
      "recheck": "2026-10-31",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-18"
+     "due": "2026-10-31"
     }
    ],
    "edges": [
@@ -5327,7 +5327,7 @@ window.KB = {
    "dir": "Model-Landscape",
    "layer": "解决方案层",
    "created": "2026-07-10",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "ml-map",
@@ -5392,54 +5392,54 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "GPT-5.6 家族（2026-07-09 GA，07-30 降价，Sol 再降至促销价）：Sol $4/$20（官方注明至少持续到 2026-11-21；长上下文档 $8/$30）、Terra $2/$12、Luna $0.20/$1.20；缓存读 0.1×、写 1.25×；新旗舰 gpt-6-astra 已上架（$10/$50）",
+     "text": "GPT-5.6 家族（2026-07-09 GA，07-30 降价，Sol 再降至促销价）：Sol $4/$20（官方注明至少持续到 2026-11-21；长上下文档 $8/$30）、Terra $2/$12、Luna $0.20/$1.20；缓存读 0.1×、写 1.25×；GPT-6 家族已上架：旗舰 gpt-6-astra $10/$50、gpt-6-sol $2/$10、gpt-6.1-sol $2/$10（缓存读 0.05×）、gpt-6-luna $0.10/$0.50",
      "chapter": "ml-closed / ml-price",
-     "verified": "2026-09-05",
-     "source": "developers.openai.com/api/docs/pricing（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/api/docs/pricing（2026-10-20 逐字核对）",
      "recheck": "2026-11-21",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "Claude 5 家族：Fable 5.1（Mythos 级、1M 上下文/128K 输出、$10/$50，Fable 5 降 legacy）、Mythos 5.1 限量、Opus 5（$5/$25，上位现役旗舰）、Sonnet 5 $2/$10（尝鲜价已转标准价，原定 2026-09-01 涨 $3/$15 不执行）；Fable/Mythos 出口管制 2026-06-30 解除、2026-07-01 恢复",
+     "text": "Claude 5 家族：Fable 5.1（Mythos 级、1M 上下文/128K 输出、$10/$50，Fable 5 降 legacy）、Mythos 5.1 限量；现役主力 Opus 5.5（$4/$20）、Sonnet 5.5（$2/$10）、Haiku 5.5（≤100K 档 $0.10/$0.50）；Opus 5（$5/$25）与 Sonnet 5（$2/$10，尝鲜价已转标准价，原定 2026-09-01 涨 $3/$15 不执行）已降 legacy；Fable/Mythos 出口管制 2026-06-30 解除、2026-07-01 恢复",
      "chapter": "ml-closed",
-     "verified": "2026-09-05",
-     "source": "platform.claude.com/docs/en/about-claude/pricing；anthropic.com/news/redeploying-fable-5（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "platform.claude.com/docs/en/about-claude/models/overview（2026-10-20 逐字核对）；platform.claude.com/docs/en/about-claude/pricing；anthropic.com/news/redeploying-fable-5",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "企业 LLM 支出份额（Menlo）：Anthropic 40% / OpenAI 27% / Google 21%；ChatGPT 消费份额约 74%、日 25 亿+ prompts；企业支出 $8.4B、年底看 $15B；Claude Code 年化 $1B、企业编码 54%",
      "chapter": "ml-map",
-     "verified": "2026-07-10",
-     "source": "Menlo 报告 / officechai / aimultiple",
+     "verified": "2026-10-20",
+     "source": "menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/（2026-10-20 逐字核对）；officechai / aimultiple（$8.4B 等子断言沿用旧源）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "Gemini 3.1 Pro（推理旗舰，仍挂 Preview 未 GA、1M 上下文）；Gemini 3.8 Flash（2026-09 GA，尝鲜价 $0.75/$3.75 至 2026-12-31，2027-01-01 起标准价 $1.50/$7.50）；「旗舰中 API 最低价」已不成立（GPT-5.6 Luna $0.20/$1.20、Grok 4.3 $1.25/$2.50 更低）；「Flash-Lite $0.10/$0.40 最低闭源档」已不成立（gpt-5-nano $0.05/$0.40 更低，且 $0.10/$0.40 是上一代 2.5 Flash-Lite 的价，现役 3.1/3.5 Flash-Lite 更贵）",
+     "text": "Gemini 4 Argon（新旗舰推理模型，已 Stable、1M 上下文；尝鲜价 $2/$10 至 2026-11-30，2026-12-01 起 $4/$20）；Gemini 3.1 Pro 仍挂 Preview 未 GA、1M 上下文；Gemini 3.8 Flash（Stable，尝鲜价 $0.75/$3.75 至 2026-12-31，2027-01-01 起标准价 $1.50/$7.50）；「旗舰中 API 最低价」已不成立（GPT-5.6 Luna $0.20/$1.20、Grok 4.3 $1.25/$2.50 更低）；「Flash-Lite $0.10/$0.40 最低闭源档」已不成立（gpt-5-nano $0.05/$0.40 更低，且 $0.10/$0.40 是上一代 2.5 Flash-Lite 的价，现役 3.1/3.5 Flash-Lite 更贵）",
      "chapter": "ml-closed / ml-price",
-     "verified": "2026-09-05",
-     "source": "ai.google.dev Gemini 3.1 Pro 模型页与 latest-model 页；developers.openai.com/api/docs/pricing；docs.x.ai/developers/models（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "ai.google.dev/gemini-api/docs/pricing（2026-10-20 逐字核对）；developers.openai.com/api/docs/pricing；docs.x.ai/developers/models",
      "recheck": "2026-12-31",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "Grok 4.3：$1.25/$2.50、缓存输入 $0.20（<200k 档；≥200k 档翻倍为 $2.50/$0.40/$5.00）；2026-06-17 上 Amazon Bedrock（xAI 官方公告）；Grok 4.6（$2/$0.50/$6）已成 xAI 当前旗舰",
+     "text": "Grok 4.3：$1.25/$2.50、缓存输入 $0.20（<200k 档；≥200k 档翻倍为 $2.50/$0.40/$5.00）；2026-06-17 上 Amazon Bedrock（xAI 官方公告）；xAI 当前旗舰已是 Grok 4.7（$2/$0.50/$6，与 4.6 同价，500k 上下文）",
      "chapter": "ml-closed",
-     "verified": "2026-09-05",
-     "source": "docs.x.ai/developers/models；x.ai/news/grok-amazon-bedrock（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "docs.x.ai/developers/models（2026-10-20 逐字核对）；x.ai/news/grok-amazon-bedrock",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "Meta 转向：Behemoth（2T/288B 激活）未发布（官方 2025-04 口径「still training」，此后无下文）；Muse Spark 2026-04-08 发布（首个闭源 API-only）、Muse Spark 1.1 2026-07-09 迭代；Llama 4 Scout（109B/17B 激活、10M ctx）与 Maverick（400B/17B、1M）成最后开放版本",
@@ -5452,14 +5452,14 @@ window.KB = {
      "due": "2026-12-04"
     },
     {
-     "text": "开源榜首（2026-09 快照）：DeepSeek V4 Pro 1.6T/49B 激活（SWE-bench Verified 80.6 追平闭源；MIT）、GLM-5.2 753B MoE（HF 权重口径；论文口径 744B/40B 激活）/ 1M 上下文（MIT；继任 GLM-5.3 同底座、改自有许可）、Kimi K3 2.8T MoE（激活 104B、原生视觉、1M 上下文；自有许可带商用阈值——不是 Modified MIT）、Qwen3.5 系 397B-A17B 与 122B-A10B（Apache-2.0）",
+     "text": "开源榜首（2026-10 快照）：DeepSeek V4 Pro 1.6T/49B 激活（SWE-bench Verified 80.6 追平闭源；MIT；Flash 线已更至 V4.1-Flash-1017，MIT）、GLM-5.2 753B MoE（HF 权重口径；论文口径 744B/40B 激活）/ 1M 上下文（MIT；继任 GLM-5.3 2026-08-25 上 HF，同 753B 底座、改自有许可 glm-5.3）、Kimi K3 2.8T MoE（激活 104B、原生视觉、1M 上下文；自有许可带商用阈值——不是 Modified MIT）、Qwen 线最新开放权重为 Qwen3.8-2.4T-A95B（2026-08，激活 95B，原生 262K 可扩至约 1M，自有许可 qwen3.8-max，非 Apache）与 Qwen3.8-27B（Apache-2.0）；Qwen3.5 系 397B-A17B 与 122B-A10B（Apache-2.0）为上一代",
      "chapter": "ml-open",
-     "verified": "2026-09-05",
-     "source": "huggingface.co/moonshotai/Kimi-K3；huggingface.co/zai-org/GLM-5.2（HF API 权重口径）；huggingface.co/Qwen/Qwen3.5（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/Qwen/Qwen3.8-2.4T-A95B（2026-10-20 逐字核对）；huggingface.co/deepseek-ai/DeepSeek-V4-Pro；huggingface.co/moonshotai/Kimi-K3；huggingface.co/zai-org/GLM-5.2",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "GLM-5 为首个完全用华为昇腾训练的前沿模型（零英伟达）",
@@ -5472,64 +5472,64 @@ window.KB = {
      "due": "2026-10-08"
     },
     {
-     "text": "国产四强（2026-09 快照，与「开源榜首」行口径并齐）：GLM-5.2（753B 权重口径 / 论文口径 744B、40B 激活）/ Kimi K3 / Qwen3.5（397B-A17B）/ DeepSeek V4 Pro（1.6T/49B 激活）——各至少一个主流基准超国际闭源（2026-06 横评结论，版本已滚动）",
+     "text": "国产四强（2026-10 快照，与「开源榜首」行口径并齐）：GLM-5.2（753B 权重口径 / 论文口径 744B、40B 激活；继任 GLM-5.3 已发布）/ Kimi K3 / Qwen3.8（2.4T-A95B）/ DeepSeek V4 Pro（1.6T/49B 激活）——各至少一个主流基准超国际闭源（2026-06 横评结论，版本已滚动）",
      "chapter": "ml-china",
-     "verified": "2026-09-05",
-     "source": "huggingface.co/moonshotai/Kimi-K3；huggingface.co/zai-org/GLM-5.2；huggingface.co/Qwen/Qwen3.5（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/api/models?author=Qwen&sort=createdAt&direction=-1&limit=15（2026-10-20 逐字核对）；huggingface.co/zai-org/GLM-5.3；huggingface.co/moonshotai/Kimi-K3",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "豆包：2.1 Pro 2026-06-23 发布（¥6/¥30、缓存命中 ¥1.2）；2.1 Turbo 半价；Seed-Evolving 月更 2–4 次；Seed-2.0-lite（2026-05，家族首个原生统一全模态）；日均 Token 调用量突破 180 万亿（截至 2026-06，过去一年增长超 10 倍）",
      "chapter": "ml-china",
-     "verified": "2026-09-05",
-     "source": "新华网 news.cn/tech/20260623/...（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "docs.volcengine.com/docs/82379/1544106（2026-10-20 逐字核对）；新华网 news.cn/tech/20260623/...；wallstreetcn.com/articles/3775276（二手转载）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "许可证格局：OSAID v1.0（2024-10）口径下主流\"开源\"模型均为 open weight；DeepSeek/GLM-5.2 = MIT、Qwen3 主系 = Apache 2.0、Kimi K3 = 自有许可（MIT 式 + 商用阈值）、Mistral Large 3/Small 4 转 Apache 2.0；Llama 社区证含 700M MAU 帽 + 欧盟条款",
+     "text": "许可证格局：OSAID v1.0（2024-10）口径下主流\"开源\"模型均为 open weight；DeepSeek/GLM-5.2 = MIT（GLM-5.3 改自有许可 glm-5.3）、Qwen 中小尺寸 = Apache 2.0（Qwen3.8 旗舰 2.4T-A95B 改自有许可 qwen3.8-max）、Kimi K3 = 自有许可（MIT 式 + 商用阈值）、Mistral Large 3/Small 4 转 Apache 2.0；Llama 社区证含 700M MAU 帽 + 欧盟条款",
      "chapter": "ml-license",
-     "verified": "2026-07-10",
-     "source": "qubittool / HF blog / LICENSE 原文",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/Qwen/Qwen3.8-2.4T-A95B（2026-10-20 逐字核对）；huggingface.co/moonshotai/Kimi-K3 LICENSE；Llama 4 许可原文",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "价格光谱：地板 gpt-5-nano $0.05/$0.40、DeepSeek V4 Flash 缓存命中 $0.007/$0.014（未命中 $0.22/$0.44、输出 $0.66/$1.32，2026-08-16 起峰谷双价）、Gemini 2.5 Flash-Lite $0.10/$0.40（上一代，现役 3.1/3.5 Flash-Lite 更贵）；GPT-5.6 Luna $0.20/$1.20 已入地板档；天花板 o1-pro $150/$600（GPT-5.4 Pro $30/$180 之上）；整体对比 2025 降 30–60%",
+     "text": "价格光谱：地板 gpt-5-nano $0.05/$0.40、GPT-6 Luna $0.10/$0.50、DeepSeek Flash（现由 V4.1-Flash-1017 提供）缓存命中 $0.003/$0.006（未命中 $0.15/$0.30、输出 $0.60/$1.20，峰谷双价、谷时为峰时一半）、Gemini 2.5 Flash-Lite $0.10/$0.40（上一代，现役 3.1/3.5 Flash-Lite 更贵）；GPT-5.6 Luna $0.20/$1.20 已入地板档；天花板 o1-pro $150/$600（GPT-5.4 Pro $30/$180 之上）；整体对比 2025 降 30–60%",
      "chapter": "ml-price",
-     "verified": "2026-09-05",
-     "source": "api-docs.deepseek.com/quick_start/pricing；developers.openai.com/api/docs/pricing；docs.x.ai/developers/models（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "api-docs.deepseek.com/quick_start/pricing/（2026-10-20 逐字核对）；developers.openai.com/api/docs/pricing",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "小模型：Phi-4 / Gemma 4（26B MoE 激活 3.8B；E2B 2.3B 有效参数，32k 上下文 + int8 KV 口径 bf16 约 4.6GB / 量化后约 0.8GB）/ SmolLM-3 为三大部署家族；sub-10B 常规超 2024 版 GPT-4",
      "chapter": "ml-map / ml-capability",
-     "verified": "2026-09-05",
-     "source": "Gemma 4 技术报告 arxiv.org/html/2607.02770v1（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/html/2607.02770v1（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "推理模型：思考预算两旋钮（Anthropic budget_tokens / Gemini thinkingBudget）；L1 可控 vs L2 自适应（arXiv 2507.02076）；overthinking 实证——超临界预算准确率下降（arXiv 2506.04210）",
+     "text": "推理模型：思考深度旋钮已从「token 预算」转向「档位」——Anthropic 用 adaptive thinking + effort（budget_tokens 在 Opus 4.7 及以后返回 400）、Gemini 用 thinking_level（low/medium/high）；L1 可控 vs L2 自适应（arXiv 2507.02076）；overthinking 实证——超临界预算准确率下降（arXiv 2506.04210）",
      "chapter": "ml-capability",
-     "verified": "2026-07-10",
-     "source": "arXiv 两篇（书单列官方链接）",
+     "verified": "2026-10-20",
+     "source": "platform.claude.com/docs/en/models/opus-5-5/migration-guide（2026-10-20 逐字核对）；ai.google.dev/gemini-api/docs/thinking；arXiv 2507.02076、2506.04210",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "选型实践：Walmart Code Puppy 跨 GPT/Claude/Gemini 动态路由；ServiceNow 2026-01 同签 OpenAI+Anthropic；Gartner 预计 2028 年 70% 多模型组织用 AI 网关（2024 <5%）",
@@ -5544,52 +5544,52 @@ window.KB = {
     {
      "text": "榜单防线：Leaderboard Illusion（私测多变体择优，arXiv 2504.20879）；MMLU 类饱和 88%+ 无区分度（与 evaluation 模块同源口径）",
      "chapter": "ml-selection",
-     "verified": "2026-07-10",
-     "source": "arXiv（书单列官方链接）/ evaluation 模块",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/abs/2504.20879（2026-10-20 逐字核对）；evaluation 模块",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "火山方舟：Doubao-Seed-2.1 Pro（06-23）¥6/¥30、缓存命中 ¥1.2（在线推理 [0,256] 单档计价；批量推理 ¥3/¥15）；Coding Plan 订阅 Lite ¥40/月（¥120/季）、Pro ¥200/月（¥600/季），含 Seed-2.0-Code/DeepSeek V3.2/Kimi K2.5/GLM-4.7；企业版支持私有化接入",
+     "text": "火山方舟：Doubao-Seed-2.1 Pro（06-23）¥6/¥30、缓存命中 ¥1.2（在线推理 [0,1024] 单档计价；批量推理与在线低优 ¥3/¥15）；Coding Plan 订阅 Lite ¥40/月（¥120/季）、Pro ¥200/月（¥600/季），含 Seed-2.0-Code/DeepSeek V3.2/Kimi K2.5/GLM-4.7；企业版支持私有化接入",
      "chapter": "ml-platforms",
-     "verified": "2026-09-05",
-     "source": "火山方舟官方价格文档 PDF（docs.volcengine.com/docs/82379/1544106 导出件）；volcengine.com/article/37536（2026-09-05）",
+     "verified": "2026-10-20",
+     "source": "docs.volcengine.com/docs/82379/1544106（2026-10-20 逐字核对）；volcengine.com/article/37536（Coding Plan 价仅第三方口径）",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "阿里百炼：Qwen 全系+DeepSeek/GLM/Kimi/MiniMax（Llama 已不在官方模型列表；「150+」为社区口径）；Qwen3-Max（≤32K）¥2.5/¥10、Qwen3.5-Plus（≤128K）¥0.8/¥4.8；Batch 批量一律 5 折；2026-05 大版本上架 Qwen3.7 全系与百万上下文模型",
+     "text": "阿里百炼：Qwen 全系+DeepSeek/GLM（已含 GLM-5.3）/Kimi/MiniMax/小米 MiMo（Llama 已不在官方模型列表；「150+」为社区口径）；现役旗舰 Qwen3.8-Max（≤1M）¥12/¥36、Qwen3.5-Plus（≤128K）¥0.8/¥4.8；支持 Batch 的模型批量 5 折；货架已上 Qwen3.7 与 Qwen3.8 全系（含 qwen3.8-flash ¥0.8/¥2.7），Qwen3-Max 已不在价目页",
      "chapter": "ml-platforms",
-     "verified": "2026-09-05",
-     "source": "help.aliyun.com/zh/model-studio/model-pricing、/models（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "help.aliyun.com/zh/model-studio/model-pricing（2026-10-20 逐字核对）；help.aliyun.com/zh/model-studio/models",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "百度千帆：文心 5.0 正式版 2026-01-22（2.4 万亿参数原生全模态）、5.1（2026-05-09 发布，厂商称搜索登顶国内/预训练成本 6%——厂商口径）；150+ SOTA 统一纳管；平台 130 万 Agents、工具日调用超千万次",
      "chapter": "ml-platforms",
-     "verified": "2026-09-05",
-     "source": "cloud.baidu.com 官方新闻页；qbitai.com/2026/05/414496.html（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "www.qbitai.com/2026/05/414496.html（2026-10-20 逐字核对）；cloud.baidu.com 官方新闻页",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "腾讯：混元 2.0（Tencent HY2.0 Instruct/Think）2026-03-13 起 ¥4.505/¥11.13 每百万 tokens（此前 ¥0.8/¥2，官方涨价公告）；现行刊例价表已无混元 2.0 与 Hunyuan Standard（计费迁 TokenHub，现有 Hunyuan-a13b ¥0.5/¥2 等）；ADP 订阅制（Skill Plan ¥88/月、专业版 ¥188/月、企业版 ¥4880/月）；三方模型可切换（DeepSeek-V4 系/GLM-5.1/Kimi K2.5/MiniMax 2.5）",
+     "text": "腾讯：混元 2.0 2026-03-13 起涨价——HY2.0 Instruct ¥4.505/¥11.13 每百万 tokens（此前 ¥0.8/¥2）、HY2.0 Think ¥5.3/¥21.2（此前 ¥1/¥4）（官方涨价公告）；现行刊例价表已无混元 2.0 与 Hunyuan Standard（计费迁 TokenHub，现有 Hunyuan-a13b ¥0.5/¥2 等）；ADP 订阅制（Skill Plan ¥88/月、专业版 ¥188/月、企业版 ¥4880/月）；三方模型可切换（DeepSeek-V4 系/GLM-5.1/Kimi K2.5/MiniMax 2.5）",
      "chapter": "ml-platforms",
-     "verified": "2026-09-05",
-     "source": "cloud.tencent.com/announce/detail/2227；混元生文计费概述；ADP 计费概述（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "cloud.tencent.com/announce/detail/2227（2026-10-20 逐字核对）；混元生文计费概述 cloud.tencent.com/document/product/1729/97731；ADP 计费概述（套餐价本轮未核到）",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     }
    ],
    "edges": [
@@ -5792,7 +5792,7 @@ window.KB = {
    "dir": "Multimodal",
    "layer": "应用模式层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "mm-what-why",
@@ -5857,34 +5857,34 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "闭源旗舰原生多模态：GPT-6 Astra（OpenAI 旗舰，1.05M 上下文、128K 输出、文本+图入，$10/$50 每 M token）/ Gemini 3.1 Pro（原生图音视频 PDF 入 + 1M 上下文 + 64K 输出）/ Claude Fable 5.1（1M 上下文、128K 输出、adaptive thinking，$10/$50；其下 Opus 5 1M）；三家中仅 Gemini 原生收音视频，thinking 档已成主流。旧口径 GPT-5.5 旗舰位作废（GPT-5.5 规格未变、位次变）",
+     "text": "闭源旗舰原生多模态：GPT-6 Astra（OpenAI 旗舰，1.05M 上下文、128K 输出、文本+图入，$10/$50 每 M token）/ Gemini 4 Argon（Google 旗舰，原生图音视频 PDF 入 + 1M 统一上下文 + 默认 64K 输出、长解码最高 1M）/ Claude Fable 5.1（1M 上下文、128K 输出、adaptive thinking，$10/$50；其下 Opus 5.5 1M）；三家中仅 Gemini 原生收音视频，thinking 档已成主流。旧口径 GPT-5.5 旗舰位作废（GPT-5.5 规格未变、位次变）；Gemini 3.1 Pro 仍在列（预览版，规格未变、位次变）",
      "chapter": "mm-understanding",
-     "verified": "2026-09-05",
-     "source": "developers.openai.com/api/docs/models；deepmind.google Gemini 3.1 Pro 模型卡；platform.claude.com 模型总览（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "ai.google.dev/gemini-api/docs/models/gemini-4-argon（2026-10-20 逐字核对）；developers.openai.com/api/docs/models；platform.claude.com 模型总览",
      "recheck": "—",
      "grade": "A",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "开源 VLM 换代：Qwen3-VL（Apache-2.0，Instruct / Thinking 双档，2B–235B-A22B）与 InternVL3.5（权重 Apache-2.0，官方称开源 MLLM 综合 SOTA）为当期主角；**官方仓库与模型卡均未公布 MMMU 数值，本册只写定性排位**，旧值 InternVL3-78B≈72.2% / Qwen2.5-VL-72B≈70.2% / OCRBench≈888 一并作废",
      "chapter": "mm-understanding",
-     "verified": "2026-09-05",
-     "source": "github.com/QwenLM/Qwen3-VL；github.com/OpenGVLab/InternVL；huggingface.co/OpenGVLab/InternVL3_5-241B-A28B（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/OpenGVLab/InternVL3_5-241B-A28B（2026-10-20 逐字核对）；github.com/QwenLM/Qwen3-VL；github.com/OpenGVLab/InternVL",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "原生图像生成两大流派：扩散（FLUX.2 / Midjourney）vs 自回归（GPT Image 2〔2026-04〕、Nano Banana 2 = Gemini 3.1 Flash Image〔2026-02〕、Luma）",
      "chapter": "mm-generation",
-     "verified": "2026-09-05",
-     "source": "ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-image；OpenAI 模型页（2026-09-05 逐字核对；BFL 已出 FLUX 3，本行只断流派不断新旧）",
+     "verified": "2026-10-20",
+     "source": "ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-image（2026-10-20 逐字核对）；OpenAI 模型页（BFL 已出 FLUX 3，本行只断流派不断新旧）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "GPT Image 2 全新自回归架构，比前代快 3–5×，多约束指令≈98% 准确、文字渲染近字符级",
@@ -5899,92 +5899,82 @@ window.KB = {
     {
      "text": "开源 VLM 可用 vLLM / SGLang 在 GPU 云自部署（Qwen3-VL / Llama 4 Scout / InternVL3.5）",
      "chapter": "mm-selection",
-     "verified": "2026-08-01",
-     "source": "Spheron 部署指南 2026；08-01 巡检按 QwenLM / OpenGVLab 仓库回写型号版本",
+     "verified": "2026-10-20",
+     "source": "docs.vllm.ai/en/latest/models/supported_models/（2026-10-20 逐字核对）；Spheron 部署指南 2026",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2027-01-18"
     },
     {
      "text": "理解侧主基准：MMMU（多学科理解）、OCRBench / DocVQA（文档）、Video-MME（视频）",
      "chapter": "mm-production",
-     "verified": "2026-07-09",
-     "source": "2026 VLM 评测综述",
+     "verified": "2026-10-20",
+     "source": "huggingface.co/OpenGVLab/InternVL3_5-8B（2026-10-20 逐字核对）；2026 VLM 评测综述",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "语音延迟口径：人类换话空隙 300–500ms；级联生产目标 P50 <1.5s；端到端标杆 <800ms（gpt-realtime-2.1 家族量级）；>1.5s 用户判定「坏了」",
+     "text": "语音延迟口径：人类换话空隙约 200ms（PNAS 跨语种研究）；低于约 0.8s 听感像真人、超过约 1.5s 像对讲机（行业经验值，非实测弃用阈值）；未裁剪的级联管线约 750–1400ms",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-07-10",
-     "source": "softcery / telnyx 2026 横评（延迟量级未复核，08-01 只随换代回写型号名）",
+     "verified": "2026-10-20",
+     "source": "softcery.com/lab/voice-agent-latency-budget-microphone-to-speaker.md（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "级联时延拆帐：ASR 100–300ms + LLM 350–1000ms + TTS 90–200ms + 网络 50–200ms；2026 企业生产以级联为主（可审计 / 可换供应商）",
+     "text": "级联时延拆帐：ASR 100–300ms + LLM 首 token 300–750ms + TTS 首音 60–250ms + 网络 50–200ms（各段有重叠，未裁剪合计约 750–1400ms）；2026 企业生产以级联为主（可审计 / 可换供应商）",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-07-10",
-     "source": "softcery / speko.ai / modulate",
+     "verified": "2026-10-20",
+     "source": "softcery.com/lab/voice-agent-latency-budget-microphone-to-speaker.md（2026-10-20 逐字核对）；speko.ai / modulate",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "端到端 S2S 格局：OpenAI **gpt-realtime-2.1 / 2.1-mini**（2026-07-06 发布；128K 上下文、32K 输出、文本/音频/图像入、p95 时延再降 ≥25%；前代 GPT-Realtime-2 为 2026-05-07，同批还有 Realtime-Translate $0.034/分钟、Realtime-Whisper $0.017/分钟）/ Gemini 3.1 Flash Live（2026-03-26，官方称 90+ 语言实时多模态对话；「200ms 首响」无官方表述）/ Qwen3-Omni（Apache-2.0，119 文本 / 19 语音输入 / 10 语音输出语种，可自部署；Qwen3.5-Omni 技术报告 2026-04-20、256K 上下文，**未见开放权重故不进成品**）/ Kyutai Moshi（全双工先驱）",
+     "text": "端到端 S2S 格局：OpenAI **gpt-realtime-2.1 / 2.1-mini**（2026-07-06 发布；128K 上下文、32K 输出、文本/音频/图像入、p95 时延再降 ≥25%；前代 GPT-Realtime-2 为 2026-05-07，同批还有 Realtime-Translate $0.034/分钟、Realtime-Whisper $0.017/分钟；另有全双工 GPT-Live 1，$0.05/分钟）/ Gemini 3.8 Live（2026-09，Google 官方定为低时延语音智能体默认款，另有 Extended Thinking 档；3.1 Flash Live 已转旧版预览）/ Qwen3-Omni（Apache-2.0，119 文本 / 19 语音输入 / 10 语音输出语种，可自部署；Qwen3.5-Omni 技术报告 2026-04-20、256K 上下文，**未见开放权重故不进成品**）/ Kyutai Moshi（全双工先驱）",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-09-05",
-     "source": "community.openai.com 官方公告（2026-05-07 / 07-06）；developers.openai.com 模型页；blog.google 3.1 Flash Live 页；github.com/QwenLM/Qwen3-Omni（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "ai.google.dev/gemini-api/docs/models（2026-10-20 逐字核对）；community.openai.com 官方公告（2026-05-07 / 07-06）；developers.openai.com 模型与定价页；github.com/QwenLM/Qwen3-Omni",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "语音成本：级联 $0.01–0.17/分钟（组件各自计价，可预测）；端到端厂商只公布 token 单价——gpt-realtime-2.1 音频进 $32 / 出 $64 每百万 token、缓存命中输入 $0.4，2.1-mini 音频出 $20。**旧行「gpt-realtime 未缓存实测 $0.18–0.46/分钟、开缓存 $0.05–0.10、mini 便宜约 60%」随两轮换代作废**，端到端的分钟成本须按自身话务实测折算，不再登记外部实测值",
+     "text": "语音成本：级联 $0.01–0.17/分钟（组件各自计价，可预测）；端到端的 gpt-realtime-2.1 只公布 token 单价——音频进 $32 / 出 $64 每百万 token、缓存命中输入 $0.4，2.1-mini 音频出 $20；OpenAI 全双工 GPT-Live 1 首次按分钟计价 $0.05/分钟（按秒计，后端模型与工具另计）。**旧行「gpt-realtime 未缓存实测 $0.18–0.46/分钟、开缓存 $0.05–0.10、mini 便宜约 60%」随两轮换代作废**，token 计价的端到端分钟成本须按自身话务实测折算，不再登记外部实测值",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-09-05",
-     "source": "developers.openai.com 模型与定价页（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/api/docs/pricing（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "语音框架：Pipecat v1.0（2026-04，帧管线）/ LiveKit Agents（房间模型）；实测端到端 750–950ms 同量级；Vapi / Retell 为托管层",
+     "text": "语音框架：Pipecat v1.x（v1.0 于 2026-04-14 发布，现行 v1.13.0 于 2026-10-19，帧管线）/ LiveKit Agents（房间模型，现行 1.8.8 于 2026-10-15）；实测端到端 750–950ms 同量级；Vapi / Retell 为托管层",
      "chapter": "mm-voice-realtime",
-     "verified": "2026-07-10",
-     "source": "webrtc.ventures 2026-03 / cekura / f22labs",
+     "verified": "2026-10-20",
+     "source": "github.com/pipecat-ai/pipecat/releases（2026-10-20 逐字核对）；github.com/livekit/agents/releases；webrtc.ventures 2026-03 / cekura / f22labs",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "视频生成格局重组：**Sora 已退场**——OpenAI 消费端 2026-04-26 停服、Videos API 与 sora-2 / sora-2-pro 快照 2026-09-24 下线（2026-03-24 公告）。在位三家：Seedance 2.0（字节，创意控制 + 参考输入 12 文件）/ 可灵 3.0（快手，2026-04-23 起原生 4K 直出、06-17 出 3.0 Turbo）/ Veo 3.1（Google，官方每秒价：标准 $0.40 (720p/1080p)、$0.60 (4K)；Fast $0.10–0.30；Lite $0.05 (720p)、$0.08 (1080p)，均含音频）。补位候选 Runway Gen-4.5、阿里万相（Wan）。**原「34 倍价差（$0.022–$0.75）」作废**——Seedance / 可灵按积分或包月计、无官方每秒价，跨厂商倍数不可核，成品改用 Veo 同族十倍档差",
+     "text": "视频生成格局重组：**Sora 已退场**——OpenAI 消费端 2026-04-26 停服、Videos API 与 sora-2 / sora-2-pro 快照已于 2026-09-24 下线（2026-03-24 公告）。在位三家：Seedance 2.5（字节，单次最长 30 秒、可续两次）/ 可灵 3.0（快手，2026-04-23 起原生 4K 直出、06-17 出 3.0 Turbo）/ Veo 3.1（Google，官方每秒价：标准 $0.40 (720p/1080p)、$0.60 (4K)；Fast $0.10–0.30；Lite $0.05 (720p)、$0.08 (1080p)，均含音频）。补位候选 Runway Gen-4.5、阿里万相（Wan）。**原「34 倍价差（$0.022–$0.75）」作废**——Seedance / 可灵按积分或包月计、无官方每秒价，跨厂商倍数不可核，成品改用 Veo 同族十倍档差",
      "chapter": "mm-video-generation",
-     "verified": "2026-08-01",
-     "source": "developers.openai.com/api/docs/deprecations 与 help.openai.com Sora discontinuation；ai.google.dev/gemini-api/docs/pricing；klingai.com 更新日志；runway.com/research（Gen-4.5）",
-     "recheck": "2026-09-05",
+     "verified": "2026-10-20",
+     "source": "seed.bytedance.com/en/seedance2_5（2026-10-20 逐字核对）；developers.openai.com/api/docs/deprecations；ai.google.dev/gemini-api/docs/pricing；klingai.com 更新日志；runway.com/research（Gen-4.5）",
+     "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-08-31"
-    },
-    {
-     "text": "即梦消费端口径：注册送 260 积分、5 秒视频约 20 积分（新用户约 13 次免费生成）",
-     "chapter": "mm-video-generation",
-     "verified": "2026-07-17",
-     "source": "即梦平台/评测转述",
-     "recheck": "2026-08-31",
-     "grade": "B",
-     "cadence": "30",
-     "due": "2026-08-16"
+     "due": "2026-11-19"
     }
    ],
    "edges": [
@@ -6179,7 +6169,7 @@ window.KB = {
    "dir": "Predictive-AI-MLOps",
    "layer": "工程保障层",
    "created": "2026-08-02",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "pam-what-why",
@@ -6266,22 +6256,22 @@ window.KB = {
     {
      "text": "TabArena 活体基准（NeurIPS 2025 D&B Spotlight，arXiv:2506.16791 v4 2025-11-03）结论：梯度提升树在实用表格数据上仍是强对手；深度学习方法在更大时间预算下配合集成才追上；基础模型在小数据集上表现突出；跨模型集成才是当前表格机器学习的最好成绩",
      "chapter": "pam-model-choice",
-     "verified": "2026-08-02",
-     "source": "arXiv:2506.16791《TabArena: A Living Benchmark for Machine Learning on Tabular Data》摘要 https://arxiv.org/abs/2506.16791",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/abs/2506.16791（2026-10-20 逐字核对）；arXiv:2506.16791《TabArena: A Living Benchmark for Machine Learning on Tabular Data》摘要 https://arxiv.org/abs/2506.16791",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "TabPFN 官方模型规模上限（Prior Labs 文档 Models 页）：TabPFNv2 为 1 万样本 / 500 特征 / 10 类；TabPFN-2.6 为 10 万样本 / 2000 特征；TabPFN-3 与 TabPFN-3-Plus 为 100 万行 × 200 特征（可换成 10 万 ×2000 或 1000×2 万）、160 类",
+     "text": "TabPFN 官方模型规模上限（Prior Labs 文档 Models 页）：TabPFNv2 为 1 万样本 / 500 特征 / 10 类；TabPFN-2.5 与 2.6 为 10 万样本 / 2000 特征；TabPFN-3 与 TabPFN-3-Plus 为最多 100 万行、最多 2000 列（行列上限此消彼长、不能同时取满）、原生 160 类；2026-09 新出的 TabPFN-3.5 系列为 100 万行 / 2 万列（建议不超过 6000 列）、原生 160 类",
      "chapter": "pam-model-choice",
-     "verified": "2026-08-02",
-     "source": "Prior Labs 官方文档 Models 页 https://docs.priorlabs.ai/models",
+     "verified": "2026-10-20",
+     "source": "docs.priorlabs.ai/models（2026-10-20 逐字核对）；Prior Labs 官方文档 Models 页 https://docs.priorlabs.ai/models",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "M5 零售销量预测竞赛官方结论：这是第一次所有顶尖方法都是「纯」机器学习方法、且显著优于全部统计基准及其组合；前 50 名几乎全部采用按门店/品类训练的 LightGBM 模型，且全部使用跨序列共学；获奖方案在 WRMSSE 上平均比 24 个基准好 20% 以上；冠军是 6 个模型的等权平均",
@@ -6314,24 +6304,24 @@ window.KB = {
      "due": "2027-01-29"
     },
     {
-     "text": "SageMaker Feature Store 离线库自动给每条记录附加三列：api_invocation_time（服务收到写入调用的时间）、write_time（真正落到离线库的时间，官方注明可用于构造时间旅行类查询）、is_deleted；事件时间由用户自建的时间列提供",
+     "text": "SageMaker Feature Store 离线库自动给每条记录附加三列：api_invocation_time（服务收到 PutRecord 或 DeleteRecord 调用的时间）、write_time（记录写入 S3 文件的时间，官方注明这不一定是可查询的时间、记录也不一定按 write_time 顺序变得可查；Iceberg 格式做增量读应按 Iceberg 快照而非 write_time 跟踪进度）、is_deleted；事件时间由用户自建的时间列提供",
      "chapter": "pam-features-time",
-     "verified": "2026-08-02",
-     "source": "AWS 官方文档《Amazon SageMaker Feature Store offline store data format》，https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html（2026-10-20 逐字核对）；AWS 官方文档《Amazon SageMaker Feature Store offline store data format》，https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "SageMaker Feature Store 调用 PutRecord 后数据先缓冲、批量，在 15 分钟内写入 S3 离线库；离线库只支持 Parquet 文件格式，表格式可选 AWS Glue（默认）或 Apache Iceberg",
      "chapter": "pam-feature-store",
-     "verified": "2026-08-02",
-     "source": "AWS 官方文档《Amazon SageMaker Feature Store offline store data format》，https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html（2026-10-20 逐字核对）；AWS 官方文档《Amazon SageMaker Feature Store offline store data format》，https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Feast 官方文档明列它「不是什么」：不是通用数据管线系统、不管理或编排复杂工作流 DAG、不是数据仓库也不是组织内加工数据的权威存放地、不是数据库；它是数仓下游的一层轻量服务层。其核心卖点之一是生成时点正确（point-in-time correct）的特征集以避免数据泄漏",
@@ -6346,82 +6336,82 @@ window.KB = {
     {
      "text": "Vertex AI Feature Store（Legacy）已弃用：官方通告写明自 2026-05-17 起不再新增功能、只提供关键补丁，2027-02-17 完全退役且 API 下线；去处是 Vertex AI Feature Store（V2，2023-11-17 推出）或按官方迁移指南迁到 Bigtable。该产品线的当前文档挂在「Gemini Enterprise Agent Platform」名下",
      "chapter": "pam-feature-store",
-     "verified": "2026-08-02",
-     "source": "Google Cloud 官方文档 Vertex AI Feature Store 概述页弃用通告，https://docs.cloud.google.com/vertex-ai/docs/featurestore/overview；配套《Migrate from Vertex AI Feature Store (Legacy) to Bigtable》",
+     "verified": "2026-10-20",
+     "source": "docs.cloud.google.com/vertex-ai/docs/featurestore/overview（2026-10-20 逐字核对）；Google Cloud 官方文档 Vertex AI Feature Store 概述页弃用通告，https://docs.cloud.google.com/vertex-ai/docs/featurestore/overview；配套《Migrate from Vertex AI Feature Store (Legacy) to Bigtable》",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "阿里云 PAI-FeatureStore 自动完成在线表与离线表的构建并保证两侧一致：离线存储对接 MaxCompute，在线可经 Flink 处理后写入 Hologres、Tablestore 或自研的 FeatureDB",
      "chapter": "pam-feature-store",
-     "verified": "2026-08-02",
-     "source": "阿里云帮助中心《FeatureStore 概述》（人工智能平台 PAI），https://help.aliyun.com/zh/pai/featurestore",
+     "verified": "2026-10-20",
+     "source": "help.aliyun.com/zh/pai/featurestore（2026-10-20 逐字核对）；阿里云帮助中心《FeatureStore 概述》（人工智能平台 PAI），https://help.aliyun.com/zh/pai/featurestore",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Azure Machine Learning 托管特征库的特征取回支持时点连接（point-in-time join，官方也称 time travel）以避免数据泄漏，走 SDK 的 get_offline_features() 或内置特征取回流水线组件；Databricks 侧对应能力靠在特征表上声明 timeseries_columns（Unity Catalog 版）或 timestamp_keys（工作区版），且时序特征表须恰有一个时间键、不能带分区列",
      "chapter": "pam-feature-store",
-     "verified": "2026-08-02",
-     "source": "Microsoft Learn《Feature retrieval specification and usage in training and inference》；Databricks 官方文档《Point-in-time feature joins》",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/machine-learning/feature-retrieval-concepts（2026-10-20 逐字核对）；Microsoft Learn《Feature retrieval specification and usage in training and inference》；Databricks 官方文档《Point-in-time feature joins》",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "MLflow 自 2.9.0 起把模型注册表的四阶段（None / Staging / Production / Archived）标为弃用、将在未来某个大版本移除，官方替代是模型版本别名（alias）与标签（tag）；官方理由是阶段这套状态机对 MLOps 流程「过于死板」，而别名允许同一版本挂多个、可随时改指",
      "chapter": "pam-lifecycle",
-     "verified": "2026-08-02",
-     "source": "MLflow 官方文档《Model Registry Workflows》弃用说明，https://mlflow.org/docs/latest/ml/model-registry/workflow/",
+     "verified": "2026-10-20",
+     "source": "mlflow.org/docs/latest/ml/model-registry/workflow/（2026-10-20 逐字核对）；MLflow 官方文档《Model Registry Workflows》弃用说明，https://mlflow.org/docs/latest/ml/model-registry/workflow/",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "SageMaker 模型注册表的批准状态为 PendingManualApproval / Approved / Rejected 三态，可由 SDK、Studio 或流水线中的条件步骤更新；官方列出的合法迁移含 PendingManualApproval→Approved（触发 CI/CD 部署）、→Rejected、Rejected→Approved、Approved→Rejected",
      "chapter": "pam-lifecycle",
-     "verified": "2026-08-02",
-     "source": "AWS 官方文档《Update the Approval Status of a Model》，https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html（2026-10-20 逐字核对）；AWS 官方文档《Update the Approval Status of a Model》，https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "SageMaker 影子测试：影子变体接收从生产变体复制来的一定比例请求但不返回任何响应；一个端点最多一个影子变体，且此时最多一个生产变体；时长默认 7 天、最短 1 小时、最长 30 天，测试结束端点自动恢复原状；Serverless 推理、异步推理、多模型端点、多容器端点、Marketplace 容器与 Inf1 实例的端点不支持",
      "chapter": "pam-lifecycle",
-     "verified": "2026-08-02",
-     "source": "AWS 官方文档《Create a shadow test》，https://docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests-create.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests-create.html（2026-10-20 逐字核对）；AWS 官方文档《Create a shadow test》，https://docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests-create.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "阿里云 PAI 在同一工作空间内提供两件对应能力：「AI 资产管理 > 模型」支持把训练好的模型注册进来、按版本持续更新并直接部署至 EAS（部署配置自动透传）；Model Gallery 创建微调训练任务时可关联新建或已有实验，任务的超参等元数据、TensorBoard 指标与输出模型统一落在实验输出路径下",
      "chapter": "pam-lifecycle",
-     "verified": "2026-08-02",
-     "source": "阿里云帮助中心《如何注册模型、部署模型及管理模型》，https://help.aliyun.com/zh/pai/user-guide/register-and-manage-models；《在 Model Gallery 中使用实验管理》，https://help.aliyun.com/zh/pai/experiment-management",
+     "verified": "2026-10-20",
+     "source": "help.aliyun.com/zh/pai/user-guide/register-and-manage-models（2026-10-20 逐字核对）；阿里云帮助中心《如何注册模型、部署模型及管理模型》，https://help.aliyun.com/zh/pai/user-guide/register-and-manage-models；《在 Model Gallery 中使用实验管理》，https://help.aliyun.com/zh/pai/experiment-management",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Evidently 的漂移检测默认规则按参考集大小切换：参考集 ≤1000 行用 KS 检验（数值型）与卡方检验（类别型），p≤0.05 判漂移；>1000 行改用 Wasserstein 距离与 Jensen-Shannon 散度，阈值均为 ≥0.1",
      "chapter": "pam-monitoring",
-     "verified": "2026-08-02",
-     "source": "Evidently 官方文档 Data drift（docs.evidentlyai.com/metrics/explainer_drift）",
+     "verified": "2026-10-20",
+     "source": "docs.evidentlyai.com/metrics/explainer_drift（2026-10-20 逐字核对）；Evidently 官方文档 Data drift（docs.evidentlyai.com/metrics/explainer_drift）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "PSI（群体稳定性指数）的 0.1 / 0.25 分档最早出自 Lewis 1994 的信用评分实务，是与样本量无关的经验常数；近年学术综述批评它在小样本上频繁误报、在大样本上该报不报",
@@ -6446,32 +6436,32 @@ window.KB = {
     {
      "text": "Azure Machine Learning 表格数据内建监控信号五类：数据漂移、预测漂移、数据质量、特征归因漂移、模型性能；其中特征归因漂移必须有训练数据、模型性能必须有回灌真值，且两者当日均标 preview",
      "chapter": "pam-monitoring",
-     "verified": "2026-08-02",
-     "source": "Microsoft Learn《Model monitoring in production - Azure Machine Learning》（文档标注日期 2026-01-27）",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/machine-learning/concept-model-monitoring（2026-10-20 逐字核对）；Microsoft Learn《Model monitoring in production - Azure Machine Learning》（文档标注日期 2026-01-27）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "AWS 文档标明 Amazon SageMaker Model Monitor 已不再向新客户开放，现有客户照常使用但不再新增功能；官方改荐用开源方案（SageMaker MLflow Apps + Evidently）配合 QuickSight 与 CloudWatch 自建替代",
      "chapter": "pam-monitoring",
-     "verified": "2026-08-02",
-     "source": "AWS 文档 sagemaker/latest/dg/model-monitor.html 与 model-monitor-availability-change.html",
+     "verified": "2026-10-20",
+     "source": "docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html（2026-10-20 逐字核对）；AWS 文档 sagemaker/latest/dg/model-monitor.html 与 model-monitor-availability-change.html",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
-     "text": "美联储、OCC、FDIC 于 2026-04-17 发布 SR 26-2《Revised Guidance on Model Risk Management》，取代 SR 11-7（2011-04-04）与 SR 21-8，主要适用于总资产超 300 亿美元的美国银行；保留概念稳健性／持续监测／结果分析三件验证与「有效挑战」及独立性要求；全文未出现 AI 或机器学习字样，模型被定义为把输入变成定量估计的复杂定量方法，排除纯算术与确定性规则",
+     "text": "美联储、OCC、FDIC 于 2026-04-17 发布 SR 26-2《Revised Guidance on Model Risk Management》，取代 SR 11-7（2011-04-04）与 SR 21-8，主要适用于总资产超 300 亿美元的美国银行；保留概念稳健性／持续监测／结果分析三件验证与「有效挑战」及独立性要求；脚注 3 明确把生成式 AI 与智能体 AI 模型排除在适用范围外，但写明这些原则适用于传统统计与定量模型以及非生成式、非智能体的 AI 模型；模型被定义为把输入变成定量估计的复杂定量方法，排除纯算术与确定性规则",
      "chapter": "pam-governance",
-     "verified": "2026-08-02",
-     "source": "美联储 SR 26-2 通知页与所附指引全文（federalreserve.gov/supervisionreg/srletters/sr2602.htm 与 SR2602.pdf）",
+     "verified": "2026-10-20",
+     "source": "www.federalreserve.gov/supervisionreg/srletters/SR2602.pdf（2026-10-20 逐字核对）；美联储 SR 26-2 通知页与所附指引全文（federalreserve.gov/supervisionreg/srletters/sr2602.htm 与 SR2602.pdf）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Kleinberg、Mullainathan、Raghavan 2016 证明：校准性与两类错误率均等这三个公平条件，除非各群基础率相同或预测完美，否则不可同时满足",
@@ -6506,22 +6496,22 @@ window.KB = {
     {
      "text": "同一套实验追踪与模型注册表可以同时装传统预测式模型与生成式应用：MLflow 官方表述为同一套工具既管 transformer 训练管线，也管多智能体 RAG 系统",
      "chapter": "pam-platform",
-     "verified": "2026-08-02",
-     "source": "MLflow 官方博客与文档（mlflow.org，2026-08-02 查见）",
+     "verified": "2026-10-20",
+     "source": "mlflow.org/（2026-10-20 逐字核对）；MLflow 官方博客与文档（mlflow.org，2026-08-02 查见）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "Azure 侧两种 AI 分属两个门面：Azure Machine Learning 主管自训练的预测式模型与 MLOps，Microsoft Foundry 主管生成式应用；两处都能接大模型，微软官方为此专门提供「该用哪个工作室」的选择指引",
      "chapter": "pam-platform",
-     "verified": "2026-08-02",
-     "source": "Microsoft Learn《What is Azure Machine Learning?》（页面 updated 2026-03-30）",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/data-science-and-machine-learning（2026-10-20 逐字核对）；Microsoft Learn《What is Azure Machine Learning?》（页面 updated 2026-03-30）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-31"
+     "due": "2027-01-18"
     },
     {
      "text": "预测式监控的云上落点（服务名快照）：Azure ML 表格数据内建监控信号、Gemini Enterprise Agent Platform（原 Vertex AI）模型监控、AWS SageMaker Model Monitor（已不再向新客户开放，官方改荐开源自建）；开源侧代表为 Evidently（漂移检测）与 NannyML（无真值期性能估计）",
@@ -6801,7 +6791,7 @@ window.KB = {
    "dir": "Prompt-Engineering",
    "layer": "基础层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "pe-what-why",
@@ -6848,54 +6838,54 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "推理模型阵容（GPT-5.6、Claude 5、Gemini 3.1 Pro、Grok 4.3、DeepSeek V4）已把 CoT 内建，不再需手写「一步步思考」；控制点从「思考预算 token 数」换成 effort（low/medium/high/xhigh/max，默认 high）；思考 token 照常计费但原始思维链不返回，最多给摘要",
+     "text": "推理模型阵容（GPT-6、Claude 5.5、Gemini 4 Argon、Grok 4.7、DeepSeek V4 系）已把 CoT 内建，不再需手写「一步步思考」；控制点从「思考预算 token 数」换成 effort（low/medium/high/xhigh/max，默认多为 high，Claude Opus 5.5 默认 medium）；思考 token 照常计费但原始思维链不返回，最多给摘要",
      "chapter": "pe-advanced-reasoning",
-     "verified": "2026-09-05",
-     "source": "platform.claude.com/docs/en/build-with-claude/effort 与 thinking 文档（2026-09-05 逐字核对）；阵容与本库 Model-Landscape 册同源",
+     "verified": "2026-10-20",
+     "source": "platform.claude.com/docs/en/about-claude/models/overview（2026-10-20 逐字核对）；platform.claude.com/docs/en/build-with-claude/effort；阵容与本库 Model-Landscape 册 2026-10-20 核实同源",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-12-04"
+     "due": "2027-01-18"
     },
     {
      "text": "两个经典提示词旋钮在 Claude 当前主力模型上已移除：temperature/top_p/top_k（Opus 5、Fable 5 及 4.x 代传了返回 400）与助手预填充 prefill（4.6 及以后返回 400，改用结构化输出）",
      "chapter": "pe-advanced-reasoning",
-     "verified": "2026-07-30",
-     "source": "Claude API 参考（迁移指南 breaking changes）",
+     "verified": "2026-10-20",
+     "source": "platform.claude.com/docs/en/models/opus-5-5/migration-guide（2026-10-20 逐字核对）",
      "recheck": "2026-10-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-28"
+     "due": "2026-10-31"
     },
     {
-     "text": "DSPy 已到 3.x 线（当前稳定版 3.2.1，2026-05-05；3.3.0b1 为预发布，2026-05-28）——库内原写「2.x」是版本框架错，2026-08-01 更正；默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 +13%、rollout 少 35×，ICLR 2026 oral",
+     "text": "DSPy 已到 3.x 线（当前稳定版 3.4.1，2026-10-12）——库内原写「2.x」是版本框架错，2026-08-01 更正；默认优化器 MIPROv2（贝叶斯联合优化指令+示例，结构化任务较手写 +10~40%）；GEPA 反射式进化优化器较 MIPROv2 高 10% 以上（AIME-2025 +12%），较 GRPO 平均 +6%、rollout 最多少 35×，ICLR 2026 oral",
      "chapter": "pe-engineering",
-     "verified": "2026-07-09",
-     "source": "版本＝github.com/stanfordnlp/dspy releases（版本口径 2026-08-01 重核）；优化器数字＝futureagi（DSPy optimizers 2026）、morphllm（GEPA，2026-07-09 后未重核）",
+     "verified": "2026-10-20",
+     "source": "github.com/stanfordnlp/dspy/releases（2026-10-20 逐字核对）；GEPA＝arxiv.org/abs/2507.19457；MIPROv2 优化器数字＝futureagi（2026-07-09 后未重核）",
      "recheck": "2026-11-30",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2026-11-30"
     },
     {
-     "text": "提示词缓存：截至 2026-09 三大厂缓存读取价均约为基础输入价 0.1×（约 1 折，省约 90%；Anthropic Fable 5.1/Mythos 5.1 更低至 0.025×）；OpenAI 默认自动缓存（GPT-5.6 及以后最小可缓存前缀 1024 token、写入加价 1.25×）、Anthropic cache_control 写入加价（5min 1.25×/1h 2×）、Gemini 隐式缓存默认开启（2.5 及以后全部模型；显式仅 generateContent API 且按小时存储计费）；最小可缓存前缀 1024–4096 token 因模型而异、不随代际单调，低于门槛静默不缓存",
+     "text": "提示词缓存：截至 2026-10 三大厂缓存读取价多数约为基础输入价 0.1×（约 1 折，省约 90%），新一代更低：Anthropic Opus 5.5/Sonnet 5.5 为 0.05×、Fable 5.1/Mythos 5.1 为 0.025×，OpenAI GPT-6.1 Sol 为 0.05×；OpenAI 默认自动缓存（GPT-5.6 及以后最小可缓存前缀 1024 token、写入加价 1.25×）、Anthropic cache_control 写入加价（5min 1.25×/1h 2×）、Gemini 隐式缓存默认开启（2.5 及以后全部模型；显式仅 generateContent API 且按小时存储计费，Gemini 4 Argon 起不支持显式缓存）；最小可缓存前缀 1024–4096 token 因模型而异、不随代际单调，低于门槛静默不缓存",
      "chapter": "pe-engineering",
-     "verified": "2026-09-05",
-     "source": "platform.claude.com/docs/en/about-claude/pricing；developers.openai.com/api/docs/pricing；ai.google.dev 缓存文档（2026-09-05 三家官方页逐字核对）",
+     "verified": "2026-10-20",
+     "source": "platform.claude.com/docs/en/about-claude/pricing（2026-10-20 逐字核对）；developers.openai.com 缓存指南；ai.google.dev 缓存文档",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "各云提示词服务：AWS Bedrock Prompt Management + Advanced Prompt Optimization（改写/迁移+评估环）；Vertex AI / Gemini Enterprise Prompt Optimizer；Azure AI Foundry Prompt Flow",
+     "text": "各云提示词服务：AWS Bedrock Prompt Management + Prompt Optimization（自动改写+与原版对比）；Google Gemini Enterprise Agent Platform（原 Vertex AI）Prompt Optimizer；Microsoft Foundry（原 Azure AI Foundry）Prompt Flow 已不推荐新开发、2027-04-20 退役，迁往 Microsoft Agent Framework",
      "chapter": "pe-engineering / pe-presales-map",
-     "verified": "2026-07-09",
-     "source": "aws.amazon.com/bedrock/prompt-management、AWS News Blog、InfoWorld",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/ai-foundry/how-to/prompt-flow（2026-10-20 逐字核对）；aws.amazon.com/bedrock/prompt-management；Google「Optimize prompts」文档",
      "recheck": "2027-01-31",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "OWASP Top 10 for LLM Applications 2025：LLM01 提示词注入连续两版第一；RAG 与微调都不能根治注入，只能纵深防御",
@@ -6910,12 +6900,12 @@ window.KB = {
     {
      "text": "云护栏：AWS Bedrock Guardrails、Azure AI Content Safety、Google Vertex 安全过滤 / Model Armor",
      "chapter": "pe-security",
-     "verified": "2026-07-09",
-     "source": "各云官方文档",
+     "verified": "2026-10-20",
+     "source": "learn.microsoft.com/en-us/azure/ai-services/content-safety/overview（2026-10-20 逐字核对）；aws.amazon.com/bedrock/guardrails；docs.cloud.google.com/model-armor/overview",
      "recheck": "2027-01-31",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -7063,7 +7053,7 @@ window.KB = {
    "dir": "RAG",
    "layer": "应用模式层",
    "created": "2026-07-07",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "rag-what-why",
@@ -7142,22 +7132,22 @@ window.KB = {
     {
      "text": "Cohere Rerank 当前主线 v4.0（pro 重质量 / fast 低延迟高吞吐，多语言+半结构化），v3.5 与 v3.0 系仍在服务线",
      "chapter": "rag-reranking",
-     "verified": "2026-07-12",
-     "source": "docs.cohere.com/docs/rerank",
+     "verified": "2026-10-20",
+     "source": "docs.cohere.com/docs/rerank（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-10"
+     "due": "2027-01-18"
     },
     {
-     "text": "混合检索为生产最低标配，RRF k≈60 为主流引擎原生支持",
+     "text": "混合检索为生产最低标配，RRF 为主流引擎原生支持（Elasticsearch 默认 k=60；Qdrant 默认 k=2，v1.16 起可显式设 k）",
      "chapter": "rag-hybrid",
-     "verified": "2026-07-08",
-     "source": "Elasticsearch / Qdrant 官方文档",
+     "verified": "2026-10-20",
+     "source": "qdrant.tech/documentation/concepts/hybrid-queries（2026-10-20 逐字核对）；www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-06"
+     "due": "2027-01-18"
     },
     {
      "text": "Agentic RAG 五大生产模式（Router/ReAct/Plan-Execute/Multi-Agent/Self-RAG）+ CRAG",
@@ -7202,42 +7192,42 @@ window.KB = {
     {
      "text": "BGE M3 为开源多语言 embedding 代表方案",
      "chapter": "rag-embedding",
-     "verified": "2026-07-07",
-     "source": "arXiv 2402.03216",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/abs/2402.03216（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-05"
+     "due": "2027-01-18"
     },
     {
      "text": "全量 GraphRAG 索引成本 6–8 倍；LazyGraphRAG 压至 0.1%、全局查询省约 700 倍",
      "chapter": "rag-graphrag",
-     "verified": "2026-07-09",
-     "source": "Microsoft GraphRAG 文档、2026 实践者评测",
+     "verified": "2026-10-20",
+     "source": "www.microsoft.com/en-us/research/blog/lazygraphrag-setting-a-new-standard-for-quality-and-cost（2026-10-20 逐字核对）；Microsoft GraphRAG 文档、2026 实践者评测（6–8 倍未核）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
-     "text": "多模态三路线：Caption / 统一嵌入（Cohere Embed 4、voyage-multimodal）/ ColPali 系晚交互",
+     "text": "多模态三路线：Caption / 统一嵌入（Cohere Embed 5、voyage-multimodal-3.5）/ ColPali 系晚交互",
      "chapter": "rag-multimodal",
-     "verified": "2026-07-09",
-     "source": "arXiv 2407.01449、BigData Boutique 2026",
+     "verified": "2026-10-20",
+     "source": "docs.cohere.com/docs/cohere-embed（2026-10-20 逐字核对）；docs.voyageai.com/docs/multimodal-embeddings；arXiv 2407.01449",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "裸 Text-to-SQL 准确率随基准真实度分档（学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准（Spider 2.0 类）10–21%），语义层抬至 85–95%（覆盖查询近 100%）；对客讲最低那档",
      "chapter": "rag-structured",
-     "verified": "2026-07-23",
-     "source": "dbt 2026 基准 + Spider 2.0 / BEAVER / Spider-Ent（与 solution-patterns#sp-chatbi 同源口径，2026-09-05 两册分档对齐）",
+     "verified": "2026-10-20",
+     "source": "docs.getdbt.com/blog/semantic-layer-vs-text-to-sql-2026（2026-10-20 逐字核对）；spider2-sql.github.io（与 solution-patterns#sp-chatbi 同源口径）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-21"
+     "due": "2027-01-18"
     }
    ],
    "edges": [
@@ -7434,7 +7424,7 @@ window.KB = {
    "dir": "Security",
    "layer": "工程保障层",
    "created": "2026-07-09",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "sec-landscape",
@@ -7495,22 +7485,22 @@ window.KB = {
     {
      "text": "OWASP LLM Top 10 现行版为 2025 版;新增 LLM07 系统提示词泄露、LLM08 向量与嵌入弱点,敏感信息泄露升至第 2",
      "chapter": "sec-landscape",
-     "verified": "2026-07-09",
-     "source": "genai.owasp.org/llm-top-10",
+     "verified": "2026-10-20",
+     "source": "genai.owasp.org/llm-top-10/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "OWASP 另有《Agentic AI Threats & Mitigations》(2025-02)与《Top 10 for Agentic Applications 2026》",
      "chapter": "sec-agentic",
-     "verified": "2026-07-09",
-     "source": "genai.owasp.org(ASI)",
+     "verified": "2026-10-20",
+     "source": "genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "EchoLeak(CVE-2025-32711):M365 Copilot 首个零点击间接注入,CVSS 9.3",
@@ -7525,12 +7515,12 @@ window.KB = {
     {
      "text": "在野间接注入 2026 起规模化:Unit42 2026-03 记录 22 种载荷手法;CrowdStrike 报 2025 影响 90+ 组织",
      "chapter": "sec-prompt-injection",
-     "verified": "2026-07-09",
-     "source": "unit42 / helpnetsecurity 2026-04",
+     "verified": "2026-10-20",
+     "source": "unit42.paloaltonetworks.com/ai-agent-prompt-injection/（2026-10-20 逐字核对）；CrowdStrike 2026 Global Threat Report 博客",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "OpenAI/Anthropic/Google DeepMind 均公开承认:现有架构下提示注入无法彻底根治,需模型外确定性策略兜底",
@@ -7543,24 +7533,24 @@ window.KB = {
      "due": "2027-01-05"
     },
     {
-     "text": "护栏格局:开源 Llama Guard/NeMo Guardrails/Guardrails AI/LLM Guard;商业 Lakera;云托管 Bedrock Guardrails/Azure AI Content Safety(Prompt Shields)",
+     "text": "护栏格局:开源 Llama Guard/NeMo Guardrails/Guardrails AI(LLM Guard 已于 2026 年归档停维);商业 Lakera(已归 Check Point);云托管 Bedrock Guardrails/Azure AI Content Safety(Prompt Shields)",
      "chapter": "sec-defense",
-     "verified": "2026-07-09",
-     "source": "generalanalysis / galileo 2026 对比",
+     "verified": "2026-10-20",
+     "source": "github.com/protectai/llm-guard（2026-10-20 逐字核对）；generalanalysis / galileo 2026 对比",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "CaMeL(Google DeepMind,arXiv 2503.18813)Dual-LLM 工程化,AgentDojo 约 77% 任务可证安全",
      "chapter": "sec-defense",
-     "verified": "2026-07-09",
-     "source": "arXiv 2503.18813",
+     "verified": "2026-10-20",
+     "source": "arxiv.org/abs/2503.18813（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "架构级防注入六类模式(action-selector/plan-then-execute/dual LLM/code-then-execute/context-minimization/map-reduce)",
@@ -7575,32 +7565,32 @@ window.KB = {
     {
      "text": "NIST AI 600-1(GenAI Profile)2024-07-26 发布,12 类风险 +200 行动项;RMF 下一大版本预计 2026–2027",
      "chapter": "sec-governance",
-     "verified": "2026-07-09",
-     "source": "nist.gov / nvlpubs",
+     "verified": "2026-10-20",
+     "source": "www.nist.gov/itl/ai-risk-management-framework（2026-10-20 逐字核对）；nvlpubs",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "EU AI Act:GPAI 三时点不变(义务 2025-08-02 生效 / 2026-08-02 执法罚款,GPAI 最高 €15M 或营收 3%、广义最高 €35M 或 7% / 2027-08-02 存量截止);高风险义务经 Digital Omnibus(Regulation (EU) 2026/1744,2026-07-24 刊《官方公报》、07-27 生效)延期:Annex III 独立系统→2027-12-02、Annex I 嵌入式→2028-08-02,透明度义务(Art. 50)仍 2026-08-02;建议复查日 2026-12-01",
      "chapter": "sec-governance",
-     "verified": "2026-08-01",
-     "source": "EUR-Lex(Reg (EU) 2026/1744)/ Gibson Dunn / Jones Walker 两家法务分析一致",
+     "verified": "2026-10-20",
+     "source": "publications.europa.eu/resource/celex/32026R1744（2026-10-20 逐字核对）；Gibson Dunn / Jones Walker 两家法务分析一致",
      "recheck": "2026-12-01",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-12-01"
     },
     {
-     "text": "MITRE ATLAS v5.x(2025 末–2026):约 16 战术/84 技术,2025-11 v5.1.0 加 C2 战术,2025 起大量 GenAI/Agent 技术",
+     "text": "MITRE ATLAS v5.x(2025 末–2026):截至 v5.6.0(数据版 v2026.09,2026-09-15)为 16 战术/120 技术/88 子技术,2025-11 v5.1.0 加 C2 战术,2025 起大量 GenAI/Agent 技术",
      "chapter": "sec-landscape",
-     "verified": "2026-07-09",
-     "source": "atlas.mitre.org",
+     "verified": "2026-10-20",
+     "source": "github.com/mitre-atlas/atlas-data/releases/tag/v2026.09（2026-10-20 逐字核对）；atlas.mitre.org",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-07"
+     "due": "2027-01-18"
     },
     {
      "text": "上云 AI 安全服务名:AWS Bedrock Guardrails/Macie/GuardDuty+Security Hub CSPM;Azure AI Content Safety/Microsoft Purview/Defender for Cloud AI-SPM;GCP Model Armor/Sensitive Data Protection(原 Cloud DLP,API 名未变)/Security Command Center",
@@ -7613,24 +7603,24 @@ window.KB = {
      "due": "2026-12-04"
     },
     {
-     "text": "备案现状:截至 2026-06-30 累计 988 款生成式 AI 服务备案、598 款应用/功能登记;双备案全流程 5–8 个月(北京 8–10),算法备案审核 30 个工作日、大模型备案 3–6 个月",
+     "text": "备案现状:截至 2026-08-31 累计 1112 款生成式 AI 服务备案、731 款应用/功能登记;双备案全流程 5–8 个月(北京 8–10),算法备案审核 30 个工作日、大模型备案 3–6 个月",
      "chapter": "sec-china",
-     "verified": "2026-09-05",
-     "source": "gzwxb.gov.cn/context/contextId/216437（网信办公告转发页，2026-09-05 逐字核对）;时长区间为实务口径",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2026-09/14/c_1791136833136332.htm（2026-10-20 逐字核对）；时长区间为实务口径",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "《AI 生成合成内容标识办法》2025-09-01 施行(四部门),显式+隐式双轨,配套强标 GB 45438-2025;已有 App 因标识违规被约谈/下架",
      "chapter": "sec-china",
-     "verified": "2026-07-17",
-     "source": "cac.gov.cn / 央视新闻 / samr openstd",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2025-03/14/c_1743654685899683.htm（2026-10-20 逐字核对）；央视新闻 / samr openstd",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-15"
+     "due": "2027-01-18"
     },
     {
      "text": "GB/T 45654-2025《生成式 AI 服务安全基本要求》2025-11-01 实施(TC260 归口),训练数据/模型/安全措施三方面,五大类 31 小类风险;配套 GB/T 45674 数据标注安全",
@@ -7645,22 +7635,22 @@ window.KB = {
     {
      "text": "立法风向(易过期):网安法修订 2026-01-01 施行新增 AI 专条(第 20 条);国务院 2026 立法计划部署 AI 综合性立法;《人工智能拟人化互动服务管理暂行办法》2026-04-10 五部门公布、2026-07-15 施行;同日网信办公布首批 7 款手机端侧生成式 AI 服务备案(新品类首次单开清单);建议复查日 2026-11-01",
      "chapter": "sec-china",
-     "verified": "2026-08-01",
-     "source": "cac.gov.cn 原文(办法发布页 c_1777558395023172 + 端侧备案公告 c_1785861480767004)",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2026-04/10/c_1777558395023172.htm（2026-10-20 逐字核对）；端侧备案公告 cac.gov.cn c_1785861480767004",
      "recheck": "2026-11-01",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-30"
+     "due": "2026-11-01"
     },
     {
-     "text": "数据出境:三通道(安全评估/标准合同/认证)+《促进和规范数据跨境流动规定》(2024-03)六类豁免+自贸区负面清单;官方口径《政策问答(2025-10)》",
+     "text": "数据出境:三通道(安全评估/标准合同/认证)+《促进和规范数据跨境流动规定》(2024-03)六类豁免+自贸区负面清单;官方口径《数据出境安全管理政策法规问答》最新为 2026-09 版(此前 2025-10、2026-01、2026-07 版)",
      "chapter": "sec-china",
-     "verified": "2026-07-17",
-     "source": "cac.gov.cn",
+     "verified": "2026-10-20",
+     "source": "www.cac.gov.cn/2026-09/11/c_1790876549989064.htm（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "A",
      "cadence": "90",
-     "due": "2026-10-15"
+     "due": "2027-01-18"
     },
     {
      "text": "ISO/IEC 42001 为首个 AI 管理体系(AIMS)国际标准",
@@ -7847,7 +7837,7 @@ window.KB = {
    "dir": "Solution-Patterns",
    "layer": "解决方案层",
    "created": "2026-07-10",
-   "updated": "2026-08-02",
+   "updated": "2026-10-20",
    "chapters": [
     {
      "id": "sp-what-why",
@@ -7912,114 +7902,114 @@ window.KB = {
    ],
    "facts": [
     {
-     "text": "客服解决率口径：厂商自报 Fin 51–67% / Sierra ~70%（WeightWatchers）/ Decagon 80%（deflection）；独立口径 Zendesk 企业中位 41.2%、top quartile 58.7%；宣传与实测差 30–40pp",
+     "text": "客服解决率口径：厂商自报 Fin 平均 76%（12,000+ 客户，多家超 85%）/ Sierra ~70%（WeightWatchers）/ Decagon 80%（deflection）；独立口径 企业一线分流率（deflection，非解决率）中位 41.2%（digitalapplied 归 Zendesk CX Trends 2026）、top quartile 58.7%；宣传与实测差 30–40pp",
      "chapter": "sp-customer-service / sp-method",
-     "verified": "2026-07-10",
-     "source": "fin.ai 对比页 / digitalapplied 2026 统计",
+     "verified": "2026-10-20",
+     "source": "fin.ai（2026-10-20 逐字核对）；www.digitalapplied.com/blog/customer-service-ai-agent-statistics-2026-（分流率口径）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "客服 AI 采用度：Salesforce 报 66% 服务组织已跑 AI agent（2025 年 39%）；Gartner 91% CX 负责人有部署压力",
      "chapter": "sp-customer-service",
-     "verified": "2026-07-10",
-     "source": "digitalapplied 2026 统计",
+     "verified": "2026-10-20",
+     "source": "www.salesforce.com/news/stories/ai-service-agents-improve-customer-satisfaction（2026-10-20 逐字核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
      "text": "Glean：ARR $300M（2026-05，+89% YoY）、估值 $7.2B（2025-06 Series F）；Glean Agents 年化 1 亿+ actions",
      "chapter": "sp-knowledge-search",
-     "verified": "2026-09-05",
-     "source": "TechCrunch 2026-05-28（ARR 与估值原文核对）；sacra.com/c/glean/（+89% 与 actions 原文核对）",
+     "verified": "2026-10-20",
+     "source": "techcrunch.com/2026/05/28/gleans-top-line-crosses-300m-as-ai-budget-cutting-becomes-its-major-selling-point（2026-10-20 逐字核对）；sacra.com/c/glean/（+89% 与 actions 原文核对）",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "AI Coding 格局：SpaceX $60B 全股票收购 Cursor 母公司 Anysphere（2026-06-16 宣布、2026-08-14 已交割——SEC Form 8-K 确认 Anysphere 成 SpaceX 全资子公司）；Cursor ARR $4B 年化（2026-06 初，2 月 $2B 四个月翻倍，收入第一）；Copilot 4.7M 付费 +75% YoY（微软 FY26 Q2 财报 2026-01-28 披露，仍为最新付费数——FY26 Q4 财报 07-29 只披露总用户 5000 万未更新付费口径，用户量第一）、Claude Code 46% most-loved（JetBrains 2026-04 满意度第一）；市场 2026 年 $12.8B、85% 开发者在用；采用率 29%/18%/18%；70% 工程师同时用 2–4 个工具",
+     "text": "AI Coding 格局：SpaceX $60B 全股票收购 Cursor 母公司 Anysphere（2026-06-16 宣布、2026-08-14 已交割——SEC Form 8-K 确认 Anysphere 成 SpaceX 全资子公司）；Cursor ARR $4B 年化（2026-06 初，2 月 $2B 四个月翻倍，收入第一）；Copilot 4.7M 付费 +75% YoY（微软 FY26 Q2 财报 2026-01-28 披露，仍为最新付费数）、Claude Code 工作使用率 39% 居首（JetBrains 2026-05～07 调查，美国 47%；1 月为 18%）；市场 2026 年 $12.8B、85% 开发者在用；工作使用率 Claude Code 39% / Copilot 21% / Codex 16% / Cursor 12%（JetBrains 2026-05～07）；70% 工程师同时用 2–4 个工具",
      "chapter": "sp-ai-coding",
-     "verified": "2026-09-05",
-     "source": "investing.com（Reuters，2026-08-14，引 SEC 8-K spcx-20260814）/ 01net.it 交叉确认交割；TechCrunch/Forbes 2026-06-16 / 微软 FY26 Q2·Q4 财报 / JetBrains 2026 调查",
+     "verified": "2026-10-20",
+     "source": "blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026（2026-10-20 逐字核对）；cursor.com/blog 2026-08-14 与 SEC 8-K spcx-20260814（交割）；TechCrunch/Forbes 2026-06-16 / 微软 FY26 Q2 财报",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
-     "text": "数字人：HeyGen Avatar V（2026-04-08，15 秒素材建分身、10 分钟身份不漂移）；LiveAvatar 为 WebRTC 实时交互数字人独立平台",
+     "text": "数字人：HeyGen Avatar V（2026-04-08，15 秒素材建分身、30 分钟视频身份不漂移）；LiveAvatar 为 HeyGen 实时交互数字人 API 独立平台",
      "chapter": "sp-digital-human",
-     "verified": "2026-07-10",
-     "source": "HeyGen 官方 blog / help center",
+     "verified": "2026-10-20",
+     "source": "www.heygen.com/tool/custom-avatar（2026-10-20 逐字核对）；liveavatar.com",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "内容生成格局：Jasper（品牌一致性：风格指南/禁用词全局生效）、Canva Magic Studio（模板驱动）、Adobe Firefly Enterprise（商业安全定位：授权数据训练 + 企业 IP 赔付 + 可训品牌定制模型）",
+     "text": "内容生成格局：Jasper（品牌一致性：风格指南/禁用词全局生效）、Canva AI 2.0（原 Magic Studio，模板驱动）、Adobe Firefly Enterprise（商业安全定位：授权数据训练 + 企业 IP 赔付 + 可训品牌定制模型）",
      "chapter": "sp-content-gen",
-     "verified": "2026-07-10",
-     "source": "Adobe 官方 / genesysgrowth 2026 对比",
+     "verified": "2026-10-20",
+     "source": "www.canva.com/magic（2026-10-20 逐字核对）；adobe.com/products/firefly/enterprise.html",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-08"
+     "due": "2027-01-18"
     },
     {
-     "text": "语音客服成本：级联 $0.01–0.17/分钟（组件各自计价，可预测）；端到端厂商只公布 token 单价——gpt-realtime-2.1 音频进 $32 / 出 $64 每百万 token、缓存命中输入 $0.4，2.1-mini 音频出 $20（与 multimodal#mm-voice-realtime 同源口径，2026-09-05 随源回刷；旧分钟价 $0.18–0.46/$0.05–0.10 已随两轮换代作废）",
+     "text": "语音客服成本：级联 $0.01–0.17/分钟（组件各自计价，可预测）；端到端主线仍按 token 计价——gpt-realtime-2.1 音频进 $32 / 出 $64 每百万 token、缓存命中输入 $0.4，2.1-mini 音频出 $20；OpenAI 另新增 GPT-Live 语音会话按分钟计价（gpt-live-1 $0.05/分钟，后端模型与工具用量另计）（旧分钟价 $0.18–0.46/$0.05–0.10 已随两轮换代作废）",
      "chapter": "sp-customer-service / sp-cheatsheet",
-     "verified": "2026-09-05",
-     "source": "沿用 multimodal#mm-voice-realtime 同源（源行 2026-09-05 核实）",
+     "verified": "2026-10-20",
+     "source": "developers.openai.com/api/docs/pricing（2026-10-20 逐字核对）；与 multimodal#mm-voice-realtime 同源口径",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     },
     {
      "text": "成本速查卡量级：文本客服 $0.01–0.05/会话、文案 $0.001–0.01/条、图 $0.02–0.1/张、AI Coding $19–40/人/月 + 用量",
      "chapter": "sp-cheatsheet",
-     "verified": "2026-07-10",
-     "source": "各厂商定价页综合量级（2026-07 口径）",
+     "verified": "2026-10-20",
+     "source": "docs.github.com/en/copilot/get-started/plans（2026-10-20 逐字核对）；cursor.com/pricing",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-08-09"
+     "due": "2026-11-19"
     },
     {
      "text": "Text-to-SQL 准确率口径（分档，与 RAG 册对齐）：裸 LLM 随基准真实度分档——学术单轮 80–90% / 中等企业化基准 50–70% / 最难企业基准（Spider 2.0 类）10–21%，对客讲最低那档；语义模型加持后 Snowflake 内部 150 题基准 51%→90%+、dbt 语义层基准 98–100%",
      "chapter": "sp-chatbi",
-     "verified": "2026-07-23",
-     "source": "promethium 2026 企业对比 / Snowflake 工程博客 / Spider 2.0 / colrows（与 rag#rag-structured 同源口径，2026-09-05 两册分档对齐）",
+     "verified": "2026-10-20",
+     "source": "docs.getdbt.com/blog/semantic-layer-vs-text-to-sql-2026（2026-10-20 逐字核对）；spider2-sql.github.io / Snowflake 工程博客",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-21"
+     "due": "2027-01-18"
     },
     {
-     "text": "ChatBI 产品格局：垂直一体派 Cortex Analyst（YAML 语义模型）/ Databricks AI/BI Genie（Unity Catalog）/ Fabric Copilot；独立派 ThoughtSpot / dbt / Cube；Snowflake 2026 推 Semantic View Autopilot（ML 自动发现指标定义，天级→分钟级）",
+     "text": "ChatBI 产品格局：垂直一体派 Cortex Analyst（YAML 语义模型）/ Databricks Genie Agents（原 AI/BI Genie，Unity Catalog）/ Fabric Copilot；独立派 ThoughtSpot / dbt / Cube；Snowflake 2026 推 Semantic View Autopilot（从查询历史与可信 BI 资产自动学习指标定义，天级→分钟级）",
      "chapter": "sp-chatbi",
-     "verified": "2026-07-11",
-     "source": "promethium 语义层十强 / colrows",
+     "verified": "2026-10-20",
+     "source": "www.databricks.com/product/business-intelligence/genie（2026-10-20 逐字核对）；www.snowflake.com/en/blog/semantic-view-autopilot/",
      "recheck": "—",
      "grade": "B",
      "cadence": "90",
-     "due": "2026-10-09"
+     "due": "2027-01-18"
     },
     {
-     "text": "会议助手格局：两分野（笔记器 vs agentic 平台）；原生派 Zoom AI Companion / Teams Copilot（M365 +$30/人/月）/ 飞书妙记；独立派 Otter / Fireflies / Granola（2026-03 融资 $125M、估值 $1.5B、bot-free 代表）；bot 疲劳为 2026 趋势",
+     "text": "会议助手格局：两分野（笔记器 vs agentic 平台）；原生派 Zoom Workplace 内置 AI（2026-06 起不再用 AI Companion 名，agentic 产品为 ZoomMate）/ Teams Copilot（M365 +$30/人/月）/ 飞书妙记；独立派 Otter / Fireflies / Granola（2026-03 融资 $125M、估值 $1.5B、bot-free 代表）；bot 疲劳为 2026 趋势",
      "chapter": "sp-meeting",
-     "verified": "2026-09-05",
-     "source": "techcrunch.com 2026-03-25；microsoft.com Copilot 企业页；news.zoom.us（2026-09-05 逐字核对）",
+     "verified": "2026-10-20",
+     "source": "www.zoom.com/en/blog/zoom-ai-companion-zoommate（2026-10-20 逐字核对）；techcrunch.com 2026-03-25；microsoft.com Copilot 企业页",
      "recheck": "—",
      "grade": "B",
      "cadence": "30",
-     "due": "2026-10-05"
+     "due": "2026-11-19"
     }
    ],
    "edges": [

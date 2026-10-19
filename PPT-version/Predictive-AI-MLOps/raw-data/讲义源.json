@@ -406,7 +406,7 @@
     2.8583
    ],
    "lead": "客户的需求先落进这四格，落对了算法就没什么可争的。",
-   "note": "GBDT，Gradient Boosting Decision Tree；常见实现 XGBoost / LightGBM / CatBoost。排序那行的指标写作 precision@k，k 就是你每天处理得了的条数。基础模型有明确的规模上限，按官方文档：TabPFNv2 到 1 万样本 / 500 特征，TabPFN-3 到 100 万行 × 200 特征（2026-08-02 核实）。",
+   "note": "GBDT，Gradient Boosting Decision Tree；常见实现 XGBoost / LightGBM / CatBoost。排序那行的指标写作 precision@k，k 就是你每天处理得了的条数。基础模型有明确的规模上限，按官方文档：TabPFNv2 到 1 万样本 / 500 特征，TabPFN-3 到 100 万行、2000 列，不能同时取满（2026-10-20 核实）。",
    "foot": "第 2 章 · 算法取舍地图 · 四种数据形状，各有一个不用解"
   },
   {
@@ -1381,7 +1381,7 @@
      "Azure ML、Databricks 内置时点连接",
      "训练集按每个样本的时点截断",
      "每个特征的落库延迟有记录吗",
-     "SageMaker 靠 write_time 自建"
+     "SageMaker 按事件时间列自建"
     ],
     [
      "在线存储",
@@ -2341,7 +2341,7 @@
      "d": "结果持续偏出既定阈值，就要按政策处置，不是记录了事。"
     }
    ],
-   "takeaway": "新版全文没出现「AI」「机器学习」——它按是不是模型管，不按用没用 AI 管。",
+   "takeaway": "新版脚注把生成式与智能体 AI 排除在外，非生成式 AI 模型照管——按是不是模型管。",
    "foot": "第 8 章 · 可解释、公平与模型风险管理 · 模型风险管理这套老规矩，20"
   },
   {

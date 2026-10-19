@@ -6,7 +6,7 @@
 <nav class="topbar"><div class="tb">
  <a class="brand" href="../README.html">AI 知识库</a><a class="ti" href="../Web-version/index.html">网页版</a>
  <a class="ti" href="../PPT-version/README.html">PPT 总览</a><a class="ti cur" href="../_prep/实战包.html">实战包</a><a class="ti" href="../_prep/学习路径.html">学习路径</a><a class="ti" href="../_prep/全库一页纸.html">全库一页纸</a><a class="ti" href="../开始使用.html">开始使用</a>
- <span class="ver">v2026.09.05</span>
+ <span class="ver">v2026.10.20</span>
 </div></nav>
 
 <header class="top">
@@ -79,8 +79,8 @@
  <div class="a">POC 只建了模型+数据两层样板墙；上生产要补入口、保障、运营三层——高可用、权限、审计、评估回归都是生产件，这才是工程大头。</div>
  <div class="src">深潜 → <a href="../Web-version/solution-patterns/index.html#sp-method"><code>solution-patterns#sp-method</code></a></div>
 </div><div class="qa" id="q-prep-B4">
- <div class="q"><span class="num">B4</span>客服解决率能承诺多少？<span class="fresh">⏳ 口径 2026-07-10</span></div>
- <div class="a">不先拍数字：厂商自报 51–80%，独立口径中位仅 41.2%，差在 deflection≠resolution。承诺测法：用真实工单建评估集测基线，验收线双方签字。</div>
+ <div class="q"><span class="num">B4</span>客服解决率能承诺多少？<span class="fresh">⏳ 口径 2026-10-20</span></div>
+ <div class="a">不先拍数字：厂商自报 70–80%，独立口径（一线分流率）中位仅 41.2%，差在 deflection≠resolution。承诺测法：用真实工单建评估集测基线，验收线双方签字。</div>
  <div class="src">深潜 → <a href="../Web-version/solution-patterns/index.html#sp-customer-service"><code>solution-patterns#sp-customer-service</code></a></div>
 </div><div class="qa" id="q-prep-B5">
  <div class="q"><span class="num">B5</span>员工会不会搜到不该看的东西？</div>
@@ -131,8 +131,8 @@
  <div class="a">按「要结果还是要过程」分堆：可并行、信息面广的任务（深度调研）多 agent 确实强得多；串行依赖强的任务反而更慢更贵还更难调试。先用单 agent 做基线，量化收益后再决定要不要拆。账要摆出来：约 15 倍 token 换来的提升，得任务价值配得上这本账才划算。落地时配深度上限与并发限额——没有上限的扇出就是没有上限的账单。</div>
  <div class="src">深潜 → <a href="../Web-version/agent/index.html#agent-subagent"><code>agent#agent-subagent</code></a> · <a href="../Web-version/agent/index.html#agent-orchestration"><code>agent#agent-orchestration</code></a></div>
 </div><div class="qa" id="q-prep-B17">
- <div class="q"><span class="num">B17</span>我们已经买了 RPA，Computer Use 有什么不一样？<span class="fresh">⏳ 口径 2026-07-11</span></div>
- <div class="a">互补不替代：RPA 把流程写死，稳但脆（界面改一个按钮就断）；Computer Use 自适应，但慢而贵。落地常态是混合——RPA 跑稳定主干、Computer Use 接变化页面与异常分支，存量投资不浪费。两个基准口径要主动讲：短窄任务 83.5% 已实用、长程多应用只有 20.6%，把短板讲出来反而赢信任，也守住了承诺范围。</div>
+ <div class="q"><span class="num">B17</span>我们已经买了 RPA，Computer Use 有什么不一样？<span class="fresh">⏳ 口径 2026-10-20</span></div>
+ <div class="a">互补不替代：RPA 把流程写死，稳但脆（界面改一个按钮就断）；Computer Use 自适应，但慢而贵。落地常态是混合——RPA 跑稳定主干、Computer Use 接变化页面与异常分支，存量投资不浪费。两个基准口径要主动讲：短窄任务 85.96% 已实用、长程多应用只有 20.6%，把短板讲出来反而赢信任，也守住了承诺范围。</div>
  <div class="src">深潜 → <a href="../Web-version/agent/index.html#agent-computer-use"><code>agent#agent-computer-use</code></a></div>
 </div><div class="qa" id="q-prep-B18">
  <div class="q"><span class="num">B18</span><span class="must">★</span>我们风控组的评分卡跑了十年，你们这套跟它到底什么关系？</div>
@@ -376,7 +376,7 @@
 
 <h2 id="sec-H">H · 合规与数据主权<span class="hint">答错不是丢分，是丢单或踩线</span></h2><div class="qa" id="q-prep-H1">
  <div class="q"><span class="num">H1</span><span class="must">★</span>我们私有化部署、只给内部员工用，要备案吗？<span class="fresh">⏳ 口径 2026-07-17</span></div>
- <div class="a">暂行办法管的是「向境内公众提供服务」——纯内部自用不适用备案，但数据安全与个人信息保护义务照常；一旦对外（哪怕只是个小程序）就要重新分诊。分诊三问是中国合规的入口：自研或微调模型向公众提供服务 → 服务备案（全流程 5–8 个月，北京 8–10 个月，无加急通道）；调用已备案模型做应用 → 应用/功能登记（地方网信办，周级）；纯内部自用 → 不适用。最常见的误区是把「登记」当「备案」自己吓自己。截至 2026-06-30 累计 988 款服务完成备案——这是常态动作，不是拦路虎。</div>
+ <div class="a">暂行办法管的是「向境内公众提供服务」——纯内部自用不适用备案，但数据安全与个人信息保护义务照常；一旦对外（哪怕只是个小程序）就要重新分诊。分诊三问是中国合规的入口：自研或微调模型向公众提供服务 → 服务备案（全流程 5–8 个月，北京 8–10 个月，无加急通道）；调用已备案模型做应用 → 应用/功能登记（地方网信办，周级）；纯内部自用 → 不适用。最常见的误区是把「登记」当「备案」自己吓自己。截至 2026-08-31 累计 1112 款服务完成备案——这是常态动作，不是拦路虎。</div>
  <div class="src">深潜 → <a href="../Web-version/security/index.html#sec-china"><code>security#sec-china</code></a></div>
 </div><div class="qa" id="q-prep-H2">
  <div class="q"><span class="num">H2</span><span class="must">★</span>不打 AI 标识会怎样？<span class="fresh">⏳ 口径 2026-07-17</span></div>
