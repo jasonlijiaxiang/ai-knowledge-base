@@ -104,6 +104,17 @@ class FreshnessTierTest(unittest.TestCase):
         code, _ = run(root, "--asof", "2026-07-10")
         self.assertEqual(code, 1)
 
+    def test_verified_one_day_ahead_tolerated_for_timezone(self):
+        # 维护者东八区已是 07-11，CI 的 UTC 仍是 07-10：不能判成「未来日期」
+        root = write_lib(verified="2026-07-11"); self.keep(root)
+        code, _ = run(root, "--asof", "2026-07-10")
+        self.assertEqual(code, 0)
+
+    def test_verified_two_days_ahead_is_rejected(self):
+        root = write_lib(verified="2026-07-12"); self.keep(root)
+        code, _ = run(root, "--asof", "2026-07-10")
+        self.assertEqual(code, 1)
+
 
 if __name__ == "__main__":
     unittest.main()

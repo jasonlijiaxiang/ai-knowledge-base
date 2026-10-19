@@ -160,7 +160,9 @@ def check_module(mod, path, asof):
         vd = parse_date(verified)
         if vd is None:
             fails.append("%s：核实日期「%s」不是 YYYY-MM-DD" % (where, verified[:40]))
-        elif vd > asof:
+        # 核实日期按维护者本地日写（东八区），CI 按 UTC 判「今天」：北京 0–8 点提交时，
+        # 当天回写的日期在 CI 眼里是「明天」。留 1 天时区容差（2026-10-20 CI 因此误红 245 处）。
+        elif vd > asof + datetime.timedelta(days=1):
             fails.append("%s：核实日期 %s 在未来（判定日 %s）" % (where, verified, asof))
 
         if not source or source in EMPTY:
