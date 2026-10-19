@@ -41,7 +41,8 @@ class BuildTest(unittest.TestCase):
         build.adopt_stamped_date(["--check"])
         import datetime
         stamped = datetime.date(*(int(x) for x in build.BUILD_DATE.split("-")))
-        self.assertLessEqual(stamped, datetime.date.today())
+        # 构建日按维护者东八区本地日刻，CI 按 UTC 判今天，可差 1 天（2026-10-20 CI 踩中）
+        self.assertLessEqual(stamped, datetime.date.today() + datetime.timedelta(days=1))
 
 
 if __name__ == "__main__":
